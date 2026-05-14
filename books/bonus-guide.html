@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Image Cheat Code — Bonus Guide</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── ACCENT ── */
+:root { --A: #06b6d4; --A2: #0891b2; --A3: #cffafe; --Adim: rgba(6,182,212,0.12); }
+
+/* ── COVER ── */
+.cover {
+  background: #060f14;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 580px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+.cover-frame {
+  position: absolute; inset: 14px;
+  border: 1.5px solid var(--A);
+  pointer-events: none; z-index: 1;
+}
+.cover-frame-inner {
+  position: absolute; inset: 20px;
+  border: 0.5px solid rgba(6,182,212,0.3);
+  pointer-events: none; z-index: 1;
+}
+.cover-corner {
+  position: absolute; width: 12px; height: 12px;
+  background: #060f14; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--A);
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+.cover-bg-dots {
+  position: absolute; inset: 28px; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+.cover-body {
+  position: relative; z-index: 3; flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 3rem 3.5rem 2rem; text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace; font-size: 0.72rem;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--A); margin-bottom: 1.4rem;
+}
+.cover-bonus-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.5);
+  padding: 6px 20px; margin-bottom: 1.6rem;
+}
+.cover-bonus-badge span {
+  font-family: 'Courier New', monospace; font-size: 0.68rem;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--A);
+}
+.cover-icon { font-size: 4rem; margin-bottom: 1rem; }
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4rem; font-weight: 900; letter-spacing: -1px;
+  line-height: 1; color: #ffffff; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-accent { color: var(--A); }
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.1rem; font-weight: 400; letter-spacing: 4px;
+  color: #aaa; text-transform: uppercase; margin-bottom: 1.8rem;
+}
+.cover-rule {
+  width: 50%; height: 1px;
+  background: var(--A); margin: 0 auto 1.5rem; opacity: 0.85;
+}
+.cover-cats {
+  display: flex; gap: 0.6rem; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace; font-size: 0.62rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: #7ecfdf; border: 0.5px solid rgba(6,182,212,0.45);
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace; font-size: 0.7rem;
+  letter-spacing: 3px; text-transform: uppercase; color: #888;
+}
+.cover-stats {
+  position: relative; z-index: 3;
+  border-top: 1px solid rgba(6,182,212,0.3);
+  background: rgba(6,182,212,0.07);
+  padding: 1.4rem 3.5rem;
+  display: flex; justify-content: center; gap: 4rem;
+  print-color-adjust: exact; -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem; font-weight: 900; color: var(--A); line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace; font-size: 0.58rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: #888; margin-top: 5px;
+}
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 2.5rem 0 1.5rem;
+  border-bottom: 2px solid #1a1a1a; padding-bottom: 0.7rem;
+}
+.section-divider-spacer { display: none; }
+.section-num {
+  font-family: 'Courier New', monospace; font-size: 0.68rem;
+  background: #1a1a1a; color: #fff;
+  padding: 3px 10px; border-radius: 2px; flex-shrink: 0;
+}
+.section-num.accent-bg { background: var(--A); color: #fff; }
+.section-title-text {
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.3px; text-transform: uppercase;
+}
+
+/* ── CONTENT CARDS ── */
+.content-card {
+  background: #fff; border: 1px solid #d0ccc5;
+  padding: 1.6rem 2rem; margin-bottom: 1.2rem;
+  page-break-inside: avoid; break-inside: avoid;
+}
+.content-card h3 {
+  font-size: 0.95rem; font-weight: 700; margin-bottom: 0.8rem;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: #1a1a1a; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;
+}
+.content-card p { font-size: 0.88rem; color: #444; margin-bottom: 0.7rem; line-height: 1.75; }
+.content-card p:last-child { margin-bottom: 0; }
+.content-card strong { color: #1a1a1a; }
+.card-accent-top { border-top: 3px solid var(--A); }
+
+/* ── TOOL COMPARISON TABLE ── */
+.tool-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 1rem; }
+.tool-table th {
+  font-family: 'Courier New', monospace; font-size: 0.65rem;
+  letter-spacing: 1px; text-transform: uppercase;
+  background: #1a1a1a; color: #fff;
+  padding: 8px 12px; text-align: left;
+}
+.tool-table th:first-child { background: var(--A); }
+.tool-table td { padding: 9px 12px; border-bottom: 1px solid #e8e4de; vertical-align: middle; }
+.tool-table tr:last-child td { border-bottom: none; }
+.tool-table tr:nth-child(even) td { background: #fafaf9; }
+.tool-table .tool-name {
+  font-family: 'Courier New', monospace; font-weight: 700;
+  font-size: 0.82rem; color: #1a1a1a;
+}
+.pill {
+  display: inline-block; font-size: 0.65rem;
+  font-family: 'Courier New', monospace; letter-spacing: 1px;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 2px;
+}
+.pill-easy { background: #dcfce7; color: #15803d; }
+.pill-medium { background: #fef9c3; color: #854d0e; }
+.pill-hard { background: #fee2e2; color: #b91c1c; }
+.pill-free { background: #dbeafe; color: #1d4ed8; }
+.pill-paid { background: #f3e8ff; color: #7e22ce; }
+.stars { color: #f59e0b; letter-spacing: -2px; }
+
+/* ── ANATOMY SECTION ── */
+.anatomy-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;
+}
+.anatomy-block {
+  border: 1px solid #e0ddd6; padding: 1rem 1.2rem;
+  background: #fafaf9; border-left: 3px solid var(--A);
+}
+.anatomy-num {
+  font-family: 'Courier New', monospace; font-size: 0.62rem;
+  background: var(--A); color: #fff;
+  padding: 1px 7px; border-radius: 2px;
+  display: inline-block; margin-bottom: 0.5rem;
+}
+.anatomy-label {
+  font-size: 0.9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.25rem;
+}
+.anatomy-desc { font-size: 0.78rem; color: #666; line-height: 1.55; margin-bottom: 0.4rem; }
+.anatomy-examples {
+  font-family: 'Courier New', monospace; font-size: 0.68rem;
+  color: var(--A2); line-height: 1.7;
+}
+
+/* ── FORMULA BAR ── */
+.formula-bar {
+  background: #060f14; color: #fff; padding: 1.2rem 1.5rem;
+  margin: 1.4rem 0; display: flex; gap: 0.4rem;
+  align-items: center; flex-wrap: wrap; font-family: 'Courier New', monospace;
+  font-size: 0.72rem; border-left: 3px solid var(--A);
+}
+.formula-part {
+  background: rgba(6,182,212,0.2); border: 1px solid rgba(6,182,212,0.4);
+  padding: 3px 10px; border-radius: 2px; color: #7ecfdf;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.formula-plus { color: #555; font-size: 0.9rem; }
+
+/* ── MISTAKES SECTION ── */
+.mistake-item {
+  display: flex; gap: 1rem; padding: 0.9rem 0;
+  border-bottom: 1px solid #eee;
+}
+.mistake-item:last-child { border-bottom: none; }
+.mistake-icon { font-size: 1.2rem; flex-shrink: 0; padding-top: 2px; }
+.mistake-body h4 { font-size: 0.88rem; font-weight: 700; color: #c0392b; margin-bottom: 0.2rem; }
+.mistake-body p { font-size: 0.80rem; color: #555; line-height: 1.55; margin-bottom: 0.3rem; }
+.fix-bar {
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  padding: 5px 10px; font-size: 0.75rem;
+  color: #15803d; font-family: 'Courier New', monospace;
+  border-left: 3px solid #4ade80;
+}
+
+/* ── KEYWORDS TABLE ── */
+.keyword-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem; margin-top: 1rem;
+}
+.keyword-cat {
+  background: #fff; border: 1px solid #d0ccc5;
+  padding: 1.2rem 1.4rem; border-top: 3px solid var(--A);
+}
+.keyword-cat h4 {
+  font-family: 'Courier New', monospace; font-size: 0.65rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--A2); margin-bottom: 0.8rem;
+  border-bottom: 1px solid #eee; padding-bottom: 0.4rem;
+}
+.kw-list {
+  display: flex; flex-wrap: wrap; gap: 0.35rem;
+}
+.kw-tag {
+  font-family: 'Courier New', monospace; font-size: 0.65rem;
+  background: #f8f6f2; border: 1px solid #e0ddd6;
+  padding: 2px 8px; border-radius: 2px; color: #555;
+}
+.kw-tag.power { background: var(--Adim); border-color: rgba(6,182,212,0.3); color: var(--A2); font-weight: 700; }
+
+/* ── HOW TO USE BOOKS ── */
+.steps-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
+.step-row { display: flex; gap: 0.8rem; align-items: flex-start; }
+.step-num-badge {
+  min-width: 26px; height: 26px;
+  background: var(--A); color: #fff;
+  font-family: 'Courier New', monospace; font-size: 0.72rem; font-weight: 700;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.step-text { font-size: 0.85rem; color: #333; line-height: 1.55; }
+.step-text strong { color: #1a1a1a; }
+.pro-tip {
+  background: var(--Adim); border: 1px solid rgba(6,182,212,0.3);
+  border-left: 3px solid var(--A); padding: 0.9rem 1.2rem;
+  margin-top: 1rem; font-size: 0.82rem; color: #0e7490;
+}
+.pro-tip strong { color: var(--A2); }
+
+/* ── BEFORE / AFTER ── */
+.ba-item {
+  background: #fff; border: 1px solid #d0ccc5;
+  padding: 1.4rem 1.8rem; margin-bottom: 1.2rem;
+  page-break-inside: avoid; break-inside: avoid;
+}
+.ba-num {
+  font-family: 'Courier New', monospace; font-size: 0.62rem;
+  background: var(--A); color: #fff;
+  padding: 2px 10px; display: inline-block; margin-bottom: 0.8rem;
+  letter-spacing: 1px;
+}
+.ba-title { font-size: 0.9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.3px; }
+.ba-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.8rem; }
+.ba-block-label {
+  font-family: 'Courier New', monospace; font-size: 0.6rem;
+  font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 8px; display: inline-block; margin-bottom: 0.4rem; color: #fff;
+}
+.lbl-bad { background: #dc2626; }
+.lbl-good { background: #16a34a; }
+.ba-prompt {
+  font-family: 'Courier New', monospace; font-size: 0.72rem;
+  line-height: 1.65; border: 1px solid #e0ddd6;
+  padding: 0.7rem 0.9rem; color: #333; background: #fafaf9;
+}
+.ba-prompt.good { border-left: 3px solid var(--A); background: #f0fdff; }
+.ba-prompt.bad { border-left: 3px solid #dc2626; background: #fff9f9; color: #888; }
+.ba-insight {
+  font-size: 0.75rem; color: #888; font-style: italic; margin-top: 0.5rem;
+}
+.ba-insight strong { color: var(--A2); font-style: normal; }
+
+/* ── PLATFORM TIPS ── */
+.platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.platform-card {
+  background: #fff; border: 1px solid #d0ccc5;
+  padding: 1.2rem 1.4rem; border-top: 3px solid var(--A);
+}
+.platform-name {
+  font-family: 'Courier New', monospace; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; color: #1a1a1a; margin-bottom: 0.3rem;
+}
+.platform-badge {
+  font-size: 0.62rem; font-family: 'Courier New', monospace;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: 0.8rem;
+}
+.badge-dsc { background: #5865f2; color: #fff; }
+.badge-chat { background: #10a37f; color: #fff; }
+.badge-cc { background: #ff0000; color: #fff; }
+.badge-web { background: #374151; color: #fff; }
+.platform-tips { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+.platform-tips li { font-size: 0.78rem; color: #444; display: flex; gap: 0.5rem; line-height: 1.5; }
+.platform-tips li::before { content: '→'; color: var(--A); font-weight: 700; flex-shrink: 0; font-family: 'Courier New', monospace; }
+.platform-tips .example {
+  font-family: 'Courier New', monospace; font-size: 0.68rem;
+  background: #f0fdff; border: 1px solid rgba(6,182,212,0.2);
+  padding: 2px 6px; color: var(--A2); margin-top: 2px;
+  display: inline-block;
+}
+
+/* ── PRACTICE SETUP ── */
+.setup-section {
+  background: #fff; border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem; margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace; letter-spacing: 1px; text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem; color: #666; margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee; padding-bottom: 1rem;
+}
+.var-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+@media(max-width:600px){ .var-grid { grid-template-columns: 1fr; } }
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label { font-family: 'Courier New', monospace; font-size: 0.82rem; font-weight: 700; color: #333; }
+.var-desc { font-size: 0.75rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace; font-size: 0.88rem;
+  border: 1.5px solid #bbb; border-radius: 3px;
+  padding: 7px 10px; background: #fafafa;
+  transition: border-color 0.15s; width: 100%;
+}
+.var-input:focus { outline: none; border-color: var(--A); background: #fff; }
+.action-row {
+  margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee;
+  display: flex; align-items: center; gap: 1rem;
+}
+.btn-fill {
+  background: var(--A); color: #fff; border: none;
+  padding: 11px 28px; font-family: 'Courier New', monospace;
+  font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px; transition: background 0.15s;
+}
+.btn-fill:hover { background: var(--A2); }
+.btn-print {
+  background: #1a1a1a; color: #fff; border: none;
+  padding: 11px 28px; font-family: 'Courier New', monospace;
+  font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px; transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── PRACTICE PROMPT CARDS ── */
+.practice-card {
+  background: #fff; border: 1px solid #d0ccc5;
+  border-top: 3px solid var(--A);
+  padding: 1.4rem 1.8rem; margin-bottom: 1rem;
+  page-break-inside: avoid; break-inside: avoid;
+}
+.pcard-top {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  margin-bottom: 0.9rem; border-bottom: 1px solid #eee; padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace; font-size: 0.72rem; font-weight: 700; color: #999; flex-shrink: 0;
+}
+.pcard-use {
+  font-size: 0.78rem; color: #888; font-style: italic;
+}
+.copy-btn {
+  margin-left: auto; font-family: 'Courier New', monospace; font-size: 0.65rem;
+  letter-spacing: 1px; text-transform: uppercase;
+  background: transparent; border: 1px solid #ccc; color: #888;
+  padding: 3px 10px; cursor: pointer; border-radius: 2px; transition: all 0.15s;
+  flex-shrink: 0;
+}
+.copy-btn:hover { border-color: var(--A); color: var(--A); }
+.copy-btn.copied { border-color: #4ade80; color: #16a34a; background: #f0fdf4; }
+.pcard-text {
+  font-family: 'Courier New', monospace; font-size: 0.78rem;
+  line-height: 1.75; color: #333; letter-spacing: 0.2px;
+}
+.tok { color: var(--A); font-weight: 700; }
+.filled-val { color: #059669; font-weight: 700; }
+
+/* ── INTRO ── */
+.intro-card {
+  background: #060f14; color: #fff; padding: 2rem 2.5rem; margin-bottom: 2rem;
+  border-left: 4px solid var(--A);
+}
+.intro-card h2 {
+  font-family: 'Courier New', monospace; font-size: 0.7rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--A); margin-bottom: 0.8rem;
+}
+.intro-card p { font-size: 0.88rem; color: #aaa; line-height: 1.8; margin-bottom: 0.7rem; }
+.intro-card p:last-child { margin-bottom: 0; }
+.intro-card p strong { color: #fff; }
+
+/* ── CALLOUT BOXES ── */
+.callout {
+  padding: 1rem 1.4rem; margin: 1rem 0; font-size: 0.82rem;
+  border-left: 3px solid var(--A); background: var(--Adim); color: #0e7490;
+  line-height: 1.65;
+}
+.callout strong { color: var(--A2); }
+.callout-warn { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
+.callout-warn strong { color: #b45309; }
+
+/* ── PRINT ── */
+@media print {
+  body {
+    background: white;
+    font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+    font-size: 9pt;
+    line-height: 1.6;
+  }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print, .btn-fill, .copy-btn { display: none !important; }
+
+  /* First page: edge-to-edge cover */
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-title { font-size: 46pt; }
+  .cover-title-sub { font-size: 12pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; gap: 2.2cm; }
+  .cover-stat-num { font-size: 20pt; }
+  .cover-stat-label { font-size: 6pt; }
+
+  /* Keep a consistent top rhythm for all printable blocks */
+  .page-wrap > .intro-card,
+  .page-wrap > .section-divider,
+  .page-wrap > .content-card,
+  .page-wrap > .ba-item,
+  .page-wrap > .platform-grid,
+  .page-wrap > .practice-card {
+    margin-top: 0.32cm !important;
+  }
+
+  /* Keep chapter heading attached to first block */
+  .section-divider {
+    break-after: avoid;
+    page-break-after: avoid;
+    margin: 0 0 0.25cm;
+    padding-bottom: 0.25cm;
+  }
+  .section-divider-spacer {
+    display: flex !important;
+    margin: 0 0 0.25cm;
+    padding-bottom: 0.25cm;
+    border-bottom: 2px solid #1a1a1a;
+    align-items: center;
+    gap: 1rem;
+    break-before: page;
+    page-break-before: always;
+  }
+  .section-divider-spacer .section-num,
+  .section-divider-spacer .section-title-text {
+    visibility: hidden;
+  }
+  /* Each chapter starts on new page, but first chapter after intro does not force extra blank */
+  .section-divider:not(:first-of-type) {
+    break-before: page;
+    page-break-before: always;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .section-divider + .content-card,
+  .section-divider + .platform-grid,
+  .section-divider + .setup-section {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+
+  /* Avoid broken cards/items */
+  .content-card,
+  .ba-item,
+  .practice-card,
+  .platform-card,
+  .keyword-cat,
+  .tool-table,
+  .keyword-grid,
+  .steps-list {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .tool-table tr,
+  .mistake-item,
+  .step-row {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Match book-style printable page margins */
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:650px) {
+  .anatomy-grid { grid-template-columns: 1fr; }
+  .ba-cols { grid-template-columns: 1fr; }
+  .platform-grid { grid-template-columns: 1fr; }
+  .cover-title { font-size: 2.8rem; }
+  .cover-stats { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ══════════════════════ COVER ══════════════════════ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-frame-inner"></div>
+  <div class="cover-corner tl">◆</div>
+  <div class="cover-corner tr">◆</div>
+  <div class="cover-corner bl">◆</div>
+  <div class="cover-corner br">◆</div>
+
+  <div class="cover-bg-dots">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="1.5" cy="1.5" r="1" fill="rgba(6,182,212,0.12)"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dots)"/>
+    </svg>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-series">AI Prompt Books · Bonus Guide</div>
+    <div class="cover-bonus-badge">
+      <span>★ Exclusive Bonus</span>
+    </div>
+    <div class="cover-icon">🎯</div>
+    <h1 class="cover-title">The AI Image<br><span class="cover-title-accent">Cheat Code</span></h1>
+    <p class="cover-title-sub">A Foolproof Guide to Stunning AI Images</p>
+    <div class="cover-rule"></div>
+    <div class="cover-cats">
+      <span class="cover-cat">AI Tools Compared</span>
+      <span class="cover-cat">Prompt Anatomy</span>
+      <span class="cover-cat">Style Keywords</span>
+      <span class="cover-cat">Before &amp; After</span>
+      <span class="cover-cat">Platform Tips</span>
+    </div>
+    <div class="cover-tagline">Works with Midjourney · ChatGPT · Firefly · Ideogram · Stable Diffusion</div>
+  </div>
+
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <div class="cover-stat-num">7</div>
+      <div class="cover-stat-label">Chapters</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-num">8</div>
+      <div class="cover-stat-label">Before/After</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-num">50+</div>
+      <div class="cover-stat-label">Style Keywords</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-num">10</div>
+      <div class="cover-stat-label">Practice Prompts</div>
+    </div>
+  </div>
+</div><!-- /cover -->
+
+<!-- ══════════════════════ PRACTICE SETUP ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">PRACTICE</span>
+  <span class="section-title-text">10 Fill-in-the-Blank Practice Prompts</span>
+</div>
+
+<div class="setup-section">
+  <div class="setup-title">Set Your Practice Variables</div>
+  <div class="setup-subtitle">Fill in 3 details below. All 10 prompts update instantly so you can try the concepts from this guide immediately.</div>
+  <div class="var-grid">
+    <div class="var-row">
+      <span class="var-label">[SUBJECT]</span>
+      <span class="var-desc">Who or what — e.g. "a young woman", "my cat", "vintage Porsche 911"</span>
+      <input id="v-subject" class="var-input" type="text" placeholder="a young woman" oninput="fill()">
+    </div>
+    <div class="var-row">
+      <span class="var-label">[STYLE]</span>
+      <span class="var-desc">Art or photo style — e.g. "Studio Ghibli", "cinematic photography", "oil painting"</span>
+      <input id="v-style" class="var-input" type="text" placeholder="cinematic photography" oninput="fill()">
+    </div>
+    <div class="var-row">
+      <span class="var-label">[MOOD]</span>
+      <span class="var-desc">Atmosphere — e.g. "ethereal and dreamlike", "dark and moody", "warm and nostalgic"</span>
+      <input id="v-mood" class="var-input" type="text" placeholder="warm and nostalgic" oninput="fill()">
+    </div>
+  </div>
+  <div class="action-row">
+    <button class="btn-fill" onclick="fill()">Apply to All Prompts →</button>
+    <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    <span class="print-hint">File → Print → Save as PDF in Chrome/Safari</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ INTRO ══════════════════════ -->
+<div class="section-divider section-divider-spacer" aria-hidden="true">
+  <span class="section-num accent-bg">SP</span>
+  <span class="section-title-text">Spacer</span>
+</div>
+<div class="intro-card">
+  <h2>Welcome to the Cheat Code</h2>
+  <p>You now have access to 1,100 fill-in-the-blank AI prompt templates across 11 books. But knowing <em>how</em> to use them — and understanding <strong>why</strong> certain prompts produce stunning results while others produce average ones — will 10x your output quality.</p>
+  <p>This bonus guide is your <strong>master class in AI image creation</strong>. You'll learn the science behind great prompts, discover the style keywords professionals use, see real before/after transformations, and finish with 10 practice prompts to apply everything immediately.</p>
+  <p>Read it once. Reference it whenever you create. Your images will never be average again.</p>
+</div>
+
+
+<!-- ══════════════════════ SECTION 1: AI TOOLS ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">CH 01</span>
+  <span class="section-title-text">The AI Image Landscape — Which Tool for What</span>
+</div>
+
+<div class="content-card card-accent-top">
+  <p>Not all AI image tools are equal — each has unique strengths. Using the right tool for your goal is half the battle. Here's the honest breakdown:</p>
+
+  <table class="tool-table">
+    <thead>
+      <tr>
+        <th>Tool</th>
+        <th>Best For</th>
+        <th>Ease of Use</th>
+        <th>Realism</th>
+        <th>Price</th>
+        <th>Access</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tool-name">Midjourney</span></td>
+        <td>Artistic portraits, fantasy, concept art — highest overall quality</td>
+        <td><span class="pill pill-medium">Medium</span></td>
+        <td><span class="stars">★★★★★</span></td>
+        <td>$10/mo+</td>
+        <td>Discord</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">ChatGPT (DALL·E 3)</span></td>
+        <td>Beginners, conversational editing, anything + everything</td>
+        <td><span class="pill pill-easy">Easiest</span></td>
+        <td><span class="stars">★★★★</span></td>
+        <td>$20/mo (Plus)</td>
+        <td>Web/App</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Adobe Firefly</span></td>
+        <td>Commercial use, product images, copyright-safe</td>
+        <td><span class="pill pill-easy">Easy</span></td>
+        <td><span class="stars">★★★★</span></td>
+        <td>Free tier</td>
+        <td>Web/Photoshop</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Ideogram</span></td>
+        <td>Text inside images, typography, logos, posters</td>
+        <td><span class="pill pill-easy">Easy</span></td>
+        <td><span class="stars">★★★</span></td>
+        <td>Free tier</td>
+        <td>Web</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Stable Diffusion</span></td>
+        <td>Custom styles, full control, fine-tuning, no censorship</td>
+        <td><span class="pill pill-hard">Advanced</span></td>
+        <td><span class="stars">★★★★★</span></td>
+        <td>Free (self-host)</td>
+        <td>Local/Web</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:1.2rem;">
+    <strong>Quick Rule:</strong> For portraits and art — Midjourney. For fast iteration and beginners — ChatGPT. For commercial/product work — Firefly. For text in images — Ideogram. For complete creative control — Stable Diffusion.
+  </div>
+</div>
+
+
+<!-- ══════════════════════ SECTION 2: ANATOMY ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">CH 02</span>
+  <span class="section-title-text">Anatomy of a Perfect Prompt — The 6 Building Blocks</span>
+</div>
+
+<div class="content-card card-accent-top">
+  <p>Every stunning AI image is built from the same 6 ingredients. Master these and you'll never write a weak prompt again.</p>
+
+  <div class="anatomy-grid">
+    <div class="anatomy-block">
+      <span class="anatomy-num">01 · SUBJECT</span>
+      <div class="anatomy-label">Who or What</div>
+      <div class="anatomy-desc">The main focus. Be specific — age, gender, ethnicity, expression, clothing, object type, material.</div>
+      <div class="anatomy-examples">e.g. "a 25-year-old Indian woman in a red saree"<br>"a matte black ceramic coffee mug"</div>
+    </div>
+    <div class="anatomy-block">
+      <span class="anatomy-num">02 · STYLE</span>
+      <div class="anatomy-label">Art or Photo Style</div>
+      <div class="anatomy-desc">The visual language. Defines whether it looks like a photo, painting, illustration, or film frame.</div>
+      <div class="anatomy-examples">e.g. "Studio Ghibli animation"<br>"cinematic photography, film grain"</div>
+    </div>
+    <div class="anatomy-block">
+      <span class="anatomy-num">03 · LIGHTING</span>
+      <div class="anatomy-label">Light Source &amp; Quality</div>
+      <div class="anatomy-desc">Lighting is everything. It determines mood, depth, and whether the image looks professional or flat.</div>
+      <div class="anatomy-examples">e.g. "golden hour, warm side lighting"<br>"dramatic studio rim lighting, soft diffused"</div>
+    </div>
+    <div class="anatomy-block">
+      <span class="anatomy-num">04 · MOOD</span>
+      <div class="anatomy-label">Atmosphere &amp; Emotion</div>
+      <div class="anatomy-desc">Tells the AI the emotional quality to aim for. Separates forgettable from unforgettable images.</div>
+      <div class="anatomy-examples">e.g. "ethereal and dreamlike"<br>"dark, moody, tension-filled"<br>"warm, joyful, nostalgic"</div>
+    </div>
+    <div class="anatomy-block">
+      <span class="anatomy-num">05 · CAMERA</span>
+      <div class="anatomy-label">Lens, Angle &amp; Shot Type</div>
+      <div class="anatomy-desc">Specific camera language instantly elevates image realism and composition quality.</div>
+      <div class="anatomy-examples">e.g. "85mm portrait lens, shallow depth of field"<br>"drone overhead wide angle, Sony A7R IV"</div>
+    </div>
+    <div class="anatomy-block">
+      <span class="anatomy-num">06 · QUALITY</span>
+      <div class="anatomy-label">Technical Quality Boosters</div>
+      <div class="anatomy-desc">Signal the quality level. These words activate the AI's highest detail modes.</div>
+      <div class="anatomy-examples">e.g. "photorealistic, 8K, award-winning"<br>"highly detailed, professional photography"</div>
+    </div>
+  </div>
+
+  <div class="formula-bar">
+    <span class="formula-part">Subject</span>
+    <span class="formula-plus">+</span>
+    <span class="formula-part">Style</span>
+    <span class="formula-plus">+</span>
+    <span class="formula-part">Lighting</span>
+    <span class="formula-plus">+</span>
+    <span class="formula-part">Mood</span>
+    <span class="formula-plus">+</span>
+    <span class="formula-part">Camera</span>
+    <span class="formula-plus">+</span>
+    <span class="formula-part">Quality</span>
+    <span class="formula-plus">=</span>
+    <span style="color:#fff;font-weight:700;letter-spacing:1px;">STUNNING IMAGE</span>
+  </div>
+
+  <div class="callout">
+    <strong>The 11 prompt books do this for you automatically.</strong> Every template already has all 6 building blocks pre-wired. Your job is just to fill in the variables — the formula is built in.
+  </div>
+</div>
+
+
+<!-- ══════════════════════ SECTION 3: MISTAKES ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">CH 03</span>
+  <span class="section-title-text">8 Common Mistakes That Kill Image Quality</span>
+</div>
+
+<div class="content-card card-accent-top">
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 1 — Being Too Vague</h4>
+      <p>"A woman" tells the AI almost nothing. It has to guess everything — age, ethnicity, expression, clothing, setting. Each guess averages out to something generic.</p>
+      <div class="fix-bar">✓ FIX: "A 28-year-old Indian woman, confident expression, silk kurta, warm skin tone"</div>
+    </div>
+  </div>
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 2 — Forgetting Lighting</h4>
+      <p>Lighting is the single biggest factor in whether an image looks amateur or professional. Flat, unspecified lighting makes every image look like a smartphone snapshot.</p>
+      <div class="fix-bar">✓ FIX: Always add one of — golden hour / studio rim lighting / dramatic side light / soft diffused / neon glow</div>
+    </div>
+  </div>
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 3 — No Camera Specification</h4>
+      <p>Without camera language, the AI defaults to a bland, neutral composition. Specifying lens and shot type transforms the image into something that looks genuinely professional.</p>
+      <div class="fix-bar">✓ FIX: Add "85mm portrait lens, shallow bokeh" or "wide angle, drone overhead" to any prompt</div>
+    </div>
+  </div>
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 4 — Conflicting Styles</h4>
+      <p>"Photorealistic cartoon" or "impressionist photograph" confuses the AI and produces muddy, inconsistent results. Pick one lane and stay in it.</p>
+      <div class="fix-bar">✓ FIX: Choose either photorealism OR an illustration style — never both at the same time</div>
+    </div>
+  </div>
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 5 — Too Many Elements</h4>
+      <p>Listing 10+ things in one prompt overwhelms the AI. It tries to fit everything in and produces a cluttered, unfocused composition where nothing looks good.</p>
+      <div class="fix-bar">✓ FIX: One hero subject, one background, 2–3 supporting details. Less is more precise.</div>
+    </div>
+  </div>
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 6 — No Mood or Atmosphere</h4>
+      <p>Without a mood directive, images come out emotionally neutral. They look technically correct but feel empty — like a stock photo nobody asked for.</p>
+      <div class="fix-bar">✓ FIX: Add one mood word — ethereal / melancholic / vibrant / mysterious / warm and nostalgic</div>
+    </div>
+  </div>
+  <div class="section-divider section-divider-spacer" aria-hidden="true">
+    <span class="section-num accent-bg">SP</span>
+    <span class="section-title-text">Spacer</span>
+  </div>
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 7 — Using the Wrong Tool</h4>
+      <p>Using ChatGPT for highly stylized art, or Midjourney when you need text inside the image — wrong tool for the job always produces disappointing results.</p>
+      <div class="fix-bar">✓ FIX: Use the tool comparison in Chapter 1. Match your goal to the right platform first.</div>
+    </div>
+  </div>
+  <div class="mistake-item">
+    <div class="mistake-icon">❌</div>
+    <div class="mistake-body">
+      <h4>Mistake 8 — Ignoring Aspect Ratio</h4>
+      <p>Generating a portrait-style image in landscape ratio (or vice versa) wastes half the frame and forces awkward composition. Always set ratio to match your use case.</p>
+      <div class="fix-bar">✓ FIX: Midjourney: --ar 9:16 (portrait), --ar 16:9 (landscape), --ar 1:1 (square)</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ SECTION 4: KEYWORDS ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">CH 04</span>
+  <span class="section-title-text">Style Keywords That Make Images Look Professional</span>
+</div>
+
+<div class="content-card card-accent-top">
+  <p>These are the exact words professionals use to elevate AI image quality. Bookmark this page. The <span style="font-family:'Courier New',monospace;color:var(--A);font-weight:700;">teal highlighted</span> ones are the highest-impact single words you can add to any prompt.</p>
+
+  <div class="keyword-grid">
+    <div class="keyword-cat">
+      <h4>📷 Photography Style</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">photorealistic</span>
+        <span class="kw-tag power">cinematic</span>
+        <span class="kw-tag">editorial photography</span>
+        <span class="kw-tag power">golden hour</span>
+        <span class="kw-tag">HDR photography</span>
+        <span class="kw-tag">film photography</span>
+        <span class="kw-tag power">award-winning</span>
+        <span class="kw-tag">National Geographic style</span>
+        <span class="kw-tag">documentary</span>
+        <span class="kw-tag">fashion photography</span>
+      </div>
+    </div>
+    <div class="keyword-cat">
+      <h4>💡 Lighting Keywords</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">dramatic side lighting</span>
+        <span class="kw-tag power">soft diffused light</span>
+        <span class="kw-tag">studio rim lighting</span>
+        <span class="kw-tag">golden hour warm glow</span>
+        <span class="kw-tag power">bokeh background</span>
+        <span class="kw-tag">neon accent lighting</span>
+        <span class="kw-tag">moody shadows</span>
+        <span class="kw-tag">overcast soft light</span>
+        <span class="kw-tag">candlelight glow</span>
+        <span class="kw-tag">volumetric light rays</span>
+      </div>
+    </div>
+    <div class="keyword-cat">
+      <h4>🎨 Art Style</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">Studio Ghibli</span>
+        <span class="kw-tag">watercolor illustration</span>
+        <span class="kw-tag">oil painting</span>
+        <span class="kw-tag">concept art</span>
+        <span class="kw-tag power">digital art</span>
+        <span class="kw-tag">pencil sketch</span>
+        <span class="kw-tag">cel-shaded anime</span>
+        <span class="kw-tag">impressionist painting</span>
+        <span class="kw-tag">comic book art</span>
+        <span class="kw-tag">pixel art</span>
+      </div>
+    </div>
+    <div class="keyword-cat">
+      <h4>🎬 Cinematic / Film</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">anamorphic lens flare</span>
+        <span class="kw-tag">35mm film grain</span>
+        <span class="kw-tag">movie still</span>
+        <span class="kw-tag power">color graded</span>
+        <span class="kw-tag">teal and orange grade</span>
+        <span class="kw-tag">Hollywood blockbuster</span>
+        <span class="kw-tag">shallow depth of field</span>
+        <span class="kw-tag">widescreen composition</span>
+        <span class="kw-tag">IMAX quality</span>
+      </div>
+    </div>
+    <div class="keyword-cat">
+      <h4>🌡️ Mood &amp; Atmosphere</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">ethereal</span>
+        <span class="kw-tag">melancholic</span>
+        <span class="kw-tag power">dark and moody</span>
+        <span class="kw-tag">warm and nostalgic</span>
+        <span class="kw-tag">vibrant and energetic</span>
+        <span class="kw-tag">peaceful and serene</span>
+        <span class="kw-tag">mysterious</span>
+        <span class="kw-tag">epic and grandiose</span>
+        <span class="kw-tag">intimate and personal</span>
+        <span class="kw-tag power">dreamlike</span>
+      </div>
+    </div>
+    <div class="keyword-cat">
+      <h4>📐 Camera &amp; Lens</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">85mm portrait lens</span>
+        <span class="kw-tag">wide angle 16mm</span>
+        <span class="kw-tag">macro photography</span>
+        <span class="kw-tag power">drone overhead shot</span>
+        <span class="kw-tag">low angle looking up</span>
+        <span class="kw-tag">eye-level close-up</span>
+        <span class="kw-tag">Sony A7R IV</span>
+        <span class="kw-tag">Canon 5D</span>
+        <span class="kw-tag">fisheye lens</span>
+        <span class="kw-tag">telephoto compression</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider section-divider-spacer" aria-hidden="true">
+    <span class="section-num accent-bg">SP</span>
+    <span class="section-title-text">Spacer</span>
+  </div>
+
+  <div class="keyword-grid">
+    <div class="keyword-cat">
+      <h4>⚡ Quality Boosters</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">highly detailed</span>
+        <span class="kw-tag power">8K resolution</span>
+        <span class="kw-tag">4K ultra-HD</span>
+        <span class="kw-tag power">professional quality</span>
+        <span class="kw-tag">intricate details</span>
+        <span class="kw-tag">sharp focus</span>
+        <span class="kw-tag">masterpiece</span>
+        <span class="kw-tag power">photorealistic rendering</span>
+        <span class="kw-tag">trending on ArtStation</span>
+        <span class="kw-tag">Unreal Engine 5</span>
+      </div>
+    </div>
+    <div class="keyword-cat">
+      <h4>🎭 Vintage &amp; Retro</h4>
+      <div class="kw-list">
+        <span class="kw-tag power">film grain</span>
+        <span class="kw-tag">VHS aesthetic</span>
+        <span class="kw-tag">polaroid photo</span>
+        <span class="kw-tag">1980s retro</span>
+        <span class="kw-tag">sepia toned</span>
+        <span class="kw-tag">faded vintage colors</span>
+        <span class="kw-tag power">nostalgic</span>
+        <span class="kw-tag">light leaks</span>
+        <span class="kw-tag">analog photography</span>
+        <span class="kw-tag">worn and aged texture</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ SECTION 5: HOW TO USE THE BOOKS ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">CH 05</span>
+  <span class="section-title-text">How to Get Maximum Value from the 11 Prompt Books</span>
+</div>
+
+<div class="content-card card-accent-top">
+  <p>The 11 books contain 1,100 ready-to-use templates. Here's how to squeeze every drop of value out of them:</p>
+
+  <div class="steps-list">
+    <div class="step-row">
+      <div class="step-num-badge">1</div>
+      <div class="step-text"><strong>Pick the right book for your goal.</strong> Each book covers one specific style. If you want a cinematic movie poster, go to Book 7. Pet portrait? Book 9. Don't browse randomly — go directly to the style you need.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num-badge">2</div>
+      <div class="step-text"><strong>Fill in your 6 variables once at the top.</strong> Every book has a setup section at the top. Fill it in once — all 100 prompts update automatically. You don't need to type your name/style into every single prompt.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num-badge">3</div>
+      <div class="step-text"><strong>Scan all 100 prompts quickly.</strong> Each prompt covers a different variation, angle, mood, and composition. Scan the full set first before copying — you'll find hidden gems you didn't expect to need.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num-badge">4</div>
+      <div class="step-text"><strong>Copy 3–5 prompts and test them.</strong> Paste into your AI tool of choice. Compare the outputs. Your best results usually come from testing a few variations, not just one.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num-badge">5</div>
+      <div class="step-text"><strong>Iterate by modifying the copies.</strong> Once you get a result you like, go deeper. Change one word at a time — swap the lighting, change the mood, adjust the camera angle. Small changes create dramatically different images.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num-badge">6</div>
+      <div class="step-text"><strong>Cross-pollinate between books.</strong> Take the style/mood language from Book 7 (Cinematic) and apply it to Book 5 (Headshots). The variables are interchangeable — mixing books creates unique styles nobody else has.</div>
+    </div>
+  </div>
+
+  <div class="pro-tip">
+    <strong>🎯 Pro Tip:</strong> The <em>setup variables</em> are just starting points. After you fill them in, manually tweak individual prompts — add specific details like "with freckles", "under cherry blossoms", "wearing vintage sunglasses." The more specific the detail, the more unique your image.
+  </div>
+  <div class="pro-tip" style="margin-top:0.7rem;">
+    <strong>🔁 Unlimited Combinations:</strong> With 6 variables per prompt and 100 prompts per book, each book technically produces millions of unique image variations. You will never run out of fresh content.
+  </div>
+</div>
+
+
+<!-- ══════════════════════ SECTION 6: BEFORE / AFTER ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">CH 06</span>
+  <span class="section-title-text">Before &amp; After — 8 Real Prompt Transformations</span>
+</div>
+
+<div class="content-card card-accent-top">
+  <p>See exactly what changes between a weak prompt and a professional one — and the specific ingredients that make the difference.</p>
+</div>
+
+<!-- BA 1 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 01 · PORTRAIT</div>
+  <div class="ba-title">From Generic to Professional Portrait</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">a woman with long hair</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">a 28-year-old Indian woman, flowing black hair, deep burgundy silk saree, warm confident expression, studio rim lighting with soft fill, 85mm portrait lens, shallow depth of field, photorealistic, 8K</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>age, ethnicity, hair detail, clothing material + color, emotion, lighting type, camera lens, depth of field, quality markers</strong></div>
+</div>
+
+<!-- BA 2 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 02 · PET PORTRAIT</div>
+  <div class="ba-title">From Snapshot to Award-Winning Pet Photography</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">my dog</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">a golden retriever puppy, sitting in a sunflower field at golden hour, warm rim lighting, joyful and playful expression, tongue out, Sony 85mm f/1.4, creamy bokeh background, highly detailed fur texture, award-winning pet photography</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>breed, age descriptor, environment, time of day, lighting quality, expression, tongue detail, camera specs, bokeh, texture detail, quality tag</strong></div>
+</div>
+
+<div class="section-divider section-divider-spacer" aria-hidden="true">
+  <span class="section-num accent-bg">SP</span>
+  <span class="section-title-text">Spacer</span>
+</div>
+
+<!-- BA 3 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 03 · PRODUCT PHOTOGRAPHY</div>
+  <div class="ba-title">From Object to Commercial Product Shot</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">a coffee mug</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">a minimalist matte white ceramic coffee mug, floating on polished dark slate surface, dramatic side lighting, thin wisp of steam rising, moody and premium atmosphere, macro lens close-up, dark background, 4K commercial product photography</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>material texture (matte ceramic), color, surface, lighting direction, steam detail, mood, lens type, background, commercial photography tag</strong></div>
+</div>
+
+<!-- BA 4 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 04 · ANIME CHARACTER</div>
+  <div class="ba-title">From Vague to Detailed Anime Portrait</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">anime girl</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">a young anime girl with silver twin-tails, white school uniform with blue ribbon tie, standing under cherry blossom trees, soft pink bokeh petals falling, Studio Ghibli inspired art style, warm pastel color palette, detailed eyes with light reflections, highly detailed illustration</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>hair style + color, outfit details, environment, weather/particles, specific anime style reference, color palette, eye detail, illustration quality</strong></div>
+</div>
+
+<div class="section-divider section-divider-spacer" aria-hidden="true">
+  <span class="section-num accent-bg">SP</span>
+  <span class="section-title-text">Spacer</span>
+</div>
+
+<!-- BA 5 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 05 · LANDSCAPE</div>
+  <div class="ba-title">From Boring to Breathtaking Landscape</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">mountains</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">towering snow-capped Himalayan peaks at sunset, dramatic storm clouds parting to reveal orange and purple sky, wildflower meadow in foreground, a lone figure on a ridge for scale, Canon 16-35mm wide angle lens, cinematic landscape photography, National Geographic quality, 8K</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>specific mountain range, weather detail, color sky description, foreground interest, scale figure, lens, photography style, quality reference</strong></div>
+</div>
+
+<!-- BA 6 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 06 · MOVIE POSTER</div>
+  <div class="ba-title">From Generic to Cinematic Poster</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">action movie poster</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">cinematic movie poster, lone warrior in black armor standing at cliff edge, burning city below, dramatic storm clouds, lightning striking behind, teal and orange color grade, Hollywood blockbuster style, high contrast, epic wide composition, space for title text at top, photorealistic, 4K</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>character description, specific environment, dramatic weather, color grading style, industry reference, contrast level, composition note, text space direction</strong></div>
+</div>
+
+<div class="section-divider section-divider-spacer" aria-hidden="true">
+  <span class="section-num accent-bg">SP</span>
+  <span class="section-title-text">Spacer</span>
+</div>
+
+<!-- BA 7 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 07 · VINTAGE / NOSTALGIC</div>
+  <div class="ba-title">From Flat to Emotionally Charged Nostalgia</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">old photo of a kid</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">a 7-year-old boy in 1990s clothes, riding a bicycle down a quiet suburban street on a summer afternoon, golden afternoon light, warm nostalgic atmosphere, polaroid photo style, faded color film, light leaks at edges, dust and grain texture, soft focus edges, 35mm analog photography</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>specific age + era clothing, activity + environment, time of day + season, emotional atmosphere, polaroid format, film degradation effects, analog camera style</strong></div>
+</div>
+
+<!-- BA 8 -->
+<div class="ba-item">
+  <div class="ba-num">TRANSFORMATION 08 · PROFESSIONAL HEADSHOT</div>
+  <div class="ba-title">From Passport Photo to LinkedIn Hero Image</div>
+  <div class="ba-cols">
+    <div>
+      <span class="ba-block-label lbl-bad">❌ Weak Prompt</span>
+      <div class="ba-prompt bad">a man in a suit</div>
+    </div>
+    <div>
+      <span class="ba-block-label lbl-good">✅ Professional Prompt</span>
+      <div class="ba-prompt good">a 35-year-old South Asian man, charcoal grey suit with white shirt, warm approachable smile, soft studio lighting with clean white backdrop, 85mm portrait lens, sharp focus on eyes, natural skin texture, professional LinkedIn headshot style, photorealistic, 4K</div>
+    </div>
+  </div>
+  <div class="ba-insight">💡 Added: <strong>age + ethnicity, clothing color + style, expression, lighting setup + background, lens, focus point, skin texture detail, use-case context (LinkedIn), quality</strong></div>
+</div>
+
+
+<!-- ══════════════════════ SECTION 7: PLATFORM TIPS ══════════════════════ -->
+<div class="section-divider">
+  <span class="section-num accent-bg">CH 07</span>
+  <span class="section-title-text">Platform-Specific Tips — Get the Best from Each Tool</span>
+</div>
+
+<div class="platform-grid">
+  <div class="platform-card">
+    <div class="platform-name">Midjourney</div>
+    <span class="platform-badge badge-dsc">Discord</span>
+    <ul class="platform-tips">
+      <li>Use <span class="example">--ar 9:16</span> for portrait, <span class="example">--ar 16:9</span> for landscape</li>
+      <li>Add <span class="example">--v 6.1</span> for latest model (most photorealistic)</li>
+      <li>Use <span class="example">--style raw</span> to reduce over-stylization</li>
+      <li>Add <span class="example">--q 2</span> for highest quality (slower)</li>
+      <li>Upscale your favorite: click U1–U4 below the image grid</li>
+      <li>Use <span class="example">/describe</span> on any image to reverse-engineer its prompt</li>
+    </ul>
+  </div>
+
+  <div class="platform-card">
+    <div class="platform-name">ChatGPT (DALL·E 3)</div>
+    <span class="platform-badge badge-chat">Web / App</span>
+    <ul class="platform-tips">
+      <li>Paste prompt and say <em>"generate this image"</em> — no special commands needed</li>
+      <li>Use conversational editing: <span class="example">"make her expression warmer"</span></li>
+      <li>Say <span class="example">"keep everything the same but change the lighting to golden hour"</span></li>
+      <li>Ask for <span class="example">"a 9:16 portrait orientation"</span> directly in text</li>
+      <li>DALL·E excels at following detailed instructions precisely — more so than Midjourney</li>
+      <li>Weakest for highly stylized art — use Midjourney for those</li>
+    </ul>
+  </div>
+
+  <div class="platform-card">
+    <div class="platform-name">Adobe Firefly</div>
+    <span class="platform-badge badge-cc">Creative Cloud</span>
+    <ul class="platform-tips">
+      <li>Best choice for <strong>commercial use</strong> — fully copyright-safe images</li>
+      <li>Add <span class="example">Content Type: Photo</span> in settings for realism</li>
+      <li>Use the <em>Structure Reference</em> feature to match your composition</li>
+      <li>The <em>Style Reference</em> feature lets you match any image's aesthetic</li>
+      <li>Integrates directly into Photoshop's <em>Generative Fill</em> — best for editing</li>
+      <li>Use <span class="example">--negative prompt</span> field to exclude unwanted elements</li>
+    </ul>
+  </div>
+
+  <div class="platform-card">
+    <div class="platform-name">Ideogram</div>
+    <span class="platform-badge badge-web">Web</span>
+    <ul class="platform-tips">
+      <li>Best tool for <strong>text inside images</strong> — logos, posters, signs, labels</li>
+      <li>Add <span class="example">"with text [YOUR TEXT]"</span> anywhere in the prompt</li>
+      <li>Use <span class="example">Magic Prompt: ON</span> for automatic prompt enhancement</li>
+      <li>Select <em>Design</em> mode for typography-heavy work (posters, thumbnails)</li>
+      <li>Free tier gives 10 slow generations/day — enough for testing</li>
+      <li>Weakest for photo-realistic faces — use ChatGPT or Midjourney for those</li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-card" style="margin-top:1rem;">
+  <div class="callout">
+    <strong>🔄 The Professional Workflow:</strong> Generate 4–6 variations with Midjourney or ChatGPT → Pick the best one → Upscale it → Import into Adobe Photoshop with Firefly for final touch-ups (background removal, object editing, generative fill). This 3-step pipeline produces commercial-grade results every time.
+  </div>
+</div>
+
+
+<!-- Practice Cards -->
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·01</span>
+    <span class="pcard-use">STARTER — Subject + Style + Quality</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p01"><span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, highly detailed, professional quality, 8K photorealistic</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·02</span>
+    <span class="pcard-use">LIGHTING FOCUS — Adding the lighting layer</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p02"><span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, dramatic golden hour lighting, soft warm shadows, volumetric light, 8K</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·03</span>
+    <span class="pcard-use">MOOD MASTER — Atmosphere-driven composition</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p03"><span class="tok">[SUBJECT]</span>, <span class="tok">[MOOD]</span> atmosphere, <span class="tok">[STYLE]</span>, soft bokeh, ethereal color palette, award-winning</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·04</span>
+    <span class="pcard-use">PORTRAIT FORMULA — Full 6-block anatomy applied</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p04">Studio portrait of <span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span> mood, 85mm portrait lens, shallow depth of field, studio rim lighting with soft fill, photorealistic, 4K</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·05</span>
+    <span class="pcard-use">CINEMATIC FRAME — Movie-still treatment</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p05">Cinematic wide shot of <span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span>, anamorphic lens flare, teal and orange color grade, 35mm film grain, Hollywood blockbuster quality</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·06</span>
+    <span class="pcard-use">DRAMATIC LIGHTING — High contrast, editorial feel</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p06"><span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, dramatic chiaroscuro lighting, deep shadows, single light source from side, <span class="tok">[MOOD]</span> tension, high contrast, masterpiece quality</div>
+</div>
+
+<div class="section-divider section-divider-spacer" aria-hidden="true">
+  <span class="section-num accent-bg">SP</span>
+  <span class="section-title-text">Spacer</span>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·07</span>
+    <span class="pcard-use">NATURE CONTEXT — Subject within an environment</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p07"><span class="tok">[SUBJECT]</span> in a lush forest clearing at dusk, <span class="tok">[STYLE]</span>, dappled golden light through tree canopy, <span class="tok">[MOOD]</span> atmosphere, Canon 50mm, highly detailed, photorealistic</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·08</span>
+    <span class="pcard-use">VINTAGE TREATMENT — Analog nostalgia</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p08"><span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, vintage 1990s aesthetic, 35mm film grain, faded colors, light leaks at edges, <span class="tok">[MOOD]</span> nostalgia, polaroid photo style, analog photography</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·09</span>
+    <span class="pcard-use">FANTASY / CONCEPT ART — Epic scale treatment</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p09">Epic concept art of <span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span> environment, magical volumetric lighting, intricate details, fantasy world setting, trending on ArtStation, 8K digital art</div>
+</div>
+
+<div class="practice-card">
+  <div class="pcard-top">
+    <span class="pnum">P·10</span>
+    <span class="pcard-use">ULTIMATE FORMULA — All 6 building blocks combined</span>
+    <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+  </div>
+  <div class="pcard-text" id="p10"><span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span> atmosphere, golden hour side lighting with soft fill, 85mm portrait lens, shallow depth of field, highly detailed, photorealistic, award-winning, 8K — everything working together</div>
+</div>
+
+<!-- ══════════════════════ CLOSING ══════════════════════ -->
+<div class="intro-card" style="margin-top:2.5rem;">
+  <h2>You Now Have the Cheat Code</h2>
+  <p>You know which tool to use for which job. You understand all 6 building blocks of a perfect prompt. You've seen the before/after transformations. You have 50+ professional style keywords. And you have 10 practice prompts to apply everything immediately.</p>
+  <p><strong>Now go open your prompt books.</strong> Fill in your variables. Copy a prompt. Paste it. And watch what happens when you actually know what you're doing.</p>
+  <p>Every great AI image starts with a great prompt. You've got the formula. The results are up to you. 🎯</p>
+</div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  subject: { id: 'v-subject', placeholder: 'a young woman' },
+  style:   { id: 'v-style',   placeholder: 'cinematic photography' },
+  mood:    { id: 'v-mood',    placeholder: 'warm and nostalgic' },
+};
+
+const H = {
+  p01: `<span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, highly detailed, professional quality, 8K photorealistic`,
+  p02: `<span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, dramatic golden hour lighting, soft warm shadows, volumetric light, 8K`,
+  p03: `<span class="tok">[SUBJECT]</span>, <span class="tok">[MOOD]</span> atmosphere, <span class="tok">[STYLE]</span>, soft bokeh, ethereal color palette, award-winning`,
+  p04: `Studio portrait of <span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span> mood, 85mm portrait lens, shallow depth of field, studio rim lighting with soft fill, photorealistic, 4K`,
+  p05: `Cinematic wide shot of <span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span>, anamorphic lens flare, teal and orange color grade, 35mm film grain, Hollywood blockbuster quality`,
+  p06: `<span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, dramatic chiaroscuro lighting, deep shadows, single light source from side, <span class="tok">[MOOD]</span> tension, high contrast, masterpiece quality`,
+  p07: `<span class="tok">[SUBJECT]</span> in a lush forest clearing at dusk, <span class="tok">[STYLE]</span>, dappled golden light through tree canopy, <span class="tok">[MOOD]</span> atmosphere, Canon 50mm, highly detailed, photorealistic`,
+  p08: `<span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, vintage 1990s aesthetic, 35mm film grain, faded colors, light leaks at edges, <span class="tok">[MOOD]</span> nostalgia, polaroid photo style, analog photography`,
+  p09: `Epic concept art of <span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span> environment, magical volumetric lighting, intricate details, fantasy world setting, trending on ArtStation, 8K digital art`,
+  p10: `<span class="tok">[SUBJECT]</span>, <span class="tok">[STYLE]</span>, <span class="tok">[MOOD]</span> atmosphere, golden hour side lighting with soft fill, 85mm portrait lens, shallow depth of field, highly detailed, photorealistic, award-winning, 8K — everything working together`,
+};
+
+function fill() {
+  const su = document.getElementById('v-subject').value.trim() || T.subject.placeholder;
+  const st = document.getElementById('v-style').value.trim()   || T.style.placeholder;
+  const mo = document.getElementById('v-mood').value.trim()    || T.mood.placeholder;
+
+  function filled(html) {
+    return html
+      .replace(/<span class="tok">\[SUBJECT\]<\/span>/g, `<span class="filled-val">${escHtml(su)}</span>`)
+      .replace(/<span class="tok">\[STYLE\]<\/span>/g,   `<span class="filled-val">${escHtml(st)}</span>`)
+      .replace(/<span class="tok">\[MOOD\]<\/span>/g,    `<span class="filled-val">${escHtml(mo)}</span>`);
+  }
+
+  const hasInput = document.getElementById('v-subject').value.trim() ||
+                   document.getElementById('v-style').value.trim()   ||
+                   document.getElementById('v-mood').value.trim();
+
+  for (const [id, template] of Object.entries(H)) {
+    document.getElementById(id).innerHTML = hasInput ? filled(template) : template;
+  }
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function getPlainText(el) {
+  return el.innerText || el.textContent;
+}
+
+function copyPrompt(btn) {
+  const card = btn.closest('.practice-card');
+  const textEl = card.querySelector('.pcard-text');
+  const text = getPlainText(textEl).trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

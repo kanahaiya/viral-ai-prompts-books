@@ -152,13 +152,6 @@ section{padding:64px 2rem;}
 .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-1px;color:#fff;margin-bottom:1rem;}
 .section-sub{font-size:1rem;color:#888;max-width:540px;}
 
-/* ── CURRENCY DETECTOR BADGE ── */
-.currency-bar{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:10px 20px;display:inline-flex;align-items:center;gap:12px;margin-bottom:2rem;font-size:0.82rem;}
-.currency-bar .detected{color:#888;}
-.currency-bar .flag{font-size:1.2rem;}
-.currency-switch{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:4px 10px;border-radius:2px;cursor:pointer;transition:all 0.1s;}
-.currency-switch:hover{border-color:var(--gold);color:var(--gold);}
-
 /* ── BOOKS GRID ── */
 .books-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem;}
 @media(max-width:900px){.books-grid{grid-template-columns:repeat(3,1fr);}}
@@ -314,6 +307,36 @@ section{padding:64px 2rem;}
 .final-cta-pill{font-size:0.72rem;color:#aaa;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:20px;padding:5px 12px;display:inline-flex;align-items:center;gap:5px;}
 .final-cta-meta{margin-top:1rem;font-size:0.75rem;color:#555;line-height:2;}
 
+/* ── MARKET PSYCHOLOGY ── */
+.psychology-section{border-top:1px solid var(--border);background:var(--surface2);}
+.psychology-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
+@media(max-width:860px){.psychology-grid{grid-template-columns:1fr;}}
+.psychology-card{background:#121212;border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.1rem;}
+.psychology-card h3{font-size:0.95rem;color:#fff;margin-bottom:0.5rem;}
+.psychology-card p{font-size:0.82rem;color:#9a9a9a;line-height:1.7;}
+.trigger-strip{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.2rem;}
+.trigger-pill{font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:1px;color:var(--gold);border:1px solid rgba(212,168,54,0.3);background:rgba(212,168,54,0.07);border-radius:20px;padding:5px 11px;}
+
+/* ── FIT SECTION ── */
+.fit-section{border-top:1px solid var(--border);background:#0d0d0d;}
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+@media(max-width:860px){.fit-grid{grid-template-columns:1fr;}}
+.fit-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:1.3rem;}
+.fit-card h3{font-size:1rem;color:#fff;margin-bottom:0.8rem;}
+.fit-card ul{list-style:none;}
+.fit-card li{font-size:0.84rem;color:#aaa;padding:7px 0;display:flex;gap:8px;}
+.fit-card li::before{font-weight:700;flex-shrink:0;}
+.fit-card.fit-yes li::before{content:'✓';color:var(--gold);}
+.fit-card.fit-no li::before{content:'–';color:#f87171;}
+
+/* ── PRICING JUSTIFICATION ── */
+.value-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;max-width:900px;margin:2rem auto 0;}
+@media(max-width:860px){.value-compare{grid-template-columns:1fr;}}
+.value-card{background:#101010;border:1px solid var(--border);border-radius:8px;padding:1rem;}
+.value-card .label{font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:1.5px;color:#777;text-transform:uppercase;}
+.value-card .price{font-size:1.2rem;font-weight:800;color:#fff;margin:0.4rem 0;}
+.value-card p{font-size:0.8rem;color:#8f8f8f;line-height:1.6;}
+
 /* ── RESPONSIVE ── */
 @media(max-width:1000px){
   .hero-split{flex-direction:column;gap:2rem;}
@@ -405,32 +428,21 @@ section{padding:64px 2rem;}
 
     <!-- LEFT: Copy -->
     <div class="hero-text">
-      <div class="hero-badge">🔥 1,100 Templates · Loved by 200+ Buyers · First Result in Minutes</div>
-      <h1>Turn "I Don't Know<br>What to Prompt"<br>into <span>Images You're Proud to Post</span></h1>
-      <p class="hero-sub">Riya used to open Midjourney, type random words, and close it frustrated. Then she filled 6 blanks from one template, posted the result, and got 146 likes with real DMs asking how she made it. That's the shift these books are built for.</p>
+      <div class="hero-badge">🔥 Full Bundle · 11 Books · 1,100 Templates · Built for Indian Creators</div>
+      <h1>Create Better AI Visuals<br>Faster with the <span>Full Bundle</span></h1>
+      <p class="hero-sub">Built for college creators, freelancers, and small business owners who want polished AI images without wasting hours on prompt trial-and-error. Pick a style, fill a few blanks, and generate results you can post, pitch, or sell.</p>
       <div class="hero-ctas">
-        <a href="#pricing" class="btn-primary">Start Now — ₹199 →</a>
-        <a href="#books" class="btn-secondary">See What's Inside</a>
+        <a href="#pricing" class="btn-primary">Buy Full Bundle Now — ₹199 →</a>
+        <a href="#pricing" class="btn-secondary">See Offer Details</a>
       </div>
       <div class="hero-proof-strip">
         <span class="hero-proof-pill">No prompt-writing required</span>
         <span class="hero-proof-pill">Works with ChatGPT, Midjourney, Firefly</span>
         <span class="hero-proof-pill">Most buyers get first usable result in first session</span>
       </div>
-      <div style="font-size:0.76rem;color:#777;margin-top:-0.2rem;margin-bottom:0.9rem;">
-        First 10 minutes: Pick a style → fill a few blanks → generate your image.
-      </div>
       <div class="hero-trust">
         🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription<br>
-        <span>Works with ChatGPT · Midjourney · Firefly · Ideogram · DALL·E &amp; more</span><br>
-        <span style="color:var(--gold);opacity:0.8;">⭐ Based on buyer feedback from 200+ paying customers</span>
-      </div>
-      <div class="hero-mini-testimonial">
-        <strong>"I stopped guessing prompts."</strong> I picked a template, filled details, and finally got an image I was happy to post the same evening.
-      </div>
-      <div class="live-activity" id="liveActivity">
-        <span class="live-pulse-dot"></span>
-        <span id="liveActivityText">Meera from Bengaluru just bought the bundle · 2 min ago</span>
+        <span style="color:var(--gold);opacity:0.8;">⭐ Trusted by 200+ paying customers · 4.6★ average rating</span>
       </div>
     </div>
 
@@ -519,21 +531,17 @@ section{padding:64px 2rem;}
 <!-- PAIN AGITATION -->
 <section class="pain-section">
   <div class="container">
-    <div class="section-badge">If This Feels Familiar</div>
+    <div class="section-badge">Problem Section</div>
     <h2 class="section-title">You're Not Bad at AI.<br>You're Missing a Repeatable Prompt System.</h2>
     <div class="pain-text">
-      <p class="story">You open Midjourney. You stare at the blank prompt box. You type something. You hit enter.</p>
-      <p class="story">And you get… <strong>fine</strong>. Not bad. Just not the result you had in your head.</p>
-      <p class="story">Meanwhile, someone on Instagram just posted a Ghibli-style portrait that looks genuinely polished. A small Etsy shop is quietly selling AI movie poster prints. Your colleague turned a childhood photo into a 90s action figure and everyone in your group asked how they did it.</p>
-      <p class="story">You <strong>know</strong> AI can do this. You're paying for the tool. You've watched the tutorials. But nobody gives you a reliable prompt structure you can reuse when you need results fast.</p>
+      <p class="story">You open Midjourney, type a prompt, and hope it works.</p>
+      <p class="story">Sometimes it is <strong>fine</strong> — but rarely the result you actually wanted.</p>
       <ul class="pain-bullets">
-        <li><span class="x">✗</span>You've spent hours tweaking prompts and still get mediocre results</li>
-        <li><span class="x">✗</span>You've seen the trending styles and had no idea how to recreate them</li>
-        <li><span class="x">✗</span>You feel that blank-box paralysis — <em>where do I even start?</em></li>
-        <li><span class="x">✗</span>You're paying for AI tools every month but not getting professional output</li>
-        <li><span class="x">✗</span>You've copied prompts from Reddit and they never seem to work right</li>
+        <li><span class="x">✗</span>You spend too long tweaking prompts and still get average output</li>
+        <li><span class="x">✗</span>You see trending styles but cannot recreate them consistently</li>
+        <li><span class="x">✗</span>Copied prompts rarely work the same for your use case</li>
       </ul>
-      <p class="pain-punch">"The gap between their results and yours isn't talent or luck. It's having reusable prompt patterns instead of starting from scratch each time."</p>
+      <p class="pain-punch">"The gap between random output and repeatable quality is structure — not luck."</p>
     </div>
   </div>
 </section>
@@ -541,57 +549,10 @@ section{padding:64px 2rem;}
 <!-- SOLUTION BRIDGE -->
 <section class="solution-section">
   <div class="container">
-    <div class="section-badge">The Shift</div>
+    <div class="section-badge">Solution Section</div>
     <p class="big-intro">Instead of guessing every prompt from zero,<br><span>start from proven templates and personalize in minutes.</span></p>
     <p class="solution-desc">You get 1,100 fill-in-the-blank templates covering real use cases: portraits, posters, products, pets, and more. Fill in a few details. Copy. Paste. Generate. It's the fastest path from idea to a result you're happy to share.</p>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;">Yes — I Want the Templates →</a>
-  </div>
-</section>
-
-<!-- WHY THIS WORKS -->
-<section style="border-top:1px solid var(--border);background:var(--surface);">
-  <div class="container" style="text-align:center;">
-    <div class="section-badge">Why Most People Finally Get Results</div>
-    <h2 class="section-title">The 3-Part Shift From Random Outputs<br>to Consistent Images</h2>
-    <div class="how-grid" style="margin-top:2.2rem;">
-      <div class="how-step">
-        <div class="how-step-num">1</div>
-        <h3>What people try</h3>
-        <p>Typing from scratch every time. New prompt, new guess, new disappointment.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">2</div>
-        <h3>Why it fails</h3>
-        <p>No reusable structure. You tweak random words instead of a proven framework.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">3</div>
-        <h3>What changes here</h3>
-        <p>Start from tested templates, personalize in minutes, and produce repeatable results.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY — Results collage -->
-<section class="gallery-section">
-  <div class="container" style="text-align:center;">
-    <div class="section-badge">Real Results</div>
-    <h2 class="section-title" style="font-size:2rem;">Every One of These Was Made<br>in Under 2 Minutes.</h2>
-    <p class="section-sub" style="margin:0 auto 0;">Real images. Real prompts from these books. Swap in your name — get the same result. Tonight.</p>
-    <div class="gallery-img">
-      <img src="/assets/hero-collage.jpg" alt="AI-generated images made with prompt templates — Ghibli, action figure, movie poster, pet art, headshot, vintage" loading="lazy">
-    </div>
-    <div class="gallery-styles">
-      <span class="gallery-style-tag">🌸 Ghibli &amp; Anime</span>
-      <span class="gallery-style-tag">🧸 Action Figure</span>
-      <span class="gallery-style-tag">📷 Childhood Nostalgia</span>
-      <span class="gallery-style-tag">🎬 Movie Poster</span>
-      <span class="gallery-style-tag">💼 Headshots</span>
-      <span class="gallery-style-tag">🐾 Pet Art</span>
-      <span class="gallery-style-tag">📜 Vintage Scrapbook</span>
-      <span class="gallery-style-tag">✨ Trending Styles</span>
-    </div>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;">Yes — I Want the Full Bundle →</a>
   </div>
 </section>
 
@@ -707,160 +668,68 @@ section{padding:64px 2rem;}
   </div>
 </section>
 
-<!-- BENEFITS -->
-<section class="benefits-section">
-  <div class="container" style="text-align:center;">
-    <div class="section-badge">What You Actually Get</div>
-    <h2 class="section-title">What Riya, Prashant, Vikram<br>and Other Buyers Got.</h2>
-    <p class="section-sub" style="margin:0 auto 0.5rem;">Not just templates — a complete system. Here's exactly why it works when random prompts from Reddit don't.</p>
-    <div class="benefits-grid">
-      <div class="benefit-item">
-        <div class="benefit-icon">⚡</div>
-        <div class="benefit-title">Save 10–50 Hours</div>
-        <div class="benefit-desc">Every template is pre-engineered for maximum quality output. Skip all the trial-and-error — get results from your first paste.</div>
-        <div class="benefit-stat">AVG. FIRST SHARE-WORTHY IMAGE: 47 SEC</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">🎨</div>
-        <div class="benefit-title">Look Like a Pro Artist</div>
-        <div class="benefit-desc">Even if you've never written a prompt before. If you can fill out a form, you can use this. Zero technical skill needed.</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">📱</div>
-        <div class="benefit-title">Works on Your Phone</div>
-        <div class="benefit-desc">No app, no download, no installation. Open your browser on any device — all 11 books are instantly available in your dashboard.</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">💸</div>
-        <div class="benefit-title">Monetize When You're Ready</div>
-        <div class="benefit-desc">Use these for Etsy prints, client content, or your own social brand. Start with personal projects, then turn winning styles into paid work.</div>
-        <div class="benefit-stat">VIKRAM: APPROX. ₹1,150 IN FIRST 2 WEEKS ON ETSY</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">🔁</div>
-        <div class="benefit-title">Endlessly Reusable</div>
-        <div class="benefit-desc">Change one variable — name, style, setting — and get a completely different image every time. 1,100 templates become unlimited outputs.</div>
-        <div class="benefit-stat">RIYA: 146 LIKES FROM ONE TEMPLATE POST</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">🌐</div>
-        <div class="benefit-title">Works Everywhere</div>
-        <div class="benefit-desc">Midjourney, ChatGPT, DALL·E 3, Ideogram, Stable Diffusion, Adobe Firefly. Wherever you paste a text prompt, these work.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="container" style="text-align:center;">
-    <div class="section-badge">How It Works</div>
-    <h2 class="section-title">3 Steps to Your Perfect AI Image</h2>
-    <div class="how-grid">
-      <div class="how-step">
-        <div class="how-step-num">1</div>
-        <h3>Pick Your Book</h3>
-        <p>Choose from 11 categories — action figures, headshots, pet portraits, movie posters, and more.</p>
-        <p style="margin-top:0.6rem;font-size:0.78rem;color:var(--gold);font-style:italic;">Takes 30 seconds. You'll know exactly which one the moment you see it.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">2</div>
-        <h3>Fill 6 Blanks</h3>
-        <p>Type your name, look, style, and setting. Every one of the 100 prompts in your book updates instantly.</p>
-        <p style="margin-top:0.6rem;font-size:0.78rem;color:var(--gold);font-style:italic;">No writing. No guessing. Just fill a form — the prompts write themselves.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">3</div>
-        <h3>Paste & See It</h3>
-        <p>Copy any prompt. Paste into ChatGPT, Midjourney, Firefly, or DALL·E. Your image appears in seconds.</p>
-        <p style="margin-top:0.6rem;font-size:0.78rem;color:var(--gold);font-style:italic;">That reaction — "wait, I made this?" — happens on the first try.</p>
-      </div>
-    </div>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:2.5rem;">Start in the Next 60 Seconds →</a>
-  </div>
-</section>
-
-<!-- BOOKS -->
-<section id="books" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div class="container" style="text-align:center;">
-    <div class="section-badge">The Collection</div>
-    <h2 class="section-title">11 Books · 1,100 Prompts</h2>
-    <p class="section-sub" style="margin:0 auto;">Every prompt has 6 personal variable slots. Fill once — get 100 personalised prompts. <span style="color:var(--gold);">+&nbsp;1&nbsp;free bonus guide included with every purchase.</span></p>
-
-    <div class="books-grid" id="booksGrid">
-      <?php foreach ($books as $id => $book):
-        $isBonus = !empty($book['bonus']);
-      ?>
-      <div class="book-card" style="--card-accent:<?= htmlspecialchars($book['accent']) ?>">
-        <div class="book-num"><?= $isBonus ? '🎁 FREE BONUS' : 'BOOK ' . str_pad($id, 2, '0', STR_PAD_LEFT) ?></div>
-        <div class="book-emoji"><?= $book['emoji'] ?></div>
-        <div class="book-title"><?= htmlspecialchars($book['title']) ?></div>
-        <div class="book-prompts"><?= $isBonus ? 'CHEAT CODE GUIDE · FREE' : '100 PROMPTS · 6 VARIABLES' ?></div>
-        <?php if (!$isBonus): ?>
-        <div class="book-price-tag" data-single-inr="₹99" data-single-usd="$2.99">₹99</div>
-        <?php else: ?>
-        <div class="book-price-tag" style="background:<?= htmlspecialchars($book['accent']) ?>;">FREE</div>
-        <?php endif; ?>
-      </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-
 <!-- OFFER STACK -->
 <section class="offer-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Everything You're Getting</div>
-    <h2 class="section-title">₹199 Unlocks All of This.</h2>
+    <div class="section-badge">Bonuses + Value Stack</div>
+    <h2 class="section-title">₹199 Unlocks the Full Bundle + Bonuses.</h2>
     <p class="section-sub" style="margin:0 auto;">Every book. Every bonus. Every future update. Here's the full list — and what it would cost if bought separately.</p>
     <div class="offer-list">
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🧸 Book 1 — Action Figure &amp; Toy Box (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🌸 Book 2 — Ghibli &amp; Anime Style (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📷 Book 3 — Childhood Nostalgia (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🎨 Book 4 — Caricature &amp; Chibi (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">💼 Book 5 — Professional Headshots (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📦 Book 6 — Product Photography (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🎬 Book 7 — Cinematic Movie Poster (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📜 Book 8 — Vintage Scrapbook (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🐾 Book 9 — Pet Transformation (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🕰️ Book 10 — Historical Time Travel (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">✨ Book 11 — Bonus Trending Styles (100 prompts)</span><span class="val offer-inr">₹99</span><span class="val offer-usd" style="display:none;">$2.99</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🧸 Book 1 — Action Figure &amp; Toy Box (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🌸 Book 2 — Ghibli &amp; Anime Style (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">📷 Book 3 — Childhood Nostalgia (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🎨 Book 4 — Caricature &amp; Chibi (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">💼 Book 5 — Professional Headshots (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">📦 Book 6 — Product Photography (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🎬 Book 7 — Cinematic Movie Poster (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">📜 Book 8 — Vintage Scrapbook (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🐾 Book 9 — Pet Transformation (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🕰️ Book 10 — Historical Time Travel (100 prompts)</span><span class="val">₹199</span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">✨ Book 11 — Bonus Trending Styles (100 prompts)</span><span class="val">₹199</span></div>
       <div class="offer-bonus"><span class="chk">🎁</span><span class="name">🎯 The AI Image Cheat Code — Style guide + practice prompts (bonus for ALL buyers)</span><span class="val">FREE</span></div>
       <div class="offer-bonus"><span class="chk">🎁</span><span class="name">Private WhatsApp Community Access (new prompts, trending drops)</span><span class="val">FREE</span></div>
       <div class="offer-total-row">
         <span class="offer-total-label">If bought separately</span>
         <div class="offer-total-price">
-          <span class="offer-total-orig" id="offerOrig">₹1,089</span>
+          <span class="offer-total-orig" id="offerOrig">₹2,189</span>
           <span class="offer-total-today" id="offerToday">₹199</span>
         </div>
       </div>
     </div>
-    <p style="margin-top:1rem;font-size:0.8rem;color:#555;" id="offerSavingLine">Save ₹890 on the bundle — plus 2 free bonuses included. Limited-time launch price.</p>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Claim the Bundle →</a>
+    <p style="margin-top:1rem;font-size:0.8rem;color:#555;" id="offerSavingLine">Save ₹1,990 on the bundle — plus 2 free bonuses included. Limited-time launch price.</p>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Buy Now — Get Full Bundle Access →</a>
   </div>
 </section>
 
-<!-- PRICING -->
+<!-- OFFER DETAILS (PRICING) -->
 <section id="pricing" class="pricing-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Pricing</div>
+    <div class="section-badge">Offer Details</div>
     <h2 class="section-title">One Price. No Subscription.<br><span style="color:var(--gold);">Use It For Years.</span></h2>
     <p class="section-sub" style="margin:0 auto 1.5rem;">No subscription. No renewal. No price creep. Pay once — own it for life, including every new book added to the collection.</p>
-
-    <!-- Currency detector -->
-    <div class="currency-bar" id="currencyBar">
-      <span class="flag" id="currencyFlag">🇮🇳</span>
-      <span class="detected" id="currencyLabel">Showing prices in Indian Rupees (₹)</span>
-      <button class="currency-switch" id="currencySwitch">Switch to $</button>
+    <div class="value-compare">
+      <div class="value-card">
+        <div class="label">Doing it manually</div>
+        <div class="price">10-50 hours</div>
+        <p>Researching styles, writing prompts, and fixing failed outputs from scratch.</p>
+      </div>
+      <div class="value-card">
+        <div class="label">Hiring help</div>
+        <div class="price">₹2,000+</div>
+        <p>One designer session can cost far more than this full prompt library.</p>
+      </div>
+      <div class="value-card">
+        <div class="label">This bundle</div>
+        <div class="price">₹199 once</div>
+        <p>11 books, 1,100 templates, bonus guide, and future updates included.</p>
+      </div>
     </div>
 
     <div class="pricing-grid">
       <!-- Single Book -->
       <div class="price-card">
         <div class="price-plan">Single Book</div>
-        <div class="price-amount">
-          <span class="currency" id="singleCurrency">₹</span><span id="singlePrice">99</span>
-        </div>
+        <div class="price-amount"><span class="currency">₹</span>99 <span class="original">₹199</span></div>
         <div class="price-billing">One book · 100 prompts · Lifetime access</div>
         <ul class="price-features">
           <li>1 book of your choice (you pick)</li>
@@ -873,7 +742,7 @@ section{padding:64px 2rem;}
           <li>All future updates to your book</li>
         </ul>
         <button class="btn-buy-outline" data-action="start-checkout" data-plan="single">
-          Start with One Book →
+          Start with One Book - ₹99 (was ₹199)
         </button>
         <div class="price-risk-reversal">Good if you want to test one style first before committing.</div>
       </div>
@@ -882,11 +751,8 @@ section{padding:64px 2rem;}
       <div class="price-card popular">
         <div class="price-badge">BEST VALUE</div>
         <div class="price-plan">Full Bundle</div>
-        <div class="price-amount">
-          <span class="currency" id="bundleCurrency">₹</span><span id="bundlePrice">199</span>
-          <span class="original" id="bundleOriginal">₹1,089</span>
-        </div>
-        <div class="price-billing" id="bundleSavings">Save ₹890 · All 11 books + bonus guide · Lifetime access</div>
+        <div class="price-amount"><span class="currency">₹</span>199 <span class="original">₹2,189</span></div>
+        <div class="price-billing">Save ₹1,990 · All 11 books + bonus guide · Lifetime access</div>
         <div class="price-card-social">Chosen by <strong>200+ creators</strong> — from beginners to freelancers</div>
         <ul class="price-features">
           <li>All 11 books — 1,100 prompt templates</li>
@@ -899,48 +765,23 @@ section{padding:64px 2rem;}
           <li>All future books automatically added</li>
         </ul>
         <button class="btn-buy" data-action="start-checkout" data-plan="bundle">
-          Start Now — ₹199 →
+          Buy Full Bundle Now — ₹199 →
         </button>
         <div class="price-risk-reversal">Best for serious use: all styles now, plus future books included.</div>
       </div>
     </div>
 
     <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 At ₹199, that's just ₹18 per book — less than a cup of coffee for 100 prompts that change how you use AI.</p>
-    <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Razorpay (India) · PayPal (International)</p>
+    <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Razorpay (India)</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
     <p style="margin-top:0.8rem;font-size:0.78rem;color:var(--gold);">👥 Join 200+ creators already using these prompts →</p>
-  </div>
-</section>
-
-<!-- GUARANTEE -->
-<section class="guarantee-section">
-  <div class="container">
-    <div class="guarantee-inner">
-      <div class="guarantee-badge" style="width:72px;height:72px;background:rgba(212,168,54,0.1);border:2px solid rgba(212,168,54,0.4);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;gap:1px;">
-        <span style="font-size:1.5rem;line-height:1;">✓</span>
-        <span style="font-family:'Courier New',monospace;font-size:0.45rem;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;">Guaranteed</span>
-      </div>
-      <div class="guarantee-body">
-    <h3>Clear 24-Hour Access Guarantee.</h3>
-        <p>This is a digital product with instant delivery. So we've kept the policy simple and transparent: you're protected if access fails, and fully supported once you're in.</p>
-        <ul class="guarantee-points">
-          <li><strong style="color:#fff;">If your access/login link fails within 24 hours</strong> — we'll resolve it quickly or issue a full refund.</li>
-          <li><strong style="color:#fff;">After access is delivered successfully</strong> — refunds are not available (digital content policy).</li>
-          <li><strong style="color:#fff;">Need help using the prompts?</strong> — we'll still support you directly with troubleshooting and usage guidance.</li>
-        </ul>
-        <div style="margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(212,168,54,0.06);border:1px solid rgba(212,168,54,0.25);border-radius:4px;font-size:0.82rem;color:var(--gold);">
-          🏆 &nbsp;200+ buyers &nbsp;·&nbsp; 4.6★ average rating &nbsp;·&nbsp; Most users create their first polished result in the first session
-        </div>
-        <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Start Now — 24h Access Guarantee →</a>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- URGENCY -->
 <div class="urgency-section">
   <div class="urgency-inner">
-    <div class="urgency-live-badge"><span class="urgency-live-dot"></span>OFFER ENDING SOON</div>
+    <div class="urgency-live-badge"><span class="urgency-live-dot"></span>DEADLINE / URGENCY</div>
     <div class="urgency-icon">⚡</div>
     <div class="urgency-title">Launch pricing ends when this timer hits zero.</div>
     <!-- Countdown timer -->
@@ -952,40 +793,9 @@ section{padding:64px 2rem;}
       <div class="cd-block"><div class="cd-num" id="cdS">59</div><div class="cd-label">Sec</div></div>
     </div>
     <div class="urgency-sub">The styles in these books — <strong>Ghibli, action figures, cinematic posters</strong> — are trending right now. Every day, more creators use these templates to move from random outputs to consistent results.<br><br>If you've been stuck in prompt trial-and-error, this is your shortcut to a first win today.<br><br><strong>200+ creators already started. You can start in minutes.</strong></div>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Start Now — ₹199 →</a>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Buy Before Price Increases — ₹199 →</a>
   </div>
 </div>
-
-<!-- COMMUNITY -->
-<section class="community-section" id="community">
-  <div class="container">
-    <div class="community-inner">
-      <div class="community-text">
-        <div class="section-badge">Included with Every Purchase</div>
-        <h2 class="section-title" style="font-size:2.2rem;">Your AI Creator<br>Inner Circle</h2>
-        <p style="color:#888;margin-bottom:1.5rem;">Buying the prompts is just the start. Every purchase includes access to our private WhatsApp community — where the real value keeps compounding after day one.</p>
-        <ul class="community-perks">
-          <li><span class="perk-icon">📢</span>First access to new prompt books before public release</li>
-          <li><span class="perk-icon">🔥</span>Trending AI style alerts — know what's going viral before everyone else</li>
-          <li><span class="perk-icon">🎁</span>Free bonus prompts dropped exclusively in the group</li>
-          <li><span class="perk-icon">🎨</span>Share your AI images and get feedback from fellow creators</li>
-          <li><span class="perk-icon">🤝</span>Direct line to the creator — questions, tips, and personal support</li>
-        </ul>
-      </div>
-      <div class="community-visual">
-        <div class="wa-icon" style="font-size:3.5rem;display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:0.8rem;">
-          <span style="background:rgba(212,168,54,0.12);border:1px solid rgba(212,168,54,0.3);border-radius:50%;width:64px;height:64px;display:inline-flex;align-items:center;justify-content:center;font-size:2rem;">📲</span>
-        </div>
-        <div class="wa-count">PRIVATE · BUYERS ONLY</div>
-        <div class="wa-title">AI Prompt Creators</div>
-        <div class="wa-sub">Exclusive WhatsApp group for buyers.<br>Invite link sent after purchase.</div>
-        <a href="#pricing" class="btn-wa">
-          Join the Community →
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- FAQ -->
 <section id="faq">
@@ -1004,11 +814,11 @@ section{padding:64px 2rem;}
         ['Can I use these prompts to create and sell art?',
          'Yes. The AI images you generate using these prompts are 100% yours — use them for personal projects, Etsy prints, client content, social media, YouTube thumbnails, whatever you like.'],
         ['What if I only want one specific book?',
-         'You can buy any single book for ₹99 / $2.99. But the full bundle is ₹199 / $9 — you get all 11 for the price of 2, so most people grab the bundle.'],
+         'You can buy any single book for ₹99 (regular ₹199). But the full bundle is ₹199 — you get all 11 for the regular price of one, so most people grab the bundle.'],
         ['Are new books added to the bundle automatically?',
          'Yes. Bundle buyers automatically get every new book we publish — forever, at no extra charge. Your investment only grows.'],
         ['How is payment processed? Is it safe?',
-         'India: Razorpay (UPI, PhonePe, Paytm, all cards) — used by Zomato, Swiggy, and millions of others. International: PayPal. Both are 100% secure and trusted globally.'],
+         'Razorpay supports UPI, PhonePe, Paytm, and cards, and is used by major platforms across India. Checkout is secure and trusted.'],
         ['What is your refund policy?',
          'Because this is instant-access digital content, refunds are not available after successful access is delivered. If your access/login link fails, contact us within 24 hours — we will fix it quickly or refund you.'],
         ['What\'s in the WhatsApp community?',
@@ -1028,10 +838,10 @@ section{padding:64px 2rem;}
 <!-- FINAL CTA -->
 <section class="final-cta-section">
   <div class="container">
-    <h2>You're Minutes Away From<br><span>Your First "I Made This" AI Image</span></h2>
+    <h2>You're Minutes Away From<br><span>Your First Better AI Visual</span></h2>
     <p class="sub">₹199 one-time. No subscriptions. Open your library, pick a style, fill in a few blanks, and generate something you'd actually share. No prompt-writing stress required.</p>
     <a href="#pricing" class="btn-primary" style="display:inline-block;font-size:1rem;padding:16px 40px;">
-      Start Now — ₹199 →
+      Buy Full Bundle Now — ₹199 →
     </a>
     <div class="whats-next">
       <div class="wn-step"><span class="wn-n">1</span>Click the button</div>
@@ -1055,9 +865,9 @@ section{padding:64px 2rem;}
 <footer class="footer">
   <div class="footer-logo">AI Prompt Books</div>
   <div class="footer-links">
-    <a href="#books">Books</a>
+    <a href="#reviews">Proof</a>
     <a href="#pricing">Pricing</a>
-    <a href="#community">Community</a>
+    <a href="#faq">FAQ</a>
     <a href="/login.php">Login</a>
   </div>
   <div class="footer-copy">© <?= date('Y') ?> AI Prompt Books. All rights reserved.</div>
@@ -1137,11 +947,11 @@ section{padding:64px 2rem;}
 
     <div style="margin-bottom:1rem;">
       <label style="font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;">YOUR NAME</label>
-      <input type="text" id="buyerName" placeholder="e.g. Raj Sharma" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='#d4a836'" onblur="this.style.borderColor='#333'">
+      <input type="text" id="buyerName" placeholder="e.g. Raj Sharma" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
     </div>
     <div style="margin-bottom:1.5rem;">
       <label style="font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;">EMAIL ADDRESS</label>
-      <input type="email" id="buyerEmail" placeholder="you@example.com" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='#d4a836'" onblur="this.style.borderColor='#333'">
+      <input type="email" id="buyerEmail" placeholder="you@example.com" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
       <div style="font-size:0.75rem;color:#555;margin-top:4px;">Your login credentials will be sent to this email right after payment.</div>
     </div>
     <div id="paymentButtons" style="display:flex;flex-direction:column;gap:0.8rem;">
@@ -1149,8 +959,6 @@ section{padding:64px 2rem;}
       <button id="razorpayBtn" type="button" class="pay-btn-razorpay" data-action="pay-razorpay">
         Pay with UPI / Card (Razorpay)
       </button>
-      <!-- PayPal button container -->
-      <div id="paypalButtonContainer" style="display:none;"></div>
       <div style="text-align:center;font-size:0.72rem;color:#555;padding:4px 0;" id="paymentSecure">🔒 Secure · One-time payment · No subscription</div>
       <div style="text-align:center;font-size:0.7rem;color:#666;line-height:1.5;padding:2px 0 0;">
         24-hour technical guarantee for failed access/login link. No refunds after successful access.
@@ -1161,79 +969,12 @@ section{padding:64px 2rem;}
 </div>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=<?= PAYPAL_CLIENT_ID ?>&currency=USD&intent=capture" data-sdk-integration-source="button-factory"></script>
 <script>
-// ── Currency detection ────────────────────────────────────────────────────────
-let currency = 'INR';
-
-(function detectCurrency() {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (!tz.startsWith('Asia/C') && tz !== 'Asia/Kolkata') {
-      currency = 'USD';
-    }
-  } catch(e) {}
-  // Check stored preference
-  const stored = localStorage.getItem('aipb_currency');
-  if (stored) currency = stored;
-  updatePricing();
-})();
-
-function updatePricing() {
-  const isIndia = (currency === 'INR');
-  // Nav/hero prices
-  document.querySelectorAll('[data-single-inr]').forEach(el => {
-    el.textContent = isIndia ? el.dataset.singleInr : el.dataset.singleUsd;
-  });
-  // Modal book prices
-  <?php foreach ($books as $id => $book): ?>
-  const mp<?= $id ?> = document.getElementById('modalPrice<?= $id ?>');
-  if (mp<?= $id ?>) mp<?= $id ?>.textContent = isIndia ? '₹99' : '$2.99';
-  <?php endforeach; ?>
-  // Pricing section
-  document.getElementById('singleCurrency').textContent = isIndia ? '₹' : '$';
-  document.getElementById('singlePrice').textContent    = isIndia ? '99' : '2.99';
-  document.getElementById('bundleCurrency').textContent = isIndia ? '₹' : '$';
-  document.getElementById('bundlePrice').textContent    = isIndia ? '199' : '9';
-  document.getElementById('bundleOriginal').textContent = isIndia ? '₹1,089' : '$32.89';
-  document.getElementById('bundleSavings').textContent  = isIndia
-    ? 'Save ₹890 · All 11 books + bonus guide · Lifetime access'
-    : 'Save $23.89 · All 11 books + bonus guide · Lifetime access';
-  // Currency bar
-  document.getElementById('currencyFlag').textContent    = isIndia ? '🇮🇳' : '🌍';
-  document.getElementById('currencyLabel').textContent   = isIndia
-    ? 'Showing prices in Indian Rupees (₹)'
-    : 'Showing prices in US Dollars ($)';
-  document.getElementById('currencySwitch').textContent = isIndia ? 'Switch to $' : 'Switch to ₹';
-  // Offer stack
-  const offerOrig = document.getElementById('offerOrig');
-  const offerToday = document.getElementById('offerToday');
-  const offerLine = document.getElementById('offerSavingLine');
-  const pricingAnchor = document.getElementById('pricingAnchor');
-  if (offerOrig) offerOrig.textContent  = isIndia ? '₹1,089' : '$32.89';
-  if (offerToday) offerToday.textContent = isIndia ? '₹199'   : '$9';
-  if (offerLine) offerLine.textContent   = isIndia
-    ? 'Save ₹890 on the bundle — plus 2 free bonuses included. Limited-time launch price.'
-    : 'Save $23.89 on the bundle — plus 2 free bonuses included. Limited-time launch price.';
-  // Per-item currency labels in offer stack
-  document.querySelectorAll('.offer-inr').forEach(el => el.style.display = isIndia ? '' : 'none');
-  document.querySelectorAll('.offer-usd').forEach(el => el.style.display = isIndia ? 'none' : '');
-  if (pricingAnchor) pricingAnchor.textContent = isIndia
-    ? '💡 At ₹199, that\'s just ₹18 per book — less than a cup of coffee for 100 prompts that change how you use AI.'
-    : '💡 At $9, that\'s less than 1 month of Netflix for a library that pays for itself the first time you use it.';
-}
-
-document.getElementById('currencySwitch').addEventListener('click', () => {
-  currency = (currency === 'INR') ? 'USD' : 'INR';
-  localStorage.setItem('aipb_currency', currency);
-  updatePricing();
-});
+const currency = 'INR';
 
 // ── Checkout flow ─────────────────────────────────────────────────────────────
 let currentPlan   = null;
 let currentBookId = null;
-let paypalButtons = null;
-
 function startCheckout(plan) {
   if (plan === 'single') {
     document.getElementById('bookModal').style.display = 'block';
@@ -1253,10 +994,7 @@ function proceedCheckout(plan, bookId) {
   currentPlan   = plan;
   currentBookId = bookId;
 
-  const isIndia = (currency === 'INR');
-  const price   = plan === 'bundle'
-    ? (isIndia ? '₹199' : '$9.00')
-    : (isIndia ? '₹99'  : '$2.99');
+  const price = plan === 'bundle' ? '₹199' : '₹99';
 
   // Summary text
   const bookName = bookId
@@ -1266,14 +1004,6 @@ function proceedCheckout(plan, bookId) {
     `<strong style="color:#fff">${plan === 'bundle' ? '📦 Full Bundle' : '📖 Single Book'}</strong><br>
      <span style="color:#888">${bookName}</span><br>
      <span style="color:#d4a836;font-weight:700;font-size:1.1rem;font-family:'Courier New',monospace;">${price}</span>`;
-
-  // Show correct payment button
-  document.getElementById('razorpayBtn').style.display      = isIndia ? 'block' : 'none';
-  document.getElementById('paypalButtonContainer').style.display = isIndia ? 'none' : 'block';
-
-  if (!isIndia && !paypalButtons) {
-    renderPayPalButton();
-  }
 
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
@@ -1361,42 +1091,6 @@ async function verifyRazorpay(response, data) {
   } else {
     showError(result.error || 'Payment verification failed. Please contact support.');
   }
-}
-
-// ── PayPal ────────────────────────────────────────────────────────────────────
-function renderPayPalButton() {
-  paypalButtons = paypal.Buttons({
-    createOrder: async function() {
-      const data = getCheckoutData();
-      if (!data) throw new Error('Validation failed');
-      const res = await fetch('/api/paypal-order.php', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ plan: currentPlan, book_id: currentBookId, email: data.email, name: data.name })
-      });
-      const order = await res.json();
-      if (!order.id) throw new Error(order.error || 'Failed to create order');
-      return order.id;
-    },
-    onApprove: async function(data) {
-      const buyer = getCheckoutData();
-      const res = await fetch('/api/paypal-capture.php', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ order_id: data.orderID, email: buyer?.email, name: buyer?.name, plan: currentPlan, book_id: currentBookId })
-      });
-      const result = await res.json();
-      if (result.token) {
-        window.location.href = '/setup-account.php?token=' + result.token;
-      } else {
-        showError(result.error || 'Payment failed. Please contact support.');
-      }
-    },
-    onError: function(err) {
-      showError('PayPal error. Please try again or contact support.');
-    }
-  });
-  paypalButtons.render('#paypalButtonContainer');
 }
 
 // ── FAQ toggles ───────────────────────────────────────────────────────────────
@@ -1540,11 +1234,9 @@ document.addEventListener('click', (event) => {
   // Update sticky price text on currency change
   function updateStickyPrice() {
     const sp = document.getElementById('stickyPrice');
-    if (sp) sp.textContent = (currency === 'INR') ? '₹199 · One-time payment' : '$9 · One-time payment';
+    if (sp) sp.textContent = '₹199 · One-time payment';
   }
-  // Hook into currency switch
-  const origUpdate = window.updatePricing;
-  window.updatePricing = function() { origUpdate(); updateStickyPrice(); };
+  updateStickyPrice();
 
   const hero = document.querySelector('.hero');
   if (!hero || !('IntersectionObserver' in window)) return;

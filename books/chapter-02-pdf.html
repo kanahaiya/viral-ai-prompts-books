@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghibli &amp; Anime Style Prompts — PDF Edition | Book 2</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #0d0a1a;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #ec4899;
+  pointer-events: none;
+  z-index: 1;
+}
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid rgba(236,72,153,0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #0d0a1a;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #ec4899;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #ec4899;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #ec4899;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #be185d;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #ec4899;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #f472b6;
+  border: 0.5px solid rgba(236,72,153,0.5);
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid rgba(236,72,153,0.35);
+  background: rgba(236,72,153,0.08);
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ec4899;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ec4899;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #ec4899; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified pink token style — used everywhere tokens appear */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #ec4899;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #ec4899; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #ec4899; }
+.guide-ex-text .token { color: #ec4899; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  /*
+   * A4 usable height: 297mm − 2×1cm margin = 277mm
+   * 2 cards per page: each card min-height ≈ 128mm
+   * gap between cards: ~8mm  →  2×128 + 8 = 264mm  (fits inside 277mm)
+   * Category header: ~14mm  →  14 + 2×128 + 8 = 278mm  (≈ 277mm, exact fit)
+   */
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  /* Page 1 (cover): zero margin so cover fills edge-to-edge */
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  /* Every category header forces a new page */
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  /* Empty page-sep headers (no text) get padding-top to match the height
+     of real section headers (text ≈ 7mm), so cards start at the same
+     vertical position on every page */
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  /* But NOT the very first category — no blank page before it */
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  /* Cards: exactly 2 per page — each takes half the usable height */
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  /* Hormozi block grows to fill remaining card space */
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  /* Equal left/right margins — symmetric 1.2cm all sides */
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture (SVG — prints without background-graphics setting) -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="rgba(236,72,153,0.18)"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Pink border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner marks -->
+    <div class="cover-corner tl">✦</div>
+    <div class="cover-corner tr">✦</div>
+    <div class="cover-corner bl">✦</div>
+    <div class="cover-corner br">✦</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 2</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Ghibli &amp; Anime</h1>
+      <div class="cover-title-sub">Style Image Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Classic Ghibli</span>
+        <span class="cover-cat">Ghibli Scenes</span>
+        <span class="cover-cat">Sh&#x14d;nen Action</span>
+        <span class="cover-cat">Sh&#x14d;jo &amp; Slice-of-Life</span>
+        <span class="cover-cat">Cyber &amp; Dark</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Anime Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Your character's name in the anime world</span>
+        <input class="var-input" id="v-name" placeholder='e.g. "YUKI", "HIRO", "SAKURA"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[WORLD]</span>
+        <span class="var-desc">Preferred Ghibli film or anime universe</span>
+        <input class="var-input" id="v-world" placeholder='e.g. "Spirited Away", "Attack on Titan"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">What your anime character wears</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. "blue yukata, school uniform"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[COMPANION]</span>
+        <span class="var-desc">Animal companion or spirit beside your character</span>
+        <input class="var-input" id="v-companion" placeholder='e.g. "a soot sprite, tiny dragon"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Scene or setting where your character is placed</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. "spirit bathhouse, floating castle"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[TIME]</span>
+        <span class="var-desc">Time of day or atmospheric mood</span>
+        <input class="var-input" id="v-time" placeholder='e.g. "golden sunset, morning mist"' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised Ghibli &amp; anime image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[BRACKETS]</span> — such as <span class="tok">[NAME]</span>, <span class="tok">[WORLD]</span>, <span class="tok">[OUTFIT]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 anime style categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT (with your photo attached), Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[NAME]</span><span class="guide-var-desc">Your character's anime name</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[WORLD]</span><span class="guide-var-desc">Ghibli film or anime universe</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[OUTFIT]</span><span class="guide-var-desc">What your character wears</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[COMPANION]</span><span class="guide-var-desc">Animal or spirit beside you</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[SETTING]</span><span class="guide-var-desc">Scene or location</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[TIME]</span><span class="guide-var-desc">Time of day or mood</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from scratch using text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">Reimagine this photo in the art style
+of Studio Ghibli's "<span class="tok">[WORLD]</span>".
+Transform <span class="tok">[NAME]</span> into an anime character
+with large expressive eyes, soft watercolour
+skin tones, wearing <span class="tok">[OUTFIT]</span>.
+Place them in <span class="tok">[SETTING]</span> at <span class="tok">[TIME]</span>,
+<span class="tok">[COMPANION]</span> glowing softly beside them.
+Art direction by Hayao Miyazaki.
+Painted cel-shading with rich jewel-tone
+colours and soft ink outlines.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">Reimagine this photo in the art style
+of Studio Ghibli's "<span class="filled-val">Spirited Away</span>".
+Transform <span class="filled-val">Sakura</span> into an anime character
+with large expressive eyes, soft watercolour
+skin tones, wearing <span class="filled-val">red summer kimono</span>.
+Place them in <span class="filled-val">spirit bathhouse, misty corridors</span>
+at <span class="filled-val">golden sunset</span>,
+<span class="filled-val">small white fox spirit</span> glowing softly beside them.
+Art direction by Hayao Miyazaki.
+Painted cel-shading with rich jewel-tone
+colours and soft ink outlines.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Pink tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every pink token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+  <!-- ── SECTION 1: Classic Ghibli Films (1–20) ── -->
+  <div class="cat-header">
+    <span class="cat-num">1–20</span>
+    <h2 class="cat-title">Classic Ghibli Films</h2>
+  </div>
+  <div class="prompt-card" id="card-1">
+    <div class="card-top"><span class="pnum">#1</span><span class="headline" id="hl-1"></span></div>
+    <div class="hormozi-block" id="hb-1"></div>
+  </div>
+  <div class="prompt-card" id="card-2">
+    <div class="card-top"><span class="pnum">#2</span><span class="headline" id="hl-2"></span></div>
+    <div class="hormozi-block" id="hb-2"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-3">
+    <div class="card-top"><span class="pnum">#3</span><span class="headline" id="hl-3"></span></div>
+    <div class="hormozi-block" id="hb-3"></div>
+  </div>
+  <div class="prompt-card" id="card-4">
+    <div class="card-top"><span class="pnum">#4</span><span class="headline" id="hl-4"></span></div>
+    <div class="hormozi-block" id="hb-4"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-5">
+    <div class="card-top"><span class="pnum">#5</span><span class="headline" id="hl-5"></span></div>
+    <div class="hormozi-block" id="hb-5"></div>
+  </div>
+  <div class="prompt-card" id="card-6">
+    <div class="card-top"><span class="pnum">#6</span><span class="headline" id="hl-6"></span></div>
+    <div class="hormozi-block" id="hb-6"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-7">
+    <div class="card-top"><span class="pnum">#7</span><span class="headline" id="hl-7"></span></div>
+    <div class="hormozi-block" id="hb-7"></div>
+  </div>
+  <div class="prompt-card" id="card-8">
+    <div class="card-top"><span class="pnum">#8</span><span class="headline" id="hl-8"></span></div>
+    <div class="hormozi-block" id="hb-8"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-9">
+    <div class="card-top"><span class="pnum">#9</span><span class="headline" id="hl-9"></span></div>
+    <div class="hormozi-block" id="hb-9"></div>
+  </div>
+  <div class="prompt-card" id="card-10">
+    <div class="card-top"><span class="pnum">#10</span><span class="headline" id="hl-10"></span></div>
+    <div class="hormozi-block" id="hb-10"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-11">
+    <div class="card-top"><span class="pnum">#11</span><span class="headline" id="hl-11"></span></div>
+    <div class="hormozi-block" id="hb-11"></div>
+  </div>
+  <div class="prompt-card" id="card-12">
+    <div class="card-top"><span class="pnum">#12</span><span class="headline" id="hl-12"></span></div>
+    <div class="hormozi-block" id="hb-12"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-13">
+    <div class="card-top"><span class="pnum">#13</span><span class="headline" id="hl-13"></span></div>
+    <div class="hormozi-block" id="hb-13"></div>
+  </div>
+  <div class="prompt-card" id="card-14">
+    <div class="card-top"><span class="pnum">#14</span><span class="headline" id="hl-14"></span></div>
+    <div class="hormozi-block" id="hb-14"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-15">
+    <div class="card-top"><span class="pnum">#15</span><span class="headline" id="hl-15"></span></div>
+    <div class="hormozi-block" id="hb-15"></div>
+  </div>
+  <div class="prompt-card" id="card-16">
+    <div class="card-top"><span class="pnum">#16</span><span class="headline" id="hl-16"></span></div>
+    <div class="hormozi-block" id="hb-16"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-17">
+    <div class="card-top"><span class="pnum">#17</span><span class="headline" id="hl-17"></span></div>
+    <div class="hormozi-block" id="hb-17"></div>
+  </div>
+  <div class="prompt-card" id="card-18">
+    <div class="card-top"><span class="pnum">#18</span><span class="headline" id="hl-18"></span></div>
+    <div class="hormozi-block" id="hb-18"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-19">
+    <div class="card-top"><span class="pnum">#19</span><span class="headline" id="hl-19"></span></div>
+    <div class="hormozi-block" id="hb-19"></div>
+  </div>
+  <div class="prompt-card" id="card-20">
+    <div class="card-top"><span class="pnum">#20</span><span class="headline" id="hl-20"></span></div>
+    <div class="hormozi-block" id="hb-20"></div>
+  </div>
+
+  <!-- ── SECTION 2: Ghibli Scenes & Landscapes (21–40) ── -->
+  <div class="cat-header">
+    <span class="cat-num">21–40</span>
+    <h2 class="cat-title">Ghibli Scenes &amp; Landscapes</h2>
+  </div>
+  <div class="prompt-card" id="card-21">
+    <div class="card-top"><span class="pnum">#21</span><span class="headline" id="hl-21"></span></div>
+    <div class="hormozi-block" id="hb-21"></div>
+  </div>
+  <div class="prompt-card" id="card-22">
+    <div class="card-top"><span class="pnum">#22</span><span class="headline" id="hl-22"></span></div>
+    <div class="hormozi-block" id="hb-22"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-23">
+    <div class="card-top"><span class="pnum">#23</span><span class="headline" id="hl-23"></span></div>
+    <div class="hormozi-block" id="hb-23"></div>
+  </div>
+  <div class="prompt-card" id="card-24">
+    <div class="card-top"><span class="pnum">#24</span><span class="headline" id="hl-24"></span></div>
+    <div class="hormozi-block" id="hb-24"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-25">
+    <div class="card-top"><span class="pnum">#25</span><span class="headline" id="hl-25"></span></div>
+    <div class="hormozi-block" id="hb-25"></div>
+  </div>
+  <div class="prompt-card" id="card-26">
+    <div class="card-top"><span class="pnum">#26</span><span class="headline" id="hl-26"></span></div>
+    <div class="hormozi-block" id="hb-26"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-27">
+    <div class="card-top"><span class="pnum">#27</span><span class="headline" id="hl-27"></span></div>
+    <div class="hormozi-block" id="hb-27"></div>
+  </div>
+  <div class="prompt-card" id="card-28">
+    <div class="card-top"><span class="pnum">#28</span><span class="headline" id="hl-28"></span></div>
+    <div class="hormozi-block" id="hb-28"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-29">
+    <div class="card-top"><span class="pnum">#29</span><span class="headline" id="hl-29"></span></div>
+    <div class="hormozi-block" id="hb-29"></div>
+  </div>
+  <div class="prompt-card" id="card-30">
+    <div class="card-top"><span class="pnum">#30</span><span class="headline" id="hl-30"></span></div>
+    <div class="hormozi-block" id="hb-30"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-31">
+    <div class="card-top"><span class="pnum">#31</span><span class="headline" id="hl-31"></span></div>
+    <div class="hormozi-block" id="hb-31"></div>
+  </div>
+  <div class="prompt-card" id="card-32">
+    <div class="card-top"><span class="pnum">#32</span><span class="headline" id="hl-32"></span></div>
+    <div class="hormozi-block" id="hb-32"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-33">
+    <div class="card-top"><span class="pnum">#33</span><span class="headline" id="hl-33"></span></div>
+    <div class="hormozi-block" id="hb-33"></div>
+  </div>
+  <div class="prompt-card" id="card-34">
+    <div class="card-top"><span class="pnum">#34</span><span class="headline" id="hl-34"></span></div>
+    <div class="hormozi-block" id="hb-34"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-35">
+    <div class="card-top"><span class="pnum">#35</span><span class="headline" id="hl-35"></span></div>
+    <div class="hormozi-block" id="hb-35"></div>
+  </div>
+  <div class="prompt-card" id="card-36">
+    <div class="card-top"><span class="pnum">#36</span><span class="headline" id="hl-36"></span></div>
+    <div class="hormozi-block" id="hb-36"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-37">
+    <div class="card-top"><span class="pnum">#37</span><span class="headline" id="hl-37"></span></div>
+    <div class="hormozi-block" id="hb-37"></div>
+  </div>
+  <div class="prompt-card" id="card-38">
+    <div class="card-top"><span class="pnum">#38</span><span class="headline" id="hl-38"></span></div>
+    <div class="hormozi-block" id="hb-38"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-39">
+    <div class="card-top"><span class="pnum">#39</span><span class="headline" id="hl-39"></span></div>
+    <div class="hormozi-block" id="hb-39"></div>
+  </div>
+  <div class="prompt-card" id="card-40">
+    <div class="card-top"><span class="pnum">#40</span><span class="headline" id="hl-40"></span></div>
+    <div class="hormozi-block" id="hb-40"></div>
+  </div>
+
+  <!-- ── SECTION 3: Shōnen & Action Anime (41–60) ── -->
+  <div class="cat-header">
+    <span class="cat-num">41–60</span>
+    <h2 class="cat-title">Sh&#x14d;nen &amp; Action Anime</h2>
+  </div>
+  <div class="prompt-card" id="card-41">
+    <div class="card-top"><span class="pnum">#41</span><span class="headline" id="hl-41"></span></div>
+    <div class="hormozi-block" id="hb-41"></div>
+  </div>
+  <div class="prompt-card" id="card-42">
+    <div class="card-top"><span class="pnum">#42</span><span class="headline" id="hl-42"></span></div>
+    <div class="hormozi-block" id="hb-42"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-43">
+    <div class="card-top"><span class="pnum">#43</span><span class="headline" id="hl-43"></span></div>
+    <div class="hormozi-block" id="hb-43"></div>
+  </div>
+  <div class="prompt-card" id="card-44">
+    <div class="card-top"><span class="pnum">#44</span><span class="headline" id="hl-44"></span></div>
+    <div class="hormozi-block" id="hb-44"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-45">
+    <div class="card-top"><span class="pnum">#45</span><span class="headline" id="hl-45"></span></div>
+    <div class="hormozi-block" id="hb-45"></div>
+  </div>
+  <div class="prompt-card" id="card-46">
+    <div class="card-top"><span class="pnum">#46</span><span class="headline" id="hl-46"></span></div>
+    <div class="hormozi-block" id="hb-46"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-47">
+    <div class="card-top"><span class="pnum">#47</span><span class="headline" id="hl-47"></span></div>
+    <div class="hormozi-block" id="hb-47"></div>
+  </div>
+  <div class="prompt-card" id="card-48">
+    <div class="card-top"><span class="pnum">#48</span><span class="headline" id="hl-48"></span></div>
+    <div class="hormozi-block" id="hb-48"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-49">
+    <div class="card-top"><span class="pnum">#49</span><span class="headline" id="hl-49"></span></div>
+    <div class="hormozi-block" id="hb-49"></div>
+  </div>
+  <div class="prompt-card" id="card-50">
+    <div class="card-top"><span class="pnum">#50</span><span class="headline" id="hl-50"></span></div>
+    <div class="hormozi-block" id="hb-50"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-51">
+    <div class="card-top"><span class="pnum">#51</span><span class="headline" id="hl-51"></span></div>
+    <div class="hormozi-block" id="hb-51"></div>
+  </div>
+  <div class="prompt-card" id="card-52">
+    <div class="card-top"><span class="pnum">#52</span><span class="headline" id="hl-52"></span></div>
+    <div class="hormozi-block" id="hb-52"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-53">
+    <div class="card-top"><span class="pnum">#53</span><span class="headline" id="hl-53"></span></div>
+    <div class="hormozi-block" id="hb-53"></div>
+  </div>
+  <div class="prompt-card" id="card-54">
+    <div class="card-top"><span class="pnum">#54</span><span class="headline" id="hl-54"></span></div>
+    <div class="hormozi-block" id="hb-54"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-55">
+    <div class="card-top"><span class="pnum">#55</span><span class="headline" id="hl-55"></span></div>
+    <div class="hormozi-block" id="hb-55"></div>
+  </div>
+  <div class="prompt-card" id="card-56">
+    <div class="card-top"><span class="pnum">#56</span><span class="headline" id="hl-56"></span></div>
+    <div class="hormozi-block" id="hb-56"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-57">
+    <div class="card-top"><span class="pnum">#57</span><span class="headline" id="hl-57"></span></div>
+    <div class="hormozi-block" id="hb-57"></div>
+  </div>
+  <div class="prompt-card" id="card-58">
+    <div class="card-top"><span class="pnum">#58</span><span class="headline" id="hl-58"></span></div>
+    <div class="hormozi-block" id="hb-58"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-59">
+    <div class="card-top"><span class="pnum">#59</span><span class="headline" id="hl-59"></span></div>
+    <div class="hormozi-block" id="hb-59"></div>
+  </div>
+  <div class="prompt-card" id="card-60">
+    <div class="card-top"><span class="pnum">#60</span><span class="headline" id="hl-60"></span></div>
+    <div class="hormozi-block" id="hb-60"></div>
+  </div>
+
+  <!-- ── SECTION 4: Shōjo & Slice-of-Life Anime (61–80) ── -->
+  <div class="cat-header">
+    <span class="cat-num">61–80</span>
+    <h2 class="cat-title">Sh&#x14d;jo &amp; Slice-of-Life Anime</h2>
+  </div>
+  <div class="prompt-card" id="card-61">
+    <div class="card-top"><span class="pnum">#61</span><span class="headline" id="hl-61"></span></div>
+    <div class="hormozi-block" id="hb-61"></div>
+  </div>
+  <div class="prompt-card" id="card-62">
+    <div class="card-top"><span class="pnum">#62</span><span class="headline" id="hl-62"></span></div>
+    <div class="hormozi-block" id="hb-62"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-63">
+    <div class="card-top"><span class="pnum">#63</span><span class="headline" id="hl-63"></span></div>
+    <div class="hormozi-block" id="hb-63"></div>
+  </div>
+  <div class="prompt-card" id="card-64">
+    <div class="card-top"><span class="pnum">#64</span><span class="headline" id="hl-64"></span></div>
+    <div class="hormozi-block" id="hb-64"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-65">
+    <div class="card-top"><span class="pnum">#65</span><span class="headline" id="hl-65"></span></div>
+    <div class="hormozi-block" id="hb-65"></div>
+  </div>
+  <div class="prompt-card" id="card-66">
+    <div class="card-top"><span class="pnum">#66</span><span class="headline" id="hl-66"></span></div>
+    <div class="hormozi-block" id="hb-66"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-67">
+    <div class="card-top"><span class="pnum">#67</span><span class="headline" id="hl-67"></span></div>
+    <div class="hormozi-block" id="hb-67"></div>
+  </div>
+  <div class="prompt-card" id="card-68">
+    <div class="card-top"><span class="pnum">#68</span><span class="headline" id="hl-68"></span></div>
+    <div class="hormozi-block" id="hb-68"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-69">
+    <div class="card-top"><span class="pnum">#69</span><span class="headline" id="hl-69"></span></div>
+    <div class="hormozi-block" id="hb-69"></div>
+  </div>
+  <div class="prompt-card" id="card-70">
+    <div class="card-top"><span class="pnum">#70</span><span class="headline" id="hl-70"></span></div>
+    <div class="hormozi-block" id="hb-70"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-71">
+    <div class="card-top"><span class="pnum">#71</span><span class="headline" id="hl-71"></span></div>
+    <div class="hormozi-block" id="hb-71"></div>
+  </div>
+  <div class="prompt-card" id="card-72">
+    <div class="card-top"><span class="pnum">#72</span><span class="headline" id="hl-72"></span></div>
+    <div class="hormozi-block" id="hb-72"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-73">
+    <div class="card-top"><span class="pnum">#73</span><span class="headline" id="hl-73"></span></div>
+    <div class="hormozi-block" id="hb-73"></div>
+  </div>
+  <div class="prompt-card" id="card-74">
+    <div class="card-top"><span class="pnum">#74</span><span class="headline" id="hl-74"></span></div>
+    <div class="hormozi-block" id="hb-74"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-75">
+    <div class="card-top"><span class="pnum">#75</span><span class="headline" id="hl-75"></span></div>
+    <div class="hormozi-block" id="hb-75"></div>
+  </div>
+  <div class="prompt-card" id="card-76">
+    <div class="card-top"><span class="pnum">#76</span><span class="headline" id="hl-76"></span></div>
+    <div class="hormozi-block" id="hb-76"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-77">
+    <div class="card-top"><span class="pnum">#77</span><span class="headline" id="hl-77"></span></div>
+    <div class="hormozi-block" id="hb-77"></div>
+  </div>
+  <div class="prompt-card" id="card-78">
+    <div class="card-top"><span class="pnum">#78</span><span class="headline" id="hl-78"></span></div>
+    <div class="hormozi-block" id="hb-78"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-79">
+    <div class="card-top"><span class="pnum">#79</span><span class="headline" id="hl-79"></span></div>
+    <div class="hormozi-block" id="hb-79"></div>
+  </div>
+  <div class="prompt-card" id="card-80">
+    <div class="card-top"><span class="pnum">#80</span><span class="headline" id="hl-80"></span></div>
+    <div class="hormozi-block" id="hb-80"></div>
+  </div>
+
+  <!-- ── SECTION 5: Cyber & Dark Anime (81–100) ── -->
+  <div class="cat-header">
+    <span class="cat-num">81–100</span>
+    <h2 class="cat-title">Cyberpunk, Mecha &amp; Dark Anime</h2>
+  </div>
+  <div class="prompt-card" id="card-81">
+    <div class="card-top"><span class="pnum">#81</span><span class="headline" id="hl-81"></span></div>
+    <div class="hormozi-block" id="hb-81"></div>
+  </div>
+  <div class="prompt-card" id="card-82">
+    <div class="card-top"><span class="pnum">#82</span><span class="headline" id="hl-82"></span></div>
+    <div class="hormozi-block" id="hb-82"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-83">
+    <div class="card-top"><span class="pnum">#83</span><span class="headline" id="hl-83"></span></div>
+    <div class="hormozi-block" id="hb-83"></div>
+  </div>
+  <div class="prompt-card" id="card-84">
+    <div class="card-top"><span class="pnum">#84</span><span class="headline" id="hl-84"></span></div>
+    <div class="hormozi-block" id="hb-84"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-85">
+    <div class="card-top"><span class="pnum">#85</span><span class="headline" id="hl-85"></span></div>
+    <div class="hormozi-block" id="hb-85"></div>
+  </div>
+  <div class="prompt-card" id="card-86">
+    <div class="card-top"><span class="pnum">#86</span><span class="headline" id="hl-86"></span></div>
+    <div class="hormozi-block" id="hb-86"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-87">
+    <div class="card-top"><span class="pnum">#87</span><span class="headline" id="hl-87"></span></div>
+    <div class="hormozi-block" id="hb-87"></div>
+  </div>
+  <div class="prompt-card" id="card-88">
+    <div class="card-top"><span class="pnum">#88</span><span class="headline" id="hl-88"></span></div>
+    <div class="hormozi-block" id="hb-88"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-89">
+    <div class="card-top"><span class="pnum">#89</span><span class="headline" id="hl-89"></span></div>
+    <div class="hormozi-block" id="hb-89"></div>
+  </div>
+  <div class="prompt-card" id="card-90">
+    <div class="card-top"><span class="pnum">#90</span><span class="headline" id="hl-90"></span></div>
+    <div class="hormozi-block" id="hb-90"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-91">
+    <div class="card-top"><span class="pnum">#91</span><span class="headline" id="hl-91"></span></div>
+    <div class="hormozi-block" id="hb-91"></div>
+  </div>
+  <div class="prompt-card" id="card-92">
+    <div class="card-top"><span class="pnum">#92</span><span class="headline" id="hl-92"></span></div>
+    <div class="hormozi-block" id="hb-92"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-93">
+    <div class="card-top"><span class="pnum">#93</span><span class="headline" id="hl-93"></span></div>
+    <div class="hormozi-block" id="hb-93"></div>
+  </div>
+  <div class="prompt-card" id="card-94">
+    <div class="card-top"><span class="pnum">#94</span><span class="headline" id="hl-94"></span></div>
+    <div class="hormozi-block" id="hb-94"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-95">
+    <div class="card-top"><span class="pnum">#95</span><span class="headline" id="hl-95"></span></div>
+    <div class="hormozi-block" id="hb-95"></div>
+  </div>
+  <div class="prompt-card" id="card-96">
+    <div class="card-top"><span class="pnum">#96</span><span class="headline" id="hl-96"></span></div>
+    <div class="hormozi-block" id="hb-96"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-97">
+    <div class="card-top"><span class="pnum">#97</span><span class="headline" id="hl-97"></span></div>
+    <div class="hormozi-block" id="hb-97"></div>
+  </div>
+  <div class="prompt-card" id="card-98">
+    <div class="card-top"><span class="pnum">#98</span><span class="headline" id="hl-98"></span></div>
+    <div class="hormozi-block" id="hb-98"></div>
+  </div>
+  <div class="cat-header"></div>
+  <div class="prompt-card" id="card-99">
+    <div class="card-top"><span class="pnum">#99</span><span class="headline" id="hl-99"></span></div>
+    <div class="hormozi-block" id="hb-99"></div>
+  </div>
+  <div class="prompt-card" id="card-100">
+    <div class="card-top"><span class="pnum">#100</span><span class="headline" id="hl-100"></span></div>
+    <div class="hormozi-block" id="hb-100"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 2: Ghibli &amp; Anime Style &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `Reimagine this photo in the art style of Studio Ghibli's "[WORLD]". Transform [NAME] into an anime character with large expressive eyes, soft watercolour skin tones, wearing [OUTFIT]. Place them in [SETTING] at [TIME], [COMPANION] glowing softly beside them. Art direction by Hayao Miyazaki. Painted cel-shading with rich jewel-tone colours and soft ink outlines.`,
+  2: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] as a hand-drawn anime character with round, gentle features, soft line work, wearing [OUTFIT]. Set the scene in [SETTING] at [TIME] — [COMPANION] just visible at the tree line. Soft watercolour background wash with precise character line art in Miyazaki's aesthetic. Warm olive greens and dusty golds dominate the palette.`,
+  3: `Reimagine this photo in the art style of Studio Ghibli's "[WORLD]". Transform [NAME] into an anime character wearing [OUTFIT] with an adventurous gaze. Set them in [SETTING] at [TIME], [COMPANION] flickering warmly nearby. Rich warm amber and teal colour palette. Textured painterly background with crisp character detailing.`,
+  4: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] as a fierce anime warrior character wearing [OUTFIT] with intense almond-shaped eyes. Set them in [SETTING] at [TIME], [COMPANION] watching from above. Art style blends precise ink linework with lush watercolour washes. Palette of deep forest greens, earth ochres, and sacred white light.`,
+  5: `Reimagine this photo in the art style of Studio Ghibli's "[WORLD]". Transform [NAME] into a cheerful anime character wearing [OUTFIT], soaring above [SETTING] at [TIME], [COMPANION] keeping pace alongside. Warm, joyful colour palette. Clean precise line art with Miyazaki's signature painterly city backgrounds.`,
+  6: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] wearing [OUTFIT] as an anime adventurer with wide-eyed wonder, standing at [SETTING] at [TIME]. [COMPANION] perched on their shoulder. Art direction by Hayao Miyazaki — adventure colour palette of sky blues, cloud whites, and ancient stone greys.`,
+  7: `Reimagine this photo in the art style of Studio Ghibli's "[WORLD]". Transform [NAME] into a brave anime character wearing [OUTFIT], soaring over [SETTING] at [TIME]. [COMPANION] gliding alongside in the wind. Painterly Miyazaki style with epic scale backgrounds and intimate character expression. Palette of ochre, toxic yellow, and deep forest teal.`,
+  8: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] as a round-cheeked, bright-eyed anime character wearing [OUTFIT], standing on a wave-crest at [SETTING] at [TIME]. [COMPANION] leaping joyfully through the waves below. Joyful, vibrant Ghibli colour palette. Thick, expressive line art and bold flat colours inspired by the film's unique painted style.`,
+  9: `Reimagine this photo in the art style of Studio Ghibli's "[WORLD]". Transform [NAME] into a thoughtful, quietly elegant anime character wearing [OUTFIT], standing in [SETTING] at [TIME]. [COMPANION] quietly present beside them. Subtle, restrained Ghibli colour palette of pale blues, soft rose, and warm cream. Refined linework with impressionistic painterly backgrounds.`,
+  10: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] in the delicate, ink-brushstroke anime style unique to this film — loose, expressive linework, wearing [OUTFIT]. Place them in [SETTING] at [TIME], [COMPANION] drifting softly in the moonlight. Minimal colour palette of pale washi-paper cream, soft charcoal ink, and touches of moonlight silver and jade green.`,
+  11: `Reimagine this photo in the world of Studio Ghibli's "[WORLD]". Transform [NAME] into a gentle anime character wearing [OUTFIT], sitting at [SETTING] at [TIME]. [COMPANION] glowing gold with trapped light in their cupped hands. Poignant Ghibli palette of deep twilight blues, warm amber firefly glow, and soft pencil-shaded skin tones.`,
+  12: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] wearing [OUTFIT] as a tiny Borrower anime character — no larger than a thumb — exploring [SETTING] at [TIME]. [COMPANION] beside them, equally tiny. Lush, detailed Ghibli backgrounds with precise scale distortion. Warm, cosy domestic colour palette of cream, wood brown, and garden green.`,
+  13: `Reimagine this photo in the art style of Studio Ghibli's "[WORLD]" — the spirit train scene. Transform [NAME] wearing [OUTFIT] into an anime character sitting alone in a spirit train carriage, watching [SETTING] pass outside at [TIME]. [COMPANION] reflected faintly in the window glass beside them. Hauntingly beautiful Ghibli palette of pale grey-blue, silver water, and single warm amber lamp glow.`,
+  14: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] wearing [OUTFIT] as a bookish, romantic anime character sitting cross-legged in [SETTING] at [TIME], staring dreamily outside. [COMPANION] perched on the windowsill nearby. Ghibli's warm everyday life palette — golden wood, dusty rose, and deep library green. Precise architectural background with intimate character detail.`,
+  15: `Reimagine this photo in Studio Ghibli's "[WORLD]" as a wide-angle portrait. Transform [NAME] wearing [OUTFIT] into an anime character standing small in enormous [SETTING] at [TIME]. [COMPANION] trotting alongside. The character looks directly at the viewer with a small smile. Epic sense of scale — character small, world enormous. Miyazaki colour palette at golden hour.`,
+  16: `Transform this photo into Studio Ghibli's "[WORLD]" — a cosy interior portrait. Render [NAME] wearing [OUTFIT] as an anime character sitting at a wooden kitchen table in [SETTING] at [TIME]. [COMPANION] curled asleep on a cushion nearby. The room glows amber from a paper lantern above. Ghibli's most beloved aesthetic — warmth, safety, and quiet joy. Soft watercolour backgrounds with detailed character in precise linework.`,
+  17: `Reimagine this photo in the art style of Studio Ghibli's "[WORLD]". Transform [NAME] wearing [OUTFIT] into a nostalgic anime character hanging a signal flag from [SETTING] at [TIME]. [COMPANION] calling up from the harbour below. Warm, nostalgic Showa-era palette of faded blues, rust orange, and cream. Precise architectural backgrounds in Ghibli's meticulous style.`,
+  18: `Transform this photo into the world of Studio Ghibli's "[WORLD]". Render [NAME] wearing [OUTFIT] in Miyazaki's 2023 mature art style — bold, textured line work, complex emotional expression. Place them at the entrance to [SETTING] at [TIME], [COMPANION] circling overhead with gleaming amber eyes. Deep, complex palette of forest shadow greens, ancient stone greys, and single gold beam of magical interior light.`,
+  19: `Reimagine this photo set in Studio Ghibli's "[WORLD]" as a Ghibli magical creature encounter. Transform [NAME] wearing [OUTFIT] into an anime character kneeling on a forest path in [SETTING] at [TIME], face-to-face with [COMPANION] — luminous round eyes meeting theirs. Ancient kodama spirits watch from the shadows. Sense of wonder and safety. Miyazaki's signature blend of everyday human warmth and magical world detail.`,
+  20: `Transform this photo into Studio Ghibli's "[WORLD]" — a rainy day portrait. Render [NAME] wearing [OUTFIT] as an anime character standing at a quiet countryside bus stop in [SETTING] at [TIME], [COMPANION] sheltering beneath their umbrella. The character's expression is calm and content — completely at ease in the rain. Ghibli's meditative, unhurried aesthetic. Muted palette of rain grey, umbrella red, and warm lantern amber.`,
+  21: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli spring scene. Render [NAME] wearing [OUTFIT] as an anime character walking along a hillside path in [SETTING] at [TIME], [COMPANION] catching cherry blossom petals beside them. Distant rolling hills patched with wildflower meadows. The character's expression is pure, unhurried joy. Miyazaki's spring palette — blush pink, soft green, sky blue, and cream — with hand-painted watercolour backgrounds.`,
+  22: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli summer scene. Render [NAME] wearing [OUTFIT] as an anime character running through [SETTING] at [TIME] — hair and clothing blown back in warm summer wind. [COMPANION] leaping joyfully alongside. Pure Ghibli summer — the aesthetic of childhood freedom and perfect afternoons. Vivid summer palette of sunflower gold, sky blue, and sun-bleached grass white.`,
+  23: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli autumn scene. Render [NAME] wearing [OUTFIT] as an anime character sitting in [SETTING] at [TIME], a book open in their lap. [COMPANION] darting between falling maple leaves. Late afternoon sun catches the leaves and makes them glow like embers. Miyazaki's autumn palette of burnt sienna, amber gold, copper red, and deep shadow brown. Painterly depth-of-field backgrounds.`,
+  24: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli winter scene. Render [NAME] wearing [OUTFIT] as an anime character standing in [SETTING] at [TIME], breath misting in the cold air. [COMPANION] leaving small prints in the snow beside them. Warm amber and red lantern glow spills onto the white street. Ghibli's winter warmth palette — deep indigo night, snow white, and amber lantern gold.`,
+  25: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli ancient forest scene. Render [NAME] wearing [OUTFIT] as an anime character stepping into [SETTING] at [TIME], looking up in awe at god-ray light piercing the green darkness. [COMPANION] emerging from ancient roots nearby. Moss covers every stone in vivid emerald. Miyazaki's deep forest palette — every shade of green from sage to near-black, single shafts of golden light.`,
+  26: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli seaside scene. Render [NAME] wearing [OUTFIT] as an anime character sitting at [SETTING] at [TIME], wind strong enough to blow their hair sideways. [COMPANION] calling from the clifftop below. A wooden staircase descends to a tiny fishing village. Ghibli's coastal palette — cerulean blue sea, sun-bleached cliff white, terracotta rooftops, and sky-blue distance haze.`,
+  27: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli night sky scene. Render [NAME] wearing [OUTFIT] lying in [SETTING] at [TIME], staring up at a Milky Way of breathtaking clarity — dense star clouds, visible nebulae, and dozens of shooting stars. [COMPANION] rising from the grass as soft amber pinpoints of firefly light. Miyazaki's night palette of indigo, cobalt, silver, and warm amber ground lights.`,
+  28: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli mountain scene. Render [NAME] wearing [OUTFIT] as an anime character standing at the summit of [SETTING] at [TIME], arms spread wide in the wind. [COMPANION] leading the way ahead. The rising sun paints the cloud tops in pink and gold. Ghibli's epic mountain palette — dawn rose, cloud silver, deep indigo shadow, and warm summit gold.`,
+  29: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli town market scene. Render [NAME] wearing [OUTFIT] as an anime character walking through [SETTING] at [TIME], browsing colourful stalls with a contented smile. [COMPANION] peering out from a basket of fresh flowers nearby. Miyazaki's market palette — saturated primary market colours against sun-washed stone and cobblestone grey. Full of life and movement.`,
+  30: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli magical flying scene. Render [NAME] wearing [OUTFIT] as an anime character mid-flight above [SETTING] at [TIME], expression pure exhilaration — hair and clothes streaming behind them in the wind. [COMPANION] soaring luminously beneath them. Ghibli's flight palette — clear blue sky, white cloud, green earth far below, and the luminous white of the flying spirit.`,
+  31: `Transform this photo into Studio Ghibli's "[WORLD]" — a tea house scene. Render [NAME] wearing [OUTFIT] as an anime character sitting at a window table in a charming mountainside tea house at [SETTING] at [TIME], a large cup of matcha in hand. [COMPANION] curled on the chair beside them. Steam rises from the tea. Rain has just stopped — the window glass still dotted with drops. Intimate, contemplative Ghibli palette of matcha green, warm wood amber, and rain-fresh grey outside.`,
+  32: `Transform this photo into Studio Ghibli's "[WORLD]" — a festival scene. Render [NAME] wearing [OUTFIT] as an anime character at [SETTING] at [TIME], holding a sparkler with pure joy. Paper lanterns cast warm orange pools of light on the crowd. [COMPANION] weaving joyfully through the festival nearby. Fireworks bloom overhead in red, gold, and white. Ghibli's festival palette — warm lantern amber, deep summer night blue, firework burst colours.`,
+  33: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli magical garden scene. Render [NAME] wearing [OUTFIT] kneeling in an extraordinary secret garden at [SETTING] at [TIME] — giant roses, luminous blue flowers, plants that seem to move with awareness. [COMPANION] perched on a mossy stone wall watching. The character has clearly just discovered it and cannot quite believe it. Ghibli's enchanted garden palette — every saturated flower colour against deep foliage shadow green.`,
+  34: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli hot spring scene. Render [NAME] wearing [OUTFIT] as an anime character relaxing in an outdoor onsen at [SETTING] at [TIME], mist rising from the steaming water, face completely at peace, eyes closed. [COMPANION] resting on a mossy rock nearby. Ghibli's onsen palette — steam white, hot spring blue-green, bamboo sage, autumn maple red, and dawn rose sky.`,
+  35: `Transform this photo into Studio Ghibli's "[WORLD]" — a bookshop scene. Render [NAME] wearing [OUTFIT] as an anime character deep inside a floor-to-ceiling magical bookshop at [SETTING] at [TIME], holding an open book with an expression of pure absorption. [COMPANION] floating between towering book stacks above. The shop feels infinite — more books than could ever be read. Warm academic Ghibli palette of leather brown, aged paper cream, and amber reading lamp gold.`,
+  36: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli train journey scene. Render [NAME] wearing [OUTFIT] as an anime character at a window seat watching [SETTING] pass at [TIME] — rice paddies, herons, a distant conical mountain. [COMPANION] resting on the seat beside them. The character's reflection overlaps with the landscape outside the glass. Ghibli's travel palette — warm interior amber, cool landscape greens and blues outside, golden late light.`,
+  37: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli underwater world scene. Render [NAME] wearing [OUTFIT] floating weightlessly in [SETTING] at [TIME], arms spread and completely calm, surrounded by bioluminescent jellyfish pulsing gently. [COMPANION] gliding silently alongside through the luminous water. Ghibli's underwater palette — every shade of ocean blue and teal, bioluminescent glow, filtered surface silver light.`,
+  38: `Transform this photo into Studio Ghibli's "[WORLD]" — a Ghibli rooftop sunset scene. Render [NAME] wearing [OUTFIT] as an anime character sitting on curved roof tiles at [SETTING] at [TIME], overlooking the town below — tile rooftops, narrow lanes, temple torii gates. [COMPANION] perched on a nearby chimney. The sky is a Miyazaki masterpiece — gold, amber, rose, and violet layered clouds above the setting sun.`,
+  39: `Transform this photo into Studio Ghibli's "[WORLD]" — a shrine and torii gate scene. Render [NAME] wearing [OUTFIT] as an anime character walking alone through a long tunnel of weathered red torii gates in [SETTING] at [TIME]. [COMPANION] padding softly ahead on the sacred stone steps. Stone fox guardian statues flank the path. Ghibli's sacred palette — torii vermillion red, cedar shadow green, stone grey, and warm lantern amber at the shrine.`,
+  40: `Transform this photo into Studio Ghibli's "[WORLD]" — a childhood home memory scene. Render [NAME] wearing [OUTFIT] as an anime character standing in a familiar childhood bedroom at [SETTING] at [TIME] — old toys on a shelf, a desk with homework and pencils. [COMPANION] sitting on the windowsill, watching quietly. Everything rendered in Miyazaki's extraordinary attention to detail. Pure Ghibli nostalgia palette — afternoon amber, tatami straw gold, worn wood brown, and sky blue through the window.`,
+  41: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a demon slayer character with large expressive eyes and detailed hair, set in [SETTING] at [TIME]. Total Concentration Breathing visual effects — subtle flame-like aura outlines [NAME]. [COMPANION] covering the flank. Art style of ufotable animation studio — hyper-detailed cel shading, cinematic colour grading, bloom lighting effects on the character's aura.`,
+  42: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a ninja character with forehead protector headband, standing in [SETTING] at [TIME]. Chakra energy swirls visibly in blue-white spirals around [NAME]'s hands. [COMPANION] flanking them. Classic Masashi Kishimoto art style — clean bold lines, strong character silhouette, high-saturation shinobi colour palette.`,
+  43: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Pro Hero with a unique Quirk ability activating at [SETTING] at [TIME] — cape mid-billowing, costume details crisp. [COMPANION] ready to fight beside them. Kōhei Horikoshi art style — bold exaggerated proportions, thick ink outlines, vibrant primary colour hero costume, cinematic city background.`,
+  44: `Transform this photo into an "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Survey Corps soldier with battle-hardened expression, standing atop [SETTING] at [TIME], overlooking misty forest with Titan silhouettes at the tree line. [COMPANION] in ODM gear watching the horizon. Hajime Isayama art style — detailed military equipment, intense expression, cold muted colour palette of forest green, earth brown, and cold morning blue-grey.`,
+  45: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Jujutsu sorcerer with cursed energy manifesting as violet-black smoke tendrils coiling from their hands at [SETTING] at [TIME]. [COMPANION] beside them inside the Domain. MAPPA studio art style — dynamic pose, high contrast dramatic lighting, dark urban palette with cursed energy neon purple glow, cinematic widescreen composition.`,
+  46: `Transform this photo into a "[WORLD]" Super Saiyan transformation portrait. Render [NAME] wearing [OUTFIT] as a Dragon Ball character mid-transformation at [SETTING] at [TIME] — Super Saiyan golden hair standing upright in a gravity-defying aura, an immense golden energy aura expanding outward. [COMPANION] rising in a ki aura nearby. Akira Toriyama art style — bold simple linework, massive proportions, Super Saiyan gold aura palette.`,
+  47: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a crew member in Oda's distinctive exaggerated style, standing at the bow of [SETTING] at [TIME], their custom Devil Fruit power effect visible. [COMPANION] on the mast above. Oda's signature art style — highly stylised anatomy, bold primary colours, adventurous optimistic energy, and the classic pirate flag in the background sky.`,
+  48: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a State Alchemist mid-transmutation at [SETTING] at [TIME], a glowing gold transmutation circle on the ground below their feet. [COMPANION] transmuting beside them. Hiroshi Arakawa art style — detailed uniform, expressive face, warm colour palette of Amestrian blue and alchemical gold, cinematic dramatic lighting from the transmutation glow.`,
+  49: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a high-level VRMMO player character with a unique weapon, stats display holographic HUD just visible at the corner of the frame, inside [SETTING] at [TIME]. [COMPANION] interface active beside them. A-1 Pictures art style — polished digital anime aesthetic, detailed design, clear blue game-sky palette.`,
+  50: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Soul Reaper shinigami releasing their Shikai form at [SETTING] at [TIME] — the sword transforming into its unique manifested shape with visible spiritual energy. [COMPANION] swirling in spirit energy ribbons. Tite Kubo art style — highly stylised cool character design, stark black, white, and single zanpakuto element accent colour.`,
+  51: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a volleyball player mid-spike jump at [SETTING] at [TIME] — arm fully extended at peak of jump, expression fierce and focused. [COMPANION] setting the ball perfectly overhead. Haruichi Furudate art style — dynamic sports anatomy, bold jersey colours, energetic motion lines, warm gymnasium lighting palette.`,
+  52: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Hunter with their unique Nen ability manifesting in their assigned colour at [SETTING] at [TIME]. [COMPANION] forming an En circle nearby. Yoshihiro Togashi art style — precise detailed character design, nuanced expression showing tactical intelligence, muted natural colour palette with single dramatic Nen ability colour accent.`,
+  53: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Magic Knight with their grimoire open and floating beside them at [SETTING] at [TIME], their unique magic manifesting spectacularly. [COMPANION] on a magic broom overhead. Yūki Tabata art style — bold expressive design, heavy ink linework, magic burst effects with strong colour, determined passionate character expression.`,
+  54: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Norse warrior in period-accurate Viking clothing aboard a longship at [SETTING] at [TIME]. The character's expression is complex — neither pure hero nor pure villain. [COMPANION] at their back. WIT Studio art style — realistic detailed character design, authentic historical aesthetic, dramatic storm palette of grey sea, dark cloud, and the warm fire glow of a deck torch.`,
+  55: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Tokyo Manji Gang member with confident delinquent swagger at [SETTING] at [TIME], arms crossed, expression showing they have already decided the outcome. [COMPANION] backing them up. Ken Wakui art style — cool delinquent character design, neon rain-soaked Tokyo night palette of neon pink and blue on wet black asphalt.`,
+  56: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Devil Hunter with contract marks glowing on their skin, standing amid urban destruction at [SETTING] at [TIME]. [COMPANION] charging in alongside. MAPPA studio art style — hyperrealistic detailed character rendering, desaturated realistic colour palette with single horror-gore red accent, unsettling but captivating composition.`,
+  57: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as an elegant spy/assassin in formal evening wear at [SETTING] at [TIME], a perfectly controlled pleasant expression hiding extraordinary danger. [COMPANION] keeping their cover perfectly nearby. Tatsuya Endo art style — stylish refined character design, sophisticated mid-century European aesthetic, warm ballroom palette of cream, gold, and the spy's signature accent colour.`,
+  58: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as an ego-driven elite striker mid-dribble at [SETTING] at [TIME], expression showing total football obsession and the hunger to be the world's best. [COMPANION] covering from behind. Muneyuki Kaneshiro art style — intense psychological focus, athletic dynamic pose, vivid green pitch and stadium white light, burning ego visualised as heat shimmer around the feet.`,
+  59: `Transform this photo into a "[WORLD]" anime style portrait in Kentaro Miura's dark fantasy style. Render [NAME] wearing [OUTFIT] as a battered warrior with indomitable will beneath physical exhaustion at [SETTING] at [TIME], the Brand of Sacrifice glowing red. [COMPANION] gripping the Dragonslayer at their back. Miura's detailed crosshatch-style aesthetic — heavy shadows, grim realism, the overwhelming atmosphere of a world where darkness prevails but will endures.`,
+  60: `Transform this photo into an original shōnen anime hero portrait. Design [NAME] wearing [OUTFIT] as the lead character of a completely new anime set in [WORLD], facing their greatest trial at [SETTING] at [TIME]. [COMPANION] powers up beside them for the first time. Classic shōnen energy — bold, hopeful, the moment before everything changes. Include a series title card in Japanese and English in the corner.`,
+  61: `Transform this photo into a "[WORLD]" magical girl anime style portrait. Render [NAME] wearing [OUTFIT] as a Sailor Senshi with their personalised sailor uniform and planet-themed transformation complete, striking a pose at [SETTING] at [TIME]. Their personalised attack mid-cast. [COMPANION] announcing the transformation. Naoko Takeuchi art style — elegant elongated proportions, sparkle overlay, pastel magical girl palette, and the famous crystalline transformation background.`,
+  62: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] in Makoto Shinkai's breathtaking style — photorealistic background with hyperdetailed anime character. Place them at [SETTING] at [TIME], looking up with an expression of longing and wonder. [COMPANION] appearing in a comet-trail vision above. Shinkai's signature lens flare, dust mote, and sky detail that makes every frame feel like a painting.`,
+  63: `Transform this photo into a "[WORLD]" anime style portrait in Kyoto Animation's art style. Render [NAME] wearing [OUTFIT] standing on a bridge at [SETTING] at [TIME], the water below reflecting perfect wavering light patterns onto their face. [COMPANION] beside them reading their lips with a gentle smile. KyoAni's hyperdetailed everyday clothing, and the specific way they render light refracting through water and catching in hair. Palette of blue water reflection, golden hour orange, and warm skin tones.`,
+  64: `Transform this photo into a "[WORLD]" shōjo anime style portrait. Render [NAME] wearing [OUTFIT] as a warm-hearted character with soft round eyes sitting on the engawa porch at [SETTING] at [TIME], overlooking a garden of falling maple leaves. [COMPANION] curled in a patch of sunlight nearby. Natsuki Takaya's shōjo art style — soft rounded features, flower petal framing effects, warm amber autumn palette.`,
+  65: `Transform this photo into a "[WORLD]" visual novel/anime style portrait. Render [NAME] wearing [OUTFIT] in the Key animation studio art style — distinctive large bright eyes — standing in the school corridor at [SETTING] at [TIME] with petals drifting through an open window. [COMPANION] appearing in the illusory world beside them. Palette of sakura pink, warm corridor cream, late amber light, and the particular blue of a clear school-day sky through the window.`,
+  66: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as an Auto Memory Doll in KyoAni's 2018 art style — exquisitely detailed Victorian-inspired clothing with lace and gloves, sitting at an ornate writing desk at [SETTING] at [TIME], a letter mid-composition, a single tear on their cheek. [COMPANION] reading quietly over their shoulder. Light refracts through crystal inkwells. Palette of cream, gold light, soft blue uniform, and warm mahogany wood.`,
+  67: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a cosy solo camper sitting beside a crackling fire at [SETTING] at [TIME], a steaming cup in hand, stars just beginning to appear. [COMPANION] warming their hands by the glow. C-Station studio's art style — soft rounded character design, warm campfire amber palette, precise outdoor gear detail, and the supreme aesthetic of cosy isolation in a beautiful landscape.`,
+  68: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a quiet, introspective character in [SETTING] at [TIME], illuminated only by the glow of a shogi board. The room is minimal — worn tatami, a window overlooking dense city rooftops. [COMPANION] offering quiet support from across the room. Shaft studio's art style — bold high-contrast graphic composition, deep shadows, muted introspective palette of grey blue and amber lamp.`,
+  69: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a calligrapher on the porch of a traditional farmhouse at [SETTING] at [TIME] — a large calligraphy brush and fresh ink-black kanji still drying on washi paper across the wooden floor. [COMPANION] peeking curiously over their shoulder. The character is mid-creation — fully absorbed. Suke Kamo art style — warm, generous character design, rich summer island palette and the clean graphic black of fresh ink on white paper.`,
+  70: `Transform this photo into a "[WORLD]" anime style portrait in Ai Yazawa's iconic shōjo art style. Render [NAME] wearing [OUTFIT] on a Tokyo apartment balcony at [SETTING] at [TIME]. [COMPANION] harmonising from the chair nearby. Yazawa's palette — high-fashion black and white with single powerful accent colour, smoky night cityscape, and the particular glamour of her early-2000s urban manga aesthetic.`,
+  71: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a manga artist at their drawing desk in [SETTING] at [TIME], surrounded by reference books, ink bottles, and in-progress manga panels, expression showing complete professional absorption. [COMPANION] sneaking a curious peek at the pages. Koji Kumeta art style — clean precise linework, warm studio palette of desk-lamp amber, ink black, and Tokyo dusk blue through the window.`,
+  72: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a soft, mischievous anime character with warm knowing eyes and a slight smile — the expression of someone who knows something delightful — at [SETTING] at [TIME]. [COMPANION] flushed and completely caught off guard across the desk. Soichiro Yamamoto's art style — simple, clean, immensely warm character design, school cream and afternoon amber sunlight palette.`,
+  73: `Set in the world of "[WORLD]". Transform this photo into a shōjo anime magical transformation sequence. Render [NAME] wearing [OUTFIT] mid-magical girl transformation at [SETTING] at [TIME] — ribbons of light wrapping around them, sparkles and flower petals swirling in a vortex. [COMPANION] orbiting overhead. Their expression is one of pure determination. The transformation is two-thirds complete — half civilian, half magical hero. Classic magical girl art style — large eyes, flowing transformation effects, pastel primary colour palette.`,
+  74: `Set in the world of "[WORLD]". Transform this photo into an anime café or restaurant scene in a warm slice-of-life style. Render [NAME] wearing [OUTFIT] as an anime character behind the counter of a small, beloved neighbourhood café at [SETTING] at [TIME] — coffee brewing, pastries in a display case, morning light through lace curtains. [COMPANION] reading at a sunlit corner table. The whole scene radiates the feeling of a place that has existed for years. Warm, lived-in palette of café cream, morning light gold, and espresso brown.`,
+  75: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a young anime industry professional rushing through a busy Tokyo animation studio at [SETTING] at [TIME] with a stack of key animation frames and a deadline expression. [COMPANION] calling from the studio floor. P.A. Works studio art style — detailed realistic adult workplace setting, evening office palette of desk-lamp amber, screen blue, and the beautiful chaos of a production crunch.`,
+  76: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] mid-confession — hand outstretched, eyes raw with honest emotion, at [SETTING] at [TIME]. [COMPANION] pointing dramatically behind them. J.C. Staff studio's art style — expressive character faces, warm school drama palette of winter blue dusk, amber school light, snow white, and the single intense colour of the character's emotion. The moment of total honesty before the answer comes.`,
+  77: `Set in the world of "[WORLD]". Transform this photo into an anime graduation ceremony portrait. Render [NAME] wearing [OUTFIT] holding a rolled diploma at [SETTING] at [TIME], sakura blossoms falling all around. Classmates gather in the background. The character's expression holds simultaneous joy and the beginning of loss — the particular feeling of a door closing. [COMPANION] tossing their cap in the air beside them. Classic graduation anime aesthetic — white and gold, sakura pink, spring blue sky.`,
+  78: `Set in the world of "[WORLD]". Transform this photo into an anime summer festival (Natsu Matsuri) romance portrait. Render [NAME] wearing [OUTFIT] at [SETTING] at [TIME], holding a hanabi sparkler, looking back over their shoulder with the hint of a smile. Paper lanterns illuminate the festival. [COMPANION] catching their eye across the lantern glow. Fireworks bloom overhead in red, gold, and white. Palette of deep festival night blue, warm lantern amber, yukata pattern colours, and firework burst red and gold.`,
+  79: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a wandering mushi master following a path through [SETTING] at [TIME], where mushi float as visible wisps of light around the trees. [COMPANION] drifting like luminous smoke beside them. The light is otherworldly — too bright, too still. Artland studio's palette — muted grey-green forest, white mushi light wisps, traveller earth tones, and silence.`,
+  80: `Set in the world of "[WORLD]". Transform this photo into an original shōjo anime portrait — [NAME] as the lead of their own romantic anime series. Design their distinctive shōjo look: large luminous eyes, flowing hair with precise shine streaks, wearing [OUTFIT]. The scene is their introductory episode moment at [SETTING] at [TIME], the wind in their hair, an enormous future ahead. [COMPANION] appearing in a halo of flower petals beside them. Classic shōjo sparkle frame, flower petal accents, and the golden hope of a first episode opening sequence.`,
+  81: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a cyborg operative — flawless synthetic skin, eyes too precise and too deep — at [SETTING] at [TIME]. [COMPANION] tachikoma watching nearby. Mamoru Oshii's art style — cinematic dark philosophy, photorealistic wet-neon city palette, the quiet existential weight of a person questioning the boundaries of consciousness. Teal and rain grey palette with single neon accent.`,
+  82: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as an Eva pilot standing before their Evangelion unit at [SETTING] at [TIME], existential weight in their expression. [COMPANION] synced in the entry plug beside them. Hideaki Anno's art style — stark graphic composition, deep shadow and single dramatic light source, pale desaturated colour palette with blood orange Eva unit and a single impossible blue sky above.`,
+  83: `Transform this photo into a "[WORLD]" anime style portrait in Katsuhiro Otomo's groundbreaking 1988 art style. Render [NAME] wearing [OUTFIT] as a Neo-Tokyo esper with barely-controlled psychic power manifesting as blue-white telekinetic crumpling of [SETTING] at [TIME]. [COMPANION] radiating power alongside. Otomo's hyper-detailed city architecture, deep night blue, neon red, and orange-yellow headlights palette.`,
+  84: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Dai-Gurren Brigade member in a dramatic, exaggerated hot-blooded hero pose at [SETTING] at [TIME] — drill motif incorporated into their design. [COMPANION] powering up the Drill of Hope beside them. Gainax/Trigger studio art style — enormously exaggerated energy, spiral motif throughout, blazing red-orange and galaxy-black colour palette.`,
+  85: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] in Takeshi Obata's distinctive psychological thriller art style — elegant, precise character design with unsettling intelligence behind the eyes — at [SETTING] at [TIME], black notebook in one hand, feather quill in the other. [COMPANION] hovering overhead with a knowing grin. Obata's palette of stark black and white with deep red accents, extreme shadow under eyes.`,
+  86: `Transform this photo into a "[WORLD]" anime style portrait in White Fox studio's art style. Render [NAME] wearing [OUTFIT] as a self-declared mad scientist at [SETTING] at [TIME], expression showing theatrical genius mixed with genuine anguish, multiple phones in hand. [COMPANION] monitoring the divergence on a CRT screen behind them. Palette: the golden-amber of a retro CRT screen in a dark room, the purple of a D-mail, and saturated neon street life far below.`,
+  87: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a MWPSB Inspector in the future Japan of the Sibyl System — Dominator weapon aimed, Crime Coefficient holographic readout visible at [SETTING] at [TIME]. [COMPANION] displaying the Psycho-Pass meter. Production I.G. art style — sleek clinical character design, dystopian palette of cold clean architecture whites and blues with the single vivid colour of a Crime Coefficient reading.`,
+  88: `Transform this photo into a "[WORLD]" anime style portrait in Trigger studio's 2022 art style. Render [NAME] wearing [OUTFIT] as a Night City mercenary edgerunner — body modifications visible as chrome joints, subdermal tattoos glowing neon — at [SETTING] at [TIME]. [COMPANION] covering their six. Trigger's hyper-saturated cyberpunk colour palette of electric blue, neon pink, and chrome silver against dark wet asphalt.`,
+  89: `Transform this photo into a "[WORLD]" anime style portrait by Shaft studio. Render [NAME] wearing [OUTFIT] as a magical girl character in Inu Curry's distinctive costume design at [SETTING] at [TIME] — beautiful, intricate, almost too elaborate, containing subtle visual wrongness if you look closely. [COMPANION] watching with knowing amber eyes. Shaft's distinctive head-tilt composition. Palette of the pure Soul Gem colours contrasted against the dark surreal texture of witch space.`,
+  90: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a Newtype mobile suit pilot emerging from the cockpit hatch of their personalised Gundam unit at [SETTING] at [TIME], battle damage still visible on the armour around them. [COMPANION] synced in the cockpit HUD display. Tomino's original Gundam colour palette of pure military blue, white, and red against the infinite black of space.`,
+  91: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] in Yasuhiro Nightow's distinctive art style as a gunslinger on [SETTING] at [TIME] — an expression of easy confidence hiding something complicated. [COMPANION] watching from a distant dune crest. Nightow's palette — harsh desert sun bleached tan and ochre, twin sunset orange, the vivid colour of the outfit against the dead landscape, and the black of shadows in a world without mercy.`,
+  92: `Transform this photo into a "[WORLD]" anime style portrait in Shinichiro Watanabe's jazz-noir aesthetic. Render [NAME] wearing [OUTFIT] as a cool, world-weary bounty hunter at [SETTING] at [TIME], leaning against the ship's railing looking out at a gas giant filling the window. [COMPANION] bringing a meal with quiet ease. Warm jazz-era amber and cool space blue palette, film-grain texture overlay, and the specific feeling of freedom and loneliness that defines every scene of the series.`,
+  93: `Transform this photo into a "[WORLD]" anime style portrait in Gainax's anarchic 2000 art style. Render [NAME] wearing [OUTFIT] at [SETTING] at [TIME] in a deliberately inconsistent anime style — polished animation, rough sketch, manga panel, and cut-out within the same image. [COMPANION] swinging a Rickenbacker bass guitar at an approaching Medical Mechanica robot. The palette is pure aggressive vibrancy — no subtlety, maximum energy, pure adolescent chaos rendered as art.`,
+  94: `Transform this photo into a "[WORLD]" CGI anime style portrait. Render [NAME] wearing [OUTFIT] as a Gem — a crystalline humanoid being with a body made of a specific mineral with corresponding colour and translucence — standing at [SETTING] at [TIME]. [COMPANION] fracturing rainbow light beside them. Orange Studio's CGI art style — crystalline light refraction through the gem body, the specific shimmer of the mineral's unique properties, cold white tundra palette with the pure colour of the chosen gem.`,
+  95: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] as a White Whistle Cave Raider in Kinema Citrus studio's distinctive art style — adorable large-eyed character design sharply contrasted against overwhelming ancient danger — standing at [SETTING] at [TIME]. [COMPANION] lighting the way into the darkness below. The vast impossible chasm of the Abyss stretches downward, layers visible as rings descending to a floor no one has returned from.`,
+  96: `Transform this photo into a "[WORLD]" isekai dark fantasy anime style portrait. Render [NAME] wearing [OUTFIT] as the supreme ruler — skeleton overlord form in ornate black and gold magical armour, crimson eyes glowing — floating before their throne room at [SETTING] at [TIME]. [COMPANION] bowing in undead loyalty before them. Madhouse studio art style — detailed dark fantasy character design, black and deep crimson throne room palette with golden accents, the absolute authority of an undead king.`,
+  97: `Transform this photo into a "[WORLD]" anime style portrait. Render [NAME] wearing [OUTFIT] in White Fox studio's art style — in the fantasy world of Lugnica, the Witch's Miasma faintly visible around them — at [SETTING] at [TIME]. [COMPANION] nearby, unaware of how many times [NAME] has died for them. The palette carries the specific Re:Zero tone — beautiful fantasy world surfaces over horrific emotional weight, sunlit morning over a character who carries every death in their eyes.`,
+  98: `Set in the world of "[WORLD]". Transform this photo into a mecha pilot anime portrait — an original design. Render [NAME] wearing [OUTFIT] as the pilot of a completely original giant mecha whose design reflects their personality, at [SETTING] at [TIME]. [COMPANION] synced via neural link from the carrier bridge. The pilot's custom plugsuit in complementary colours. Hangar bay background with the mecha's enormous foot visible at the base of frame. Bold Gainax and Sunrise mecha tradition — pilot passion and determination.`,
+  99: `Transform this photo into a "[WORLD]" and "Berserk" combined dark historical anime epic portrait. Render [NAME] wearing [OUTFIT] as a lone wandering warrior standing at [SETTING] at [TIME] under a blood-red moon, sword drawn but pointed downward in a choice between vengeance and mercy. [COMPANION] watching from the shadows of ruined banners. The visual language of both series — meticulous period clothing, battle damage, and the weight of every choice made visible in how the body holds the weapon.`,
+  100: `Set in the world of "[WORLD]". Transform this photo into the opening frame of [NAME]'s own original anime series. Design [NAME] wearing [OUTFIT] as the main character of a completely new anime — their design, world, and tone created entirely from their personality — at [SETTING] at [TIME]. [COMPANION] appears beside them — this is Episode 1, the moment before everything begins. Include a series title card in Japanese and English in the corner. Make it feel like the start of something unforgettable.`,
+};
+
+const H = {
+  1:"Spirited Away spirit world · jade vermillion palette",
+  2:"Totoro forest nap · moss green & golden dapple",
+  3:"Howl's Moving Castle calcifer · golden-fire & castle-stone",
+  4:"Princess Mononoke forest ceremony · twilight indigo",
+  5:"Kiki's Delivery Service flight · warm ochre & cobalt sky",
+  6:"Castle in the Sky floating island · cloud-white palette",
+  7:"Nausicaä Mehve glide · savannah & toxic-jungle blue",
+  8:"Ponyo ocean spirit dance · scarlet-and-sea-blue palette",
+  9:"The Wind Rises biplane meadow · clear-blue & sun-gold",
+  10:"Princess Kaguya moonlight gaze · bamboo-green & silver",
+  11:"Grave of the Fireflies firefly tin · twilight blue & amber",
+  12:"Arrietty borrower scale · cream & warm-wood perspective",
+  13:"Spirited Away spirit train · silver flooded-plain crossing",
+  14:"Whisper of the Heart library window · golden wood & rose",
+  15:"Ghibli wide-angle selfie · vast meadow tiny character",
+  16:"Ghibli cosy farmhouse interior · amber lantern warm",
+  17:"Poppy Hill signal flags · Showa faded-blue & rust-orange",
+  18:"Boy and the Heron tower threshold · vine-green & gold",
+  19:"Ghibli spirit-creature encounter · jade-green & silver-mist forest palette",
+  20:"Ghibli rain ancient tree shelter · luminous umbrella yellow",
+  21:"Ghibli cherry blossom walk · sakura-pink & sky-blue",
+  22:"Ghibli summer countryside · saffron-gold & sky-blue warm-field palette",
+  23:"Ghibli autumn leaf walk · ember-orange & amber-gold",
+  24:"Ghibli snow landscape trudge · silver-blue & hearth orange",
+  25:"Ghibli ancient forest interior · dappled green gold motes",
+  26:"Ghibli cliff-edge coastal wind · teal & wild-grass gold",
+  27:"Ghibli twilight lagoon reflection · indigo & silver-moon",
+  28:"Ghibli alpine mountain climb · grey rock & pine-green",
+  29:"Ghibli lantern market basket · warm gold & amber street",
+  30:"Ghibli sky flight above clouds · cloud-white & cornflower",
+  31:"Ghibli mountainside tea house · matcha-green & aged-wood mist palette",
+  32:"Ghibli summer festival · lantern-amber & indigo-night yukata palette",
+  33:"Ghibli secret garden · rose-pink & ivy-green enchanted garden palette",
+  34:"Ghibli mountain onsen · steam-white & mineral-blue dawn palette",
+  35:"Ghibli magical bookshop · parchment-amber & cobalt-ink lamp palette",
+  36:"Ghibli train journey · ivory car & rice-paddy-green Showa palette",
+  37:"Ghibli underwater world · aquamarine & silver deep-sea palette",
+  38:"Ghibli copper-roof rooftop view · summer-haze blue",
+  39:"Ghibli torii shrine path · vermilion-red & cedar-green sacred palette",
+  40:"Ghibli childhood memory · nostalgic cream & late-afternoon-gold palette",
+  41:"Demon Slayer breathing form · water-blue & blood-moon",
+  42:"Naruto chakra shadow-clone · bold blue jutsu palette",
+  43:"My Hero Academia Quirk activate · hero blue-red palette",
+  44:"Attack on Titan rampart · survey-green & titan-grey",
+  45:"Jujutsu Kaisen cursed energy · black-flash & curse-fog",
+  46:"Dragon Ball ki power-up · golden aura & azure sky",
+  47:"One Piece Grand Line prow · ocean-blue & Jolly Roger",
+  48:"Fullmetal Alchemist alchemy circle · crimson & gold",
+  49:"Sword Art Online blade duel · digital-blue & sword-light",
+  50:"Bleach Bankai release · Seireitei white & ice-blue",
+  51:"Haikyuu!! volleyball spike · gymnasium orange-and-navy",
+  52:"Hunter x Hunter Nen deploy · gold & Hunter-green",
+  53:"Black Clover Grimoire deploy · anti-magic black & green",
+  54:"Vinland Saga Nordic battle · steel-grey & ice-fjord",
+  55:"Tokyo Revengers street standoff · orange & concrete-grey",
+  56:"Chainsaw Man devil power · blood-red & chainsaw-chrome",
+  57:"Spy x Family mission family · elegant navy & warm cream",
+  58:"Blue Lock striker goal · electric-blue & striker-gold",
+  59:"Berserk twilight battlefield · eclipse crimson & iron-black",
+  60:"Original Shonen hero finale · signature power-glow",
+  61:"Sailor Moon Moon Prism pose · silver & planet-colour",
+  62:"Your Name comet vision reach · sky-split gold & deep indigo",
+  63:"A Silent Voice open hand · warm-honey & quiet-blue Kyoto",
+  64:"Fruits Basket quiet warmth · spring-leaf & tender-amber",
+  65:"Clannad illusory world dango · warm amber & autumn leaf",
+  66:"Violet Evergarden letter · pastel military blue & gold",
+  67:"Laid-Back Camp winter campfire · amber-ember & starlit-navy",
+  68:"March Comes in Like a Lion shogi · winter-blue & warm-wood",
+  69:"Barakamon calligraphy island · sunshine-white & ink-black",
+  70:"Nana guitar moment · punk-rock black & urban-pink",
+  71:"Kakushigoto manga sketch · warm sepia & ink-black panel",
+  72:"Takagi-san school desk grin · chalk-white & summer-green",
+  73:"Magical girl transformation · rose-pink & star-ribbon",
+  74:"Cafe anime slice-of-life · pastry-cream & cafe-walnut",
+  75:"Shirobako animation deadline · donut-pink & deadline-blue",
+  76:"Toradora dramatic standoff · golden-brown & tiger-stripe",
+  77:"Anime graduation ceremony · sakura-blush & ceremony white",
+  78:"Summer festival sparkler romance · yukata gold & fireworks",
+  79:"Mushishi mushi trail · misty grey-green & bioluminescent",
+  80:"Original shojo lead · blush-rose & stardust-gold",
+  81:"Ghost in the Shell neural jack · ghost-blue & chrome-grey",
+  82:"Evangelion Eva sync · A.T. Field orange & Unit-01 purple",
+  83:"Akira psychic devastation · red & Neo-Tokyo neon",
+  84:"Gurren Lagann Drill of Hope · red-orange & galaxy-black spiral",
+  85:"Death Note plotting · thriller-grey & Shinigami-red",
+  86:"Steins;Gate time device · lab amber & time-rift purple",
+  87:"Psycho-Pass Dominator aim · MWPSB-blue & criminal-red",
+  88:"Cyberpunk Edgerunners Night City gig · neon-pink & black",
+  89:"Madoka Magica soul-gem wish · pink & grief-seed black",
+  90:"Gundam Mobile Suit cockpit · federation white-blue & beam-saber",
+  91:"Trigun desert standoff · sand-gold & bullet-nickel",
+  92:"Cowboy Bebop space-jazz lounge · deep blue & smoke-grey",
+  93:"FLCL Vespa chaos · Gainax orange & coming-of-age blue",
+  94:"Land of the Lustrous crystal gem · diamond-white & spectrum",
+  95:"Made in Abyss descent · abyss-teal & curse-gold palette",
+  96:"Overlord Great Tomb command · lich-ivory & void-black",
+  97:"Re:Zero return from death · silver-dawn & royal-violet",
+  98:"Original mecha pilot · cockpit screen-blue & fusion-reactor",
+  99:"Dark historical epic · Vinland Saga & Berserk blood-moon crimson palette",
+  100:"Original dark anime finale · signature cinematic palette",
+};
+
+const vars = {
+  name:      () => document.getElementById('v-name').value.trim()      || '[NAME]',
+  world:     () => document.getElementById('v-world').value.trim()     || '[WORLD]',
+  outfit:    () => document.getElementById('v-outfit').value.trim()    || '[OUTFIT]',
+  companion: () => document.getElementById('v-companion').value.trim() || '[COMPANION]',
+  setting:   () => document.getElementById('v-setting').value.trim()   || '[SETTING]',
+  time:      () => document.getElementById('v-time').value.trim()      || '[TIME]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[NAME\]/g,      vars.name())
+    .replace(/\[WORLD\]/g,     vars.world())
+    .replace(/\[OUTFIT\]/g,    vars.outfit())
+    .replace(/\[COMPANION\]/g, vars.companion())
+    .replace(/\[SETTING\]/g,   vars.setting())
+    .replace(/\[TIME\]/g,      vars.time());
+}
+
+function buildBlock(n) {
+  const nm = vars.name(), wo = vars.world(), ou = vars.outfit();
+  const co = vars.companion(), se = vars.setting(), ti = vars.time();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating a Ghibli & anime style image prompt for your photo.
+First, let's define some variables.
+
+"[NAME]" is your character's name as they appear in the anime world.
+"[WORLD]" is the Ghibli film or anime universe your character inhabits.
+"[OUTFIT]" is the clothing your anime character wears.
+"[COMPANION]" is the animal companion or spirit that appears beside your character.
+"[SETTING]" is the scene or setting where your character is placed.
+"[TIME]" is the time of day or atmospheric mood of the scene.
+
+Now let's give these variables our values.
+[NAME] = "${nm}"
+[WORLD] = "${wo}"
+[OUTFIT] = "${ou}"
+[COMPANION] = "${co}"
+[SETTING] = "${se}"
+[TIME] = "${ti}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

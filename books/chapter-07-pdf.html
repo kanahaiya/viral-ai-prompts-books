@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematic Movie Poster Prompts — PDF Edition | Book 7</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #1a020a;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #e11d48;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #e11d4866;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #1a020a;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #e11d48;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #e11d48;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #e11d48;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #9b0f2f;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #e11d48;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #e11d48;
+  border: 0.5px solid #e11d4880;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #e11d4859;
+  background: #e11d4814;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #e11d48;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #e11d48;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #e11d48; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #e11d48;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #e11d48; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #e11d48; }
+.guide-ex-text .token { color: #e11d48; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#e11d482e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 7</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Cinematic Movie Poster</h1>
+      <div class="cover-title-sub">Film & Poster Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Action & Thriller</span>
+        <span class="cover-cat">Romance & Drama</span>
+        <span class="cover-cat">Sci-Fi & Fantasy</span>
+        <span class="cover-cat">Character Portraits</span>
+        <span class="cover-cat">Cinematic Landscapes</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Character or actor name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. ALEX MORGAN, JAMES CHEN' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ROLE]</span>
+        <span class="var-desc">Character's role or archetype</span>
+        <input class="var-input" id="v-role" placeholder='e.g. a detective, a rogue spy' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Character's costume</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. tailored suit, leather jacket' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[GENRE]</span>
+        <span class="var-desc">Film genre</span>
+        <input class="var-input" id="v-genre" placeholder='e.g. noir thriller, sci-fi epic' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PALETTE]</span>
+        <span class="var-desc">Colour palette & mood</span>
+        <input class="var-input" id="v-palette" placeholder='e.g. dark and moody noir, vibrant' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[TAGLINE]</span>
+        <span class="var-desc">Film tagline text</span>
+        <input class="var-input" id="v-tagline" placeholder='e.g. 'Some rules are meant to be…'' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised cinematic movie poster image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[NAME]</span> <span class="tok">[ROLE]</span> <span class="tok">[OUTFIT]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[NAME]</span><span class="guide-var-desc">Character or actor name</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[ROLE]</span><span class="guide-var-desc">Character's role or archetype</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[OUTFIT]</span><span class="guide-var-desc">Character's costume</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[GENRE]</span><span class="guide-var-desc">Film genre</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[PALETTE]</span><span class="guide-var-desc">Colour palette & mood</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[TAGLINE]</span><span class="guide-var-desc">Film tagline text</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A cinematic movie poster for a <span class="tok">[GENRE]</span> film:
+<span class="tok">[NAME]</span> as <span class="tok">[ROLE]</span> in <span class="tok">[OUTFIT]</span> stands
+with back to the viewer on a rain-soaked
+neon-lit city street at 2am.
+<span class="tok">[PALETTE]</span> with neon reflected in wet
+pavement. Tagline: '<span class="tok">[TAGLINE]</span>'.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A cinematic movie poster for a <span class="filled-val">noir thriller</span> film:
+<span class="filled-val">Alex Morgan</span> as <span class="filled-val">a rogue spy</span> in <span class="filled-val">a tailored black suit</span> stands
+with back to the viewer on a rain-soaked
+neon-lit city street at 2am.
+<span class="filled-val">Dark and moody, deep blues and crimson</span> with neon reflected in wet
+pavement. Tagline: '<span class="filled-val">Trust no one. Run.</span>'.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Action &amp; Thriller Movie Posters</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Romance &amp; Drama Cinematic Scenes</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Sci-Fi &amp; Fantasy Epic Shots</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">Cinematic Character &amp; Portrait Movie Stills</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Cinematic Landscapes &amp; Establishing Shots</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 7: Cinematic Movie Poster &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A cinematic movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands with back to the viewer on a rain-soaked neon-lit city street at 2am, looking up at a single illuminated window in a skyscraper. [PALETTE] with red neon reflected in the wet pavement. Shot at low angle, widescreen 2.39:1. Tagline: '[TAGLINE]'. Fog at street level, film noir thriller aesthetic.`,
+  2: `A Hollywood action movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] walks away from a massive explosion, silhouetted against orange and gold fire, not looking back. [PALETTE] with dramatic dust and debris particles. Shot from ground level, camera slightly tilted. Tagline: '[TAGLINE]'. Summer blockbuster visual quality.`,
+  3: `A cinematic thriller movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] grips a steering wheel at high speed, face illuminated by oncoming headlights, expression of controlled terror. [PALETTE] with motion blur on everything except the face and hands. Anamorphic lens flares. Tagline: '[TAGLINE]'. Michael Mann Heat-level vehicular tension cinematography.`,
+  4: `A dramatic spy thriller movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on the roof of a moving train at night, one hand on a pistol, the other gripping a rail, mountains and dark valley rushing past below. [PALETTE] with moonlight from directly above. Vertical portrait orientation, figure in upper third. Tagline: '[TAGLINE]'. Daniel Craig-era Bond visual precision.`,
+  5: `A heist movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] leads five silhouettes standing in a symmetrical line facing an enormous vault door in an empty museum gallery. [PALETTE] with rich, warm gallery lighting from above. Tagline: '[TAGLINE]'. Ocean's Eleven stylish confidence — a team at the peak of its game.`,
+  6: `A cinematic action still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] rides through a rain-slicked neon-lit city street at midnight, leaving a rooster tail of water, a pursuing figure just behind. [PALETTE] bathing both in vibrant neon glow. Shot at street level with motion blur on the bikes. Tagline: '[TAGLINE]'. Kinetic and precise.`,
+  7: `A tense psychological thriller movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands at the end of a long, dark corridor with a single light above, facing the darkness, posture suggesting they have heard something. [PALETTE] with the corridor perfectly centered. Tagline: '[TAGLINE]'. Hitchcock tension, Fincher precision.`,
+  8: `A war film cinematic still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] crouches in a rubble-filled bombed-out street, face obscured by shadow except for one eye set in determination. [PALETTE] of fire's orange and overcast sky's blue. Desaturated, bleach-bypass. Tagline: '[TAGLINE]'. Saving Private Ryan level of photographic intensity.`,
+  9: `A superhero movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on a gargoyle high above a rain-soaked city at night, cape billowing, looking down at the city below. [PALETTE] with lightning illuminating the skyline in the distance. Shot from slightly behind and below. Tagline: '[TAGLINE]'. Gothic, architectural, grounded in physics despite the fantasy.`,
+  10: `A martial arts action movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands centered in a flooded temple courtyard at dusk, in a ready stance, drenched from rain, facing the camera with absolute stillness. [PALETTE] of deep orange dusk sky and dark water reflecting above. Tagline: '[TAGLINE]'. Visual gravitas promising both spectacle and philosophy.`,
+  11: `A submarine thriller cinematic still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] grips the command post while crew man battle stations around them, emergency red lighting, water spraying from a damaged pipe behind. [PALETTE] of practical red light catching faces dramatically in the confined space. Tagline: '[TAGLINE]'. Das Boot claustrophobic dread and precision.`,
+  12: `A crime thriller movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] — shown only by a single pointing hand above a detective evidence board of photographs, strings, and clippings. [PALETTE] teal-desaturated with amber desk lamp at one edge. Shot directly overhead. Tagline: '[TAGLINE]'. Seven and Zodiac visual intelligence.`,
+  13: `A cinematic action movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] drives a car that flies through the air over a gap between parking garage levels, the city visible far below, shot from a fixed camera across the gap. [PALETTE]. Tagline: '[TAGLINE]'. Practical stunt photography aesthetic — no obvious CGI, real physical consequence.`,
+  14: `A political thriller movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] shakes hands in bright warm official light in the foreground while behind them, through a glass wall, a darker deal takes place in shadow. [PALETTE] split between warm foreground and cold conspiratorial background. Tagline: '[TAGLINE]'. The composition itself a metaphor for power's public and private faces.`,
+  15: `A survival thriller movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on an ice floe in a vast Arctic sea, the floe visibly too small, surrounded by black water and distant storm clouds. [PALETTE] cold, brutal, and beautiful. Shot from high angle making the figure tiny against the immensity of the sea. Tagline: '[TAGLINE]'. The Revenant visual scale and isolation.`,
+  16: `A boxing movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] — both fighters throwing simultaneous punches in the final round, sweat droplets frozen in the arena light. [PALETTE] with the crowd a roaring blur behind the ropes. Shot from ringside. Tagline: '[TAGLINE]'. Rocky and Creed energy — the fight as metaphor for everything worth fighting for.`,
+  17: `A bank robbery thriller cinematic still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in a row of masked figures inside a bank, smoke grenades on the floor, a column of morning light cutting through smoke from the skylight above. [PALETTE]. Tagline: '[TAGLINE]'. Heat visual tension — a plan going perfectly or beginning to unravel.`,
+  18: `A post-apocalyptic action movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on the hood of a custom armored vehicle on a vast empty desert highway, shielding their eyes from the sun, a burning city visible on the horizon. [PALETTE] scorched sky, dust devils in the distance. Tagline: '[TAGLINE]'. Mad Max Fury Road orange dust, chrome, and fire.`,
+  19: `A kidnap thriller cinematic still for a [GENRE] film starring [NAME] as [ROLE]: a single chair under a single bare bulb in an otherwise black room, empty — [OUTFIT] of the absent subject implied by what is not there. [PALETTE] with the circle of light perfectly calibrated, shadows absolute. Tagline: '[TAGLINE]'. Prisoners and Sicario visual economy — the most frightening image shows absence.`,
+  20: `A spy action movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in profile at a casino table, champagne glass in hand, a card face-down in the other, a woman in red visible in the background — everyone in this room watching everyone else. [PALETTE] of extraordinary clothes, hidden agendas, and perfect composure. Tagline: '[TAGLINE]'. Glamour, danger, and the speed of intrigue.`,
+  21: `A romantic drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on one side of a glass door in the rain, hand pressed flat against the glass, fingertips almost touching those of the person inside in warm amber light. [PALETTE] of cold blue rain outside and warm amber inside. Shot at 45 degrees. Tagline: '[TAGLINE]'. Wong Kar-wai visual heartbreak.`,
+  22: `A sweeping romantic movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands at the prow of an ocean liner entering a great harbour at dawn, a landmark visible in morning mist, another figure leaning back against them. [PALETTE] golden sunrise through mist, formal clothing catching the early light. Tagline: '[TAGLINE]'. Titanic scale — a love story as vast as the ocean crossed.`,
+  23: `A quiet drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits at a kitchen table alone, a cup of tea going cold, a birthday cake with unlit candles, a second place setting untouched. [PALETTE] of late afternoon light through lace curtains. Not looking at camera. Tagline: '[TAGLINE]'. An entire story in a single frame — love, loss, time, and silence.`,
+  24: `A romantic comedy movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] reaches for the same book on a library shelf from the opposite side as another person, both surprised, caught mid-reach. [PALETTE] warm library light, books blurred in foreground, faces sharp. Shot from inside the shelf looking out. Tagline: '[TAGLINE]'. The entire rom-com promise in a single frame.`,
+  25: `A cinematic drama still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits at a family dinner going wrong — seven people at the table, one standing, one crying, one laughing at the wrong moment, the grandmother eating serenely. [PALETTE] available kitchen light. Shot wide at table level. Tagline: '[TAGLINE]'. The beauty and horror of family gathered in one frame.`,
+  26: `A romantic drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in a flower market at closing time, surrounded by thousands of flowers, holding a single wilted bouquet while a woman walks past in the background without looking. [PALETTE] golden and ending. Tagline: '[TAGLINE]'. A poem about timing, missed chances, and the loneliness of beauty you cannot share.`,
+  27: `A drama movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands alone at an arrivals gate holding a handwritten sign, watching reuniting families stream around them, perfectly still in the center of movement. [PALETTE] airport fluorescent light, naturalistic. Tagline: '[TAGLINE]'. The emotional precision of something that has been waited on too long.`,
+  28: `A sweeping romantic drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] dances in an empty ballroom after the party has ended — lights dimming, chairs being stacked in the background, music ending but they keep dancing. [PALETTE] warm chandelier light fading. Tagline: '[TAGLINE]'. Simultaneously magnificent and heartbreakingly temporary.`,
+  29: `A dramatic movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] watches from inside a car as a child walks toward a dormitory entrance without looking back, the parent's face reflected in the car window — pride, loss, love. [PALETTE] soft afternoon light. Shot from inside the car through the window. Tagline: '[TAGLINE]'. The specific bittersweet quality of a success that feels like an ending.`,
+  30: `A lush period romance movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in a garden of overgrown roses in full bloom, turning to look over their shoulder with an expression that could be invitation or warning. [PALETTE] golden afternoon light through the rose canopy. Tagline: '[TAGLINE]'. Beautiful and charged with unspoken things.`,
+  31: `A quiet drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits at one end of a hospital waiting room bench, leaning forward, holding a coffee cup in two hands — the body language saying everything about what they are waiting to hear. [PALETTE] fluorescent hospital light. Shot symmetrically. Tagline: '[TAGLINE]'. What film does best: what words cannot say.`,
+  32: `A romantic movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits in a convertible, top down, driving through a sun-drenched desert landscape at golden hour, both occupants laughing. [PALETTE] enormous orange sky above the road ahead. Shot from the backseat looking forward. Tagline: '[TAGLINE]'. The specific joy of going somewhere you have not decided yet.`,
+  33: `A cinematic drama still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands beside an estranged figure on a bridge over a river at dusk, neither speaking, both watching the water, the distance between them slowly closing. [PALETTE] dusk sky, river below. Wide shot from the far bank. Tagline: '[TAGLINE]'. An entire relationship's history held in a composed silence.`,
+  34: `A romance movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] shares an embrace on a train platform as the steam locomotive begins to move, one leaving, one staying, both looking at the space between them. [PALETTE] golden and terminal, steam filling the upper frame. Tagline: '[TAGLINE]'. The specific agony of love defeated by circumstance.`,
+  35: `A tender drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits across a small table in a dimly lit restaurant on a first date going perfectly, both leaning forward, both talking at once, both stopping, both laughing. [PALETTE] warm amber of restaurant candlelight. Tagline: '[TAGLINE]'. The world outside dark, this table the only place in the universe right now.`,
+  36: `A sweeping drama movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in a late partner's workshop alone for the first time after a funeral, touching tools with their fingertips, a half-finished project and reading glasses on the bench. [PALETTE] afternoon light through dusty windows. Tagline: '[TAGLINE]'. A portrait of love in the form of absence — extraordinarily moving without a word.`,
+  37: `A high-drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in the middle of a rainstorm at an abandoned outdoor wedding reception — tables overturned, decorations destroyed, cake collapsing — perfectly still, makeup running, expression that could be devastation or liberation. [PALETTE] wide shot. Tagline: '[TAGLINE]'. Cinematic female drama of the highest order.`,
+  38: `A romantic drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] lies on their back in a field at night, looking up at stars slowly falling toward them, reaching up with one hand as if to catch one, other hand interlaced with another's. [PALETTE] falling stars creating light trails. Shot from directly above. Tagline: '[TAGLINE]'. The extraordinary made intimate, the intimate made extraordinary.`,
+  39: `A drama movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits across from another person at a kitchen table in a long silence — coffee mugs, half-eaten food, the father looking at their hands after the thing has finally been said. [PALETTE] ordinary, real kitchen. Shot from the side, both in profile. Tagline: '[TAGLINE]'. Forgiveness is not a moment but a direction.`,
+  40: `A grand romantic movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on a rooftop at dawn after a night of talking, the city waking up below, the sky shifting from deep blue to gold — still not tired of each other. [PALETTE] the specific light of dawn that makes everything feel possible. Tagline: '[TAGLINE]'. The most hopeful light the cinema knows.`,
+  41: `A stunning sci-fi movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on the surface of an alien moon, tiny against a gas giant that fills 60% of the sky — its ring system cutting across the horizon. [PALETTE] with no atmosphere and perfectly clear stars. Tagline: '[TAGLINE]'. Interstellar visual scale — the universe simultaneously beautiful and terrifying.`,
+  42: `A cinematic fantasy movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in a medieval city as a dragon circles overhead, wingspan blotting the moon, fire beginning to pour from its jaws. [PALETTE] of moonlight and approaching fire. Shot from within the city looking up at rooftop silhouettes. Tagline: '[TAGLINE]'. The dragon as natural disaster.`,
+  43: `A cinematic sci-fi still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands at the command center of a starship bridge on emergency, gripping the command rail, crew at battle stations, a deep-space battle visible on the main viewscreen. [PALETTE] red alert lighting with battle light from the viewscreen. Tagline: '[TAGLINE]'. Star Wars meets Star Trek in scope and dramatic staging.`,
+  44: `A fantasy epic movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] on horseback faces an army of 10,000 warriors in a valley at dawn — banners catching the first light, the sky shifting from deep purple to blood orange. [PALETTE] of pre-battle stillness. Shot from the high ground. Tagline: '[TAGLINE]'. The final order before everything begins.`,
+  45: `A sci-fi movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands at the edge of a light beam descending from a vast, silent circular alien spacecraft hovering above a rain-soaked field. [PALETTE] cool blue-grey, rain falling through the beam. Shot from ground level looking up. Tagline: '[TAGLINE]'. First contact rendered as something genuinely unprecedented.`,
+  46: `A cyberpunk sci-fi movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] moves through a mega-city street market — vendor stalls three stories high, holographic neon advertisements, rain falling through multiple elevated roadway levels. [PALETTE] of rain, neon, crowd, and the loneliness of a future where everything is for sale. Tagline: '[TAGLINE]'. Blade Runner 2049 visual language.`,
+  47: `A grand fantasy movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands atop a tower at a mountain peak during a lightning storm, staff raised, channeling lightning creating a halo of divine fire around their silhouette. [PALETTE] purple-black clouds, white lightning, deep green valley below. Tagline: '[TAGLINE]'. The single person as a force of nature.`,
+  48: `A sci-fi horror movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands at the end of a deep-space research station corridor, emergency red lighting, a dark trail on the floor leading around the corner. [PALETTE] with perfect symmetry in pipes and wall panels. Tagline: '[TAGLINE]'. Alien-level corridor horror — what is around the corner cannot be seen.`,
+  49: `A fantasy movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] moves through the water of an underwater kingdom — towers of coral and crystal, bioluminescent fish, a manta ray the size of a building banking past a spire. [PALETTE] clear blue with shafts of sunlight from far above. Tagline: '[TAGLINE]'. An entire civilisation revealed as the most beautiful place imagination has built.`,
+  50: `A sci-fi movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] — an AI figure — sits alone in a darkened laboratory, turned to look at its own reflection in the window, one hand raised toward the reflected hand in the glass. [PALETTE] of monitor glow, the rainy city reflected behind. Shot from outside the window. Tagline: '[TAGLINE]'. The question of consciousness rendered as a single quietly devastating image.`,
+  51: `A fantasy adventure movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands at the entrance of an enormous ancient cave, a magical artifact held aloft illuminating carved stone walls, an alien world visible beyond with twin moons in a violet sky. [PALETTE] with darkness absolute beyond the artifact's light. Tagline: '[TAGLINE]'. The threshold between known and unknown perfectly composed.`,
+  52: `A hard sci-fi movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] walks the three-kilometer habitation corridor of a generation ship — stacked apartments, forests under artificial sunlight, the curved corridor revealing other families' lights upside down above. [PALETTE] of Interstellar engineering scale. Tagline: '[TAGLINE]'. The most extraordinary home ever built.`,
+  53: `A dark fantasy movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] walks across a battlefield after it is over — thousands of fallen on both sides, burning horizon, crows circling, walking toward the viewer from the carnage. [PALETTE] with dark sky pressing down. Shot from ground level, the fallen creating a path. Tagline: '[TAGLINE]'. The specific terrible cost of victory.`,
+  54: `A sci-fi movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands on a small dune watching an enormous sandworm crest the desert surface beneath twin suns, its circular mouth filled with teeth and dust, its body a mountain at speed. [PALETTE] orange desert, white suns, dust cloud on the horizon. Tagline: '[TAGLINE]'. Some forces are so large the only response is awe.`,
+  55: `A time travel sci-fi movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] steps from a time machine materialising in Victorian London — electricity arcing from the coils, horses spooked and rearing, pedestrians scattering in foggy 1888 streets with gas lamps. [PALETTE] of 21st-century machine against 1888 iron and stone. Tagline: '[TAGLINE]'. The scientist's systematic curiosity in an impossible moment.`,
+  56: `A mythological fantasy movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] — a colossal divine figure formed from water and wave — towers above a fleet of ancient ships during a storm, trident raised, sailors tiny below. [PALETTE] of the ancient world's understanding of the ocean as deity. Shot from the water's surface looking up. Tagline: '[TAGLINE]'. Power rendered as weather.`,
+  57: `A dystopian sci-fi movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands behind the glass wall of a holding cell, palm flat against it, looking out at hundreds of others in identical grey clothing moving in orderly lines across a vast institutional space. [PALETTE] of 1984 meets The Handmaid's Tale. Tagline: '[TAGLINE]'. Individuality rendered as a hand pressed against glass.`,
+  58: `A space opera movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits on a throne in a room with transparent walls — open to space on all sides, a gas giant and its stars beyond, an alien court standing around in formal wear. [PALETTE] of the galaxy as backdrop to empire. Tagline: '[TAGLINE]'. Power and isolation communicated simultaneously.`,
+  59: `A fantasy movie still for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] climbs a ladder twenty stories up in a vast circular library that rises fifty levels, narrow bridges connecting the shelves at each floor, the top lost in cloud. [PALETTE] morning light filtering from above. Shot from the ground floor looking up. Tagline: '[TAGLINE]'. The infinity of knowledge and the finitude of any single mind within it.`,
+  60: `A sci-fi epic movie poster for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] — seen on the dying Earth's surface — watches humanity's last colony ship launch toward the stars, the Earth below brown and scarred where it was once green and blue. [PALETTE] of the most important departure in history. Tagline: '[TAGLINE]'. What we destroyed, what we saved, and the impossible distance between.`,
+  61: `A cinematic character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits across an interrogation table with an expression of controlled patience, side-lit by a single practical lamp, deep shadows making the face extraordinary in the contrast. [PALETTE]. Tagline: '[TAGLINE]'. Roger Deakins lighting: one practical source, the actor's face doing all the work.`,
+  62: `A cinematic close-up for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] receives good news, their face moving through shock, disbelief, the beginning of joy, and the memory of how long they waited — all in five seconds, eyes filling but not crying. [PALETTE] natural window light from the left. Extreme close-up. Tagline: '[TAGLINE]'. Five emotions in sequence captured in a single extraordinary frame.`,
+  63: `A cinematic villain portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits in a sunlit room of extraordinary beauty — flowers, art, a magnificent view — holding a wine glass, looking at us with complete warmth and complete absence of conscience simultaneously. [PALETTE] bright and warm, making the contradiction more unsettling. Tagline: '[TAGLINE]'. The villain as mirror, more frightening in the light than in the dark.`,
+  64: `A character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits alone in a childhood bedroom on their last night before deployment — surrounded by trophies, posters, a stuffed animal still on the shelf, already partly gone. [PALETTE] warm bedside lamp light. Tagline: '[TAGLINE]'. The poetry of before and after — the uniform and the bedroom — in a single still.`,
+  65: `A cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands at a garden gate at the end of a long journey, bag in hand, looking at a small house at the end of a rural road. Seen from behind, the set of the shoulders conveying everything. [PALETTE] soft afternoon light. Tagline: '[TAGLINE]'. A complicated mix of relief, grief, purpose, and exhaustion at the threshold.`,
+  66: `A period drama character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits alone in a council chamber after the meeting has ended, crown removed and on the table, their hand resting on it, looking at nothing — looking at the problem only they must solve. [PALETTE] Tudor-era candlelight. Tagline: '[TAGLINE]'. The private face of public authority when the mask comes off.`,
+  67: `A cinematic character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits alone in a locker room after a loss — tape on the hands, a cut above one eye, sitting on the bench looking at the floor. Not devastated. Processing. [PALETTE] harsh locker room fluorescent light cutting dramatic shadows. Tagline: '[TAGLINE]'. The essential portrait of meeting defeat — and deciding what it means.`,
+  68: `A cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] presses their face close to a bus window, watching an unfamiliar city scroll past, expression containing the entire experience — wonder, fear, loss, hope, the vertigo of a place that has no memory of you. [PALETTE] the city reflected in the glass alongside their face. Shot from outside. Tagline: '[TAGLINE]'. A face caught exactly between two worlds.`,
+  69: `A dramatic character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits alone in their chambers after delivering a death sentence — alone in the mahogany and legal books, looking at their hands, a single desk lamp in darkness. [PALETTE] the architecture of institutional authority around them. Tagline: '[TAGLINE]'. The private face of the most extreme power the law allows.`,
+  70: `A cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] performs on a small club stage for maybe thirty people, eyes closed, the music moving through their face — performing as if it were Madison Square Garden. [PALETTE] one spot on them, the audience in silhouette. Tagline: '[TAGLINE]'. The specific beauty of mastery without audience, craft without applause.`,
+  71: `A striking cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] shares a train compartment with a stranger overnight — one awake watching the dark landscape pass, one asleep against the window, the awake one watching with an expression that will never be explained. [PALETTE] cool blue night light from the window, warm amber from the lamp. Tagline: '[TAGLINE]'. Travel's intimacy between people who will never meet again.`,
+  72: `A cinematic character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits between takes in their canvas chair eating chips from a bag, in full period costume, the crew moving through the set behind them. [PALETTE] of the absolute unreality of childhood in historical dress. Tagline: '[TAGLINE]'. The surreal made ordinary by a small person with chips.`,
+  73: `A haunting cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits at a piano at midnight, not playing — hands resting on the keys, eyes open and looking at nothing, the music they are thinking the only music in the room. [PALETTE] single lamp on the piano, the rest of the room in darkness. Tagline: '[TAGLINE]'. The space before the first note where the entire piece already exists.`,
+  74: `A cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] is alone in a laboratory at 3am, staring at a screen showing the result they have worked towards for four years — expression moving through disbelief, calculation, the beginning of certainty, then joy. [PALETTE] blue clinical light, their face the only warm thing in the frame. Tagline: '[TAGLINE]'. What discovery looks like: a person becoming certain.`,
+  75: `A cinematic character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands in a field for the first time after six months in space, looking down at their feet in the green grass with the specific gratitude of someone who has been without nature. [PALETTE] grass impossibly vivid. Tagline: '[TAGLINE]'. The ordinary miracle of Earth through the eyes of someone who has been without it.`,
+  76: `A period drama character portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits in a grand house kitchen before the household wakes, reading a book, a cup of tea, the first pale light through the window — one private hour. [PALETTE] blue-grey pre-dawn light, kitchen warmth contrasting with cool morning outside. Tagline: '[TAGLINE]'. The interior life of people who serve, rendered with full human dignity.`,
+  77: `A cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] sits ringside in a worn gym, chin on hands resting on the top rope, watching a young contender train with the mixture of recognition, envy, and wisdom of someone who sees their younger self. [PALETTE] warm and worn, shot on 16mm, pushed a stop. Tagline: '[TAGLINE]'. The passing of one generation to the next as the most cinematic subject.`,
+  78: `A cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] — a parent with two small children — stands in a border processing center, looking straight ahead at the official window they are slowly moving toward. [PALETTE] institutional fluorescent light. Tagline: '[TAGLINE]'. A face containing every decision that brought them here and every hope about what is on the other side.`,
+  79: `A dramatic cinematic portrait for a [GENRE] film: [NAME] as [ROLE] in [OUTFIT] stands center stage after a performance — lights gone to maintenance dim, orchestra chairs empty, audience gone — listening to the silence that follows an extraordinary performance. [PALETTE] wide shot, smallness on the empty stage. Tagline: '[TAGLINE]'. A person doing exactly what they were made to do, alone after everyone else has gone.`,
+  80: `A cinematic character portrait for a [GENRE] film in extreme close-up: [NAME] as [ROLE] in [OUTFIT] — a pair of eyes, one brown, one blue, both looking off-frame with preternatural calm, a scar visible above one, filling the frame. [PALETTE]. Tagline: '[TAGLINE]'. Whatever is extraordinary about this [ROLE] lives precisely in these two eyes, which see different things and make the world more coherent for it.`,
+  81: `A sweeping cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a Scottish Highlands glen at dawn — mist filling the valley, a single stone cottage with one lit window, a dirt road through purple heather. [PALETTE] blue-grey and beautiful, mist alive with first warmth. [OUTFIT]-clad figure tiny in the glen. Shot from a high ridge looking down. Tagline: '[TAGLINE]'. A place where stories begin.`,
+  82: `A cinematic night establishing shot for a [GENRE] film starring [NAME] as [ROLE]: Manhattan at 2am reflected in the black surface of the Hudson River, a single tugboat crossing the frame, thousands of windows creating a second city below. [PALETTE] widescreen, the skyline centered. [OUTFIT]-clad figure at the water's edge. Tagline: '[TAGLINE]'. All that light, all those stories, all happening right now.`,
+  83: `A dramatic cinematic desert landscape for a [GENRE] film starring [NAME] as [ROLE]: the Atacama Desert at sunset, salt flats in geometric patterns to the horizon, sky shifting from blue to orange to deep violet. [PALETTE] of the desert reflecting the sunset back up. A single road cuts directly through. [OUTFIT]-clad figure at the road's edge. Tagline: '[TAGLINE]'. The world as indifferent beauty, beautiful anyway.`,
+  84: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: ancient Rome at its peak — a busy forum day, senators, merchants, soldiers, the Colosseum visible behind. [PALETTE] of terracotta, marble white, Mediterranean blue. Camera at street level. [OUTFIT]-clad figure among the crowd. Tagline: '[TAGLINE]'. A world of extraordinary accomplishment and terrible cost, both visible in one frame.`,
+  85: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a small Japanese fishing village in winter — wooden boats in a harbour, snow on rooftops, smoke from kitchen chimneys, a fisherman mending nets. [PALETTE] grey sea and sky the same colour. [OUTFIT]-clad figure on the dock. Tagline: '[TAGLINE]'. This place, these people, this morning, shown with perfect attention.`,
+  86: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: flooded Venice at high water — piazzas under water, raised wooden walkways, the Basilica di San Marco perfectly reflected below at golden hour. [PALETTE] warm reflections, architecture above and below. [OUTFIT]-clad figure on the walkway. Tagline: '[TAGLINE]'. A city of impossible beauty on a foundation slowly surrendering to the sea.`,
+  87: `A cinematic post-apocalyptic landscape for a [GENRE] film starring [NAME] as [ROLE]: a great city reclaimed by nature after fifty years — office buildings with trees from their upper floors, a highway bridge with wildflowers, deer in an intersection. [PALETTE] warm golden hour, nature beautiful. [OUTFIT]-clad figure among the reclaimed streets. Tagline: '[TAGLINE]'. The world is doing fine, actually.`,
+  88: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a monsoon arriving over a great Indian city — the wall of water visible as a distinct edge approaching from the sea, fishermen pulling boats up the beach ahead of it. [PALETTE] yellow-green charged pre-monsoon light. [OUTFIT]-clad figure on a rooftop watching it come. Tagline: '[TAGLINE]'. Rain as relief, rain as renewal, rain as the answer to months of prayer.`,
+  89: `A cinematic winter establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a Trans-Siberian Railway train moving through taiga forest in deep January — the locomotive's headlight a single yellow beam in absolute white, trees laden with snow on both sides. [PALETTE] white-grey of a Siberian winter afternoon. [OUTFIT]-clad figure at the window. Tagline: '[TAGLINE]'. The train tiny, the forest endless, the journey impossibly long — and all of it beautiful.`,
+  90: `A cinematic aerial establishing shot for a [GENRE] film starring [NAME] as [ROLE]: the Amazon rainforest at sunrise — a river winding through unbroken canopy, the sunrise turning the river gold while the forest remains in blue shadow. [PALETTE] of the living world at its most vast. A single dugout canoe visible, tiny. [OUTFIT]-clad figure. Tagline: '[TAGLINE]'. The size of the living world and the specific responsibility of knowing it exists.`,
+  91: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: Marrakech's great square transforming at dusk from daytime market to evening performance space — storytellers, musicians, food stalls with smoke, the Koutoubia Mosque against the purple sky. [PALETTE] alive with colour. [OUTFIT]-clad figure at a café table above the square. Tagline: '[TAGLINE]'. A public space designed for a thousand years by the desire to gather and tell stories.`,
+  92: `A haunting cinematic landscape for a [GENRE] film starring [NAME] as [ROLE]: an abandoned amusement park in winter — rusted Ferris wheel against a grey sky, carousel horses faded and peeling, snow on the ticket booths and roller coaster tracks. [PALETTE] overcast light making every colour more melancholy. [OUTFIT]-clad figure among the ruins. Tagline: '[TAGLINE]'. A place built entirely for joy that no longer receives it.`,
+  93: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a busy Hong Kong intersection at night — towering neon signs in Cantonese and English extending from street level to the seventh floor of every building. [PALETTE] of Wong Kar-wai's Hong Kong as visual feast. Shot from street level looking straight up. [OUTFIT]-clad figure among the crowd. Tagline: '[TAGLINE]'. One of the world's most alive urban environments at its most luminous.`,
+  94: `A cinematic landscape for a [GENRE] film starring [NAME] as [ROLE]: the African savanna at the moment of a thunderstorm — storm wall approaching, lightning beginning, a vast wildebeest herd in motion, a lone acacia silhouetted in yellow-green pre-storm light. [PALETTE] extraordinary charged light before a storm. [OUTFIT]-clad figure at the tree. Tagline: '[TAGLINE]'. The most beautiful bad weather in the world.`,
+  95: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a Greek monastery perched on a sheer rock column 400 metres above the valley floor at dawn, the valley still in shadow while the monastery catches first gold of sunrise. [PALETTE] beauty earned through difficulty. Shot from an adjacent pillar across the void. [OUTFIT]-clad figure on the vertiginous path. Tagline: '[TAGLINE]'. The specific grace of a building that earns its beauty through difficulty.`,
+  96: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: Iceland's black sand beach during a winter storm — enormous Atlantic waves breaking white on volcanic sand, basalt sea stacks rising through spray, a single figure at the waterline too close to the waves. [PALETTE] North Atlantic winter grey. [OUTFIT]-clad figure in the storm. Tagline: '[TAGLINE]'. The contest between human scale and oceanic scale at its most cinematic.`,
+  97: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a New Orleans jazz club exterior at 11pm — rain-slicked cobblestones, warm golden light through the doorway, a woman in red visible through the window mid-dance, a couple arriving at the door. [PALETTE] the doorway as the threshold between two worlds. [OUTFIT]-clad figure of [ROLE] outside, about to enter. Tagline: '[TAGLINE]'. The doorway as the most cinematic of thresholds.`,
+  98: `A cinematic winter establishing shot for a [GENRE] film starring [NAME] as [ROLE]: a Norwegian fjord town at Christmas — snow on every roof, lights in every window, a wooden church, a harbour iced in, and the aurora borealis beginning in the clear black sky above. [PALETTE] green and pink light reflected in the fjord water below. [OUTFIT]-clad figure outside the church. Tagline: '[TAGLINE]'. The world as a place that occasionally justifies every feeling of wonder.`,
+  99: `A cinematic establishing shot for a [GENRE] film starring [NAME] as [ROLE]: Monument Valley at golden hour — the Mittens and Merrick Butte rising from the red desert floor, a single vehicle on the dirt road below creating a dust trail. [PALETTE] of the American West's mythic landscape. [OUTFIT]-clad figure on the road. Shot low and wide. Tagline: '[TAGLINE]'. The landscape so vast it could contain every story, the road going forward, the past already behind.`,
+  100: `A grand cinematic finale establishing shot for a [GENRE] film starring [NAME] as [ROLE]: Earth seen from the Moon's surface at the precise moment of Earthrise — the blue-white planet appearing over the Moon's grey horizon, the Pacific visible, clouds swirling. [PALETTE] of the Moon's desolate grey and Earth's impossible living colour above. [OUTFIT]-clad figure on the lunar surface. Tagline: '[TAGLINE]'. We live on that blue thing. It is enough. It is everything.`,
+}
+
+const H = {  1:'Rain-slicked street · action-thriller heroic framing',   2:'Anamorphic lens epic · blockbuster one-sheet scale',   3:'Deep shadows straight-cam · genre poster typography',   4:'Neon reflections · intense expression thriller',   5:'IMAX marquee title · dramatic wide-format poster',   6:'Dust-and-grit · mid-action hero cinematic grain',   7:'Smoke and tension · extreme contrast high-stakes',   8:'Helicopter scale · tiny figure epic composition',   9:'Minimal teaser big impact · dramatic sky portrait',   10:'Prestige drama rim-light · award-season elegant',   11:'Rule-of-thirds wide · high-concept distressed poster',   12:'From-above psychology · character-driven portrait',   13:'Orange-teal blockbuster · silhouette explosion hero',   14:'Over-the-shoulder walk · explosion debris mid-air',   15:'Fog and cobblestones · back-lit taut thriller night',   16:'Red-black close-up · half-shadow eyes on threat',   17:'Desert sunrise lone hero · wide cinematic poster',   18:'Franchise launch gear · world-building background',   19:'Broken symmetry sequel · returning hero gravitas',   20:'Last-stand fire smoke · battle-worn one-sheet',   21:'Interstellar epic · planet rings lens flare poster',   22:'Dragon silhouette fantasy · magical light quest',   23:'Neon-chrome cyberpunk · holographic city poster',   24:'Golden divine Greek · lightning god-scale framing',   25:'Wasted-world dust storm · lone survivor post-apo',   26:'Twin suns alien terrain · otherworldly beauty',   27:'Clock-face temporal · portal energy time-travel',   28:'Galaxy nebula armada · space-opera starfleet scale',   29:'Floating castles surreal · glowing runes magical',   30:'Fellowship quest mountain · epic-fantasy sunset',   31:'Oppressive grey-green · surveillance resistance',   32:'Void-black-violet cosmic · impossible geometry',   33:'Copper-sepia airship · Victorian steampunk gears',   34:'Power-aura origin · first-costume superhero reveal',   35:'Two worlds portal · wonder and danger side-by-side',   36:'Cold blue circuits · digital fracture AI uprising',   37:'Organic neon biopunk · gene-spliced lab gone wrong',   38:'Sword raised dawn · sacred mountain prophecy',   39:'Enchanted forest eyes · moonbeam dark fairy-tale',   40:'Steel-and-fire mech · city-scale robot battle',   41:'Venetian-blind shadows · classic noir rain',   42:'Neon-wet-street smoke · neo-noir fedora moody',   43:'Amber streetlight alley · crime-thriller half-lit',   44:'Laser-grid vault · heist precision planning crew',   45:'Red-string pinboard · detective rain-grey mystery',   46:'Crimson-black femme · dangerous glamour smoke',   47:'Pinstripe 1940s · gangster Chicago amber power',   48:'Cold marble hierarchy · organised crime table',   49:'City-at-night badge · cop truth-vs-corruption',   50:'Shadow-paranoia deep-state · conspiracy clippings',   51:'Desaturated gritty · true-crime documentary drama',   52:'Chess-game mirror · cat-and-mouse tension',   53:'Deep-teal cold case · old photograph haunted',   54:'Museum laser night · art-theft elegant tension',   55:'Throne pose mob boss · loyalty betrayal empire',   56:'Split-tone double-cross · who can you trust',   57:'Jungle-gold cartel · private army border danger',   58:'Safe-dial sweat · safecracker 60-second countdown',   59:'Suburban disguise · witness-protection old enemies',   60:'Justice-green scales · courtroom smoking-gun',   61:'Golden-warm almost-touch · romance breathless',   62:'Autumn literary depth · awards-season drama',   63:'Blue-gold yearning · forbidden love separation',   64:'Sepia-rose corset · period romance grand estate',   65:'Train-station reunion · second-chance amber',   66:'Sunset coast epic · love-story war separation',   67:'Rain-soaked blue · heartbreak walking away',   68:'Coral-gold beach · summer-love last perfect days',   69:'Muted pastel strings · indie romance coffee shop',   70:'Kitchen unspoken words · family drama generations',   71:'Summer haze edge · coming-of-age everything changes',   72:'Archival warmth biopic · true story legacy',   73:'Highway gold road trip · two seats one future',   74:'Snow-blue firelight · winter romance cosy cabin',   75:'Twilight purple rooftop · star-crossed city below',   76:'Rain window grief · healing memories drama',   77:'Golden resolve fracture · reconciliation bridge',   78:'Glass-steel late-night · workplace romance city',   79:'Stage-light gold mic · musical romance every note',   80:'Antique paper letters · love outlasting distance',   81:'Void-black blood-red · supernatural horror door',   82:'Fractured mirror dread · psychological horror',   83:'Pale grey mist stairs · ghost story cold light',   84:'Green-black glowing eyes · demonic possession',   85:'Red-shadow midnight · slasher final-girl forest',   86:'Ochre-crimson robed · cult horror sun-bleached',   87:'Sickly-green body · transformation flesh horror',   88:'Victorian mansion · candle haunted-house windows',   89:'Midnight blue-violet · witch full moon ancient',   90:'Swamp-green scale-claw · creature feature run',   91:'Sickly-light crucifix · exorcism faith-vs-dark',   92:'Harvest amber wicker · folk horror old gods',   93:'Crimson-ivory gothic · vampire eternal hunger',   94:'Oxygen-blue-black space · sci-fi horror signal',   95:'Ash-grey empty city · zombie horde horizon',   96:'Cracked artefact evil · cursed object don\'t open',   97:'Storm-lashed tentacle · sea monster ship doomed',   98:'Fire-below threshold · portal-to-hell one choice',   99:'Silver-black full-moon · werewolf transformation',   100:'Deep-shadow occult · ancient evil resurfaces'}
+
+const vars = {
+  name:        () => document.getElementById('v-name').value.trim() || '[NAME]',
+  role:        () => document.getElementById('v-role').value.trim() || '[ROLE]',
+  outfit:        () => document.getElementById('v-outfit').value.trim() || '[OUTFIT]',
+  genre:        () => document.getElementById('v-genre').value.trim() || '[GENRE]',
+  palette:        () => document.getElementById('v-palette').value.trim() || '[PALETTE]',
+  tagline:        () => document.getElementById('v-tagline').value.trim() || '[TAGLINE]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[NAME\]/g, vars.name())
+    .replace(/\[ROLE\]/g, vars.role())
+    .replace(/\[OUTFIT\]/g, vars.outfit())
+    .replace(/\[GENRE\]/g, vars.genre())
+    .replace(/\[PALETTE\]/g, vars.palette())
+    .replace(/\[TAGLINE\]/g, vars.tagline());
+}
+
+function buildBlock(n) {
+  const na = vars.name(), ro = vars.role(), ou = vars.outfit(), ge = vars.genre(), pa = vars.palette(), ta = vars.tagline();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[NAME]" is Character or actor name.
+"[ROLE]" is Character's role or archetype.
+"[OUTFIT]" is Character's costume.
+"[GENRE]" is Film genre.
+"[PALETTE]" is Colour palette & mood.
+"[TAGLINE]" is Film tagline text.
+
+Now let's give these variables our values.
+[NAME] = "${na}"
+[ROLE] = "${ro}"
+[OUTFIT] = "${ou}"
+[GENRE] = "${ge}"
+[PALETTE] = "${pa}"
+[TAGLINE] = "${ta}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caricature & Chibi Prompts — PDF Edition | Book 4</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #0c150a;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #84cc16;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #84cc1666;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #0c150a;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #84cc16;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #84cc16;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #84cc16;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #4d7a0a;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #84cc16;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #84cc16;
+  border: 0.5px solid #84cc1680;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #84cc1659;
+  background: #84cc1614;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #84cc16;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #84cc16;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #84cc16; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #84cc16;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #84cc16; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #84cc16; }
+.guide-ex-text .token { color: #84cc16; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#84cc162e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 4</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Caricature & Chibi</h1>
+      <div class="cover-title-sub">Character Portrait Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Pixar 3D</span>
+        <span class="cover-cat">Chibi & Kawaii</span>
+        <span class="cover-cat">Caricature</span>
+        <span class="cover-cat">Fantasy 3D</span>
+        <span class="cover-cat">Profession Characters</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Character's name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. MAX, ZARA, THE PROFESSOR' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PERSONALITY]</span>
+        <span class="var-desc">Dominant personality trait</span>
+        <input class="var-input" id="v-personality" placeholder='e.g. wildly optimistic, genius' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ROLE]</span>
+        <span class="var-desc">Character's job or archetype</span>
+        <input class="var-input" id="v-role" placeholder='e.g. scientist, chef, warrior' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PROP]</span>
+        <span class="var-desc">Signature prop or object</span>
+        <input class="var-input" id="v-prop" placeholder='e.g. a massive wrench, tiny book' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[STYLE]</span>
+        <span class="var-desc">Animation/art style</span>
+        <input class="var-input" id="v-style" placeholder='e.g. Pixar 3D, chibi, caricature' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Character's clothing</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. lab coat, chef whites' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised caricature & chibi character image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[NAME]</span> <span class="tok">[PERSONALITY]</span> <span class="tok">[ROLE]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[NAME]</span><span class="guide-var-desc">Character's name</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[PERSONALITY]</span><span class="guide-var-desc">Dominant personality trait</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[ROLE]</span><span class="guide-var-desc">Character's job or archetype</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[PROP]</span><span class="guide-var-desc">Signature prop or object</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[STYLE]</span><span class="guide-var-desc">Animation/art style</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[OUTFIT]</span><span class="guide-var-desc">Character's clothing</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A Pixar 3D animated character portrait
+of <span class="tok">[NAME]</span>, a <span class="tok">[PERSONALITY]</span> <span class="tok">[ROLE]</span>
+rendered in warm Pixar studio lighting.
+<span class="tok">[NAME]</span> wields <span class="tok">[PROP]</span> with casual
+confidence, dressed in <span class="tok">[OUTFIT]</span>,
+styled in <span class="tok">[STYLE]</span>.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A Pixar 3D animated character portrait
+of <span class="filled-val">ZARA</span>, a <span class="filled-val">wildly optimistic</span> <span class="filled-val">scientist</span>
+rendered in warm Pixar studio lighting.
+<span class="filled-val">ZARA</span> wields <span class="filled-val">a glowing test tube</span> with casual
+confidence, dressed in <span class="filled-val">a rumpled lab coat</span>,
+styled in <span class="filled-val">Pixar 3D animation</span>.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Pixar-Style 3D Portraits</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Chibi &amp; Kawaii Characters</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Caricature Portraits</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">3D Profession Character Portraits</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Fantasy &amp; Sci-Fi 3D Characters</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 4: Caricature & Chibi &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A Pixar 3D animated character portrait of [NAME], a [PERSONALITY] [ROLE] rendered in warm Pixar studio lighting. [NAME] wields [PROP] with casual confidence, dressed in [OUTFIT], styled in [STYLE]. Subsurface skin scattering, expressive oversized eyes, and a shallow depth-of-field background of a bustling animated world.`,
+  2: `Pixar 3D render of [NAME]: a [PERSONALITY] [ROLE] whose defining prop is [PROP]. The character wears [OUTFIT], and every detail — from fabric weave to prop reflections — is rendered in [STYLE] quality. Warm key light from the upper left, rich ambient occlusion, and a cinematic 2.35:1 crop.`,
+  3: `Create a Pixar-quality 3D character model of [NAME], a [ROLE] with a [PERSONALITY] personality. [NAME] holds [PROP] in both hands with delighted focus, wearing [OUTFIT], rendered in [STYLE]. Studio quality: raytraced shadows, peach-tone rim light, and an out-of-focus workshop backdrop.`,
+  4: `Pixar animated 3D portrait: [NAME] is a [PERSONALITY] [ROLE] gripping [PROP]. Styled in [STYLE] and dressed in [OUTFIT], the character has exaggerated proportions, big expressive brows, and luminous skin shading. Pixar colour script palette of warm gold and cool shadow.`,
+  5: `[NAME] as a Pixar 3D hero — a [PERSONALITY] [ROLE] whose signature item is [PROP]. Wearing [OUTFIT] and rendered in [STYLE], the character stands in a confident three-quarter pose with bokeh-lit environment behind. Pixar-style soft diffused studio key plus blue-toned fill.`,
+  6: `Render [NAME] as a Pixar 3D supporting character: a lovably [PERSONALITY] [ROLE] always seen with [PROP]. Dressed in [OUTFIT], styled in [STYLE], the face shows laugh lines and sparkling eyes. Warm Pixar interior lighting with volumetric dust motes.`,
+  7: `A fully-rigged Pixar 3D character: [NAME], a [PERSONALITY] [ROLE]. [PROP] sits clipped to [NAME]'s [OUTFIT] belt. Rendered in [STYLE], pose is mid-gesture, mouth slightly open, hair catching a studio key light. Deep focus background of colourful city street.`,
+  8: `Pixar animation production render of [NAME] — [PERSONALITY] [ROLE], prop: [PROP], outfit: [OUTFIT], style: [STYLE]. Photoreal textures on fabric, specular gloss on [PROP], and a subtle expression of determined joy. Pixar lens at 50mm equivalent, f/2 depth of field.`,
+  9: `Concept art of Pixar 3D character [NAME]: a [PERSONALITY] [ROLE] posing heroically with [PROP] raised overhead. Wearing [OUTFIT], rendered in [STYLE]. Strong 3/4 back-light silhouette with soft front fill, dynamic pose, and an adventure-movie sky behind.`,
+  10: `Pixar feature-film-quality 3D render of [NAME], a [PERSONALITY] [ROLE]. [PROP] gleams under warm spotlight. The [OUTFIT] has hand-painted texture detail. Rendered in [STYLE], the character radiates warmth, humour, and unmistakable personality.`,
+  11: `[NAME], a [PERSONALITY] [ROLE] in classic Pixar 3D style. Holding [PROP] thoughtfully, wearing [OUTFIT], rendered in [STYLE]. The face captures a micro-expression of quiet determination. Background: soft bokeh of an animated kitchen or workshop.`,
+  12: `Pixar 3D close-up portrait of [NAME]: [PERSONALITY] [ROLE], [PROP] tucked under one arm, [OUTFIT] slightly rumpled from adventure. Rendered in [STYLE] with hero lighting — sharp key, soft fill, deep eye-sparkle. Warm amber colour grade.`,
+  13: `Full-body Pixar 3D character card of [NAME], a [PERSONALITY] [ROLE]. [PROP] is featured prominently. [OUTFIT] shows wear and personality through subtle scuffs and patches. [STYLE] rendering with Pixar's signature subsurface scatter on cheeks and ears.`,
+  14: `Pixar 3D character turntable frame for [NAME]: [PERSONALITY] [ROLE], holding [PROP], wearing [OUTFIT]. [STYLE] rendering quality, pure white studio background, three-point lighting setup. Character's expression: confident half-smile.`,
+  15: `A Pixar 3D action pose of [NAME] — a [PERSONALITY] [ROLE] mid-stride, [PROP] swinging at their side. Dressed in [OUTFIT], rendered in [STYLE]. Dynamic motion blur on hair ends, warm orange sunset rim light, dust kicked up by feet.`,
+  16: `Pixar 3D character bust of [NAME]: [PERSONALITY] [ROLE]. [PROP] is clutched close to chest. [OUTFIT] collar is turned up. [STYLE] render quality. Expression: eyebrows raised, eyes bright, lips parted in mid-sentence enthusiasm.`,
+  17: `Pixar 3D full-body illustration of [NAME], a [PERSONALITY] [ROLE]. [PROP] is oversized and comically appropriate. [OUTFIT] features bold colour-blocking. Rendered in [STYLE] with Pixar's classic warm-highlight/cool-shadow colour script.`,
+  18: `A storybook Pixar 3D render of [NAME] — a [PERSONALITY] [ROLE] sitting cross-legged with [PROP] balanced on one knee. [OUTFIT] is neat and characterful. [STYLE] quality, soft window light, cosy bookshelf background blur.`,
+  19: `Pixar cinematic still: [NAME], [PERSONALITY] [ROLE], turns toward camera mid-action, [PROP] in hand. [OUTFIT] catches the wind. Rendered in [STYLE] with a golden-hour backlight and shallow depth-of-field city-scape behind.`,
+  20: `Iconic Pixar 3D character poster of [NAME]: a [PERSONALITY] [ROLE] posing with [PROP] beside them like a trophy. [OUTFIT] is perfectly pressed. Rendered in [STYLE] with high-contrast dramatic studio lighting and a single colour gradient background.`,
+  21: `Chibi kawaii illustration of [NAME], a tiny [PERSONALITY] [ROLE] with a giant head and sparkly eyes. [PROP] is adorably oversized relative to [NAME]'s small body. Dressed in cute [OUTFIT], rendered in [STYLE]. Pastel background with floating hearts and stars.`,
+  22: `Super-deformed chibi version of [NAME]: [PERSONALITY] [ROLE], 3-head-tall proportions, rosy cheeks, and shining eyes. [PROP] is held with both tiny hands. [OUTFIT] is simplified to bold shapes. [STYLE] quality, soft cell shading.`,
+  23: `Kawaii chibi character art of [NAME] — a [PERSONALITY] [ROLE] drawn in classic chibi style. Holding [PROP] triumphantly, wearing [OUTFIT]. Rendered in [STYLE] with pastel colour palette, sparkle effects, and a candy-coloured backdrop.`,
+  24: `Chibi sticker art of [NAME]: [PERSONALITY] [ROLE], 2.5-head-tall SD proportions, [PROP] in hand, [OUTFIT] simplified to adorable shapes. [STYLE] rendering with thick black outline, flat colour fill, and sparkle highlights.`,
+  25: `Ultra-cute chibi of [NAME] — a [PERSONALITY] [ROLE] with button eyes and tiny hands clasped around [PROP]. Wearing [OUTFIT] in simplified chibi form, rendered in [STYLE]. Pastel lavender background, floating daisies, soft drop shadow.`,
+  26: `Chibi mascot design of [NAME]: a [PERSONALITY] [ROLE]. [PROP] appears as a chibi-sized mini version beside them. [OUTFIT] has oversized bows or buttons. [STYLE] quality. Expression: cheeks puffed, eyes curving into happy arches.`,
+  27: `Full-colour chibi character sheet of [NAME] — [PERSONALITY] [ROLE] — showing front, side, and 3/4 views. [PROP] included in each view. [OUTFIT] and [STYLE] consistent across poses. Transparent background, clean line art.`,
+  28: `Kawaii flat-art chibi of [NAME]: a [PERSONALITY] [ROLE] with star-shaped highlight eyes. [PROP] glows with a magical sparkle effect. [OUTFIT] features pastel tones and cute pocket details. [STYLE] rendering, soft gradient background.`,
+  29: `Chibi emote set of [NAME]: [PERSONALITY] [ROLE] in 4 mini poses (happy, shocked, determined, sleepy) each featuring [PROP] and [OUTFIT]. [STYLE] quality. Bold outlines, clean flat colour, transparent background.`,
+  30: `Adorable chibi portrait of [NAME] — a [PERSONALITY] [ROLE] — face close-up, eyes taking up 40% of the face, a tiny version of [PROP] floating nearby. [OUTFIT] collar visible. Rendered in [STYLE] with a warm pastel glow.`,
+  31: `Chibi action figure box art of [NAME]: a [PERSONALITY] [ROLE] in dramatic chibi pose. [PROP] held aloft. [OUTFIT] in [STYLE]. Box features star-burst background and text banners. Saturated pop-art colour palette.`,
+  32: `Kawaii chibi illustration of [NAME] — [PERSONALITY] [ROLE] — sitting atop a giant version of [PROP]. [OUTFIT] has cat-ear hood. Rendered in [STYLE]. Background: clouds and rainbows in pastel pink and blue.`,
+  33: `Chibi night-light print of [NAME]: a [PERSONALITY] [ROLE] surrounded by tiny glowing versions of [PROP]. [OUTFIT] has star-pattern fabric. [STYLE] quality. Deep midnight-blue background with constellation sparkles.`,
+  34: `SD chibi of [NAME] — [PERSONALITY] [ROLE] — in a running pose, [PROP] trailing behind like a flag. [OUTFIT] animates with wind-blown hems. [STYLE] rendering, motion lines, and a clean white background.`,
+  35: `Chibi valentine art of [NAME]: a [PERSONALITY] [ROLE] offering [PROP] as a gift, eyes hopeful. [OUTFIT] in [STYLE] with heart-shaped pocket patch. Soft pink and red palette, floating hearts, rounded corner frame.`,
+  36: `A 3D chibi of [NAME] — [PERSONALITY] [ROLE] — as a tiny rockstar with [PROP] bigger than their entire body, wild hair, [OUTFIT] covered in studs, mid-power chord with an expression of maximum rockstar intensity. [STYLE] render quality. Stage lighting behind, the crowd suggested by thousands of tiny lights in the background darkness — [NAME]'s [ROLE] energy completely authentic and irresistibly fun, the chibi format amplifying rather than diminishing the sheer commitment of the performance.`,
+  37: `Chibi summer sticker of [NAME]: a [PERSONALITY] [ROLE] relaxing with [PROP] as a sunshade. [OUTFIT] is summery and cute. [STYLE] rendering with sunshine yellow background, small sunflowers, and a watercolour texture overlay.`,
+  38: `Vintage chibi postage-stamp design of [NAME] — [PERSONALITY] [ROLE] — set inside a perforated frame. [PROP] in hand, [OUTFIT] in [STYLE]. Muted pastel palette, retro line art, country and denomination text.`,
+  39: `Chibi pixel-art sprite of [NAME]: [PERSONALITY] [ROLE], 32×32 pixel scale, [PROP] and [OUTFIT] clearly readable in [STYLE]. Four-direction idle animation frames. Transparent PNG format, clean anti-alias.`,
+  40: `Chibi plushie design of [NAME] — a [PERSONALITY] [ROLE] — rendered as a stuffed-toy concept. [PROP] is an embroidered patch on [OUTFIT]. [STYLE] quality. Sewn details: button eyes, stitched mouth-smile, fabric texture visible.`,
+  41: `An exaggerated caricature portrait of [NAME] — a [PERSONALITY] [ROLE] — with features pushed to comic extreme: giant head, tiny body. [PROP] is enormous relative to [NAME]. [OUTFIT] is lovingly detailed. [STYLE] rendering, warm editorial-cartoon palette.`,
+  42: `Bold caricature of [NAME], a [PERSONALITY] [ROLE]. Dominant feature emphasised to humorous extreme. [PROP] clutched in exaggeratedly small hands. [OUTFIT] rumpled with personality. [STYLE] quality, ink-hatching shadows.`,
+  43: `Newspaper editorial caricature of [NAME]: [PERSONALITY] [ROLE], caricatured with exaggerated jaw or eyebrows. [PROP] featured as status symbol. [OUTFIT] has recognisable silhouette. [STYLE] rendering, limited palette, bold outlines.`,
+  44: `Colour caricature illustration of [NAME] — a [PERSONALITY] [ROLE] — caught mid-expression. [PROP] almost as big as [NAME]. [OUTFIT] stretched over exaggerated posture. [STYLE] quality, warm watercolour wash over pencil sketch.`,
+  45: `Caricature parade balloon of [NAME]: [PERSONALITY] [ROLE] with inflated proportions and rosy cheeks. [PROP] tied to the wrist. [OUTFIT] in simplified caricature form. [STYLE] rendering, bright Saturday-morning-cartoon palette.`,
+  46: `Digital caricature of [NAME] — a [PERSONALITY] [ROLE] — in hyper-detailed style. Every expression line pushed 40% further than life. [PROP] rendered with loving sarcasm. [OUTFIT] in [STYLE], painterly shadows.`,
+  47: `Caricature bust of [NAME]: [PERSONALITY] [ROLE], head three-quarters of total height. Eyes bright and comic, brow arched. [PROP] balanced on tiny shoulder. [OUTFIT] neatly pressed. [STYLE] quality, warm tan background.`,
+  48: `Sketch caricature of [NAME] — a [PERSONALITY] [ROLE] — pencil-and-watercolour style. [PROP] sketched with extra loving detail. [OUTFIT] loose and gestural. [STYLE] rendering, messy cross-hatch shading, paper-texture background.`,
+  49: `Animated caricature of [NAME]: [PERSONALITY] [ROLE], rubber-hose limbs, oversized expressive mouth, tiny feet. [PROP] bounces on a spring from belt loop. [OUTFIT] in [STYLE]. Classic golden-era cartoon aesthetic.`,
+  50: `Caricature portrait of [NAME] — [PERSONALITY] [ROLE] — in the style of Mad Magazine art. [PROP] is absurdly large. [OUTFIT] has tiny humorous detail added. [STYLE] quality, halftone dots, primary-colour palette.`,
+  51: `Likeness caricature of [NAME]: a [PERSONALITY] [ROLE] with signature features exaggerated to endearing perfection. [PROP] featured as extension of personality. [OUTFIT] in [STYLE], warm oil-sketch palette.`,
+  52: `Speed-painted caricature of [NAME] — [PERSONALITY] [ROLE] — in thick gestural brushstrokes. [PROP] sketched loosely with ink. [OUTFIT] rough and painterly. [STYLE] rendering, deep shadow under chin, warm overhead light.`,
+  53: `Caricature concert poster of [NAME]: [PERSONALITY] [ROLE], features exaggerated rock-star style. [PROP] raised like a guitar. [OUTFIT] in [STYLE]. Retro concert-poster palette: orange, cream, deep navy.`,
+  54: `Political cartoon caricature of [NAME] — a [PERSONALITY] [ROLE] — drawn with heroic yet comic exaggeration. [PROP] is labelled for satirical effect. [OUTFIT] in [STYLE], bold ink line, newsprint texture.`,
+  55: `An illustrated caricature birthday card celebrating [NAME]: [PERSONALITY] [ROLE], the smile achieving solar luminosity exaggerated wide, [PROP] — specifically [NAME]'s signature achievement — extended with the force and precision of a thrown weapon. [OUTFIT] impeccable, the enthusiasm unmistakable. [STYLE] caricature style. Confetti, banners, warm celebratory palette — every detail making clear this is the birthday of someone who is very, very good at what they do as a [ROLE].`,
+  56: `A caricature trading card of [NAME] — [PERSONALITY] [ROLE] — stats listed on the reverse: DEDICATION, PERSISTENCE, and LOUDEST-IN-THE-ROOM all maxed out, with [PROP] featured in action as the defining tool of [NAME]'s [ROLE] trade. [OUTFIT] in [STYLE], every signature detail rendered with loving exaggeration. Shiny holographic foil effect on [NAME]'s name text — the trading card format giving the [ROLE] the full collector's-item reverence it deserves.`,
+  57: `A bold vintage barbershop caricature of [NAME]: [PERSONALITY] [ROLE], glowing with the passionate energy of their [ROLE] identity to a degree that is slightly supernatural, [PROP] — the signature object of their [ROLE] life — rendered in cartoonishly loving detail on kraft paper. [OUTFIT] in [STYLE]. Sepia tones and cross-hatch shading throughout, evangelical joy captured in period pencilwork — [NAME]'s [ROLE] enthusiasm made timeless by the vintage technique.`,
+  58: `Caricature mural sketch of [NAME] — [PERSONALITY] [ROLE] — larger-than-life proportions. [PROP] the size of a car. [OUTFIT] in [STYLE]. Street-art aesthetic: spray-paint edges, brick texture peeking through.`,
+  59: `A three-panel caricature comic strip starring [NAME]: [PERSONALITY] [ROLE] encounters [PROP] — specifically, the cats (plural, several) have colonized every surface around [NAME] and one is currently sitting on their head with an expression of absolute ownership, while [NAME]'s [ROLE] life continues undisturbed around them — and hilarity ensues. [OUTFIT] in [STYLE]. Panel borders, speech bubbles, bold outline art, [NAME]'s expression one of complete resigned love for the chaos.`,
+  60: `A final exaggerated caricature of [NAME] — [PERSONALITY] [ROLE] — as the hero of their own story: wearing every item of [ROLE] merchandise and [PROP] that can physically be worn simultaneously, [OUTFIT] in [STYLE] with face painted in [ROLE]-appropriate colors, the crowd of fellow believers visible behind. [PROP] gleams. Dramatic upshot lighting, foam finger triumphantly raised, cape flutter implied — the [ROLE] passion given its fully deserved heroic treatment in exaggerated cartoon form.`,
+  61: `A Pixar 3D profession character: [NAME], a [PERSONALITY] [ROLE], in full [OUTFIT] appropriate to their trade. [PROP] is the tool that defines them. Rendered in [STYLE] with warm studio lighting and a blurred workshop backdrop.`,
+  62: `A character design turntable of [NAME] — [PERSONALITY] [ROLE] — in professional [OUTFIT] as a firefighter: helmet, yellow jacket, oxygen tank, the full heroic gear of their [ROLE]. [PROP] shown in use and at rest from multiple angles. [STYLE] render quality. Arms crossed, expression of calm authority, standing before the fire engine. Neutral grey background, three-point lighting — [NAME]'s [ROLE] identity documented with the full professional respect of an animation studio character bible.`,
+  63: `Illustrated profession portrait of [NAME]: [PERSONALITY] [ROLE], [OUTFIT] worn with pride, [PROP] front and centre. [STYLE] quality, bold editorial-illustration palette, strong geometric shadow shapes.`,
+  64: `Concept art for [NAME] — a [PERSONALITY] [ROLE] — [OUTFIT] referencing real-world professional uniform. [PROP] drawn with accurate detail. [STYLE] rendering, environment: their natural workplace blurred behind.`,
+  65: `3D character badge illustration of [NAME]: [PERSONALITY] [ROLE], [OUTFIT] pressed and professional, [PROP] clipped to lapel. [STYLE] quality. Circular badge format, colour-matched to profession palette.`,
+  66: `An animated series design of [NAME] — [PERSONALITY] [ROLE]: nurse in [OUTFIT] referencing the classic [ROLE] archetype with scrubs, stethoscope as [PROP] uniquely and unmistakably theirs. [STYLE] stylized proportions elevating the heroic quality of the [ROLE]. Standing in a bright hospital corridor, warm and reassuring smile, the confidence and care radiating from every detail. Bold silhouette readable at thumbnail size — [NAME]'s [ROLE] identity instantly recognizable.`,
+  67: `A profession-hero illustration of [NAME]: [PERSONALITY] [ROLE] in a dramatic low-angle shot — a lawyer in sharp [OUTFIT], glasses slightly lowered, [PROP] (the thick case file) raised in triumph. [STYLE] quality, dramatic upshot lighting, rank insignia of [ROLE] expertise detailed with care throughout. The expression of someone who has already won the case and is simply waiting for everyone else to realize it — [NAME]'s [ROLE] mastery rendered as the heroic origin story it actually is.`,
+  68: `Illustrated magazine cover featuring [NAME]: a [PERSONALITY] [ROLE] in [OUTFIT] on a white background. [PROP] artfully placed. [STYLE] quality, masthead text space left at top, editorial photography look.`,
+  69: `Graphic-novel page panel of [NAME] — a [PERSONALITY] [ROLE] — caught at a key story moment. [OUTFIT] battle-worn. [PROP] active. [STYLE] rendering, ink outline, halftone dots, splash-page composition.`,
+  70: `A character reference sheet for [NAME]: [PERSONALITY] [ROLE] journalist in [OUTFIT] — the full trench coat — shown front and back with alert, intently-focused posture. [PROP] — notepad and pen — drawn from three angles, the tools of a [ROLE] who finds every story significant. [STYLE] quality. Notes annotate key details of [NAME]'s [ROLE] design. Transparent background — the character ready for any scene.`,
+  71: `A promotional poster of [NAME] — [PERSONALITY] [ROLE] financial advisor — in full [OUTFIT], [PROP] — the charts and graphs rising impressively on a screen behind — held at the visual authority level of shoulder height. [STYLE] render quality. Expression of someone who genuinely enjoys discussing compound interest more than most people enjoy anything. Tagline space at bottom, warm-cool contrast lighting giving [NAME]'s [ROLE] expertise its full poster-worthy treatment.`,
+  72: `A Pixar short-film still of [NAME]: [PERSONALITY] [ROLE] personal trainer at work in the gym. [OUTFIT] showing athletic at-work wear, arms crossed confidently, [PROP] caught mid-use in the session that defines [NAME]'s [ROLE]. [STYLE] quality. Warm interior gym light, environment telling the whole story of committed [ROLE] energy. Expression of "I believe in you more than you believe in yourself" — the feeling captured in one perfectly lit frame.`,
+  73: `An illustrated recruitment poster for [NAME]: [PERSONALITY] [ROLE] marine biologist, in ideal [OUTFIT] — wetsuit and field gear — holding [PROP] (the tablet showing ocean data, underwater scene visible through the window behind) invitingly toward the viewer. [STYLE] rendering. Retro recruiting-poster palette. Bold headline typography space above [NAME]'s name. Expression of someone who studies wonder for a living and wants you to join them.`,
+  74: `An animated title card of [NAME] — [PERSONALITY] [ROLE] pilot — name below in bold font. [OUTFIT] perfect: four-stripe epaulettes, captain's hat at the exact correct angle. [PROP] — the gleaming cockpit control panel — in the spotlight behind [NAME]. [STYLE] quality. Gradient background of brilliant sky blue matching the [ROLE] profession's colour palette, the clouds of the cockpit view framing [NAME]'s confident expression perfectly.`,
+  75: `Fantasy profession illustration of [NAME]: a [PERSONALITY] [ROLE] whose [OUTFIT] blends ancient and modern. [PROP] has magical properties. [STYLE] rendering, epic fantasy lighting, architectural backdrop.`,
+  76: `Scientific portrait of [NAME] — a [PERSONALITY] [ROLE] — in [OUTFIT] with measurement instruments. [PROP] is the key to their research. [STYLE] quality. Clean laboratory background, cool fluorescent light.`,
+  77: `An action-pose profession card of [NAME]: [PERSONALITY] [ROLE] marine in dress uniform, [OUTFIT] showing every medal mid-motion with quiet earned authority, [PROP] deployed in the stance of someone who has earned the right to stand exactly this way. [STYLE] rendering, speed lines and dramatic foreshortening capturing the moment of service and dedication, [NAME]'s [ROLE] heroism given its fully proportioned visual form.`,
+  78: `A children's book illustration of [NAME] — [PERSONALITY] [ROLE] chef — in simplified [OUTFIT] (the iconic chef's whites), [PROP] — the signature dish — friendly and approachable on the plate beside [NAME]. [STYLE] quality, soft rounded shapes, warm pastel kitchen palette. Eyes closed in genuine tasting concentration, the entire weight of [ROLE] judgment in the slight tilt of [NAME]'s head — made gentle and warm in the picture-book tradition.`,
+  79: `A stained-glass window illustration of [NAME]: [PERSONALITY] [ROLE] bookshop owner surrounded by towering stacks in a warm chaotic independent bookshop, [OUTFIT] depicted in leadlight segments of warm amber and burgundy. [PROP] — the novel open to a favourite page — central in the composition. [STYLE] rendering with jewel-tone palette throughout, black leading lines defining the [ROLE] scene with luminous stained-glass authority.`,
+  80: `A retro game sprite card of [NAME] — [PERSONALITY] [ROLE] conservationist biologist: [OUTFIT] (field khakis and boots) and [PROP] (binoculars) in pixel-perfect [STYLE]. Four directional sprites, idle and walk frames showing [NAME] looking out over lush wilderness with the expression of someone for whom knowing the names of things makes them more beautiful, not less. Tan RPG card border, field-study stats printed below.`,
+  81: `Epic fantasy 3D character render of [NAME] — a [PERSONALITY] [ROLE] — in battle-worn [OUTFIT] with arcane [PROP] glowing with magical energy. [STYLE] quality. Volumetric fog, dramatic upshot rim light, fantasy castle backdrop.`,
+  82: `Sci-fi 3D character of [NAME]: a [PERSONALITY] [ROLE] in futuristic [OUTFIT] with holographic [PROP] projecting data. Rendered in [STYLE]. Neon-lit corridor, cyberpunk lens flare, shallow depth of field.`,
+  83: `High-fantasy 3D portrait of [NAME] — a [PERSONALITY] [ROLE] — wearing [OUTFIT] with hand-etched armour detail. [PROP] radiates magical light. [STYLE] rendering. Deep forest backdrop, god-ray light shaft.`,
+  84: `A space-opera 3D render of [NAME]: [PERSONALITY] [ROLE] robot companion with rounded friendly [OUTFIT] referencing a fleet android chassis design. [PROP] — the small potted plant they're somehow carrying and clearly care about deeply — is the most advanced tech in the scene: life-support for something small and green. [STYLE] quality. Star-field behind, engine glow rim light, LED eyes set to the expression of warm competent companionship. Dramatic hero pose.`,
+  85: `Dark-fantasy 3D character of [NAME] — a [PERSONALITY] [ROLE] — in shadowy [OUTFIT] with cursed [PROP] leaking dark energy. [STYLE] rendering. Moonlit ruined keep, smoke tendrils, cinematic colour grade.`,
+  86: `A steampunk 3D character of [NAME]: [PERSONALITY] [ROLE] young dragon tamer in [OUTFIT] — leather armor with dragon-scale accents, brass-and-[STYLE] detail throughout. [PROP] is a clockwork invention strapped alongside — or possibly a juvenile dragon perched on [NAME]'s shoulder looking outraged at everything, the [ROLE] clearly used to this. Industrial workshop aesthetic, gas-lamp warm light, gear motifs decorating every leather strap with full fantastical commitment.`,
+  87: `A post-apocalyptic 3D render of [NAME] — [PERSONALITY] [ROLE] android awakening — in [OUTFIT] of salvaged tech and pristine chrome in equal measure, [PROP] — one hand raised to examine the new world — improvised but perfect for the first moment of consciousness. [STYLE] quality. Eyes just opening, a look of pure wonder and first processing. Ruined-city backdrop visible through the chamber window, harsh light catching the synthetic skin texture, dust haze of a world [NAME]'s [ROLE] is only just beginning to understand.`,
+  88: `Elven 3D character of [NAME]: [PERSONALITY] [ROLE], [OUTFIT] woven from living silver thread. [PROP] carved from moonwood. [STYLE] rendering. Ancient forest temple, silver light through canopy, enchanted atmosphere.`,
+  89: `Cybernetic 3D character of [NAME] — a [PERSONALITY] [ROLE] — with biopunk [OUTFIT] integrating organic and chrome. [PROP] interfaces directly with [NAME]'s neural implants. [STYLE] quality. Underground lab, ultraviolet glow.`,
+  90: `Viking-inspired 3D character of [NAME]: [PERSONALITY] [ROLE], [OUTFIT] referencing Norse warrior tradition. [PROP] is a legendary weapon. [STYLE] rendering. Fjord backdrop, storm clouds, epic Nordic colour palette.`,
+  91: `A solarpunk 3D character of [NAME] — [PERSONALITY] [ROLE] starship captain — in plant-integrated [OUTFIT] with rank insignia woven from living vines, one hand resting on [PROP] (the command console) with the expression of someone who has mapped the unknown and finds it more interesting than the known. [STYLE] quality. Rooftop garden city skyline behind, golden-hour sun, lush green architecture — the [ROLE] energy sustainable and bold, authority growing alongside the ecosystem.`,
+  92: `Mech-pilot 3D render of [NAME]: [PERSONALITY] [ROLE], flight-suit [OUTFIT] with mission patches. [PROP] is the mech's control device. [STYLE] quality. Hangar bay, dramatic strip-lighting, heroic over-shoulder angle.`,
+  93: `Underwater-city 3D character of [NAME] — a [PERSONALITY] [ROLE] — in deep-sea [OUTFIT] with bioluminescent [PROP]. [STYLE] rendering. Coral palace backdrop, shafts of filtered ocean light, caustic patterns.`,
+  94: `Time-traveller 3D character of [NAME]: [PERSONALITY] [ROLE], [OUTFIT] a patchwork of eras. [PROP] is the time device. [STYLE] quality. Temporal vortex background, multiple-era silhouettes in the swirl.`,
+  95: `Necromancer 3D character of [NAME] — a [PERSONALITY] [ROLE] — in [OUTFIT] embroidered with bones. [PROP] raises spectral light. [STYLE] rendering. Graveyard moonlight, mist, cold blue-purple colour grade.`,
+  96: `Galactic explorer 3D character of [NAME]: [PERSONALITY] [ROLE] in EVA-suit [OUTFIT] with mission badge. [PROP] is alien-tech scanner. [STYLE] quality. Planet-rise backdrop, star nebula, zero-gravity dust.`,
+  97: `Demon-hunter 3D character of [NAME] — a [PERSONALITY] [ROLE] — in consecrated [OUTFIT] with holy [PROP] blazing. [STYLE] rendering. Cathedral ruins, divine light column, supernatural atmospheric haze.`,
+  98: `Artificer 3D character of [NAME]: [PERSONALITY] [ROLE] in crafting-guild [OUTFIT]. [PROP] is a masterwork construct. [STYLE] quality. Stone workshop, forge glow, intricate mechanical parts mid-assembly.`,
+  99: `An aerial 3D character of [NAME] — [PERSONALITY] [ROLE] intergalactic bounty hunter — in [OUTFIT] with armor plating from a dozen different worlds and [PROP] (weapons from as many more) visible and ready. [STYLE] rendering. Cloudscape 10,000 feet up from the last target's planet, golden-hour horizon, wind-blur framing the face of a [ROLE] who has learned to read any situation instantly — standing in the coordinates between the last job and the next, entirely in their element.`,
+  100: `Legendary 3D hero portrait of [NAME]: the ultimate [PERSONALITY] [ROLE]. [OUTFIT] bears every badge of every journey. [PROP] glows with earned power. [STYLE] quality. Epic composite environment — city, mountain, and sky unified.`,
+}
+
+const H = {  1:'Warm Pixar hero · confident [ROLE] golden studio light',   2:'Pixar character model · fabric textures and prop gleam',   3:'Pixar 3D workshop · delighted focus raytraced shadows',   4:'Pixar exaggerated proportions · luminous skin shading',   5:'Pixar 3D hero pose · bokeh-lit environment behind',   6:'Pixar supporting character · laugh lines sparkling eyes',   7:'Pixar full-rigged mid-gesture · colourful city backdrop',   8:'Pixar production render · photoreal fabric and gloss',   9:'Pixar hero raised-prop · adventure sky back-light',   10:'Pixar feature-quality · warmth humour unmistakable',   11:'Pixar quiet determination · bokeh workshop close-up',   12:'Pixar hero lighting · amber grade eye-sparkle portrait',   13:'Pixar character card · scuffs patches subsurface scatter',   14:'Pixar turntable · white studio three-point lighting',   15:'Pixar action mid-stride · sunset rim motion-blur hair',   16:'Pixar character bust · mid-sentence enthusiasm brows',   17:'Pixar oversized prop · bold colour-blocking warm script',   18:'Pixar storybook sitting · soft window cosy bookshelf',   19:'Pixar cinematic still · golden-hour wind cityscape',   20:'Pixar iconic poster · high-contrast gradient background',   21:'Chibi kawaii giant head · sparkly eyes oversized prop',   22:'Super-deformed 3-head · rosy cheeks bold shapes',   23:'Kawaii chibi triumph · pastel palette sparkle effects',   24:'Chibi sticker flat colour · thick outline sparkle highlights',   25:'Ultra-cute button eyes · pastel lavender floating daisies',   26:'Chibi mascot puffed cheeks · happy-arch eyes bouncing',   27:'Full chibi character sheet · front side 3/4 clean line',   28:'Kawaii star-eyes · magical sparkle gradient backdrop',   29:'Chibi emote set 4 poses · bold outlines transparent PNG',   30:'Chibi close-up 40% eyes · warm pastel glow portrait',   31:'Chibi action figure box · star-burst pop-art colour',   32:'Kawaii sitting giant prop · candy clouds rainbows',   33:'Chibi night-light print · star-pattern constellation sparkles',   34:'SD running motion lines · wind-blown hems white bg',   35:'Chibi valentine gift · hopeful eyes heart-pocket',   36:'Kawaii magical wand burst · sparkle rainbow gradient',   37:'Chibi summer sticker · sunshine yellow watercolour',   38:'Vintage chibi stamp · perforated frame retro art',   39:'Chibi pixel sprite · 32×32 four-direction animation',   40:'Chibi plushie concept · button eyes stitched smile',   41:'Exaggerated caricature · comic extreme editorial warm',   42:'Bold caricature dominant · ink-hatching shadow portrait',   43:'Newspaper editorial · exaggerated jaw halftone colour',   44:'Colour watercolour caricature · mid-expression wash',   45:'Caricature parade balloon · inflated rosy cheeks bright',   46:'Digital hyper-detailed · expression lines pushed 40%',   47:'Caricature bust 3/4 height · bright comic brow arched',   48:'Sketch watercolour caricature · cross-hatch paper texture',   49:'Animated rubber-hose · oversized mouth tiny feet spring',   50:'Mad Magazine style · halftone dots primary colours',   51:'Likeness caricature · signature features warm oil-sketch',   52:'Speed-painted gestural · thick brushstrokes ink loose',   53:'Concert poster caricature · raised prop retro palette',   54:'Political cartoon · satirical label newsprint texture',   55:'Caricature birthday card · wide smile confetti banners',   56:'Caricature trading card · holographic foil name text',   57:'Vintage barbershop pencil · kraft paper sepia hatch',   58:'Caricature mural street-art · spray-paint brick texture',   59:'Three-panel comic strip · speech bubbles bold outline',   60:'Hero story caricature · gleaming prop dramatic cape',   61:'Pixar profession character · workshop backdrop warm',   62:'Character design turntable · three-point neutral grey',   63:'Illustrated profession · editorial palette geometric shadow',   64:'Concept art workplace · accurate prop real-world uniform',   65:'3D profession badge · circular format profession palette',   66:'Animated series design · bold silhouette thumbnail-read',   67:'Profession hero low-angle · rank insignia dramatic upshot',   68:'Magazine cover profession · white background editorial',   69:'Graphic-novel panel · key story moment ink halftone',   70:'Character reference sheet · front back 3 angles notes',   71:'Promotional poster · warm-cool contrast tagline space',   72:'Pixar short-film still · interior work warm light',   73:'Recruitment poster retro · inviting prop bold headline',   74:'Animated title card · gradient profession palette',   75:'Fantasy profession blend · magical prop epic lighting',   76:'Scientific portrait · lab background cool fluorescent',   77:'Action profession card · speed lines foreshortening',   78:'Children\'s book soft · rounded shapes pastel warm',   79:'Stained-glass portrait · jewel-tone leadlight segments',   80:'Retro game sprite card · pixel RPG idle walk frames',   81:'Epic fantasy 3D · arcane prop fog dramatic upshot',   82:'Sci-fi neon 3D · holographic data cyberpunk flare',   83:'High-fantasy portrait · hand-etched armour god-ray',   84:'Space-opera fleet · advanced tech star-field glow',   85:'Dark fantasy cursed prop · moonlit ruin smoke grade',   86:'Steampunk clockwork · brass leather gas-lamp warm',   87:'Post-apocalyptic salvaged · harsh noon sun dust haze',   88:'Elven moonwood · ancient forest temple silver light',   89:'Cybernetic biopunk · ultraviolet glow neural interface',   90:'Viking legendary · fjord storm epic Nordic palette',   91:'Solarpunk rooftop garden · golden-hour lush green city',   92:'Mech-pilot hangar · strip-light heroic over-shoulder',   93:'Underwater palace · bioluminescent coral caustic light',   94:'Time-traveller vortex · patchwork eras temporal swirl',   95:'Necromancer moonlit · graveyard mist blue-purple grade',   96:'Galactic EVA-suit · alien scanner planet-rise nebula',   97:'Demon-hunter cathedral · holy prop divine light column',   98:'Artificer forge glow · masterwork construct stone shop',   99:'Aerial wing-suit · cloudscape golden-hour horizon blur',   100:'Legendary hero epic · all-journey badge composite sky'}
+
+const vars = {
+  name:        () => document.getElementById('v-name').value.trim() || '[NAME]',
+  personality:        () => document.getElementById('v-personality').value.trim() || '[PERSONALITY]',
+  role:        () => document.getElementById('v-role').value.trim() || '[ROLE]',
+  prop:        () => document.getElementById('v-prop').value.trim() || '[PROP]',
+  style:        () => document.getElementById('v-style').value.trim() || '[STYLE]',
+  outfit:        () => document.getElementById('v-outfit').value.trim() || '[OUTFIT]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[NAME\]/g, vars.name())
+    .replace(/\[PERSONALITY\]/g, vars.personality())
+    .replace(/\[ROLE\]/g, vars.role())
+    .replace(/\[PROP\]/g, vars.prop())
+    .replace(/\[STYLE\]/g, vars.style())
+    .replace(/\[OUTFIT\]/g, vars.outfit());
+}
+
+function buildBlock(n) {
+  const na = vars.name(), pe = vars.personality(), ro = vars.role(), pr = vars.prop(), st = vars.style(), ou = vars.outfit();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[NAME]" is Character's name.
+"[PERSONALITY]" is Dominant personality trait.
+"[ROLE]" is Character's job or archetype.
+"[PROP]" is Signature prop or object.
+"[STYLE]" is Animation/art style.
+"[OUTFIT]" is Character's clothing.
+
+Now let's give these variables our values.
+[NAME] = "${na}"
+[PERSONALITY] = "${pe}"
+[ROLE] = "${ro}"
+[PROP] = "${pr}"
+[STYLE] = "${st}"
+[OUTFIT] = "${ou}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

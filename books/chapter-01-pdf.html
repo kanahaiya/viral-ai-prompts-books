@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Action Figure Prompts — PDF Edition | Book 1</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #1a1510;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer gold frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #d4a836;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid rgba(212,168,54,0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #1a1510;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #d4a836;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Watermark and medallion — both hidden */
+.cover-bg-num { display: none; }
+.cover-medallion { display: none; }
+/* Dot-grid SVG — uses inline SVG so it prints reliably without needing
+   "Background graphics" enabled in the browser print dialog */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #d4a836;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #d4a836;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #a07820;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Gold rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #d4a836;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c8a84a;
+  border: 0.5px solid rgba(212,168,54,0.5);
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid rgba(212,168,54,0.35);
+  background: rgba(212,168,54,0.08);
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #d4a836;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d4a836;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #d4a836; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified gold token style — used everywhere tokens appear */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #d4a836;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #d4a836; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #d4a836; }
+.guide-ex-text .token { color: #d4a836; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  /*
+   * A4 usable height: 297mm − 2×1cm margin = 277mm
+   * 2 cards per page: each card min-height ≈ 128mm
+   * gap between cards: ~8mm  →  2×128 + 8 = 264mm  (fits inside 277mm)
+   * Category header: ~14mm  →  14 + 2×128 + 8 = 278mm  (≈ 277mm, exact fit)
+   */
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  /* Page 1 (cover): zero margin so cover fills edge-to-edge */
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    /* Full A4 height with no page margin */
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-bg-num { font-size: 260pt; right: -3cm; bottom: -2cm; color: rgba(212,168,54,0.08); }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  /* Every category header forces a new page */
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  /* Empty page-sep headers (no text) get padding-top to match the height
+     of real section headers (text ≈ 7mm), so cards start at the same
+     vertical position on every page */
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  /* But NOT the very first category — no blank page before it */
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  /* Cards: exactly 2 per page — each takes half the usable height */
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    /* Stretch card to fill exactly half the page */
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  /* Hormozi block grows to fill remaining card space — no bottom gap.
+     7pt / 1.45 lh: 22-line preamble + 4-line prompt ≈ 105mm → fits in 128mm min-height */
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  /* Equal left/right margins — symmetric 1.2cm all sides */
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture (SVG — prints without background-graphics setting) -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="rgba(212,168,54,0.18)"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Gold border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 1</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Action Figure</h1>
+      <div class="cover-title-sub">&amp; Toy Box Image Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Professional</span>
+        <span class="cover-cat">Lifestyle</span>
+        <span class="cover-cat">Fandom</span>
+        <span class="cover-cat">Adventure</span>
+        <span class="cover-cat">Special Edition</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">{NAME}</span>
+        <span class="var-desc">Your name, as it appears on the toy box</span>
+        <input class="var-input" id="v-name" placeholder='e.g. "Sarah Chen"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{ROLE}</span>
+        <span class="var-desc">Your job title or the character the figure represents</span>
+        <input class="var-input" id="v-role" placeholder='e.g. "Senior Product Designer"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{DESCRIPTION}</span>
+        <span class="var-desc">Brief physical description matching your photo</span>
+        <input class="var-input" id="v-desc" placeholder='e.g. "woman in her 30s, shoulder-length black hair"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{OUTFIT}</span>
+        <span class="var-desc">Clothing, uniform, or costume for the figure</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. "tailored navy blazer and white shirt"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{ACCESSORIES}</span>
+        <span class="var-desc">Props or items the figure holds or displays</span>
+        <input class="var-input" id="v-accessories" placeholder='e.g. "a laptop and coffee mug"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{BOX_COLOR}</span>
+        <span class="var-desc">Primary color scheme of the toy box packaging</span>
+        <input class="var-input" id="v-boxcolor" placeholder='e.g. "midnight blue and gold"' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised action figure &amp; toy box image prompts — each with 6 variable slots. Replace the <span class="tok">{TOKENS}</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">{CURLY BRACES}</span> — such as <span class="tok">{NAME}</span>, <span class="tok">{ROLE}</span>, <span class="tok">{OUTFIT}</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 action figure style categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">{TOKEN}</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT (with your photo attached), Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">{NAME}</span><span class="guide-var-desc">Your name on the toy box</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">{ROLE}</span><span class="guide-var-desc">Job title or character role</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">{DESCRIPTION}</span><span class="guide-var-desc">Brief physical description</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">{OUTFIT}</span><span class="guide-var-desc">Clothing or costume</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">{ACCESSORIES}</span><span class="guide-var-desc">Props the figure holds</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">{BOX_COLOR}</span><span class="guide-var-desc">Toy box color scheme</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from scratch using text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">Transform this photo into a hyper-realistic
+3D collectible action figure of <span class="tok">{DESCRIPTION}</span>
+working as <span class="tok">{ROLE}</span>, wearing <span class="tok">{OUTFIT}</span>,
+packaged in a premium retail toy box with
+a <span class="tok">{BOX_COLOR}</span> metallic color scheme.
+The figure holds <span class="tok">{ACCESSORIES}</span> through
+the clear window. The box reads
+"<span class="tok">{NAME}</span> — Career Collection |
+Limited Edition."</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">Transform this photo into a hyper-realistic
+3D collectible action figure of <span class="filled-val">woman in her 30s,
+shoulder-length black hair</span>
+working as <span class="filled-val">Senior Product Designer</span>,
+wearing <span class="filled-val">tailored navy blazer and white shirt</span>,
+packaged in a premium retail toy box with
+a <span class="filled-val">midnight blue and gold</span> metallic color scheme.
+The figure holds <span class="filled-val">a laptop and coffee mug</span>
+through the clear window. The box reads
+"<span class="filled-val">Sarah Chen</span> — Career Collection |
+Limited Edition."</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Gold tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every gold token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Professional Edition</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+  <h2 class="cat-title"></h2>
+  <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Fantasy & Superhero Edition</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Personality & Lifestyle Edition</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">Special Occasions Edition</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Creative Characters & Fun Edition</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 1: Action Figure &amp; Toy Box &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1:`Transform this photo into a hyper-realistic 3D collectible action figure of {DESCRIPTION} working as {ROLE}, wearing {OUTFIT}, packaged in a premium retail toy box with a {BOX_COLOR} metallic color scheme. The figure holds {ACCESSORIES} through the clear window. The box reads "{NAME} — Career Collection | Limited Edition." Photorealistic product photography with soft studio shadows on a clean white surface.`,
+  2:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE}, dressed in {OUTFIT}, in a sleek minimalist toy box with a {BOX_COLOR} design. The figure holds {ACCESSORIES}. The box reads "{NAME} — Silicon Valley Series | Visionary Edition." Ultra-detailed with dramatic rim lighting against a dark background.`,
+  3:`Generate a realistic 3D collectible action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, inside medical-themed retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Hero Edition | Collect All 6." Bright, even studio lighting on a clean surface.`,
+  4:`Create a photorealistic action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in premium toy box packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Justice Series | Limited Courtroom Edition." Cinematic lighting with deep shadows and gold highlights.`,
+  5:`Transform this photo into a detailed 3D action figure of {DESCRIPTION} as {ROLE}, in {OUTFIT}, displayed in retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Science Heroes Collection | STEM Edition." Clean, bright product photography with even lighting.`,
+  6:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in industrial-themed retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Architecture Series | Master Planner Edition." Warm studio lighting on a concrete surface.`,
+  7:`Create a 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, packaged in retail toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Classroom Heroes | Back to School Edition." Cheerful, warm product photography with bright afternoon light.`,
+  8:`Transform this photo into a photorealistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in premium retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Agency Life | Campaign Edition." Dynamic product photography with colorful rim lighting.`,
+  9:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE}, in {OUTFIT}, inside culinary-themed retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Michelin Star Series | Kitchen Master Edition." Professional warm restaurant lighting.`,
+  10:`Create a photorealistic 3D collectible action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in dramatic toy box packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — First Responder Series | Courage Edition." Dramatic product photography with fiery orange rim lighting.`,
+  11:`Generate a detailed 3D action figure of {DESCRIPTION} as {ROLE}, in {OUTFIT}, displayed in retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Law & Order Series | Thin Blue Line Edition." Professional, authoritative studio lighting.`,
+  12:`Transform this photo into a realistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in healthcare-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Healthcare Heroes | Caring Edition." Soft, warm product photography on a clean white background.`,
+  13:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} holding a SOLD sign, wearing {OUTFIT}, in premium retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Real Estate Elite | Million Dollar Edition." Bright, aspirational product photography on marble.`,
+  14:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE}, in {OUTFIT}, displayed in aviation-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Aviation Heroes | First Class Edition." Clean, professional studio lighting with slight blue tones.`,
+  15:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE}, in {OUTFIT}, in vibrant retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Influencer Series | Verified Edition." Glamorous product photography with rose-gold studio lighting.`,
+  16:`Create a realistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in an electrifying toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Fitness Warriors | Beast Mode Edition." High-energy product photography with dramatic spot lighting from above.`,
+  17:`Generate a photorealistic 3D action figure of {DESCRIPTION} as {ROLE}, in {OUTFIT}, in luxury retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Fashion Icons | Runway Edition." Soft, high-fashion product photography with diffused studio lighting.`,
+  18:`Transform this photo into a realistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in sleek retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Creatives Series | Golden Hour Edition." Artistic product photography with dramatic Rembrandt lighting.`,
+  19:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE}, in {OUTFIT}, in an edgy retail toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Music Legends | Sold Out Edition." Rock concert product photography with dramatic colored spotlights.`,
+  20:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in a tech-themed toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Tech Heroes | Full-Stack Edition." Dark, moody product photography with neon terminal-screen glow.`,
+  21:`Create a photorealistic 3D action figure of {DESCRIPTION} as a superhero version of {ROLE}, wearing {OUTFIT} with a flowing cape, in a cosmic toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES} in a powerful pose. The box reads "{NAME} — Marvel-Style Legends Series | Universe Protector Edition." Epic golden light rays product photography.`,
+  22:`Generate a realistic 3D action figure of {DESCRIPTION} as a dark-armored {ROLE} warrior, wearing {OUTFIT}, in packaging with a {BOX_COLOR} color scheme and crackling lightning effects. The figure holds {ACCESSORIES} in a combat stance. The box reads "{NAME} — Shadow Warriors | Legendary Edition." Dramatic chiaroscuro product photography.`,
+  23:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} the wizard, wearing {OUTFIT} with star-embroidered robes, in mystical packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Spellcasters Guild | Ancient Magic Edition." Magical swirling blue particle photography.`,
+  24:`Create a photorealistic 3D action figure of {DESCRIPTION} as an elven {ROLE}, in {OUTFIT} with leaf armor and pointed ears, in an enchanted toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Elven Rangers | Forest Guardian Edition." Soft, ethereal dappled green light photography.`,
+  25:`Generate a realistic 3D action figure of {DESCRIPTION} as a cyberpunk {ROLE}, wearing {OUTFIT} with neon implants and augmented visor, in a neon-noir toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Cyberpunk Chronicles | Night City Edition." Rain-drenched neon photography.`,
+  26:`Transform this photo into a 3D action figure of {DESCRIPTION} as a space {ROLE} in futuristic {OUTFIT}, in a sci-fi toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Galactic Force | Deep Space Edition." Sci-fi product photography with starfield background.`,
+  27:`Create a photorealistic 3D action figure of {DESCRIPTION} as a Viking {ROLE} in battle-worn {OUTFIT} with Norse armor, in rugged packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Viking Warlords | Valhalla Edition." Dramatic Nordic storm cloud photography.`,
+  28:`Generate a realistic 3D action figure of {DESCRIPTION} as a pirate {ROLE} in weathered {OUTFIT}, in seafaring packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Pirates of the High Seas | Legendary Plunder Edition." Dramatic ocean-spray photography.`,
+  29:`Transform this photo into a 3D action figure of {DESCRIPTION} as a dragon-riding {ROLE} in cracked leather {OUTFIT} with a miniature dragon on their arm, in a fantasy toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Riders of the Realm | Fire Dragon Edition." Epic volcanic sky photography.`,
+  30:`Create a photorealistic 3D action figure of {DESCRIPTION} as a steampunk {ROLE} in Victorian {OUTFIT} with brass gear accents, in a clockwork toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Steampunk Explorers | Time Rift Edition." Warm sepia-tinted gas-light photography.`,
+  31:`Generate a realistic 3D action figure of {DESCRIPTION} as a dark witch {ROLE}, wearing {OUTFIT} with silver moon jewelry, in gothic packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Witches Coven | Blood Moon Edition." Dark atmospheric photography with purple swirling mist.`,
+  32:`Transform this photo into a 3D action figure of {DESCRIPTION} as an ancient {ROLE} pharaoh in ornate {OUTFIT} with royal regalia, in hieroglyphic packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Ancient Rulers | Nile Kingdom Edition." Dramatic desert sunlight photography.`,
+  33:`Create a photorealistic 3D action figure of {DESCRIPTION} as a ninja {ROLE} in all-black {OUTFIT} in a stealth pose, in sleek packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Shinobi Masters | Silent Blade Edition." Dark photography with falling cherry blossom petals.`,
+  34:`Generate a realistic 3D action figure of {DESCRIPTION} as a samurai {ROLE} in lacquered {OUTFIT} with a warrior's pride, in traditional packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Samurai Legends | Honor Edition." Cinematic misty golden sunrise photography.`,
+  35:`Transform this photo into a 3D action figure of {DESCRIPTION} as a bounty hunter {ROLE} in weathered {OUTFIT}, in a frontier toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Galactic Bounty | Last Stand Edition." Arid, cinematic twin-sun photography with dust clouds.`,
+  36:`Create a photorealistic 3D action figure of {DESCRIPTION} as a mermaid {ROLE} with iridescent scales in {OUTFIT}, in aquatic packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Ocean Royals | Deep Blue Edition." Ethereal bioluminescent underwater glow photography.`,
+  37:`Generate a realistic 3D action figure of {DESCRIPTION} as a vampire {ROLE} in Victorian {OUTFIT} with elegant fangs, in gothic packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Undead Royals | Eternal Night Edition." Dramatic flickering candlelight photography.`,
+  38:`Transform this photo into a 3D action figure of {DESCRIPTION} as an angel warrior {ROLE} in gleaming {OUTFIT} with massive feathered wings, in celestial packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Celestial Guards | Divine Light Edition." Ethereal golden-white glow photography.`,
+  39:`Create a photorealistic 3D action figure of {DESCRIPTION} as a nature deity {ROLE} in living {OUTFIT} crafted from bark and glowing flowers, in organic packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Nature Deities | Ancient Forest Edition." Lush bioluminescent spore photography.`,
+  40:`Generate a realistic 3D action figure of {DESCRIPTION} as a shapeshifting {ROLE} villain in dark {OUTFIT} with crackling neon energy, in dramatic packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Villain Origins | Chaos Form Edition." Dark energy particle effects photography.`,
+  41:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in whimsical retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Kitchen Artisans | Signature Recipe Edition." Cozy, warm bakery morning light photography.`,
+  42:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} in a graceful warrior pose, wearing {OUTFIT}, in zen packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Wellness Warriors | Inner Peace Edition." Serene golden studio window light photography.`,
+  43:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} with a carefree explorer's stance, wearing {OUTFIT}, in globe-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Globe Trekkers | Endless Journey Edition." Adventurous warm golden travel light photography.`,
+  44:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} in a fierce competitive pose, wearing {OUTFIT}, in an epic RGB toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — E-Sports Elite | Championship Edition." Dark, cool product photography with RGB neon glow.`,
+  45:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} with a joyful creative expression, wearing {OUTFIT}, in colorful retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Creative Souls | Masterpiece Edition." Bright, creative photography with rainbow shadows.`,
+  46:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT}, in paw-print-adorned retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Pet Lovers | Best Friend Edition." Warm, joyful product photography with soft natural light.`,
+  47:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} with focused pride, wearing {OUTFIT}, in cozy café-themed retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Café Culture | Specialty Roast Edition." Warm, café-lit photography with rising steam.`,
+  48:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} in a triumphant summit pose, wearing {OUTFIT}, in rugged outdoor packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Adventure Series | Peak Bagger Edition." Epic golden-hour mountain light photography.`,
+  49:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} with a contented smile, wearing {OUTFIT}, in literary-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Readers Club | First Edition." Warm, intellectual library bookshelf photography.`,
+  50:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} with a proud expression, wearing {OUTFIT}, in botanical retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Garden Keepers | Bloom Edition." Bright garden-fresh afternoon sunlight photography.`,
+  51:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} mid-mix with headphones, wearing {OUTFIT}, in music-culture packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Sound Masters | Limited Vinyl Edition." Dark club-atmosphere sweeping colored light photography.`,
+  52:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} in cozy style, wearing {OUTFIT}, in whimsical retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Feline Friends | Nine Lives Edition." Soft, cozy warm late-afternoon window light photography.`,
+  53:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} with an ecstatic game-day expression, wearing {OUTFIT}, in stadium-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Game Day | Championship Edition." High-energy sports arena crowd photography.`,
+  54:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} in a peaceful full lotus position, wearing {OUTFIT}, in zen amethyst packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Mindfulness Series | Awakened Edition." Peaceful golden-candlelight product photography.`,
+  55:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} with intense artistic focus, wearing {OUTFIT}, in gourmet packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Gourmet Series | Chef's Table Edition." Warm food-photography studio lighting.`,
+  56:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} swirling a wine glass with knowing sophistication, wearing {OUTFIT}, in packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Wine Collector | Grand Cru Edition." Elegant candlelit photography on dark walnut.`,
+  57:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} mid-punchline with an animated expression, wearing {OUTFIT}, in comedy-club packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Comedy Kings | Sold Out Edition." Dramatic single spotlight photography.`,
+  58:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} breaking through a finish line tape, wearing {OUTFIT}, in sporty packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Athlete Series | Personal Best Edition." Dynamic motion-energy product photography.`,
+  59:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} planting a sapling with hopeful eyes, wearing {OUTFIT}, in earth-toned packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Green Heroes | Planet First Edition." Natural, earthy diffused sunlight photography.`,
+  60:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} leaning forward in a decisive move, wearing {OUTFIT}, in chess-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Chess Legends | Checkmate Edition." Intense, intellectual overhead lighting photography.`,
+  61:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} on their wedding day, wearing {OUTFIT} with a radiant smile, in elegant bridal packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Wedding Day | Once in a Lifetime Edition." Soft, romantic ethereal glow photography.`,
+  62:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} at the wedding, wearing {OUTFIT} with a proud loving expression, in premium packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Wedding Day | Happily Ever After Edition." Classic elegant photography on a marble surface.`,
+  63:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} wearing {OUTFIT} and holding their diploma, in commemorative packaging with {BOX_COLOR} school colors. The figure holds {ACCESSORIES}. The box reads "{NAME} — Class of 2026 | Commencement Edition." Joyful, celebratory golden confetti photography.`,
+  64:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} celebrating with the biggest smile, wearing {OUTFIT}, in explosion-of-joy packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Celebration Series | Fabulous Edition." Festive, fun confetti raining photography.`,
+  65:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} cradling a newborn with tears of joy, wearing {OUTFIT}, in soft retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Motherhood | New Chapter Edition." Soft, tender golden window halo photography.`,
+  66:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} with a wide disbelieving grin, wearing {OUTFIT}, in retail packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Fatherhood | Level Up Edition." Warm, joyful nursery-glow photography.`,
+  67:`Create a photorealistic 3D action figure SET of two figures — {DESCRIPTION} as {ROLE} celebrating their anniversary together, both wearing {OUTFIT}, packaged in a romantic retail toy box with a {BOX_COLOR} color scheme with heart and infinity graphic borders. The set displays {ACCESSORIES}. The box reads "{NAME} — Anniversary Collection | 25 Years Strong Edition." Romantic, warm product photography with soft bokeh of silver and gold lights behind the couple figures.`,
+  68:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} celebrating retirement with a huge relieved smile, wearing {OUTFIT}, in celebratory packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Golden Years | Finally Free Edition." Sunny, happy beach horizon photography.`,
+  69:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} holding oversized novelty house keys with wide disbelieving eyes, wearing {OUTFIT}, in packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Milestone Series | Dream Home Edition." Warm, aspirational doorstep photography.`,
+  70:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} celebrating a business launch with confetti raining down, wearing {OUTFIT}, in bold packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Startup Success | Launch Day Edition." Dynamic celebratory golden confetti photography.`,
+  71:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} standing proudly at a corner office window, wearing {OUTFIT}, in corporate packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Career Goals | Corner Office Edition." Professional aspirational city skyline photography.`,
+  72:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} at a book signing event with a beaming smile, wearing {OUTFIT}, in literary packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Book Launch | Bestseller Edition." Warm intellectual library bookshelf photography.`,
+  73:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} celebrating their 50th country with a triumphant grin, surrounded by tiny flags, wearing {OUTFIT}, in globe-trotting packaging designed as a world map with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — 50 Countries Club | Passport Full Edition." Adventurous passport-stamping photography.`,
+  74:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} kneeling joyfully with a rescued pet, wearing {OUTFIT}, in heartwarming packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Rescue Love | Adopted & Loved Edition." Heartwarming warm golden light photography.`,
+  75:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} in a confident powerful stance, wearing {OUTFIT}, in motivational packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Fitness Journey | Goal Crushed Edition." Motivational, powerful dramatic spotlight photography.`,
+  76:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} on their first day of school, wearing {OUTFIT}, in school-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — School Days Series | Kindergarten Edition." Bright, cheerful warm morning light photography.`,
+  77:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} in a traditional ball gown, wearing {OUTFIT} with a tiara, in royal packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Tradition & Beauty | Mi Reina Edition." Elegant, joyful warm ballroom photography.`,
+  78:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} in glamorous party style, wearing {OUTFIT}, in glam packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Coming of Age | Queen Edition." Glamorous sparkly fairy lights bokeh photography.`,
+  79:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} in a heartwarming pregnancy announcement pose — both looking at a tiny positive test with tearful joy, wearing {OUTFIT}, packaged in a baby-announcement retail toy box with a {BOX_COLOR} color scheme with baby star graphics. The figures display {ACCESSORIES}. The box reads "{NAME} — New Family Series | Due [Season] Edition." Soft, emotional warm golden natural light photography.`,
+  80:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} in festive style, wearing {OUTFIT}, in holiday packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Holiday Legends Series | Limited Christmas Edition." Warm, magical sparkling snow and candlelight photography.`,
+  81:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE}, wearing {OUTFIT} in a fantasy setting, in RPG-style packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Fantasy Realms | Tavern Master Edition." Dark, cozy fantasy firelight photography.`,
+  82:`Generate a realistic 3D action figure of {DESCRIPTION} as a retro action hero {ROLE}, wearing {OUTFIT} in 1980s style with a mullet, in a vintage-style toy box with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Retro Heroes | Saturday Morning Edition." Deliberately nostalgic, grainy 1980s photography.`,
+  83:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} with wild hair and a manic grin, wearing {OUTFIT}, in steampunk packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Brilliant Minds | Eureka Edition." Electric, energetic lightning arc photography.`,
+  84:`Create a photorealistic 3D action figure of {DESCRIPTION} as a circus {ROLE}, wearing {OUTFIT} in theatrical style, in big-top packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Circus Royale | Big Top Edition." Theatrical single overhead spotlight photography.`,
+  85:`Generate a realistic 3D action figure of {DESCRIPTION} as a magician {ROLE}, wearing {OUTFIT} mid-performance, in mysterious packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Magic Masters | Grand Illusion Edition." Mysterious overhead pin-spot photography.`,
+  86:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} in a serene meditation pose, wearing {OUTFIT}, in spiritual packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Ancient Wisdom | Enlightenment Edition." Peaceful golden late-afternoon photography.`,
+  87:`Create a photorealistic 3D action figure of {DESCRIPTION} as paranormal investigator {ROLE}, wearing {OUTFIT} with detection gear, in glow-in-the-dark packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Ghost Hunters | Evidence Collector Edition." Spooky green atmospheric mist photography.`,
+  88:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} in a graceful arabesque performance pose, wearing {OUTFIT}, in performance-art packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Dance Icons | Opening Night Edition." Elegant theatrical stage-light photography.`,
+  89:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} raising a championship belt in victory, wearing {OUTFIT}, in wrestling arena packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Pro Wrestling | Heavyweight Edition." Dramatic WWE-style arena spotlight photography.`,
+  90:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} in premium urban streetwear, wearing {OUTFIT}, in graffiti-art packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Hip-Hop Icons | Platinum Record Edition." Street-style authentic urban photography.`,
+  91:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} at the helm with a commanding gaze, wearing {OUTFIT}, in nautical packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — High Seas Elite | First Class Edition." Clean, aspirational ocean-blue photography.`,
+  92:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} standing against a dramatic approaching storm, wearing {OUTFIT}, in stormy packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Weather Warriors | Tornado Alley Edition." Dramatic churning stormy sky lightning photography.`,
+  93:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} holding a crystal decanter with expert reverence, wearing {OUTFIT}, in couture packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Fragrance Masters | Signature Scent Edition." Opulent, ultra-luxury black marble photography.`,
+  94:`Generate a realistic 3D action figure of {DESCRIPTION} as vintage {ROLE} leaning into a classic microphone, wearing {OUTFIT}, in Golden Age packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Golden Voices | On Air Edition." Warm, nostalgic tube-radio glow photography.`,
+  95:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} with an otherworldly diplomatic presence, wearing {OUTFIT}, in sci-fi packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Intergalactic Council | First Contact Edition." Otherworldly cosmic nebula photography.`,
+  96:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} surrounded by an explosion of tiny blooms, wearing {OUTFIT}, in garden-fresh packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Floral Artisans | In Full Bloom Edition." Fresh natural daylight with petals mid-flight photography.`,
+  97:`Generate a realistic 3D action figure of {DESCRIPTION} as {ROLE} with a laser-focused investigative gaze, wearing {OUTFIT}, in classified-files packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Classified Series | Top Secret Edition." Dramatic single desk-lamp moody photography.`,
+  98:`Transform this photo into a 3D action figure of {DESCRIPTION} as {ROLE} presenting with professional expertise, wearing {OUTFIT}, in fine-dining packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Fine Dining | Premier Cru Edition." Sophisticated, candlelit restaurant photography.`,
+  99:`Create a photorealistic 3D action figure of {DESCRIPTION} as {ROLE} with creative pride at their masterpiece, wearing {OUTFIT}, in beach-themed packaging with a {BOX_COLOR} color scheme. The figure holds {ACCESSORIES}. The box reads "{NAME} — Beach Legends | Award-Winning Edition." Warm, sunlit sparkling ocean background photography.`,
+  100:`Generate the ultimate personalised action figure — {DESCRIPTION} as {ROLE}, wearing {OUTFIT} that represents everything they stand for, in a signature toy box with a {BOX_COLOR} color scheme in personal signature colours. The figure displays {ACCESSORIES} representing their greatest achievements and passions. The box reads "{NAME} — SIGNATURE COLLECTION | One of a Kind — Not Available in Stores." Photorealistic product photography that looks like a genuine retail shelf product.`,
+};
+
+const H = {1:"Power suit exec · gold & navy premium collector box",2:"Startup founder in black turtleneck · Silicon Valley box",3:"Surgeon in scrubs · Medical Heroes limited edition box",4:"Sharp attorney with gavel · Justice Series collector box",5:"Female scientist with microscope · STEM Heroes box",6:"Architect with blueprints · industrial builder box",7:"Teacher with apple · Classroom Heroes packaging",8:"Creative director with color wheel · Agency Life box",9:"Head chef in whites · Michelin Star series box",10:"Firefighter in full gear · dramatic red hero box",11:"Police officer with badge · Law & Order navy box",12:"Nurse with stethoscope · Healthcare Heroes box",13:"Real estate agent with SOLD sign · million dollar box",14:"Airline captain saluting · First Class aviation box",15:"Influencer with ring light · pink sparkle verified box",16:"Fitness coach with dumbbells · neon beast mode box",17:"Fashion designer with dress form · haute couture box",18:"Photographer with camera · aperture-graphic box",19:"Rockstar in leather · concert Sold Out series box",20:"Developer in hoodie · matrix-green Code Wizard box",21:"Superheroine in metallic suit · cosmic starburst box",22:"Dark armored knight with energy sword · midnight box",23:"Wizard in star robes · celestial map packaging",24:"Elf warrior in leaf armor · enchanted forest box",25:"Cyberpunk mercenary with neon implant · rain-noir box",26:"Space marine in white armor · galaxy star-map box",27:"Viking berserker with battle axe · Norse rune box",28:"Pirate captain in scarlet coat · treasure map box",29:"Dragon rider with tiny dragon · fiery obsidian box",30:"Steampunk time traveler with gears · clockwork box",31:"Dark witch with broomstick & cat · gothic moon box",32:"Egyptian pharaoh in gold armor · hieroglyphic box",33:"Ninja assassin with dual katanas · calligraphy box",34:"Samurai in red lacquer armor · cherry blossom box",35:"Desert bounty hunter with jetpack · frontier box",36:"Mermaid queen with trident · bioluminescent ocean box",37:"Vampire lord in Victorian cape · gothic horror box",38:"Angel warrior with flaming sword · celestial box",39:"Nature deity in bark armor with antlers · forest box",40:"Shapeshifter villain in dark energy · neon purple box",41:"Home baker in pink apron with tiered cake · pastel box",42:"Yoga instructor in warrior pose · zen sage green box",43:"World traveler in cargo pants · vintage map box",44:"Pro gamer in RGB chair with headset · pixel art box",45:"Painter with palette in colorful overalls · splash box",46:"Dog lover cradling golden puppy · paw print box",47:"Coffee barista with latte art · espresso brown box",48:"Mountain hiker at summit pose · topographic map box",49:"Book lover in armchair with glasses · library box",50:"Proud gardener with roses & sun hat · botanical box",51:"DJ with vinyl in headphones · sound wave series box",52:"Cat lover with kitty on shoulder · lavender cloud box",53:"Sports superfan with foam finger · stadium box",54:"Meditator with crystals & candles · amethyst box",55:"Food blogger styling dish with tweezers · gourmet box",56:"Wine connoisseur swirling red glass · grand cru box",57:"Stand-up comedian at mic · red-curtain comedy box",58:"Marathon runner breaking finish tape · race day box",59:"Eco activist planting sapling · Green Heroes box",60:"Chess grandmaster in decisive move · checkmate box",61:"Bride in embellished gown with bouquet · bridal box",62:"Groom in black tuxedo with boutonnière · wedding box",63:"Graduate in cap & gown with diploma · Class of 2026",64:"Birthday royalty in crown with confetti · party box",65:"New mother cradling newborn with tears · blush box",66:"New dad with baby and diaper bag · powder blue box",67:"Silver anniversary couple · heart & infinity box",68:"Retiree with golf club & bucket list · golden box",69:"New homeowner with oversized keys & house model",70:"Entrepreneur with champagne at business launch",71:"Promoted woman at corner office with nameplate",72:"Published author at book signing · bestseller box",73:"World traveler at 50th country · passport full box",74:"New pet parent with rescue dog · adoption box",75:"Fitness transformation in athletic wear with medal",76:"Child on first school day with oversized backpack",77:"Quinceañera in ball gown with tiara · magenta box",78:"Sweet 16 in glamour gown with rhinestone crown",79:"Couple at pregnancy announcement · baby booties box",80:"Santa in velvet suit with sack of gifts · holiday box",81:"Medieval tavern keeper with tankard · RPG fantasy box",82:"1980s action hero with mullet & explosion vest",83:"Mad inventor in chaos coat with smoking contraption",84:"Circus ringmaster in scarlet tailcoat · big-top box",85:"Stage magician mid-flourish with cards · mystery box",86:"Zen monk in saffron robes · lotus mandala box",87:"Ghost hunter with EVP gear · glow-in-dark box",88:"Ballet prima ballerina en pointe · pink theater box",89:"Pro wrestler with championship belt · arena box",90:"Hip-hop artist in streetwear with gold chains",91:"Yacht captain at helm in white naval uniform",92:"Storm chaser against tornado · Weather Warriors box",93:"Perfume master with crystal decanter · luxury box",94:"1940s radio broadcaster with vintage mic · amber box",95:"Space alien diplomat in extraterrestrial robes",96:"Florist with exploding blooms · watercolor pastel box",97:"Conspiracy theorist with string board · redacted box",98:"Sommelier with crystal decanter · premier cru box",99:"Sandcastle sculptor with trophy ribbon · beach box",100:"Your ultimate signature edition · personalised box",};
+
+const vars = {
+  name:        () => document.getElementById('v-name').value.trim()        || '{NAME}',
+  role:        () => document.getElementById('v-role').value.trim()        || '{ROLE}',
+  description: () => document.getElementById('v-desc').value.trim()        || '{DESCRIPTION}',
+  outfit:      () => document.getElementById('v-outfit').value.trim()      || '{OUTFIT}',
+  accessories: () => document.getElementById('v-accessories').value.trim() || '{ACCESSORIES}',
+  boxcolor:    () => document.getElementById('v-boxcolor').value.trim()    || '{BOX_COLOR}',
+};
+
+function fill(str) {
+  return str
+    .replace(/\{NAME\}/g,        vars.name())
+    .replace(/\{ROLE\}/g,        vars.role())
+    .replace(/\{DESCRIPTION\}/g, vars.description())
+    .replace(/\{OUTFIT\}/g,      vars.outfit())
+    .replace(/\{ACCESSORIES\}/g, vars.accessories())
+    .replace(/\{BOX_COLOR\}/g,   vars.boxcolor());
+}
+
+function buildBlock(n) {
+  const nm = vars.name(), ro = vars.role(), de = vars.description();
+  const ou = vars.outfit(), ac = vars.accessories(), bc = vars.boxcolor();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI action figure image prompt for your photo.
+First, let's define some variables.
+
+"{NAME}" is your name as it will appear on the toy box packaging.
+"{ROLE}" is your professional role, job title, or the character the figure represents.
+"{DESCRIPTION}" is a brief physical description matching your photo appearance.
+"{OUTFIT}" is the clothing, uniform, or costume worn by the figure.
+"{ACCESSORIES}" are the props, tools, or objects the figure holds or displays.
+"{BOX_COLOR}" is the primary color scheme of the toy box packaging.
+
+Now let's give these variables our values.
+{NAME} = "${nm}"
+{ROLE} = "${ro}"
+{DESCRIPTION} = "${de}"
+{OUTFIT} = "${ou}"
+{ACCESSORIES} = "${ac}"
+{BOX_COLOR} = "${bc}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

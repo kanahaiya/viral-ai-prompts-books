@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vintage Scrapbook Prompts — PDF Edition | Book 8</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #1a0e05;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #b45309;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #b4530966;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #1a0e05;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #b45309;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #b45309;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #b45309;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #7a3806;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #b45309;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #b45309;
+  border: 0.5px solid #b4530980;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #b4530959;
+  background: #b4530914;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #b45309;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #b45309;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #b45309; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #b45309;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #b45309; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #b45309; }
+.guide-ex-text .token { color: #b45309; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#b453092e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 8</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Vintage Scrapbook</h1>
+      <div class="cover-title-sub">Retro & Nostalgia Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Vintage Photography</span>
+        <span class="cover-cat">Scrapbook & Collage</span>
+        <span class="cover-cat">Retro Era Aesthetics</span>
+        <span class="cover-cat">Handcrafted Textures</span>
+        <span class="cover-cat">Antique & Victorian</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Subject's name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. DOROTHY, ELEANOR, JAMES' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[STYLE]</span>
+        <span class="var-desc">Photo/art style</span>
+        <input class="var-input" id="v-style" placeholder='e.g. sepia, faded colour, black & white' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ERA]</span>
+        <span class="var-desc">Historical era or decade</span>
+        <input class="var-input" id="v-era" placeholder='e.g. 1920s Jazz Age, 1950s, 1970s' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Period-appropriate clothing</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. flapper dress, mod miniskirt' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Location or backdrop</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. city street, seaside resort' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OCCASION]</span>
+        <span class="var-desc">Event or life moment</span>
+        <input class="var-input" id="v-occasion" placeholder='e.g. a wedding, everyday life' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised vintage scrapbook & retro image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[NAME]</span> <span class="tok">[STYLE]</span> <span class="tok">[ERA]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[NAME]</span><span class="guide-var-desc">Subject's name</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[STYLE]</span><span class="guide-var-desc">Photo/art style</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[ERA]</span><span class="guide-var-desc">Historical era or decade</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[OUTFIT]</span><span class="guide-var-desc">Period-appropriate clothing</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[SETTING]</span><span class="guide-var-desc">Location or backdrop</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[OCCASION]</span><span class="guide-var-desc">Event or life moment</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A <span class="tok">[STYLE]</span> Kodachrome photograph of <span class="tok">[NAME]</span>
+in <span class="tok">[ERA]</span>, wearing <span class="tok">[OUTFIT]</span>, sitting on
+a sun-drenched <span class="tok">[SETTING]</span> with wind-tossed
+hair — <span class="tok">[OCCASION]</span> perfectly preserved
+on film. Authentic film grain, soft
+vignette, faded warm tones.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A <span class="filled-val">faded Kodachrome colour</span> Kodachrome photograph of <span class="filled-val">DOROTHY</span>
+in <span class="filled-val">1960s</span>, wearing <span class="filled-val">a mod miniskirt and white go-go boots</span>, sitting on
+a sun-drenched <span class="filled-val">seaside promenade</span> with wind-tossed
+hair — <span class="filled-val">a summer holiday</span> perfectly preserved
+on film. Authentic film grain, soft
+vignette, faded warm tones.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Vintage Photography &amp; Film Grain</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Scrapbook &amp; Collage Art</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Retro Era Aesthetics (1950s–1980s)</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">Handcrafted &amp; Artisanal Textures</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Antique &amp; Victorian Nostalgia</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 8: Vintage Scrapbook &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A [STYLE] Kodachrome photograph of [NAME] in [ERA], wearing [OUTFIT], sitting on a sun-drenched [SETTING] with wind-tossed hair — [OCCASION] perfectly preserved on film. Characteristic warm orange-yellow colour shift, slight overexposure along the horizon, faded magenta shadows, and occasional white flare streaks from the sun hitting the lens. Grain visible in the shadows. Borders show the slight curve of a scanned slide.`,
+  2: `A square-format [STYLE] snapshot of [NAME] in [OUTFIT] laughing at a [SETTING] during [OCCASION] in [ERA] — streamers and a half-eaten sheet cake visible behind them. Washed-out pastels and slight cyan colour cast, faded edges, thick white plastic border, and a small handwritten label at the bottom reading the date in blue ballpoint pen. The image feels like it was found in a shoebox.`,
+  3: `A moody [STYLE] photograph of [NAME] in [OUTFIT] walking past a glowing window reflected in puddles at [SETTING] in [ERA], captured during [OCCASION]. High contrast, deep blacks, blown highlights near the lights, heavy grain throughout the midtones and shadows, and a slight motion blur on the figure. Film sprocket holes visible on the left edge where the scan captured them.`,
+  4: `A faded [STYLE] colour snapshot of [NAME] in [OUTFIT] gathered at [SETTING] during [OCCASION] in [ERA]. Pastel pinks and powder blues typical of Ektacolor print film, slight green cast in the shadows, visible fading at the corners, and small dust spots from years of storage. A scalloped white border frames the image.`,
+  5: `A dreamy [STYLE] double-exposure on expired 35mm film showing [NAME] in [ERA] during [OCCASION] — [OUTFIT] and the wildflowers of [SETTING] overlaid so petals appear to grow through their features. Unexpected magenta and cyan colour shifts, soft halation around bright areas, and a dreamlike lack of sharpness in the corners. Heavy grain and a vignette complete the ethereal, otherworldly effect.`,
+  6: `A [STYLE] disposable camera photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION] in [ERA] — the flash creating harsh white highlights on faces, red-eye visible, and the characteristic slightly green-yellow tint of drugstore print film processing. Slightly off-centre and crooked, with part of a thumb at the lower right edge — perfectly capturing the casual, accidental beauty of pre-smartphone documentation.`,
+  7: `An atmospheric [STYLE] daguerreotype portrait of [NAME] in [ERA], wearing [OUTFIT], seated at [SETTING] during [OCCASION]. The characteristic metallic sheen, mirror-like surface texture, and slight blue-purple iridescence of authentic daguerreotypes, with a subtle oval vignette, tarnishing around the edges, and housed in a velvet-lined brass mat case as seen in the viewer.`,
+  8: `A [STYLE] instant photograph of [NAME] in [OUTFIT] at [SETTING] in [ERA] during [OCCASION] — signature slightly oversaturated but soft colours, white border with rounded corners, fine grain in the darks, and a slightly cool daylight balance giving the cozy scene a gentle, dreamy quality. A coffee ring stain has been pressed into the lower corner of the white border.`,
+  9: `A vintage [STYLE] Instamatic photograph of [NAME] in [OUTFIT] at [SETTING] in [ERA] during [OCCASION], shot through a slightly scratched plastic lens. Compressed dynamic range, slight haze, and yellow-orange colour bias of cartridge film. A faint lens flare streak, soft-focus edges, and a slight tilt as if shot casually without much thought — unhurried and perfect.`,
+  10: `A dramatic [STYLE] large-format photograph of [NAME] overlooking [SETTING] in [ERA] during [OCCASION] — the ultra-fine grain and tonal richness of a master darkroom print, deep velvety blacks, brilliant highlights, and a subtle warm tone from fibre-based paper. [OUTFIT] visible as they survey the view. A handwritten pencil note appears faintly in the lower margin.`,
+  11: `A lush [STYLE] slide photograph of [NAME] in [OUTFIT] at [SETTING] in [ERA] during [OCCASION]. Ultra-saturation makes the reds almost glow, the blues impossibly deep, and the greens jewel-like. Slight halation along bright sky edges and the fine grain characteristic of ISO 50 transparency film scanned at high resolution.`,
+  12: `A [STYLE] toy-camera photograph of [NAME] in [OUTFIT] at [SETTING] in [ERA] during [OCCASION]. Heavy corner vignette nearly black, colours shifted toward warm tones with unpredictable light leaks casting a pink glow across the upper left. The whole image has the hazy, dreamlike softness that makes Diana photos feel more like paintings than photographs.`,
+  13: `A [STYLE] photo booth strip of four small frames showing [NAME] in [OUTFIT] at [SETTING] during [OCCASION] in [ERA] — making silly faces, posing seriously, and laughing. Slight fisheye distortion, flat directional flash, soft paper texture of the strip print itself, with a small tear at the top where it was pulled from the machine. The whole strip has yellowed slightly with age.`,
+  14: `A water-damaged and partially faded [STYLE] colour photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION] in [ERA] — the image partially bleached where water reached it, leaving soft tide marks and colour shifts. Some areas turned cyan, others sepia. Undamaged portions show warm era-accurate colour printing tones with a slight yellow-green cast in the shadows.`,
+  15: `A [STYLE] tintype photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION] in [ERA], seated with a serious expression. The characteristic dark background, slight warm metallic tone, and flattened tonal range give the portrait a ghostly dignity. Emulsion cracks visible across one area, and small dark spots from ferrous oxidation dot the thin iron plate — an authentic period relic.`,
+  16: `A vintage [STYLE] photograph of [NAME] in [OUTFIT] at [SETTING] in [ERA] during [OCCASION]. Dense reds and greens, rich blacks, and extremely fine grain of Kodachrome slide film. Mid-century furniture and careful composition make this feel like a golden-era colour document — with slight colour fringing at high-contrast edges from years stored in a projector carousel.`,
+  17: `A night photography experiment on pushed [STYLE] film — [NAME] in [OUTFIT] at [SETTING] in [ERA] during [OCCASION]. Extreme grain clustering in the shadows, blocked blacks, slightly blown neon signs, fine detail surviving in the midtones. The gritty, urgent quality of street photography shot without a tripod at slow shutter speed — available light, no safety net.`,
+  18: `A vintage [STYLE] aerial photograph of [SETTING] from [ERA], showing [NAME] in [OUTFIT] observing during [OCCASION] from a reconnaissance angle. Slight greenish-brown cast typical of wartime printing, fold creases from storage in an envelope, and an official-looking rubber stamp with a period date in the corner.`,
+  19: `An underexposed, grainy [STYLE] photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION] in [ERA] — faces partially lit by a weak flash. Blue-green darkness of underexposed 400-speed film, red-eye, motion blur on raised hands, and slightly solarised patches in the brightest highlights — the beautiful accidental record of a night that mattered.`,
+  20: `A [STYLE] cyanotype photogram of botanical specimens collected by [NAME] in [ERA] at [SETTING] during [OCCASION] — every delicate stem, leaf vein, and petal edge captured in luminous white contrast against the rich Prussian blue background. [OUTFIT] visible as they arrange the final composition. The edges of the paper have the irregular mottled tone of hand-coated cyanotype paper dried in open air.`,
+  21: `A beautifully composed [STYLE] scrapbook page celebrating [OCCASION] for [NAME] in [ERA] — featuring Polaroid-style photos of them in [OUTFIT], patterned washi tape borders, pressed dried flowers, ticket stub ephemera, and handwritten journaling in gel pen with doodles in the margins. The background is [SETTING] textured cardstock with small dimensional sticker accents. Dusty rose, sage green, and warm cream palette.`,
+  22: `An artistic vintage [STYLE] collage featuring [NAME] in [ERA] at [SETTING] — surrounded by torn newspaper clippings in French, dried rose petals, antique postage stamps, pages from an old atlas, and musical score fragments, all arranged on aged kraft paper with visible glue texture. [OUTFIT] details appear in the central mounted portrait. Small handwritten annotations in ink and pencil with mysterious notes. [OCCASION] theme woven throughout.`,
+  23: `A travel scrapbook [STYLE] double-page spread documenting [NAME]'s [OCCASION] to [SETTING] in [ERA] — a hand-drawn map with starred locations, restaurant receipts glued and distressed, transit tickets, a stamped visa, and photos of landmarks overlapping at angles, each caption written in [OUTFIT]-era lettering mix of cursive and block. Washi tape in destination colours accents the borders.`,
+  24: `A dark academia [STYLE] scrapbook page with a moody, intellectual character — black-and-white botanical engravings, dictionary pages with words circled in red ink, gold wax seal stamps, pressed autumn leaves, and journal entries in careful copperplate recording [NAME]'s [OCCASION] in [ERA] at [SETTING]. [OUTFIT] depicted in a mounted photograph. Deep charcoal kraft paper background, mysterious and scholarly.`,
+  25: `A whimsical [STYLE] memory book page from [ERA] celebrating [OCCASION] for [NAME] — featuring photos of them in [OUTFIT] at [SETTING], surrounded by stickers, letter cutouts in primary colours, finger-painted borders, a handwritten note from a teacher, and construction paper pockets holding folded notes. A small crayon drawing of the location is mounted in the centre.`,
+  26: `A maximalist [STYLE] collage in the cut-and-paste tradition of [ERA] celebrating [OCCASION] — featuring bold typography, photographs of [NAME] in [OUTFIT] in [SETTING], geometric shapes in burnt orange and mustard yellow, typewriter-text poetry fragments, hand-stamped patterns, and fabric swatches. Nothing perfectly aligned — everything urgent and handmade.`,
+  27: `A romantic [STYLE] wedding memory scrapbook page commemorating [OCCASION] for [NAME] in [ERA] — delicate lace overlay elements, pressed bouquet flowers, a fragment of invitation card stock, ceremony ribbon, a swatch of veil tulle, handwritten vows in calligraphy, and soft-filtered portraits of [NAME] in [OUTFIT] arranged in a sweeping arc at [SETTING]. Ivory, blush, and champagne palette.`,
+  28: `A moody surrealist [STYLE] collage inspired by Max Ernst — layers of Victorian engravings, anatomy diagrams, moth-wing patterns, and 19th-century scientific illustrations reassembled into a dreamlike figure incorporating images of [NAME] in [OUTFIT] from [ERA] at [SETTING]. [OCCASION] implied in the composition's anxiety and beauty. Aged beige paper with torn edges and ink wash shading added by hand.`,
+  29: `A vintage [STYLE] recipe scrapbook page featuring [NAME]'s handwritten family recipe in [ERA], surrounded by clippings from period magazines, a flour-dusted index card, dried fruit preserved between pages, a [OCCASION] ribbon, and small watercolour illustrations painted directly onto the page. [OUTFIT] details visible in a mounted kitchen photograph. [SETTING] implied by the warm domestic aesthetic.`,
+  30: `A music fan [STYLE] scrapbook page dedicated to [OCCASION] at [SETTING] in [ERA] — concert ticket stubs layered at angles, a set list in [NAME]'s handwriting, a backstage pass laminate, handcut lyrics from magazines, a newspaper review clipping, and a fan-club photo postcard. [OUTFIT] details from the concert visible in photos. Star-shaped rhinestone stickers sparkling throughout the passionate composition.`,
+  31: `A lush [STYLE] botanist's journal page featuring watercolour illustrations painted by [NAME] in [ERA], surrounding actual pressed specimens collected from [SETTING] during [OCCASION]. [OUTFIT] visible as they annotate in careful scientific script with Latin names, collection dates, and location coordinates — the authentic beauty of a personal natural history record.`,
+  32: `A holiday [STYLE] scrapbook spread celebrating [OCCASION] in [ERA] with [NAME] — photos of them in [OUTFIT] framed in holly-leaf die-cut mats, plaid ribbon woven through the layout, a wrapping paper fragment, a Christmas card glued open showing the handwritten message, a preserved sprig of holly, a jingle bell tied with twine, and a child's handwritten wish list pinned in the corner at [SETTING].`,
+  33: `A sleek modern [STYLE] mixed-media collage from [ERA] featuring torn glossy magazine fragments reassembled into an abstract geometric composition where [NAME]'s face emerges from overlapping colour fields — [OUTFIT] elements visible in the reassembled pieces, [SETTING] implied by editorial context, [OCCASION] driving the composition. Partial words — 'desire,' 'gold,' 'forever' — peek through the torn edges.`,
+  34: `A vintage [STYLE] scrapbook page from [ERA] featuring [OCCASION] at [SETTING] — seed packet labels, patriotic bunting borders, black-and-white snapshots of [NAME] in [OUTFIT], a wartime newspaper clipping about rationing, a hand-drawn planting calendar for the growing season, and a handwritten reflection on community spirit. The paper has the worn, yellowish tone of genuine age.`,
+  35: `A coastal [STYLE] summer scrapbook spread celebrating [OCCASION] with [NAME] in [ERA] — sand dollars and shells glued to the page, a photo of them in [OUTFIT] at [SETTING], a faded lifeguard schedule clipping, a seafood shack takeout menu, sunscreen-smeared scraps of paper, a seagull feather, and handwritten captions in turquoise ink. Soft seafoam green and white striped cardstock background.`,
+  36: `A sophisticated [STYLE] art journal spread exploring [OCCASION] — pages from an old novel as background, ink wash poured to create organic colour fields, a stencilled bird silhouette obscured by translucent tissue paper, handwritten poetry fragments by [NAME] in [ERA], charcoal smudging, gold leaf on torn edges, and layered acetate overlays. [SETTING] implied in the poetry. [OUTFIT] echoed in the colour palette.`,
+  37: `A [STYLE] scrapbook page memorialising [NAME]'s [OCCASION] in [ERA] — swatches of fabric cut from their [OUTFIT], thread samples in rainbow order, a hand-embroidered patch, a vintage dress pattern envelope from [SETTING], thimbles and buttons in a small display, and handwritten notes about measurements and alterations. Pressed lavender sprigs incorporated throughout. The whole page smells of memory.`,
+  38: `A [STYLE] altar scrapbook page celebrating [NAME] in [ERA] during [OCCASION] — marigold-orange tones throughout, a central portrait of them in [OUTFIT] framed with sugar skull patterns, papel picado banners with intricate cut designs, decorative candle motifs, handwritten memories with translations, milagro charm shapes as decorative elements, and a favourite recipe on a card glued at an angle. [SETTING] carefully composed. Beautiful, colourful, and deeply reverent.`,
+  39: `A [STYLE] literary scrapbook page dedicated to [OCCASION] in [ERA] — a distressed vintage cover image as the centrepiece, hand-copied favourite quotes in calligraphy by [NAME] in [OUTFIT], a theatre performance ticket from [SETTING], a library checkout card in a manila pocket, pressed bookmarks, and paper doll figures of main characters hand-cut and mounted in theatrical poses. Dark forest green, candlelight amber, and night blue palette.`,
+  40: `A [STYLE] New Year's Eve scrapbook page featuring [NAME] in [OUTFIT] at [SETTING] during [OCCASION] in [ERA] — a champagne-stained party napkin glued flat, a foil balloon fragment, a countdown printout, the first photo of the new year mounted slightly askew, party favour items, a handwritten intentions list in silver gel pen on black cardstock, and a midnight showing ticket. Silver, gold, and midnight blue throughout.`,
+  41: `A vibrant [ERA] diner scene at [SETTING] in [STYLE] illustration — [NAME] in [OUTFIT] at a soda fountain counter with red vinyl stools, a jukebox glowing in the corner, two people sharing a milkshake with two straws during [OCCASION]. Bold primary reds, turquoise, and cream with chrome accents — the clean, optimistic commercial art of mid-century consumer America at its most cheerful.`,
+  42: `A [ERA] living room interior photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION], captured in [STYLE]. A sunken conversation pit with round velvet cushions in harvest gold and burnt orange, shag carpet in deep brown, macramé wall hangings, a lava lamp, houseplants in ceramic pots, and a wood-panelled wall with a mounted 8-track player. Warm incandescent lighting casts everything in amber.`,
+  43: `A neon-drenched [ERA] arcade scene — [NAME] in [OUTFIT] at [SETTING] during [OCCASION], captured in [STYLE] with the saturated, slightly blown-out colour of VHS home video. Electric blue and magenta neon reflections, visible scan-line overlay texture, mild tracking distortion at the screen edges, and a date stamp in the lower corner in classic VHS green font.`,
+  44: `A [ERA] mod fashion editorial of [NAME] in [OUTFIT] at [SETTING] during [OCCASION], photographed in [STYLE]. A geometric colour-block minidress against a flat white background with graphic circular target patterns — Mary Quant aesthetic with heavy graphic eyeliner, white go-go boots, crisp commercial high-key lighting, and a stylised layout straight from a 1960s Vogue spread.`,
+  45: `A [ERA] atomic age [STYLE] illustration of [NAME] in [OUTFIT] at [SETTING] during [OCCASION], marvelling at space-age appliances — a Googie-style refrigerator, a microwave with porthole window, a countertop television. The optimistic, forward-looking aesthetic of Popular Mechanics magazine art: cross-section diagrams embedded, bright primary colours, cheerful confidence in technology as salvation.`,
+  46: `A [ERA] roller disco photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION], shot in [STYLE]. Satin hot pants, platform roller skates, and sequined tops under a mirrored disco ball sending stars of light across the packed rink floor. Wide-angle composition, warm tungsten lighting mixed with coloured spotlights, blur of fast-moving skaters creating light trails.`,
+  47: `A [ERA] aerobics class photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION], in [STYLE]. A mirrored gym studio, brightly coloured leotards with matching leg warmers, headbands, and high-cut bottoms performing a synchronised kick routine. Saturated colours, soft-focus glow on the instructor, warm peach skin tone — the exact visual language of era fitness VHS covers at peak popularity.`,
+  48: `A [ERA] psychedelic rock concert poster for [NAME] performing at [SETTING] during [OCCASION], rendered in [STYLE]. Swirling Art Nouveau-inspired typography with letters blending into flowing human and floral forms, a central portrait of [NAME] in [OUTFIT] dissolved into concentric colour fields of electric purple, lime green, and hot pink on a black background. Authentic letterpress texture of screen-printed paper.`,
+  49: `A [ERA] roadside motel at golden hour rendered in [STYLE] photography — [NAME] in [OUTFIT] at [SETTING] during [OCCASION]. A swimming pool glowing turquoise, a neon VACANCY sign buzzing in the warm air, a red convertible parked out front. The rich warmth of Kodachrome with crisp shadows and a cinematic stillness that suggests stories untold beneath the surface.`,
+  50: `A [ERA] natural foods co-op interior at [SETTING], showing [NAME] in [OUTFIT] during [OCCASION], photographed in [STYLE]. Open wood bins filled with whole grains, hand-lettered chalkboard signs listing bulk prices, folk art posters celebrating organic farming, a community bulletin board, and long-haired staff weighing produce on analogue scales. Warm, grain-rich documentary photography — natural window light only.`,
+  51: `A [ERA] mall food court on a Saturday afternoon at [SETTING] — [NAME] in [OUTFIT] during [OCCASION], captured in [STYLE] colour palette. Orange Julius and Sbarro, parachute pants and Members Only jackets, potted ficus trees, and a skylighted ceiling streaming afternoon light. VHS-era framing that captures exactly the social atmosphere defining a generation's coming-of-age experience.`,
+  52: `A [ERA] mission control room during [OCCASION] at [SETTING], photographed in [STYLE] — [NAME] in [OUTFIT] among engineers in white short-sleeve dress shirts and thin ties hunched over illuminated switchboards, cigarette smoke curling toward the ceiling, large projection screens showing trajectory data. Perfectly captured tension, focus, and the collective mind of the most ambitious public project in human history.`,
+  53: `A [ERA] suburban drive-in movie theatre at [SETTING] on a warm summer night — [NAME] in [OUTFIT] during [OCCASION], rendered in [STYLE]. Rows of cars facing a large outdoor screen, teenagers sitting on hoods eating popcorn, a candy-coloured concession stand glowing like a beacon in the centre. The enormous screen's light washing the front rows of cars in cool silver-blue against the warm parking lot lights.`,
+  54: `A [ERA] van culture photograph of [NAME] in [OUTFIT] at [SETTING] during [OCCASION], shot in [STYLE]. A custom-painted conversion van decorated with an airbrushed wizard mural, shag carpet inside visible through the open side door, macramé curtains in the windows, and a camp stove glowing. Ground level, wide angle, with the honest grain of real era documentary film.`,
+  55: `A [ERA] video rental store interior at [SETTING] in warm fluorescent light — [NAME] in [OUTFIT] during [OCCASION], photographed in [STYLE]. Floor-to-ceiling VHS tape shelves, cardboard standees promoting new releases, hand-lettered section signs for Horror and Romance, a clerk behind a laminate counter with a CRT monitor. Customers in puffy jackets and big hair — the lost ritual of Friday night rental at peak VHS culture.`,
+  56: `A [ERA] Swinging London street scene at [SETTING] during [OCCASION] — [NAME] in [OUTFIT] among boutique shop fronts with bold graphic signage, young people browsing sidewalk clothing racks, a Mini Cooper at the curb, and Union Jack imagery in window displays. Photographed in [STYLE] — high-contrast, energetic, capturing the explosive youth culture moment when London became the centre of global fashion.`,
+  57: `A [ERA] Thanksgiving dinner table at [SETTING] during [OCCASION] — [NAME] in [OUTFIT] with family around a polished table with china and silverware, photographed in [STYLE]. A perfectly roasted turkey, cranberry sauce in a cut-glass bowl, yams with marshmallows, green bean casserole, and pumpkin pie on the kitchen counter. Warm golden colour tones with the slightly desaturated quality of genuine era family photography.`,
+  58: `A [ERA] commune at [SETTING] during [OCCASION] — [NAME] in [OUTFIT] gathered around a communal meal table in a converted barn, photographed in [STYLE]. Hand-thrown pottery bowls filled with vegetable stew, a fiddle resting against the wall, a wood-burning stove, children playing on the earthen floor, string lights casting warm amber illumination. Tri-X film, available light, natural shadows.`,
+  59: `A [ERA] Saturday morning cartoon aesthetic illustration of [NAME] in [OUTFIT] during [OCCASION] at [SETTING], rendered in [STYLE]. Dynamic heroic poses against a bold sunburst background with explosion effects — thick outlines, flat cel-shading, primary colour dominance, speed lines, and stars. The visual language of network television animation before 9am, pure nostalgic joy.`,
+  60: `A [ERA] travel poster advertising [OCCASION] at [SETTING], rendered in [STYLE] — [NAME] in [OUTFIT] among stylised illustrations of a seawall, palm trees against a deep azure sky, couples dancing in open-air clubs, and a vintage American convertible. Bold simplified forms, rich flat colours, elegant Art Deco typography — golden-age leisure travel at its most beautiful and optimistic.`,
+  61: `A hand-marbled paper pattern created by [NAME] in [ERA] at [SETTING] during [OCCASION] — rich jewel tones swirled in [STYLE] Ebru art with peacock feather patterns and fine combed striations. [OUTFIT] visible as they work at the marbling trough. Photographed flat with raking light that reveals the slight surface texture of the handmade paper. No two repeats — pure fluid mathematics made visible.`,
+  62: `A close-up [STYLE] photograph of a handwoven textile on a backstrap loom at [SETTING] in [ERA] — woven by [NAME] in [OUTFIT] during [OCCASION]. Interlace of natural undyed linen warp threads with hand-spun wool weft, every small imperfection in the handspun yarn visible — slight thickening, texture variations. Natural north light, shallow depth of field, three-dimensionality of the woven surface in perfect clarity.`,
+  63: `An overhead flat-lay of [NAME]'s hand-lettering workspace at [SETTING] in [ERA] during [OCCASION] — a pointed nib dip pen resting across an open journal, an ink-stained leather pen roll, small glass pots of walnut ink and sepia gouache, a sheet of practice drills in [STYLE] copperplate, and an unfinished commission in elegant Spencerian script. [OUTFIT] visible at the edge of frame. Worn pine wood surface in warm afternoon window light.`,
+  64: `A rustic [STYLE] photograph of [NAME]'s handcrafted sourdough at [SETTING] in [ERA] — [OCCASION] bread fresh from a clay baker, the scored surface showing a perfect leaf pattern crust, blistered and deeply caramelised at the ears, a dusting of rice flour on the glossy brown crust. [OUTFIT] visible as the baker presents the loaf. Moody natural sidelight against rough stone kitchen walls.`,
+  65: `A macro [STYLE] photograph of hand-thrown ceramic mugs made by [NAME] in [ERA] drying on wooden shelves at [SETTING] during [OCCASION] — fingerprints left in the clay, slight wobble of truly handmade walls, raw unglazed terra cotta texture. [OUTFIT] visible as they inspect the drying work. The wheel and glazing buckets in the background. Dusty light filters through a north-facing window.`,
+  66: `A [STYLE] photograph of a Japanese boro textile created by [NAME] in [ERA] at [SETTING] during [OCCASION] — indigo-dyed cotton fragments from different generations hand-stitched together with sashiko running stitch in white thread. [OUTFIT] of the maker partially visible. Multiple shades of faded indigo, some areas worn to bare threads. Photographed against white linen with raking light revealing three-dimensional texture.`,
+  67: `A [STYLE] documentary photograph of [NAME] in [OUTFIT] printing hand-blockprinted fabric at [SETTING] in [ERA] during [OCCASION] — pressing a carved teak block loaded with indigo dye onto natural cotton, the repeat pattern of intertwined floral medallions building across the cloth with each press. Stacks of folded fabric in rainbow colours, carved block collections on shelves, natural light through a single high window.`,
+  68: `A [STYLE] photograph of [NAME]'s wax seal stamping setup at [SETTING] in [ERA] during [OCCASION] — an antique brass handle stamp pressed into a pool of deep burgundy wax on a handwritten letter envelope in cream calligraphy paper, a French wax stick, a small brass melting spoon with a candle beneath, and wax drip evidence on the oak table. [OUTFIT] of the correspondent visible. Warm candlelight and window light create drama.`,
+  69: `A [STYLE] documentary photograph of [NAME] in [OUTFIT] weaving on a Guatemalan backstrap loom at [SETTING] in [ERA] during [OCCASION] — a vibrant textile of brilliant geometric patterns in jade green, hot pink, purple, and yellow being woven, the loom's strap around their waist. The half-finished textile shows traditional bird and flower motifs of traje emerging row by row with extraordinary precision.`,
+  70: `An overhead [STYLE] flat-lay of [NAME]'s bookbinding work in progress at [SETTING] in [ERA] during [OCCASION] — a half-bound handmade book with Coptic-stitched signatures exposed on the open spine, a bone folder resting across the block, bookbinding paste with a brush, Japanese tissue repair paper, swatches of French paper book cloth. [OUTFIT] of the binder visible. The craft's geometry contrasts beautifully with organic paper textures.`,
+  71: `A [STYLE] photograph of [NAME] in [OUTFIT] at a Japanese pottery kiln opening at [SETTING] in [ERA] during [OCCASION] — carefully removing pieces from a wood-fired anagama kiln, the ash glaze creating unpredictable effects of blue, green, and bronze. Kiln marks, flashings, and natural ash pooling that makes wood-fired ceramics impossible to duplicate artificially — thousands of years of craft tradition in a single frame.`,
+  72: `A [STYLE] photograph of [NAME] in [OUTFIT] at a letterpress printing workshop at [SETTING] in [ERA] during [OCCASION] — setting moveable metal type by hand into a composing stick, ink rollers coating the platen of a vintage press, and a freshly printed broadside hanging to dry with the embossed impression clearly visible. The physical depth pressed into cotton paper that digital printing can never replicate.`,
+  73: `A close macro [STYLE] photograph of [NAME]'s completed cross-stitch embroidery at [SETTING] in [ERA] — created during [OCCASION], showing a detailed botanical illustration stitched in silk threads with incredibly precise stitch counts. [OUTFIT] visible as they present the finished work in a hoop. The linen has slight texture variations, silk threads with a gentle sheen that shifts with viewing angle. Soft north light.`,
+  74: `A [STYLE] hand-poured artisan candle making scene — [NAME] in [OUTFIT] pouring beeswax from a double boiler into glass vessels at [SETTING] in [ERA] during [OCCASION]. Surrounded by bundles of dried lavender, vanilla beans, ceramic bowls of botanicals, twisted cotton wicks held by metal centering bars, and test candles from previous pours. The warm amber glow of the beeswax and botanical fragrance elements create a deeply satisfying scene.`,
+  75: `A [STYLE] photograph of [NAME]'s intricate origami tessellation in white washi paper — created at [SETTING] in [ERA] during [OCCASION], photographed from directly above with dramatic raking sidelight revealing the three-dimensional geometry of hundreds of hand-folded triangular modules. [OUTFIT] visible as they hold the completed work. The washi paper's translucency allows complex fold intersections to show through as a secondary pattern.`,
+  76: `A [STYLE] photograph of [NAME]'s small-batch artisan perfume laboratory at [SETTING] in [ERA] during [OCCASION] — hand-labeled amber glass bottles in a carefully organised organ, smell strips fanning out across the work surface, notebooks of formula records, pipettes, natural raw materials in labeled jars — rose absolute, vetiver, iris. [OUTFIT] of the perfumer visible. The alchemy of traditional perfumery as both science and deeply personal art.`,
+  77: `A [STYLE] traditional wool dyeing scene — [NAME] in [OUTFIT] at [SETTING] in [ERA] during [OCCASION], with large copper kettles over open fires and bundles of raw fleece submerged into natural dye baths. Freshly dyed skeins hang on a wooden rack to dry, their brilliant natural colours vibrant against the green hillside and grey sky of an overcast coastal day. The steam rising in the cool air.`,
+  78: `A [STYLE] hand-illustrated zine cover created by [NAME] in [ERA] at [SETTING] for [OCCASION] — two-colour risograph print with misregistered layers giving the characteristic overlap effect, hand-drawn portraits, ransom-note-style typography cut from different fonts, small icon illustrations in [OUTFIT]-inspired palette, and a hand-stamped price. The slightly porous, matte texture of risograph newsprint stock visible throughout.`,
+  79: `A [STYLE] detailed close-up of [NAME]'s kintsugi repair on an antique Japanese tea bowl at [SETTING] in [ERA] during [OCCASION] — cracks repaired with lacquer mixed with gold powder, creating luminous golden seams across the pale celadon glaze. [OUTFIT] visible in the hands presenting the bowl. The repair philosophy visible in every golden line — breaking and mending as part of an object's history, not its shame.`,
+  80: `A [STYLE] studio photograph of [NAME] in [OUTFIT] at their violin-making workbench at [SETTING] in [ERA] during [OCCASION] — bent over a spruce top plate being carved with a small gouge, curls of pale wood piling on the work surface, completed instruments hanging on the wall in various stages of varnish. Warm workshop light catches the graduated arch of the carved plate — human hands, skill, and centuries of accumulated knowledge.`,
+  81: `A Victorian-era [STYLE] cabinet card portrait of [NAME] in [ERA], wearing [OUTFIT] — seated in an ornate velvet chair at [SETTING] with jet bead mourning jewellery and a cameo brooch at the collar during [OCCASION]. The albumen silver print mounted on thick pasteboard has the warm sepia tone and soft focus of period studio photography. The photographer's studio name embossed in gold script on the card back.`,
+  82: `A Victorian natural history [STYLE] cabinet of curiosities at [SETTING] in [ERA] — photographed in dramatic chiaroscuro with [NAME] in [OUTFIT] examining taxidermied exotic birds under glass domes, pinned butterfly specimens, geological minerals on velvet pads during [OCCASION]. A human skull memento mori bookend, fossil ammonites, sea shells, Roman coins, and Egyptian amulets arranged on shelves lined with faded green baize.`,
+  83: `A richly detailed Victorian parlour interior at [SETTING] in [ERA], painted in [STYLE] — [NAME] in [OUTFIT] reading by candlelight beside a window draped with heavy velvet curtains during [OCCASION]. A fireplace with carved marble mantel, framed botanical prints, potted palms, a Persian carpet, a glass-fronted bookcase, and a writing desk with scattered letters and a quill pen. Every surface layered with objects, patterns, and meaning.`,
+  84: `A Victorian [STYLE] mourning still-life composition at [SETTING] in [ERA] during [OCCASION] — [NAME]'s memorial objects: a white lily draped across a closed leather Bible, a single white glove, a locket on a chain, a mourning brooch of woven hair under glass, a black-bordered handkerchief, and a memorial photograph with black crepe border. [OUTFIT] depicted in the memorial portrait. All arranged on dark velvet, lit by a single raking light.`,
+  85: `A beautifully illustrated Victorian [STYLE] botanical print in [ERA] — created by [NAME] in [OUTFIT] at [SETTING] during [OCCASION]. A passionflower in full bloom with every stamen, pistil, and petal precisely rendered in watercolour with scientific accuracy, alongside studies of the seed pod, cross-section, leaf structure, and vine tendril. Copperplate Latin labels on aged cream laid paper with a plate mark from the engraving process.`,
+  86: `A dramatic Victorian [STYLE] séance scene at [SETTING] in [ERA] — [NAME] in [OUTFIT] among Victorians seated around a circular table, hands joined, during [OCCASION]. Photographed in long and multiple-exposure technique: a glowing translucent apparition visible above the table, curtains billowing from unseen forces, a candelabra casting deep shadows. Slightly blurry long-exposure faces, the milky ghost figure — authentic Victorian spirit photography.`,
+  87: `An antique apothecary shop interior at [SETTING] in [ERA] — [NAME] in [OUTFIT] at the dispensing counter during [OCCASION], photographed in [STYLE]. Floor-to-ceiling shelving with hand-labeled glass apothecary jars in amber, cobalt, and clear glass filled with dried herbs and tinctures, a mahogany counter with marble top, a large brass balance scale, a mortar and pestle. Gaslight sconces cast warm amber light across decades of accumulated medicinal knowledge.`,
+  88: `A [STYLE] stereoscopic card image from [ERA] — showing [NAME] in [OUTFIT] at [SETTING] during [OCCASION] among Victorian-era tourists at the base of the Great Pyramid of Giza, camels in the middle ground, and the vast desert stretching to the horizon. Mounted on thick cream cardstock with red-printed borders and a catalog label. Two slightly offset photographs for three-dimensional depth through a stereoscope.`,
+  89: `A Victorian [STYLE] naturalist's insect collection at [SETTING] in [ERA] — assembled by [NAME] in [OUTFIT] during [OCCASION]. Expertly pinned specimens of spectacular tropical beetles and butterflies in a mahogany shadowbox frame, arranged in formal symmetrical rows with hand-written labels noting species, collector, location, and date. The beetles range from iridescent emerald to deep indigo and metallic gold — each one catching the light like a tiny jewel.`,
+  90: `A Victorian children's toy collection at [SETTING] in [ERA] — arranged in a nostalgic still-life by [NAME] in [OUTFIT] during [OCCASION], photographed in [STYLE]. A wooden rocking horse with real horse-hair mane, a jointed bisque porcelain doll in a silk dress, a tin mechanical bank, a carved Noah's ark with painted animal pairs, and a paper theatre stage with hand-coloured scenes. The elaborate handcrafted toys of prosperous Victorian childhood.`,
+  91: `A Victorian [STYLE] valentine card from [ERA] — created for [NAME] in [OUTFIT] at [SETTING] during [OCCASION]. Die-cut paper lace borders with embossed floral patterns in chromolithography, a chromolithographed bouquet of roses and forget-me-nots, a satin ribbon bow element, multiple layered panels that lift to reveal the sentimental verse beneath. Gilded edges and the opulent craft-intensive quality of high Victorian devoted love.`,
+  92: `A vintage [STYLE] cartography art piece in the style of an [ERA] explorers' map — created by [NAME] in [OUTFIT] at [SETTING] during [OCCASION]. Hand-drawn coastlines with depth soundings, topographic hachuring for mountains, illustrated vignette scenes in the corners, a decorative compass rose, sea monsters in the deep ocean, and a cartouche with the map's title in ornate Victorian lettering. Cream laid paper with light tan aging at the edges.`,
+  93: `A richly atmospheric Victorian library at [SETTING] in [ERA] — lit by oil lamps and a fireplace, with [NAME] in [OUTFIT] during [OCCASION], photographed in [STYLE]. Floor-to-ceiling bookshelves on a rolling library ladder, leather-bound volumes in burgundy, forest green, and dark navy, a large partner's desk with an open atlas, brass inkwells, a magnifying glass, a globe, and a wing-backed leather chair with a reading book laid open.`,
+  94: `A Victorian-era [STYLE] circus poster from [ERA] — advertising [OCCASION] at [SETTING], featuring [NAME] in [OUTFIT] among scenes of a lion tamer, an acrobat mid-flight, and an elephant parade. Bold primary colours and dramatic perspective exaggeration of period circus lithography. Multiple decorative typefaces promising 'Death-Defying Feats!' Slightly yellowed newsprint with fold marks from being pasted to a wall.`,
+  95: `A solemn Victorian [STYLE] group portrait at [SETTING] in [ERA] — [NAME] in [OUTFIT] among three generations posed before a painted backdrop of draped curtains and columns during [OCCASION]. Patriarch seated with a walking stick, adult children standing behind arranged by height, small children in sailor suits seated on a rug at front. Every face holds characteristic long-exposure seriousness. Clothing, jewellery, and studio props meticulously period-accurate.`,
+  96: `A Victorian [STYLE] keepsake album at [SETTING] in [ERA] — open to a spread assembled by [NAME] in [OUTFIT] during [OCCASION]. Brightly coloured die-cut paper scraps in chromolithography including angels, flowers, children in elaborate costumes, animals, Father Christmas figures, and birds, layered with careful artistry on thick album pages. The album cover of embossed plush burgundy velvet partially visible at the edge.`,
+  97: `A Victorian [STYLE] scientific instrument collection at [SETTING] in [ERA] — assembled by [NAME] in [OUTFIT] during [OCCASION]. A brass theodolite, a pocket barometer in leather case, a sextant with mahogany handle, a set of drawing instruments in fitted velvet, a cylindrical slide rule, a magnifying glass, and a pocket watch with a chain. The precision and craft of 19th-century instrument making evident in every carefully preserved piece.`,
+  98: `A Victorian [STYLE] memento mori still life at [SETTING] in [ERA] — composed by [NAME] in [OUTFIT] during [OCCASION]. A human skull beside an extinguished candle with wax drips, a withered rose, an hourglass with sand almost run out, a cracked pocket watch, a faded portrait miniature, and a letter half-written then abandoned. A single raking light source creates dramatic shadow patterns — a meditation on mortality and the passage of time.`,
+  99: `A Victorian-era [STYLE] department store at [SETTING] in [ERA] during [OCCASION] — [NAME] in [OUTFIT] among women in full Victorian dress examining goods under a grand galleried hall with cast-iron columns and a glass ceiling roof. Gas-lit Christmas decorations of holly and ribbon draped between the columns, a central decorated Christmas tree taller than the first gallery. The great department store transforming how people imagined gift-giving and abundance.`,
+  100: `A haunting Victorian [STYLE] mourning portrait miniature in a gold locket at [SETTING] in [ERA] — showing [NAME] in [OUTFIT] rendered in watercolour on ivory by a specialist miniaturist during [OCCASION]. The locket is open in the palm of an aged hand, and in the opposite compartment a small curl of hair sealed under glass beside a handwritten note 'In Loving Memory.' Love persisting beyond death in material form — beautiful, irreplaceable, and true.`,
+}
+
+const H = {  1:'Ornate frame caption · vintage studio portrait',   2:'Scrapbook torn edges · period portrait sepia',   3:'Gilt border carte-de-visite · Victorian formal',   4:'Pressed flower page · candid era portrait',   5:'Kraft paper postage stamp · charming era portrait',   6:'Gold-leaf oval · handwritten date elegant',   7:'Ticket stub caption · vivid era portrait',   8:'Rubber-stamp ink-blot · candid mid-moment',   9:'Dramatic footlight · theatrical era portrait',   10:'Ribbon bookmark · wistful dreamy portrait',   11:'Family tree note · proud era garden portrait',   12:'Corner mounts caption · laughing joy portrait',   13:'Black ribbon embossed · solemn commemorative',   14:'Leather-bound map · adventurous outdoors portrait',   15:'Calling card monogram · sophisticated society',   16:'Pencil scrawl daisy · youthful sunny portrait',   17:'Dried rose love letter · romantic soft portrait',   18:'Stamp approval ledger · practical work portrait',   19:'Confetti ribbon · celebratory festive portrait',   20:'Embossed family name · timeless scrapbook cover',   21:'Handwritten note clipping · domestic everyday',   22:'Tea-stained recipe card · quiet afternoon home',   23:'Newspaper ad annotation · kitchen golden light',   24:'Wax-seal calling card · parlour formal interior',   25:'Pressed leaf weather · pastoral garden afternoon',   26:'Library ticket bookplate · private reading moment',   27:'Thread spool pattern · sewing craft window light',   28:'Menu card ink stamp · warm dining family',   29:'Vanity sketch perfume · morning routine pale',   30:'Price list pencil tally · market day street',   31:'Soap ad blue pencil · bright washing day',   32:'Knitting pattern caption · amber fireside winter',   33:'Birth announcement pencil · family life children',   34:'Sheet music programme · warm musical evening',   35:'Postage stamp wax seal · lamp-lit writing scene',   36:'Soap label powder tin · steam grooming beauty',   37:'Coin rubbing receipt · morning trade merchant',   38:'Fabric swatch tape · fitting dressmaker mirror',   39:'Toy catalogue sketch · afternoon play children',   40:'Postcard hand-stamp · neighbourhood street scene',   41:'Passport stamp label · travel adventure abroad',   42:'Postcard deckchair · seaside summer holiday',   43:'Map fragment altitude · mountain expedition crisp',   44:'Ticket stub timetable · rail travel motion warmth',   45:'Boarding pass compass · ship voyage ocean light',   46:'Guidebook coin · city tour sightseeing afternoon',   47:'Wildflower sketch map · countryside golden rural',   48:'Rubber stamp postal · colonial outpost tropical',   49:'Journal sketch stamp · safari savanna wildlife',   50:'Colosseum print postcard · Grand Tour Italian',   51:'Medal holy card · pilgrimage devotional journey',   52:'Ski ticket menu · winter sports alpine bright',   53:'Penny fair route · market town adventure',   54:'Lock keeper lily · canal river boat journey',   55:'Shard sketch Latin · archaeological sun-baked',   56:'Hotel receipt telegraph · colonial layover tropics',   57:'Lithograph Métro · Paris fashion-capital light',   58:'Visa customs stamp · border frontier crossing',   59:'Nautical chart olive · Mediterranean island-hop',   60:'Telegram ribbon arrival · homecoming welcome warm',   61:'Invitation lace rose · wedding romantic light',   62:'Ring sketch love letter · betrothal tender',   63:'Toast menu card · wedding reception celebration',   64:'Card envelope candle · birthday festive tones',   65:'Godparent silver spoon · christening gentle light',   66:'Dance card white glove · debut ballroom light',   67:'Pressed violet calling card · courtship hopeful',   68:'Lace doily heart · Valentine rosy portrait',   69:'Certificate flower crown · anniversary warm',   70:'Wheat cider amber · harvest festival celebration',   71:'Programme confetti · New Year midnight festive',   72:'Holly gift tag carol · Christmas candlelight',   73:'Egg service spring · Easter Sunday morning',   74:'Maypole strawberry · May Day English June',   75:'Prayer card white rose · first communion',   76:'Torah card celebratory · coming of age warm',   77:'Watch telegram · retirement warm afternoon',   78:'Name list frame · family reunion nostalgic',   79:'Whistle cake gaslit · surprise party evening',   80:'Bon Voyage handkerchief · farewell bittersweet',   81:'Magazine border ink · fashion-plate editorial',   82:'Playbill rose · music-hall footlight portrait',   83:'Autograph silver-gelatin · Hollywood film-star',   84:'Trophy headline · sports champion action',   85:'Society column masthead · formal society event',   86:'Masthead vintage ad · magazine-cover editorial',   87:'Heart stamps fan letter · pop-idol fan-mag',   88:'Banner broadsheet · suffrage political portrait',   89:'Dance ticket sequin · dance-hall sparkle night',   90:'Programme flag · racing motor-sport blur',   91:'Gramophone cocktail · jazz-age speakeasy amber',   92:'Concert ticket psychedelic · mod counter-culture',   93:'Wing badge log · aviator sky-blue pioneering',   94:'Racket membership · sportswear Côte d\'Azur',   95:'Ration broadsheet · war-effort home-front portrait',   96:'Calendar star-border · pin-up wartime glamour',   97:'Manuscript quill · literary salon candlelit',   98:'Patent route map · bicycle Edwardian craze',   99:'Patent announcement · telephone wireless marvel',   100:'Collage timeline · decade retrospective archival'}
+
+const vars = {
+  name:        () => document.getElementById('v-name').value.trim() || '[NAME]',
+  style:        () => document.getElementById('v-style').value.trim() || '[STYLE]',
+  era:        () => document.getElementById('v-era').value.trim() || '[ERA]',
+  outfit:        () => document.getElementById('v-outfit').value.trim() || '[OUTFIT]',
+  setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
+  occasion:        () => document.getElementById('v-occasion').value.trim() || '[OCCASION]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[NAME\]/g, vars.name())
+    .replace(/\[STYLE\]/g, vars.style())
+    .replace(/\[ERA\]/g, vars.era())
+    .replace(/\[OUTFIT\]/g, vars.outfit())
+    .replace(/\[SETTING\]/g, vars.setting())
+    .replace(/\[OCCASION\]/g, vars.occasion());
+}
+
+function buildBlock(n) {
+  const na = vars.name(), st = vars.style(), er = vars.era(), ou = vars.outfit(), se = vars.setting(), oc = vars.occasion();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[NAME]" is Subject's name.
+"[STYLE]" is Photo/art style.
+"[ERA]" is Historical era or decade.
+"[OUTFIT]" is Period-appropriate clothing.
+"[SETTING]" is Location or backdrop.
+"[OCCASION]" is Event or life moment.
+
+Now let's give these variables our values.
+[NAME] = "${na}"
+[STYLE] = "${st}"
+[ERA] = "${er}"
+[OUTFIT] = "${ou}"
+[SETTING] = "${se}"
+[OCCASION] = "${oc}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

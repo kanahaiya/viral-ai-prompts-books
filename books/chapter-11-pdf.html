@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonus Trending Styles Prompts — PDF Edition | Book 11</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #12011a;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #d946ef;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #d946ef66;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #12011a;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #d946ef;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #d946ef;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #d946ef;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #9a1bb0;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #d946ef;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #d946ef;
+  border: 0.5px solid #d946ef80;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #d946ef59;
+  background: #d946ef14;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #d946ef;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d946ef;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #d946ef; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #d946ef;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #d946ef; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #d946ef; }
+.guide-ex-text .token { color: #d946ef; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#d946ef2e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 11</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Bonus Trending Styles</h1>
+      <div class="cover-title-sub">Viral Aesthetic & Social Media Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Watercolor & Painterly</span>
+        <span class="cover-cat">Neon & Cyberpunk</span>
+        <span class="cover-cat">Surrealist & Dream</span>
+        <span class="cover-cat">Viral Social Trends</span>
+        <span class="cover-cat">Luxury & Fashion</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Your brand or creator name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. MAYA CREATES, THE MINIMAL EDIT' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[NICHE]</span>
+        <span class="var-desc">Your content niche</span>
+        <input class="var-input" id="v-niche" placeholder='e.g. food photography, lifestyle' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SUBJECT]</span>
+        <span class="var-desc">What appears in the image</span>
+        <input class="var-input" id="v-subject" placeholder='e.g. myself, my product, a dish' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[AESTHETIC]</span>
+        <span class="var-desc">Visual aesthetic style</span>
+        <input class="var-input" id="v-aesthetic" placeholder='e.g. clean & minimal, warm & cosy' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PLATFORM]</span>
+        <span class="var-desc">Target social platform</span>
+        <input class="var-input" id="v-platform" placeholder='e.g. Instagram, TikTok, Pinterest' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PALETTE]</span>
+        <span class="var-desc">Colour palette</span>
+        <input class="var-input" id="v-palette" placeholder='e.g. cream and sage green, monochrome' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised trending social media image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[NAME]</span> <span class="tok">[NICHE]</span> <span class="tok">[SUBJECT]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[NAME]</span><span class="guide-var-desc">Your brand or creator name</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[NICHE]</span><span class="guide-var-desc">Your content niche</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[SUBJECT]</span><span class="guide-var-desc">What appears in the image</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[AESTHETIC]</span><span class="guide-var-desc">Visual aesthetic style</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[PLATFORM]</span><span class="guide-var-desc">Target social platform</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[PALETTE]</span><span class="guide-var-desc">Colour palette</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A stunning <span class="tok">[AESTHETIC]</span> image for <span class="tok">[PLATFORM]</span>:
+<span class="tok">[SUBJECT]</span> from <span class="tok">[NAME]</span>'s <span class="tok">[NICHE]</span> brand
+shot in a gorgeous <span class="tok">[PALETTE]</span> palette.
+Editorial composition, ultra-clean
+styling, perfectly on-trend, optimised
+for maximum social media engagement.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A stunning <span class="filled-val">clean and minimal</span> image for <span class="filled-val">Instagram</span>:
+<span class="filled-val">a morning coffee flat lay</span> from <span class="filled-val">MAYA CREATES</span>'s <span class="filled-val">lifestyle photography</span> brand
+shot in a gorgeous <span class="filled-val">cream and sage green</span> palette.
+Editorial composition, ultra-clean
+styling, perfectly on-trend, optimised
+for maximum social media engagement.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Watercolor &amp; Painterly Styles</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Neon &amp; Cyberpunk Cityscapes</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Surrealist &amp; Dream Art</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">Viral Social Media Trends</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Luxury &amp; Fashion Editorial</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 11: Bonus Trending Styles &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A loose, expressive watercolor painting of [SUBJECT] for [NAME]'s [NICHE] — colors bleeding and blooming at the edges in [PALETTE] tones, wet-on-wet passages creating natural organic forms where warm and cool washes meet. Brushwork confident and minimal: a few strokes suggest the form, background a warm color wash with no hard edges. [AESTHETIC] mood. The beautiful incompleteness of plein air watercolor — what is left unpainted matters as much as what is painted. Created for [PLATFORM] with the handmade warmth that makes painterly content so shareable.`,
+  2: `A vibrant loose watercolor botanical illustration of [SUBJECT] for [NAME]'s [NICHE] — organic forms tumbling together with the casual abundance of a real garden in exuberant [PALETTE] tones, colors bleeding at the edges, soft gradients moving from warm to cool. [AESTHETIC] lush energy. Ink outlines in soft brown defining major forms while watercolor spills freely beyond them — the contrast between structure and freedom that defines the best contemporary botanical watercolor. Created for [PLATFORM] with the visual richness that drives saves and shares.`,
+  3: `A delicate watercolor portrait of [SUBJECT] for [NAME]'s [NICHE] — the form built from transparent washes in [PALETTE] tones layered light to dark, cool shadows suggesting depth, background a warm neutral that sets off the subject. [AESTHETIC] quality. The technique references John Singer Sargent's bravura watercolor portraits: one-shot confidence, no reworking, every mark counted — the specific beauty that comes from trusting the medium to find its own forms without overworking into opacity. For [PLATFORM].`,
+  4: `A moody urban watercolor of [SUBJECT] for [NAME]'s [NICHE] — [PALETTE] tones bleeding into each other in loose wet washes, silhouettes as quick deep brushstrokes, structures suggested by vertical washes with warm rectangular lights within. [AESTHETIC] atmosphere. The speed and energy of an artist working from life in rain — everything approximate, everything capturing the essential truth of the subject dissolved in atmosphere. The reflection below composing a second version of the scene. For [PLATFORM].`,
+  5: `A dreamy watercolor of [SUBJECT] for [NAME]'s [NICHE] — painted in a split complementary palette of [PALETTE] tones, warm passages set against cool blue-violet shadows, soft wet edges and granulating pigments creating natural texture throughout. [AESTHETIC] quality. The foreground almost empty — bare white paper — creating depth by absence, the viewing position implied rather than stated. Soft, luminous, unmistakably watercolor in the best tradition. For [PLATFORM].`,
+  6: `A children's book illustration-style watercolor of [SUBJECT] for [NAME]'s [NICHE] — rendered in warm [PALETTE] tones with the gentle line quality of Beatrix Potter or Elsa Beskow: every detail placed with care, every shadow gentle, the world made beautiful and safe through a paintbrush. [AESTHETIC] warmth throughout. The quality of illustration that understands the subject deserves to be seen with kindness — precise without being cold, warm without being imprecise. For [PLATFORM] with timeless emotional resonance.`,
+  7: `A large format expressive watercolor of [SUBJECT] for [NAME]'s [NICHE] — built from layered transparent washes in [PALETTE] tones creating depth through successive glazes, broad compositional zones with barely perceptible transitions, the paper's white showing through as luminous light. [AESTHETIC] quality. The American watercolor tradition: big atmosphere, dark anchors, luminous passages — achieved through restraint rather than detail, trusting the medium's inherent transparency to do the work. For [PLATFORM].`,
+  8: `A vibrant gouache and watercolor combination image of [SUBJECT] for [NAME]'s [NICHE] — key elements rendered in opaque gouache in [PALETTE] rich tones against the soft transparent watercolor wash of secondary passages and background. [AESTHETIC] energy. The technical contrast of opaque and transparent creating visual hierarchy so that featured elements sing against softer surroundings — bold and luminous simultaneously, feeling both ancient and completely contemporary. For [PLATFORM].`,
+  9: `A loose impressionistic watercolor of [SUBJECT] for [NAME]'s [NICHE] — dominated by [PALETTE] warm light filtering through the scene and creating dappled patterns across the composition. [AESTHETIC] atmosphere. Color everywhere — rich, warm, vibrant — the watercolor medium's natural luminosity deployed to capture the sensory energy of the subject. Figures and elements suggested by loose gestural brushstrokes rather than labored detail, giving the composition life and movement. For [PLATFORM].`,
+  10: `A contemporary urban sketcher-style watercolor of [SUBJECT] for [NAME]'s [NICHE] — sky built from graduated washes in [PALETTE] tones from warm at the horizon through cool above, the scene reflected in the surface below. [AESTHETIC] freshness. Painted in one session wet into wet, with ink line work added after drying — quick marks suggesting structure, horizontal strokes for reflective surfaces. The vitality of an artist who captured what they saw before the light changed. For [PLATFORM].`,
+  11: `A soft, tender watercolor of [SUBJECT] for [NAME]'s [NICHE] — the palest, most transparent washes in [PALETTE] tones so that the emotional intensity of the subject comes through without sentimentality, the restraint amplifying rather than diminishing the intimacy of the moment. [AESTHETIC] warmth above everything. The painting about connection — white paper breathing through the washes as the light that no pigment could provide, the most important element left unpainted. For [PLATFORM].`,
+  12: `A striking ink and watercolor composition of [SUBJECT] for [NAME]'s [NICHE] — structure suggested by bold ink calligraphy lines defining the major forms while loose washes of [PALETTE] colors fill the volume with luminous color. [AESTHETIC] — elongated in the fashion illustration tradition, background a transparent wash with the subject emerging from it in implied spotlight. Contemporary, graphic, and deeply glamorous — the format that makes editorial content for [PLATFORM] impossible to scroll past.`,
+  13: `A richly textured watercolor of [SUBJECT] for [NAME]'s [NICHE] — granulating pigments and wet-wash techniques creating organic bloom patterns throughout in [PALETTE] tones, pigments separating and forming sedimentary texture when mixed, building depth through natural chemistry. [AESTHETIC] quality. Every wash left to find its own form — the medium's natural behavior making marks that no planned stroke could achieve, the beautiful accidents that define the best traditional watercolor practice. For [PLATFORM].`,
+  14: `A loose and joyful watercolor of [SUBJECT] for [NAME]'s [NICHE] — [PALETTE] colors in absolutely-right combinations, exuberant and slightly-beyond-the-lines, spontaneous marks left where they fell. [AESTHETIC] celebration energy. The controlled spontaneity of an artist who makes everything look accidental while controlling every drop — paint that captures the essence of the moment rather than its documentary detail. For [PLATFORM] with the specific joy that makes this style so immediately shareable.`,
+  15: `A haiku-inspired ink and watercolor composition of [SUBJECT] for [NAME]'s [NICHE] — bold wet ink marks defining the major forms while the softest possible washes of [PALETTE] tones fill the passages with luminous color. [AESTHETIC] quiet. The composition asymmetrical and spare in the Zen tradition — far more empty space than painted mark, treating negative space as an active element with as much presence as the painted forms. The image breathing in the way that only ink and watercolor on white paper can breathe. For [PLATFORM].`,
+  16: `A dramatic watercolor of [SUBJECT] for [NAME]'s [NICHE] — the atmosphere built from layers of dark wet washes with hard-edged forms at the top and soft diffuse passages below in [PALETTE] tones mixing drama and scale. [AESTHETIC] sublime quality. The Turner tradition of weather-as-protagonist — technical control in service of controlled chaos, the medium's inherent unpredictability transformed into the energy of the subject itself. For [PLATFORM] as content that makes people feel something.`,
+  17: `A contemporary illustration-style watercolor of [SUBJECT] for [NAME]'s [NICHE] — clean line quality and [PALETTE] soft pastel washes in the aesthetic of the most popular manhwa-influenced illustration: clear outlines, transparent tones, deep ink-quality darks for hair or structure. [AESTHETIC] warmth: gentle, lovely, and quietly tender without drama. The emotional register of illustration that is simultaneously beautiful and emotionally direct. For [PLATFORM] as content that communicates both craft and feeling.`,
+  18: `A rich gouache portrait of [SUBJECT] for [NAME]'s [NICHE] — painted with technical respect and chromatic sensitivity, [PALETTE] tones building complex passages with warm and cool used simultaneously to create depth and presence. [AESTHETIC] dignified quality. Every brushstroke an act of attention — features shown as expressions of experience fully lived, natural texture rendered in energetic marks of light and dark. The tradition of bringing full technical mastery to every subject equally. For [PLATFORM].`,
+  19: `A fantastical watercolor map of [NAME]'s [NICHE] universe — [SUBJECT] represented as a geography with [PALETTE] warm sepia and color accent tones throughout, major content areas rendered as illustrated landmarks, routes marked, territories defined. [AESTHETIC] with a decorative compass rose and cartouche in ornate lettering identifying the territory. The entire map tinted as a real artifact, paper texture visible through the washes. The content universe as a world you could actually navigate. For [PLATFORM].`,
+  20: `A contemplative watercolor of [SUBJECT] for [NAME]'s [NICHE] — built from washes of [PALETTE] tones with the figure's reflection doubling their presence in the composition, surrounding environment in vertical wet strokes that soften at their bases where they meet mist. [AESTHETIC] stillness. The only sharp edges are the silhouette of the focal element — the one certain presence in a world of infinite gradation. The painting about the quality of attention [NAME] brings to their [NICHE]. For [PLATFORM].`,
+  21: `A stunning cyberpunk cityscape visualising [NAME]'s [NICHE] — [SUBJECT] rendered as a Blade Runner 2049-style mega-city of towering arcologies dripping holographic advertisements in [PALETTE] neons, rain-wet streets below bleeding magenta and teal, flying vehicles leaving light trails between skyscrapers. [AESTHETIC] volumetric atmosphere: orange smoke, crushing vertical scale, chrome implants and HUD contact lenses in the crowd below. A world that has run out of horizontal space — and [NAME]'s [NICHE] fills every vertical surface of it. For [PLATFORM].`,
+  22: `A moody neon-lit alleyway image for [NAME]'s [NICHE] — [SUBJECT] as a lone figure in a translucent rain slicker walking through puddles that mirror [PALETTE] neon in Neo-Tokyo 2087, narrow lane between walls layered in sticker graffiti and holographic ads. [AESTHETIC] atmosphere: 35mm, low angle, electrical cables weaving overhead, a single amber vending machine warm against cold neon. The puddle reflection composing a perfect second version of the scene — the [NICHE] universe doubled in dark water. For [PLATFORM].`,
+  23: `A sweeping aerial view of [NAME]'s [NICHE] reimagined as a flooded cyberpunk metropolis — [SUBJECT] visible across permanently submerged lower floors, [PALETTE] city lights reflecting in dark rising water below as an inverted second city of shimmering colour. [AESTHETIC] scale: sky bridges connecting inhabited upper storeys, boats at what was once street level, a distant seawall holding back the open ocean. The adaptive world of [NICHE] — choosing to keep existing rather than abandon itself to the sea. For [PLATFORM].`,
+  24: `A dramatic portrait of [NAME] as a cyberpunk [NICHE] expert in their lair — [SUBJECT] visible on wall-to-wall monitors showing cascading data, face underlit by [PALETTE] screen glow, neural interface ports at the temple, fingers moving across a holographic keyboard. [AESTHETIC] lived-in realism: empty noodle cups, a plant somehow surviving in artificial light, a handmade poster that says "[NICHE]: DISCONNECT TO CONNECT." The room measured in [SUBJECT] rather than square feet. Human reality inside the genre's aesthetic cool. For [PLATFORM].`,
+  25: `A spectacular cyberpunk market scene staging [NAME]'s [NICHE] inside a vast converted industrial building — [SUBJECT] displayed at stalls beneath thousands of mismatched [PALETTE] neon signs, the vaulted steel roof hung with decades of layered light. [AESTHETIC] crowd energy: augmented corporate visitors shopping beside un-augmented Luddites in plain linen, every background and age, [NICHE] as the only neutral space where commerce briefly dissolves barriers. A celebration of human chaos at its most beautiful. For [PLATFORM].`,
+  26: `A poetic neon-noir image of [NAME]'s [NICHE] as a late-night cyberpunk diner — [SUBJECT] warm amber against cold [PALETTE] rain-soaked street outside, booths of worn red vinyl, a counter with spinning stools, two customers visible through rain-streaked glass: a cyborg courier hunched over coffee, a figure in [AESTHETIC] attire crying quietly into a beer. The most human image in the most inhuman future — and the place [NICHE] has always lived: 3am, warm light, someone who needs somewhere to sit. For [PLATFORM].`,
+  27: `A breathtaking isometric illustration of [NAME]'s [NICHE] as a cyberpunk city block at night — [SUBJECT] rendered with architectural precision and cinematic [PALETTE] lighting drama: every window a warm square against dark exterior, rooftop gardens glowing green under grow lights, street level showing [AESTHETIC] organized chaos of pedestrians, drones, and AR overlays floating above storefronts. The isometric view lets the entire [NICHE] ecosystem be simultaneously visible from street to roof. A cross-section of a world that is beautiful and overwhelming in equal measure. For [PLATFORM].`,
+  28: `A hyper-detailed cyberpunk fashion portrait placing [NAME]'s [NICHE] aesthetic into mech-influenced haute couture — [SUBJECT] as a custom-structured outfit: shoulder armor in brushed titanium over iridescent smart fabric shifting through [PALETTE] tones, architectural updo threaded with fiber optic strands pulsing light, prosthetic forearms in polished rose-gold with engraved circuit patterns. [AESTHETIC] tension: the refinement of the couture against the roughness of a corrugated metal wall tagged with glowing graffiti. High tech, low life, and the beauty of [NICHE] found in the space between. For [PLATFORM].`,
+  29: `A dramatic low-angle shot staging [NAME]'s [NICHE] as a cyberpunk checkpoint encounter — [SUBJECT] reflected in a riot-visor turned into a screen of [PALETTE] abstract color: hot pink, teal, amber. [AESTHETIC] critique wrapped in spectacle: the matte black armor with glowing blue accents, a shoulder-mounted drone camera tracking the viewer, the long queue behind waiting for biometric scan into the [NICHE] district. The oppressive and the beautiful collapsed into one frame — surveillance aesthetics made into the most shareable image on [PLATFORM].`,
+  30: `A stunning lo-fi cyberpunk interior image for [NAME]'s [NICHE] — [SUBJECT] staged in a tiny apartment in a megastructure tower: lofted sleeping area above a desk covered in real plants (a luxury in 2087) alongside [PALETTE] screens, fairy lights strung around the sleeping platform. [AESTHETIC] contradiction: cozy and claustrophobic, private and completely observed, rain falling on the window from the megastructure roof far above. The human-scale reality of [NICHE] inside a system designed at inhuman scale. For [PLATFORM].`,
+  31: `A spectacular vaporwave cityscape visualising [NAME]'s [NICHE] — [SUBJECT] as a retro-futurist 1980s-imagined future: pastel purple and [PALETTE] pink skies reflected in a chrome bay, white marble corporate temples with Greek columns, a hovering chrome DeLorean above a geometric tiled plaza, the whole scene filtered through VHS scan lines and slight colour bleed. [AESTHETIC] Outrun/Synthwave: hot pink and cyan gradients, geometric grids on the ground, the future as imagined by someone watching too many movies in 1986 — and finding their vision of [NICHE] more beautiful than what actually arrived. For [PLATFORM].`,
+  32: `A cinematic neon image of [NAME]'s [NICHE] as street music — [SUBJECT] as a cyberpunk musician playing a heavily modified instrument with built-in [PALETTE] LED lighting, performing in an underpass turned informal concert space, the audience gathered on mismatched chairs, abstract light patterns projecting on the concrete walls around them. [AESTHETIC] insistence on beauty: music made in a non-place, for free, for everyone — the most radical act in a world that has monetised everything else, including [NICHE]. For [PLATFORM].`,
+  33: `A vast cyberpunk greenhouse biodome image for [NAME]'s [NICHE] — [SUBJECT] as a glass sphere rising 40 stories, visible from kilometres as a globe of warm green light against the dark city, inside containing old-growth trees reaching the dome ceiling, a stream running through real soil, birds nesting freely, and at night [PALETTE] fireflies visible through the glass from outside. [AESTHETIC] simultaneous monument and commitment: what was lost from [NICHE], kept alive inside the thing that replaced it. For [PLATFORM].`,
+  34: `A dramatic action shot placing [NAME]'s [NICHE] as a cyberpunk courier — [SUBJECT] on a custom electric motorcycle weaving through elevated expressway traffic at night, [PALETTE] lights creating motion trails in long-exposure style, the city visible through gaps in the highway superstructure above and below. [AESTHETIC] kinetic freedom: one person and their machine, the aftermarket thruster assist and illegal plates suggesting the cargo of [NICHE] pays better not to ask about. Pure freedom through a world that prefers people stay still and predictable. For [PLATFORM].`,
+  35: `A beautiful and melancholy cyberpunk image for [NAME]'s [NICHE] — [SUBJECT] as an elderly figure tending a rooftop garden in [PALETTE] grow-light warmth, surrounded by tomato plants, herbs, and flowers in repurposed containers, the city rising still higher behind, the actual sky unavailable. [AESTHETIC] quiet persistence: the garden tended for 40 years since before the tower was extended above, the plants not knowing what year it is or how much [NICHE] has changed around them. They tend them anyway. Neon glow from below makes everything look like a dream of soil and growing. For [PLATFORM].`,
+  36: `A spectacular bird's-eye view of [NAME]'s [NICHE] as a cyberpunk intersection at rush hour — [SUBJECT] as ten lanes of [PALETTE]-lit traffic moving in AI-coordinated flow without traffic lights, drones crossing airspace above in organised corridors, the whole scene a choreography of light and machine intelligence managing thousands of trajectories simultaneously. [AESTHETIC] beautiful efficiency: from above, a living circuit board. From ground level, the same scene would be terrifying. [NICHE] working exactly as designed — both its greatest achievement and its problem. For [PLATFORM].`,
+  37: `A haunting cyberpunk abandoned space reimagined for [NAME]'s [NICHE] — [SUBJECT] as a vast industrial interior partially reclaimed by nature: young trees growing through cracked concrete toward collapsed roof sections open to sky, machinery covered in rust and [PALETTE] vines, moonlight creating natural columns contrasting with still-powered equipment nobody has bothered to switch off for decades. [AESTHETIC] post-industrial community: murals of what [NICHE] looked like before, a small firepit at the centre where a community gathers every Friday night. Ruin as living space. For [PLATFORM].`,
+  38: `A vivid neon portrait of [NAME] performing [NICHE] at an underground cyberpunk club — [SUBJECT] as a custom DJ booth island in the center of a circular dance floor, the crowd surrounding in complete darkness except for strobes and [PALETTE] LED ring lights. [AESTHETIC] specific joy: face underlit by green mixer glow, both hands working equipment that converts [NAME]'s choices into the collective experience of everyone in the room — inside music, inside a crowd, inside a darkness where everyone agrees to be moved by the same vibration at once. For [PLATFORM].`,
+  39: `A spectacular neon-saturated image of [NAME]'s [NICHE] celebrated as a cyberpunk wedding — [SUBJECT] as a ceremony in a converted warehouse with [PALETTE] LED lighting woven into the bridal gown's train, a holographic AI officiant, guests seated beneath floating AR name cards. [AESTHETIC] sincere strangeness: the backdrop a massive living wall of real moss under warm grow lights contrasting cold industrial neon, the ceremony simultaneously streamed into 14 virtual reality platforms. Beautiful, strange, completely sincere — exactly what [NICHE] content is when it works. For [PLATFORM].`,
+  40: `A quiet, intimate cyberpunk image for [NAME]'s [NICHE] — [SUBJECT] as two people on a fire escape above a [PALETTE] neon-lit street at 2am, sharing takeout noodles in containers, the city spread below in every direction, their conversation private despite millions of people visible in the towers around them. [AESTHETIC] rarity: no augmentation, no screens, no documentation — just the specific human technology of eating together and talking until tomorrow feels distant. The neon light makes everything look slightly unreal. [NICHE] at its most essential: connection found in the city's most infinite loneliness. For [PLATFORM].`,
+  41: `A dreamlike Magritte-style surrealist image visualising [NAME]'s [NICHE] — [SUBJECT] placed into an impossible interior: a figure whose head has been replaced by a perfect [PALETTE] blue sky with one white cloud, through the windows behind them an interior ceiling visible above exterior grass and trees — inside and outside inverted. [AESTHETIC] impeccable visual logic executed with photographic realism. Every element painted with academic precision, impossible in its premise — generating the specific uncanny feeling that something about [NICHE] has been revealed that you cannot quite articulate but cannot unsee. For [PLATFORM].`,
+  42: `A flowing Dali-inspired surrealist landscape staging [NAME]'s [NICHE] — [SUBJECT] draped over the branches of a single dead tree in a vast [PALETTE] desert at golden hour, a melting version of [NICHE] in the foreground, the distant cliff face simultaneously a sleeping giant's profile, flying elephants with impossibly long spider-leg stilts casting long shadows across the sand. [AESTHETIC] hyper-realistic precision serving totally irrational content — the dream state of [NICHE] rendered with waking discipline. Technical mastery in service of the absolutely irrational. For [PLATFORM].`,
+  43: `A lush dreamscape of [NAME]'s [NICHE] as a forest of stacked books — [SUBJECT] walking through trees whose bark is worn cloth novel covers, whose leaves are individual pages rustling with text in [PALETTE] amber light, whose roots are typewriter keys descending into the soil. Rivers of ink flow between the book-trees, birds made of origami flying through the canopy above. [AESTHETIC] rich contemporary fantasy illustration — meticulous detail, warm light — capturing the specific feeling of being completely lost inside [NICHE] in the best possible way. For [PLATFORM].`,
+  44: `A haunting and beautiful surrealist portrait of [NAME] whose hair has become [SUBJECT] in murmuration — hundreds of forms moving in shifting three-dimensional wave patterns, anchored at the scalp, the collective form clearly [NAME]'s identity but the individual elements clearly [NICHE]. [AESTHETIC] calm: face photorealistic, looking forward with the serenity of someone who has accepted that [SUBJECT] is theirs and they are [SUBJECT]'s. [PALETTE] blue-orange sky of an English winter dusk in the background. The boundary between [NAME] and their [NICHE] dissolved entirely. For [PLATFORM].`,
+  45: `A striking surrealist image of [NAME]'s [NICHE] floating in a cloudscape at dusk — [SUBJECT] as a grand piano played by disembodied white-gloved hands, sheets of [NICHE] content dissolving from the music stand into tangible [PALETTE] objects hovering in the air. [AESTHETIC] Maxfield Parrish drama: rich deep blues in sky, gold from setting sun on lacquered black surface, silver edges on clouds, the shadow of [NAME]'s [NICHE] falling on a city far below through gaps in the cloud layer. The dream of [NICHE] as the thing that plays itself. For [PLATFORM].`,
+  46: `A serene and uncanny image of [NAME] walking across [SUBJECT] that is simultaneously a mirror — a frozen ocean surface reflecting a second sky below, only sky above and sky below, [NAME] walking through space with [PALETTE] clouds matched identically in the reflection, the horizon disappeared. [AESTHETIC] peace and unease simultaneously: [NAME] casting a shadow downward and an identical shadow upward, belonging fully to neither world — the double identity of someone who creates [NICHE] content while living the [NICHE] life. For [PLATFORM].`,
+  47: `A dreamlike surrealist kitchen staging [NAME]'s [NICHE] as miniature architecture — [SUBJECT] as towers of stacked elements forming a skyline, [NICHE] content as broccoli-trees in a park visible through a saucepan-dollhouse window, a sliced pomegranate revealing a jeweled cathedral interior. [AESTHETIC] Flemish still-life chiaroscuro: warm candlelight, every [PALETTE] surface rendered in loving detail — except that the subject matter systematically refuses to be what it appears to be. The [NICHE] universe as food that has become its own architecture. For [PLATFORM].`,
+  48: `A breathtaking surrealist landscape where [NAME] lies sleeping across an entire mountain range — [SUBJECT] as the topography: knees two peaks, ribcage a series of ridges, [PALETTE] hair spread across the lower valley as a forest of dark trees, breath visible as morning mist rising from the valley floor. [AESTHETIC] inhabited permanence: villages and roads built on and around [NAME]'s [NICHE] by people who have lived alongside it so long they have stopped finding it remarkable. A river follows the collarbone to the sea. The [NICHE] landscape and its creator are the same thing. For [PLATFORM].`,
+  49: `A Frida Kahlo-influenced portrait of [NAME] whose chest is open to reveal [SUBJECT] as a miniature landscape inside — a small [PALETTE] meadow with a stream, a single tree growing from the sternum, birds nesting near the collarbone, sunlight entering through the open ribs from the sky outside. [AESTHETIC] Kahlo directness: direct gaze, dignified presence, the absolute refusal to be pitied for carrying [NICHE] inside your chest. The private interior of [NAME]'s creative experience made literal exterior form — the [NICHE] universe as the landscape that lives within the creator. For [PLATFORM].`,
+  50: `A dreamlike underwater scene where [NAME]'s [NICHE] exists as a grand ballroom on the ocean floor — [SUBJECT] as formally dressed dancers moving in slow motion through [PALETTE] water as if it were air, hair floating upward, gown trains trailing in the current, schools of tropical fish weaving between the couples like living confetti. [AESTHETIC] Impressionist atmospheric depth rendered in the cool palette of ocean light filtered through fathoms above — bioluminescent creatures illuminating the darker corners, whale shapes passing through the tall windows beyond. [NICHE] as the world that exists beneath the surface. For [PLATFORM].`,
+  51: `A surrealist time-lapse composite image showing [NAME]'s [NICHE] across all four seasons simultaneously — [SUBJECT] divided not by hard lines but by gradual transition through [PALETTE] tones: winter white at bottom left moving through spring green and summer full leaf to autumn gold at upper right, the trees in each section sharing the same trunks while the [NICHE] content shifts with the seasons. [AESTHETIC] impossible hybrid edges: snow resting on leaves still summer-green, autumn gold among spring flowers. Time made spatial — the entire [NICHE] year visible all at once. For [PLATFORM].`,
+  52: `A stunning architectural surrealist image of [NAME]'s [NICHE] as a staircase that climbs to nowhere — [SUBJECT] beginning in a normal interior, ascending through the ceiling into open sky, continuing through clouds, eventually curving upward past the curvature of the Earth toward the stars, ending in open space with a single door floating at the top with a welcome mat in front of it. [AESTHETIC] progressive lighting: warm [PALETTE] domestic lamplight at the bottom through natural sunlight through cloudscape through blue atmosphere to darkness of space. Each landing has a small table with flowers that change with altitude. [NICHE] as the climb. For [PLATFORM].`,
+  53: `A luminous surrealist image of [NAME]'s [NICHE] as a library where the books are also windows — [SUBJECT] with each book's spine the exterior view of a window into a different [NICHE] world: one book opens to a medieval forest, another to a 1920s jazz club, another to a distant planetary surface. [AESTHETIC] grand traditional architecture: rolling ladders and warm reading lamps in [PALETTE] tones, the reader at the central table able to choose any [NICHE] universe by reaching for any book. This is what [NAME]'s [NICHE] actually is: every piece of content a window into a different world. For [PLATFORM].`,
+  54: `A striking portrait of [NAME] whose face is made of mirrors — each fragment showing not the room around them but different moments from [NAME]'s [NICHE] journey, [SUBJECT] visible in each mirror shard: early content, first viral post, a moment of doubt, a triumph, an ordinary [PALETTE] Tuesday. [AESTHETIC] simple surrounding space: plain room, natural window light — all the complexity living in [NAME]'s face itself. Identity as accumulation, the [NICHE] self as archive of creative experience, the strangeness of being a creator made entirely of memory. For [PLATFORM].`,
+  55: `A vast de Chirico metaphysical dreamscape staging [NAME]'s [NICHE] — [SUBJECT] in a deserted sun-baked piazza with impossibly long afternoon shadows cast by objects that should not generate such shadows, a classical arcade running along one side with arched openings revealing pure [PALETTE] blackness, a distant figure disappearing behind a temple portico, and at the centre a mannequin without facial features sitting in a chair facing away. [AESTHETIC] de Chirico quality: familiar and alien simultaneously, the [NICHE] world recognised but wrong in its scale, its emptiness, its relationship between shadow and light. For [PLATFORM].`,
+  56: `A beautiful surrealist image of [NAME] growing [SUBJECT] from their hands — not props but actual [NICHE] content blooming from palms and fingertips, roots visible descending from wrists into the soil below, [PALETTE] leaves unfurling from knuckles. [AESTHETIC] warm and painterly: [NAME] kneels in a real garden and is also the garden, the boundary between the [NICHE] creator and [NICHE] creation dissolved by the logic of a world where care and its object eventually become the same thing. Botanically accurate, hands realistic, the combination impossible in the most specific and tender way. For [PLATFORM].`,
+  57: `A dreamlike surrealist image of [NAME]'s [NICHE] existing inside a snow globe — [SUBJECT] as a miniature [NICHE] universe with its content, platforms, and community visible through the glass sphere on a giant's desk, snow perpetually falling inside while outside the globe is the ordinary room of an ordinary giant: a [PALETTE] coffee cup the size of a reservoir, a magazine whose pages are the size of city blocks. [AESTHETIC] uncanny scale: the [NICHE] universe goes about its business, unaware. This is one of ten such globes visible on the desk. The giant's face is not in frame. For [PLATFORM].`,
+  58: `A gorgeous pastel surrealist image of [NAME]'s [NICHE] community as a tea party held in the clouds at dawn — [SUBJECT] as a long table set with mismatched china floating above a cloudscape of [PALETTE] pink and gold, chairs occupied by figures in vintage dress: some human, some animals in clothing, some clearly made of weather (a guest whose hair is fog, another whose coat is rain). [AESTHETIC] soft beauty of first minutes after sunrise: all engaged in polite conversation about [NICHE] as the sun rises below them. The table legs disappear into the cloud layer. Everything balanced between the magical and the merely eccentric. For [PLATFORM].`,
+  59: `A surrealist anatomical illustration staging [NAME]'s [NICHE] as interior architecture — [SUBJECT] shown in a 16th-century medical woodcut style but with the interior revealing not organs but the [NICHE] universe: the chest cavity contains a cathedral with [PALETTE] nave, the skull contains a library, the hands contain small workshops where [NICHE] content is made, the heart's chambers four interconnected rooms each with its own window to an outdoor view. [AESTHETIC] period-accurate medical illustration style — scrupulously precise except that what is revealed inside is not biology but [NAME]'s [NICHE] inner life translated into physical space. For [PLATFORM].`,
+  60: `A cinematic surrealist image of [NAME]'s [NICHE] as an ocean wave frozen mid-break, entirely made of paper — [SUBJECT] as folded newspaper, old letters, pages from books, receipts, photographs — all the written records of [NICHE] accumulated into the form of a wave held perfectly still in its most powerful moment. [PALETTE] and [AESTHETIC] throughout: on the beach below, [NAME] watches the paper wave with their hands in their pockets, the sand beneath their feet also made of paper — every piece of [NICHE] content ground into sand-like fragments over time, the archive of everything created becoming the beach on which [NAME] stands. For [PLATFORM].`,
+  61: `A "soft life aesthetic" flat-lay photograph for [NAME]'s [NICHE] — [SUBJECT] arranged on white linen with [PALETTE] pastel and neutral tones dominating: a breakfast tray with café-au-lait in a ceramic bowl, a croissant with honey, reading glasses on an open book, dried pampas grass in a small vase, soft morning light streaming from the right creating long gentle shadows. [AESTHETIC] quiet luxury throughout — nothing expensive, everything considered. The aesthetic of a [NICHE] life organized around pleasure and the beauty of ordinary morning moments. For [PLATFORM] with the maximum save energy that defines this format.`,
+  62: `A viral "Barbie box" photoshoot-style image placing [NAME]'s [NICHE] — [SUBJECT] posed inside a giant transparent [PALETTE] pink box with bold branding on the front, dressed in matching satin party attire with accessories arranged like a real product package. [AESTHETIC] hot pink gradient background, bright flattering lighting, the classic doll-pose: perfect smile, one hand raised in a wave, executed with the deadpan commitment that makes this format go viral. A small heart sticker in the corner that says "[NICHE]: NEW." The [PLATFORM] format that makes viewers simultaneously laugh and save.`,
+  63: `A "dark academia reading nook" aesthetic photograph for [NAME]'s [NICHE] — [SUBJECT] as a perfectly curated corner of an old library: floor-to-ceiling shelves of leather-bound books, a velvet armchair in deep forest green with a plaid wool blanket, a small side table with steaming tea, a candle in a brass holder, [PALETTE] warm browns and amber throughout. [AESTHETIC] moody chiaroscuro of dark academia: candlelight and one reading lamp, a pair of reading glasses on an open book, the chair appearing to have just been vacated by [NAME] mid-chapter. For [PLATFORM] as the most-saved [NICHE] content format of the year.`,
+  64: `A viral "which era are you in" styled portrait for [NAME]'s [NICHE] — [SUBJECT] in [PALETTE] sequined bodysuit of champagne and rose gold, holding a microphone, standing in a concert stadium with 70,000 fans visible as a sea of glowing phone lights and friendship bracelets. [AESTHETIC] Eras Tour concert photography drama: multiple coloured spotlights creating overlapping pools of purple, pink, and gold, [NAME] caught mid-performance in a powerful pose, the scale of the [NICHE] event making every individual simultaneously visible and anonymous in the collective glow. For [PLATFORM].`,
+  65: `A "GRWM" mirror selfie for [NAME]'s [NICHE] — [SUBJECT] at a vanity in the viral aesthetic of the most-engaged beauty content: a large ring-light reflection visible in the mirror, [NAME] in matching loungewear at a vanity covered in organized [PALETTE] [NICHE] products (serums, bottles, brushes in holders), LED bulb lights framing the mirror, the composition capturing both [NAME] and the entire [NICHE] setup simultaneously. [AESTHETIC] aspirational but achievable — the specific register that makes viewers feel inspired and entirely comfortable with their own version of the same [PLATFORM] moment.`,
+  66: `A viral "cozy cottage core morning routine" photograph for [NAME]'s [NICHE] — [SUBJECT] in a rustic kitchen making chamomile tea, surrounded by dried herb bundles hanging from ceiling beams, a window framing a misty garden morning, handmade [PALETTE] pottery on open wooden shelves, a sourdough loaf in progress on the flour-dusted countertop, a cat sleeping on the window ledge. [AESTHETIC] warm golden photography through old wavy glass — a [NICHE] life that has deliberately chosen slowness, handwork, and proximity to the natural world over everything the 21st century insists upon. For [PLATFORM].`,
+  67: `A trending "quiet luxury" fashion photograph for [NAME]'s [NICHE] — [SUBJECT] in a perfectly fitted cashmere coat in [PALETTE] off-white, straight-leg ivory trousers, minimal gold jewelry, no visible logos, understated leather loafers, standing in front of a cream stone building in golden hour. [AESTHETIC] editorial quality, slightly grainy film simulation: the entire [NICHE] aesthetic costs more than it looks, because the point of quiet luxury is that only people who know, know. The [PLATFORM] content that makes [NAME]'s [NICHE] followers feel seen in their most considered choices.`,
+  68: `A viral "aesthetic productivity setup" photograph for [NAME]'s [NICHE] — [SUBJECT] as a white desk against a large window with city view, [PALETTE] mechanical keyboard in cream and rose gold, small succulent arrangement, ceramic pen holder, leather desk mat, warm-toned lamp, glass water bottle, notebook with quality pen. [AESTHETIC] organized but not sterile: one personal element that stops it looking like a showroom — [NAME]'s [NICHE] identity in a single object beside the setup. The image that makes [PLATFORM] followers want to sit down and create [NICHE] content immediately.`,
+  69: `A viral "bento cake" food photography image for [NAME]'s [NICHE] — [SUBJECT] as a perfect single-serving 4-inch cake frosted in smooth [PALETTE] buttercream with hand-painted watercolor florals on the side, a personalized message piped in delicate cursive on top for [NAME]'s [NICHE]. [AESTHETIC] overhead flat-lay on light marble with complementary florals, folded linen napkin, soft window light giving the frosting texture its three-dimensional form. The format that has generated millions of [PLATFORM] saves since 2022 — [NICHE] made edible, personalized, and visually perfect.`,
+  70: `A trending "European summer" travel photograph for [NAME]'s [NICHE] — [SUBJECT] as [NAME] in a flowy [PALETTE] linen dress and strappy sandals walking through a narrow Italian cobblestone street, a glimpse of the sea at the end of the lane, golden afternoon light catching the back of [NAME]'s hair in a perfect halo. [AESTHETIC] candid-style (shot from behind or three-quarters): a [NICHE] life being lived rather than documented — which is of course the most carefully documented pose of all. Carefree and calculated in precisely equal measure. For [PLATFORM] with the wanderlust energy that drives [NICHE] saves.`,
+  71: `A "main character energy" cinematic portrait for [NAME]'s [NICHE] — [SUBJECT] as [NAME] walking through a busy city street, everyone else motion-blurred while [NAME] is perfectly sharp, dressed in [PALETTE] dramatically over-dressed for the occasion, expression one of complete self-possessed authority, a coffee cup in hand, the city parting around [NAME] like a protagonist's establishing shot. [AESTHETIC] warm, slightly desaturated at the edges, peak drama framing: because in [NAME]'s [NICHE] story, every ordinary Tuesday is the inciting incident of something enormous. For [PLATFORM] as the scroll-stopping content format that defines this era.`,
+  72: `A "bookshelf aesthetic" photograph for [NAME]'s [NICHE] — [SUBJECT] as a beautifully styled bookshelf photographed straight-on, books organized by color in a gradient through [PALETTE] tones, interspersed with small plants (trailing pothos, small fig tree), candles in varying heights, art objects, a framed print, one horizontal stack topped with a single perfect [NICHE] object. [AESTHETIC] warm and cohesive, natural light from the left: the organization suggesting [NAME] is a person whose [NICHE] interior life is as carefully curated as their exterior space. For [PLATFORM] as aspirational tidiness made into art.`,
+  73: `A viral "aurora borealis bucket list" photograph for [NAME]'s [NICHE] — [SUBJECT] as [NAME] standing hand in hand on a snow-covered field in Iceland, seen from behind, looking up at an extraordinary aurora display of [PALETTE] green and violet light ribbons dancing across the entire sky, the snow reflecting the aurora colors in soft pools below. [AESTHETIC] long-exposure implied by star trails at the aurora's edges, [NAME] small against the enormous natural phenomenon — the correct proportion for a [NICHE] creator encountering the thing that makes [PLATFORM] followers stop scrolling and feel something vast.`,
+  74: `A "before and after" flat-lay for [NAME]'s [NICHE] — [SUBJECT] as a split composition: the chaotic version of [NICHE] content on the left (tangled, expired, disorganized, [PALETTE] cool light) and on the right the same [NICHE] space after [NAME]'s approach (labeled, separated, functional, [PALETTE] warm light). [AESTHETIC] directly overhead, equal parts each side: the emotional temperature of chaos versus order made visible in color grading. The [PLATFORM] format that drives enormous engagement in [NICHE] — the satisfying reveal that every organized [NICHE] creator delivers as their signature content.`,
+  75: `A "forest bathing (Shinrin-yoku) aesthetic" photograph for [NAME]'s [NICHE] — [SUBJECT] as [NAME] in [PALETTE] cream and earth-tone natural fiber clothing sitting at the base of an enormous old-growth tree in a Japanese cedar forest, eyes closed, hands resting in a loose meditation posture, shafts of soft green-filtered light falling through the canopy above creating dappled patterns on the forest floor around [NAME]. [AESTHETIC] complete stillness: the forest so quiet you can hear your own blood. Green. Ancient. Restorative. [NICHE] content that is the opposite of a screen — for [PLATFORM] followers who need exactly this.`,
+  76: `A "golden hour portrait" photograph for [NAME]'s [NICHE] — [SUBJECT] as [NAME] standing in an open field at the precise moment the sun is 2 degrees above the horizon, the entire world bathed in [PALETTE] warm amber light, [NAME]'s face in three-quarter profile catching the last direct sun, hair backlit with a golden rim light creating a natural halo. [AESTHETIC] 85mm 1.4 focus on one eye, background a completely soft bokeh of warm amber field — the luminous beauty of painted portraits at a fraction of the production cost. [NICHE] golden hour content for [PLATFORM] at its most technically and emotionally perfect.`,
+  77: `A "plant parent shelfie" photograph for [NAME]'s [NICHE] — [SUBJECT] as a large shelf photographed straight-on, every compartment containing a different [NICHE]-relevant species in a [PALETTE] terracotta or ceramic pot: monstera, snake plants, pothos in multiple varieties, fiddle-leaf fig, string of pearls cascading from the top shelf, alocasia, ZZ plant, prayer plant furled for evening. [AESTHETIC] natural light, curated mix of textures and neutrals — celebrating the specific joy of [NAME]'s [NICHE] ecosystem of growing things, every piece of content a living thing requiring attention. For [PLATFORM].`,
+  78: `A "grandmillennial aesthetic" interior photograph for [NAME]'s [NICHE] — [SUBJECT] as a sitting room with chintz floral curtains, needlepoint-covered footstool, framed [PALETTE] botanical prints in a gallery wall, sofa in a floral throw, built-in bookshelves stuffed with [NICHE] books and decorative objects, Persian rug layered over sisal carpet, chinaware on a plate rack, fresh flowers in a china pitcher. [AESTHETIC] joyfully maximal — the opposite of minimalism, full of things accumulated with love over decades, unapologetically traditional. [NAME]'s [NICHE] universe as an interior that holds a whole life. For [PLATFORM].`,
+  79: `A "NYC food tour" content-style photograph for [NAME]'s [NICHE] — [SUBJECT] as an overhead shot of a New York City sidewalk with four iconic [NICHE] elements arranged as a flat-lay tasting in [PALETTE] colors on concrete: the classic versions of [NICHE] content laid out on paper plates and wax paper with the specific energy of street-level NYC documentation — unstyled, immediate, absolutely delicious-looking, and proudly refusing to be precious about [NICHE]. [AESTHETIC] the [PLATFORM] format that generates millions of views: immediate, urban, real.`,
+  80: `A "cloud bread / artisan process" documentation photograph for [NAME]'s [NICHE] — [SUBJECT] as [NAME]'s hands holding a freshly completed [NICHE] creation, the result of [PALETTE] hours of process now at its most perfect moment, steam or evidence of freshness still present. [AESTHETIC] weathered wooden board on linen cloth, the tools of [NAME]'s [NICHE] craft beside the finished object: the complete and sufficient world of something made from nothing but skill, materials, patience, and time. The [PLATFORM] content format that makes [NICHE] followers want to try it themselves.`,
+  81: `A stunning Vogue Italia-style fashion editorial photograph for [NAME]'s [NICHE] — [SUBJECT] as an avant-garde sculptural gown of [PALETTE] white geometric panels radiating outward like an exploded diagram, the bodice a smooth column of cream marble texture, sleeves structured wire forms suggesting wings or sails. [AESTHETIC] high-concept studio drama: shot from low angle looking up, the architectural [NICHE] garment appearing to be a building as much as a garment, [NAME] the human element in a composition primarily about form. The [PLATFORM] editorial image that makes [NICHE] followers stop and stare.`,
+  82: `A breathtaking jewelry editorial photograph for [NAME]'s [NICHE] — [SUBJECT] as an extraordinary [PALETTE] piece against deep black velvet, macro precision revealing each individual facet reflecting its own private version of the studio lights in a complex internal constellation of fire and ice. [AESTHETIC] editorial restraint: the hands deliberately plain — no nail polish, no other jewelry — so that [SUBJECT] is the only thing in the frame worth looking at. The correct approach when the [NICHE] object [NAME] photographs costs more than most apartment buildings. For [PLATFORM].`,
+  83: `A cinematic perfume advertisement photograph for [NAME]'s [NICHE] — [SUBJECT] as [NAME] in a backless [PALETTE] evening gown at the edge of a rooftop infinity pool at night, the Paris skyline reflected in the still pool surface, the Eiffel Tower visible in the distance, [NAME]'s face in three-quarter profile with an expression of absolute self-possession. [AESTHETIC] golden-blue palette of Paris at twilight with cinematic lens flare: the [NICHE] product floats in the foreground, slightly blurred and smaller than [NAME], because this [PLATFORM] image knows that [NICHE] is a promise and [NAME] is its fulfillment.`,
+  84: `A spectacular luxury hotel interior photograph for [NAME]'s [NICHE] — [SUBJECT] as the lobby of an imaginary grand palace hotel in the Swiss Alps: 40-foot vaulted ceiling painted with cloud frescoes, a central arrangement of white orchids and roses the size of a small car, [PALETTE] marble floors with black inlay patterns, through enormous arched windows the view of snow-covered peaks in winter alpenglow. [AESTHETIC] Condé Nast Traveler quality: chandeliers reflected in the polished floor, two guests in the far distance giving scale to the impossible grandeur — [NAME]'s [NICHE] as the place where money has successfully imitated heaven. For [PLATFORM].`,
+  85: `A dramatic high fashion editorial portrait for [NAME]'s [NICHE] — [SUBJECT] as a couture gown of hand-beaded [PALETTE] midnight blue silk organza, 10,000 individual crystal beads applied by hand, the skirt a 12-foot train pooling on the marble floor. [AESTHETIC] Hall of Mirrors Versailles setting: empty, tourists gone, lit only by candlelight from 357 individual mirrors and late afternoon sun through 17 arched windows. [NAME]'s [NICHE] and the room in conversation about excess, beauty, and the hours of human labor required to create something that exists purely to be looked at and understood as extraordinary. For [PLATFORM].`,
+  86: `A magazine-quality luxury car photography image for [NAME]'s [NICHE] — [SUBJECT] as a [PALETTE] matte ultra-luxury object parked on a moonlit coastal road on the Amalfi Coast, the Italian sea visible below the cliff edge, lit by a single creative light source revealing complex surface geometry through flowing reflections. [AESTHETIC] rear three-quarter angle showing perfect proportions against a backdrop of stars and sea — [NAME]'s [NICHE] aesthetic suggesting its natural habitat is anywhere exceptional. The [PLATFORM] content that communicates [NICHE] as a vehicle that costs what it costs because it is what it is.`,
+  87: `A spectacular luxury editorial image for [NAME]'s [NICHE] — [SUBJECT] as the world's most beautiful vanity: an 18th-century Venetian lacquered dressing table with gilded mirror, covered with crystal [PALETTE] perfume bottles, a silver-backed hairbrush set, fresh roses in cut crystal, pearl and diamond jewelry on velvet. [AESTHETIC] warm candlelight and natural morning light through damask curtains: [NAME]'s reflection in the mirror slightly different from their actual pose — the double reflection creating a subtle surrealist element in an otherwise conventional [NICHE] luxury image. For [PLATFORM].`,
+  88: `A fashion editorial series image for [NAME]'s [NICHE] showing [SUBJECT] in three versions of [PALETTE] brand color — [NAME] wearing the signature [NICHE] color as coat, standing beside the same color as a pedestal object, holding the same color as a shopping bag, against a background fading from pale to the precise brand shade at its center. [AESTHETIC] love letter to color consistency: the way [NAME]'s [PALETTE] has come to mean [NICHE], craftsmanship, and a certain cultural aspiration that transcends seasons. [NICHE] was never this complicated before [NAME] decided it was. For [PLATFORM].`,
+  89: `A stunning beauty editorial photograph for [NAME]'s [NICHE] in the style of Tim Walker's fantastical productions — [SUBJECT] as [NAME] in an enormous [PALETTE] ballgown standing inside a life-size dollhouse set built to surround [NAME] perfectly, the furniture and walls at exact scale so that [NAME] is the doll in the house. [AESTHETIC] theatrical artifice visible and celebrated: hand-painted trompe l'oeil wallpaper, tiny windows showing painted landscapes, the entire set photographed straight on. [NAME]'s expression both regal and slightly amused by the [NICHE] situation — the [PLATFORM] editorial image that makes everyone want to live inside [NAME]'s [NICHE] world.`,
+  90: `A cinematic luxury lifestyle photograph for [NAME]'s [NICHE] — [SUBJECT] as a private yacht at sunset in the Mediterranean, photographed from a tender trailing behind: the silhouette against a [PALETTE] sky, the wake spreading behind as two trails of rose-gold water, two figures visible in golden light on the aft deck, their specific identities unimportant, their situation communicating everything about [NAME]'s [NICHE] aspirational content. [AESTHETIC] Turner-quality gradient sky from deep cobalt through rose to burning gold, the yacht the only hard-edged element in a composition of beautiful gradations. For [PLATFORM].`,
+  91: `A dramatic fashion editorial portrait for [NAME]'s [NICHE] — [SUBJECT] as a couture creation constructed entirely from [PALETTE] living materials: thousands of individual [NICHE]-themed elements wired and sewn into a sweeping silhouette, every element at its precise peak before it turns. [AESTHETIC] single overhead studio light creating deep shadow everywhere else, [NAME] appearing to be a figure made of light emerging from darkness — concentrated [NICHE] stored in living form, released briefly as beauty before returning to the ground that made it. Shot in the tradition of Nick Knight's signature floral art direction. For [PLATFORM].`,
+  92: `A rich luxury [NICHE] editorial photograph for [NAME] — [SUBJECT] as a master craftsperson's hands in the process of hand-finishing a single perfect creation, the final detail being applied to a [PALETTE] perfectly executed piece with an abstract design, [SUBJECT] sitting on a clean marble slab beside other completed pieces in the collection. [AESTHETIC] macro photography revealing texture — the slight gloss of perfect execution, the smooth surface, the precious element catching light — in the same way jewelry photography reveals diamonds. The message: [NAME]'s [NICHE] is not content, it is craft. For [PLATFORM].`,
+  93: `A spectacular [NICHE] fashion photograph for [NAME] from a couture show — [SUBJECT] captured at the precise moment of maximum drama: [NAME] mid-stride in an extraordinary [PALETTE] feathered creation, the train lifting slightly in the air from the momentum of movement, hundreds of individual hand-crafted elements visible in detail, the runway lights creating a halo effect around the entire surface. [AESTHETIC] runway photography: front row audience visible as a blur of faces and phones, [NAME]'s expression the runway face — present and absent simultaneously — a vessel for the [NICHE] argument about beauty. For [PLATFORM].`,
+  94: `A jaw-dropping luxury spa image for [NAME]'s [NICHE] — [SUBJECT] as an infinity pool at a Maldivian overwater resort at blue hour, the pool edge disappearing into the Indian Ocean horizon, the water the same deep [PALETTE] teal-blue as the ocean beyond. [AESTHETIC] stillness as luxury: [NAME] floating on their back at the center, the fading blue sky reflected so that [NAME] appears to float in sky, rose petals and candles ringing the pool edge, a champagne glass on the infinity ledge. The [PLATFORM] image that sells [NICHE] as the right to float and think of nothing — the greatest luxury available.`,
+  95: `A beautifully composed luxury bridal editorial for [NAME]'s [NICHE] — [SUBJECT] as [NAME] in a couture gown in a centuries-old European library, floor-to-ceiling bookshelves in [PALETTE] burgundy, forest green, and dark blue providing an extraordinary backdrop, [NAME] standing in a shaft of warm light from a high window, dress a column of ivory silk charmeuse with a cathedral train spreading across the library floor in a perfect triangle. [AESTHETIC] single important day against the long arc of time: a garland of white roses trailing from the bouquet, the luxurious organic [NICHE] elements against the permanent grandeur of accumulated [SUBJECT]. For [PLATFORM].`,
+  96: `A spectacular luxury watch editorial for [NAME]'s [NICHE] — [SUBJECT] photographed on polished [PALETTE] obsidian stone, lit with a single point source from the upper right creating one highlight on the crystal and complete shadow on the left side, the movement visible where every component is chamfered, polished, and decorated in the tradition of mechanical perfection. [AESTHETIC] the only other element: a single drop of water that has fallen on the obsidian beside [SUBJECT] — [NAME]'s [NICHE] beside the most elementary form of time's passage. Everything else silence and craftsmanship. For [PLATFORM].`,
+  97: `A cinematic luxury menswear editorial for [NAME]'s [NICHE] — [SUBJECT] as [NAME] in a perfectly cut three-piece suit of [PALETTE] mid-grey flannel, white shirt, grenadine tie, double monk-strap shoes, standing in a library-paneled room of a 1920s Manhattan apartment, a whiskey glass and [NICHE] materials on the leather-topped desk behind, autumn Central Park visible through tall windows. [AESTHETIC] Ralph Lauren campaign tradition: the clothing almost secondary to the aspiration being sold — [NAME]'s version of [NICHE] authority, taste, and comfort that has nothing to do with money and everything to do with choices made over decades. For [PLATFORM].`,
+  98: `A magnificent luxury flower market photograph for [NAME]'s [NICHE] — [SUBJECT] as a Dutch flower wholesale market at 5am, its vaulted iron hall filled with hundreds of thousands of stems organized into visual fields of overwhelming [PALETTE] abundance: a sea of white peonies here, a hillside of dusty pink ranunculus there, cobalt delphiniums against a wall of apricot roses. [AESTHETIC] one [NAME]-figure moving through the fields with a clipboard, choosing: the commercial reality of where beautiful [NICHE] content comes from, and the pure visual pleasure of being inside impossible abundance. For [PLATFORM] as the [NICHE] image that makes everyone stop.`,
+  99: `A final luxury editorial image for [NAME]'s [NICHE] — [SUBJECT] as a master craftsperson in their Paris atelier holding up a completed commission: a single handbound [NICHE] creation in full [PALETTE] calfskin with gold-tooled decoration, a pattern of interlacing vines and a central cartouche with [NAME]'s initials, everything hand-cut and hand-sewn, the headbands woven in silk thread. [AESTHETIC] hands showing years of craft: strong, careful, stained with the materials of [NICHE] in the creases of the knuckles. [NAME] holding something that will outlast most buildings currently standing. That is the [NICHE] luxury being sold: permanence, in a world of disposability. For [PLATFORM].`,
+  100: `A breathtaking grand finale image: the complete [NAME]'s [NICHE] visualised as a physical product — eleven slim hardcover books of [SUBJECT] laid out in a perfect fan arrangement on a white marble surface, each book's spine showing its chapter number and [PALETTE] accent color, each cover bearing a simple icon of its [NICHE] theme. [AESTHETIC] warm afternoon light from the left, spines casting thin parallel shadows on the marble. A hand reaches into the frame and picks up Book 1. Somewhere, [NAME]'s [PLATFORM] audience is about to encounter their first piece of [NICHE] content from this series. Every great creative journey begins with a single copy-paste. Welcome to yours.`,
+}
+
+const H = {  1:'TikTok scroll-stop · viral aesthetic trending edit',   2:'Gen Z film grain · nostalgic effortlessly cool',   3:'Y2K chrome pixelated · 2000s revival throwback',   4:'Dark academia moody · books shadow intellectual',   5:'Cottagecore wildflowers · pastoral linen gentle',   6:'Clean girl dewy · minimal glass-skin effortless',   7:'Digital nomad exotic · laptop coffee world-office',   8:'Soft grunge edge · distressed moody imperfect',   9:'Kawaii pastel stickers · maximum charm cuteness',   10:'Barbiecore bold pink · maximalist unapologetic joy',   11:'Coastal grandmother · linen sea-glass timeless',   12:'Normcore understated · anti-trend ironic cool',   13:'Goblincore mushrooms · earthy odd joyful weird',   14:'Coquette bows pearls · romantic delicate power',   15:'Mob wife fur gold · maximalist drama luxury',   16:'Quiet luxury tailoring · no logos old money',   17:'Glow-up transformed · confidence before-after',   18:'Micro-trend wave · algorithm in-the-moment',   19:'Brain-rot absurdist · internet culture irony',   20:'Gen Z scroll-stop · engagement trend-native',   21:'Pinterest flat-lay · every object save-worthy',   22:'Morning golden coffee · slow-living journal',   23:'Desk styled pretty · productive plant notebook',   24:'Bookshelf cosy · stacked spines atmosphere',   25:'Food overhead props · restaurant-quality home',   26:'Bath candles bubbles · treat-yourself luxury',   27:'Night-in fairy lights · blankets screen-glow',   28:'Seasonal autumn · candles leaves change beautiful',   29:'Minimal white space · one perfect object intention',   30:'Garden sunbeam green · outdoor natural peace',   31:'Café latte marble · flâneur aesthetic moment',   32:'Farmers market baskets · wholesome abundance',   33:'Rainy warm mug · beautiful grey cosy aesthetic',   34:'Flower vase stems · florist artistry soft',   35:'Skincare glass dewy · ritual precision clean',   36:'Travel golden hour · destination wanderlust gone',   37:'Golden hour silhouette · perfect light moment',   38:'Journal handwriting · paper beauty thought',   39:'Washi pen stationery · organised flat-lay joy',   40:'Pinterest save-worthy · nothing unnecessary beauty',   41:'Before-after reveal · transformation engaging',   42:'POV immersive · first-person draw-them-in',   43:'Day-in-life candid · authentic relatable light',   44:'Get-ready mirror · products preparation moment',   45:'What-I-eat food · aspirational real balanced',   46:'Soft-launch tease · partial reveal curiosity',   47:'This-vs-that split · decision visual clarity',   48:'Camera gaze direct · authenticity trust connection',   49:'Challenge mid-joy · participation community',   50:'Oddly satisfying niche · community in-joke',   51:'Trend recap zeitgeist · timely share-worthy',   52:'Hot takes bold · opinion conversation-starter',   53:'Silent walk mindful · no caption beauty speaks',   54:'Budget vs luxury · value aspiration tension',   55:'Weekend reset ritual · fresh start intentions',   56:'Recipe step process · results implied try-it',   57:'Organisation ASMR · nothing out of place',   58:'Younger-self wisdom · nostalgia emotional hook',   59:'Body positive confident · community celebration',   60:'Viral format resonant · algorithm share-smart',   61:'Yoga golden mat · body morning peace',   62:'Meal prep containers · nutritious beautiful clean',   63:'Journal pen mindful · quiet inner world warmth',   64:'Wellness haul curated · discovery arrangement',   65:'Running motion · outdoor athletic joy energy',   66:'Meditation stillness · inner glow reset',   67:'Sleep silk lamps · wind-down cosy night',   68:'Smoothie vibrant · colour ingredients vitality',   69:'Stretch recovery · floor light body honoured',   70:'Digital detox outdoors · analogue present moment',   71:'Supplement ritual · science meets beauty clean',   72:'Gratitude simple · abundant feeling warmth',   73:'Hydration glass · refreshing visual clean cue',   74:'Mental health honest · safe relatable warmth',   75:'Cold plunge brave · biohacker extreme contrast',   76:'Walking green trees · simple pleasure peace',   77:'Flour hands real · from-scratch home cooking',   78:'Mindful drinking · sobriety non-alcoholic beauty',   79:'Cycle-sync aligned · intuitive body wisdom',   80:'Holistic balance · wellness vision aspirational',   81:'Quiet luxury opulent · old money sophistication',   82:'Fashion flat-lay · every piece magazine-quality',   83:'Street style OOTD · mid-stride real world',   84:'Brand integration · aspirational authentic feel',   85:'5-star marble · luxury hotel roses impossible',   86:'Designer detail · craftsmanship desire close-up',   87:'Fine dining white cloth · Michelin precision',   88:'Yacht jet exclusive · effortless elite wealth',   89:'Couture drama · construction wearable sculpture',   90:'Fragrance glass light · sensorial desire bottled',   91:'Capsule ten pieces · intentional minimal dressing',   92:'Archive patina · vintage designer provenance',   93:'Watch movement · reflection precious investment',   94:'Gala red carpet · purpose glamour formal',   95:'Stylist curation · expert eye considered choice',   96:'Sustainable ethical · values beauty conscience',   97:'Suiting tailoring · menswear quiet polish power',   98:'Power dressing commanding · boardroom force',   99:'Gender-fluid expressive · beyond convention free',   100:'Signature iconic · recognisable ownable identity'}
+
+const vars = {
+  name:        () => document.getElementById('v-name').value.trim() || '[NAME]',
+  niche:        () => document.getElementById('v-niche').value.trim() || '[NICHE]',
+  subject:        () => document.getElementById('v-subject').value.trim() || '[SUBJECT]',
+  aesthetic:        () => document.getElementById('v-aesthetic').value.trim() || '[AESTHETIC]',
+  platform:        () => document.getElementById('v-platform').value.trim() || '[PLATFORM]',
+  palette:        () => document.getElementById('v-palette').value.trim() || '[PALETTE]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[NAME\]/g, vars.name())
+    .replace(/\[NICHE\]/g, vars.niche())
+    .replace(/\[SUBJECT\]/g, vars.subject())
+    .replace(/\[AESTHETIC\]/g, vars.aesthetic())
+    .replace(/\[PLATFORM\]/g, vars.platform())
+    .replace(/\[PALETTE\]/g, vars.palette());
+}
+
+function buildBlock(n) {
+  const na = vars.name(), ni = vars.niche(), su = vars.subject(), ae = vars.aesthetic(), pl = vars.platform(), pa = vars.palette();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[NAME]" is Your brand or creator name.
+"[NICHE]" is Your content niche.
+"[SUBJECT]" is What appears in the image.
+"[AESTHETIC]" is Visual aesthetic style.
+"[PLATFORM]" is Target social platform.
+"[PALETTE]" is Colour palette.
+
+Now let's give these variables our values.
+[NAME] = "${na}"
+[NICHE] = "${ni}"
+[SUBJECT] = "${su}"
+[AESTHETIC] = "${ae}"
+[PLATFORM] = "${pl}"
+[PALETTE] = "${pa}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

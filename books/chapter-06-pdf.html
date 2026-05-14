@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Photography Prompts — PDF Edition | Book 6</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #021a10;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #059669;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #05966966;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #021a10;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #059669;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #059669;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #059669;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #036b4b;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #059669;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #059669;
+  border: 0.5px solid #05966980;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #05966959;
+  background: #05966914;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #059669;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #059669;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #059669; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #059669;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #059669; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #059669; }
+.guide-ex-text .token { color: #059669; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#0596692e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 6</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Product Photography</h1>
+      <div class="cover-title-sub">Commercial & E-Commerce Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">E-Commerce</span>
+        <span class="cover-cat">Lifestyle</span>
+        <span class="cover-cat">Beauty & Cosmetics</span>
+        <span class="cover-cat">Food & Beverage</span>
+        <span class="cover-cat">Tech & Gadgets</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[PRODUCT]</span>
+        <span class="var-desc">Product name or brand</span>
+        <input class="var-input" id="v-product" placeholder='e.g. LUMINA Serum, TechPro X1' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[TYPE]</span>
+        <span class="var-desc">Product category or type</span>
+        <input class="var-input" id="v-type" placeholder='e.g. skincare bottle, headphones' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[MATERIAL]</span>
+        <span class="var-desc">Primary material or finish</span>
+        <input class="var-input" id="v-material" placeholder='e.g. dark amber glass, brushed alum' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[BACKGROUND]</span>
+        <span class="var-desc">Background or surface</span>
+        <input class="var-input" id="v-background" placeholder='e.g. pure white, dark marble, wood' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[LIGHTING]</span>
+        <span class="var-desc">Lighting style</span>
+        <input class="var-input" id="v-lighting" placeholder='e.g. soft diffused studio, side lit' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ANGLE]</span>
+        <span class="var-desc">Camera angle or framing</span>
+        <input class="var-input" id="v-angle" placeholder='e.g. 45-degree hero shot, flat lay' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised product photography image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[PRODUCT]</span> <span class="tok">[TYPE]</span> <span class="tok">[MATERIAL]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[PRODUCT]</span><span class="guide-var-desc">Product name or brand</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[TYPE]</span><span class="guide-var-desc">Product category or type</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[MATERIAL]</span><span class="guide-var-desc">Primary material or finish</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[BACKGROUND]</span><span class="guide-var-desc">Background or surface</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[LIGHTING]</span><span class="guide-var-desc">Lighting style</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[ANGLE]</span><span class="guide-var-desc">Camera angle or framing</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A commercial product photograph of <span class="tok">[PRODUCT]</span>,
+a <span class="tok">[TYPE]</span> made of <span class="tok">[MATERIAL]</span>, positioned
+on <span class="tok">[BACKGROUND]</span>. The product is centered
+and perfectly in focus. <span class="tok">[LIGHTING]</span>
+eliminates harsh shadows.
+Shot <span class="tok">[ANGLE]</span>.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A commercial product photograph of <span class="filled-val">LUMINA Serum</span>,
+a <span class="filled-val">skincare bottle</span> made of <span class="filled-val">dark amber glass</span>, positioned
+on <span class="filled-val">pure white background</span>. The product is centered
+and perfectly in focus. <span class="filled-val">Soft diffused studio lighting</span>
+eliminates harsh shadows.
+Shot <span class="filled-val">45-degree hero angle</span>.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">E-Commerce &amp; White Background Product Shots</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Lifestyle &amp; Contextual Product Photography</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Beauty &amp; Cosmetics Product Photography</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">Food &amp; Beverage Product Photography</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Tech &amp; Gadget Product Photography</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 6: Product Photography &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A commercial product photograph of [PRODUCT], a [TYPE] made of [MATERIAL], positioned on [BACKGROUND]. The product is upright, centered, and perfectly in focus. [LIGHTING] eliminates harsh shadows while maintaining subtle definition on the [MATERIAL] surface. Beautiful reflective highlights on the material. Shot [ANGLE]. Amazon main-image quality, no props, no shadows.`,
+  2: `A professional e-commerce product shot of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND]. [LIGHTING] creates crisp detail on the material texture and construction. Multiple light sources eliminate all harsh shadows. The colour is vibrant and accurate. A subtle shadow grounds the product. Shot [ANGLE]. Commercial retail photography quality.`,
+  3: `An e-commerce product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND]. The product is positioned to show key interior and exterior details in exceptional clarity. [LIGHTING] renders the material grain and stitching with precision. Shot [ANGLE]. No shadows, no props, pure commercial product photography.`,
+  4: `A clean e-commerce product image of [PRODUCT] — a [TYPE] in [MATERIAL] — arranged on [BACKGROUND] with deliberate spacing for visual interest. [LIGHTING] reveals the translucency and texture of the [MATERIAL]. Labels are crisp and readable. Shot [ANGLE]. Etsy and Shopify product-shot quality.`,
+  5: `A commercial product photograph of [PRODUCT], a [TYPE] in [MATERIAL], positioned centrally on [BACKGROUND]. A single product detail — a droplet, a texture reveal, or a dispensed element — frozen with sharp clarity creates a luxury hero-shot moment. [LIGHTING] makes the [MATERIAL] and product interior glow. Shot [ANGLE]. Ultra-clean, no props, projecting premium quality and efficacy simultaneously.`,
+  6: `An e-commerce product shot of [PRODUCT] — a [TYPE] in [MATERIAL] — displayed in multiple orientations on [BACKGROUND]. [LIGHTING] creates specular highlights on the surface and reveals the material texture. Shot [ANGLE]. Sharp, clean, retail-packaging image quality.`,
+  7: `A flat lay product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — arranged in a clean line on [BACKGROUND], labels facing camera, equal spacing. [LIGHTING] with no shadows. Shot [ANGLE]. Commercial clean-brand photography quality, every label sharp and readable.`,
+  8: `A commercial product image of [PRODUCT] — a [TYPE] in [MATERIAL] — positioned on [BACKGROUND]. [LIGHTING] creates a long, controlled specular highlight down the product surface that demonstrates quality. Shot [ANGLE]. No props, minimal shadow, communicating professional quality with immediate visual authority.`,
+  9: `An e-commerce product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — shown in multiple orientations on [BACKGROUND]: upright, on its side, and at an angle. Technical product photography style: precise, informative, highly detailed. [LIGHTING] renders the [MATERIAL] surface with photorealistic texture. Shot [ANGLE]. Ports and details clearly identifiable.`,
+  10: `A premium e-commerce product shot of [PRODUCT] — a [TYPE] in [MATERIAL] — photographed on [BACKGROUND]. [LIGHTING] brings out the surface texture and grain of the [MATERIAL]. Shot [ANGLE] to reveal both the interior and the base simultaneously. A subtle contextual detail adds context without detracting from the product focus. Commercial ceramics photography quality.`,
+  11: `A high-end product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — displayed on a stand at an angle on [BACKGROUND]. [LIGHTING] creates a specular highlight across the product face and reveals the material texture. Product details are rendered with exceptional sharpness. Shot [ANGLE]. Premium e-commerce and editorial quality in a single image.`,
+  12: `A flat lay e-commerce product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — shown in two configurations on [BACKGROUND]: rolled and flat. The texture of the [MATERIAL] surface is visible in close detail. Accessories are positioned beside the products. [LIGHTING] with no colour casting. Shot [ANGLE]. Fitness brand commercial photography quality.`,
+  13: `An e-commerce product image of [PRODUCT] — a [TYPE] in [MATERIAL] — folded neatly to show the full surface and edge stitching on [BACKGROUND]. [LIGHTING] shows the material sheen without harsh reflections. The [MATERIAL] colour is accurate and vivid. Shot [ANGLE]. The image communicates premium material quality through texture and light.`,
+  14: `A commercial product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — displayed with its case or packaging on [BACKGROUND]. [LIGHTING] creates precise specular highlights on both the product and accessory surfaces. Charging or connection details are visible and sharp. Shot [ANGLE]. Photorealistic material rendering quality, clean and technical.`,
+  15: `An e-commerce product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — folded to show the fabric texture, construction detail, and edge binding on [BACKGROUND]. [LIGHTING] renders the texture invitingly. Shot [ANGLE]. The image communicates quality and tactile appeal through visual texture cues — the photograph should make the viewer want to reach out and touch it.`,
+  16: `A premium e-commerce product shot of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND]. [LIGHTING] creates an internal glow through the [MATERIAL] and reveals every facet or surface detail. Shot [ANGLE]. Luxury brand photography quality, precise and extraordinary.`,
+  17: `A clean product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — positioned to show the front panel, side features, and a partial view of the interior on [BACKGROUND]. [LIGHTING] revealing the [MATERIAL] texture, hardware, and construction detail. Shot [ANGLE]. Commercial retail bag photography quality.`,
+  18: `An e-commerce product image of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND]. Shot [ANGLE] so the label text is fully legible. [LIGHTING] is clean and even with minimal shadow. A single element of the product contents positioned beside it for scale and context. The image conveying purity, quality, and clinical efficacy.`,
+  19: `A commercial product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — positioned at a dramatic angle showing both the cooking surface and the exterior wall texture on [BACKGROUND]. [LIGHTING] reveals the beautiful texture of the surface and any brand embossing. A single contextual element for scale. Shot [ANGLE]. The image communicating premium craftsmanship through visual texture.`,
+  20: `A luxury e-commerce flat lay of [PRODUCT] — a [TYPE] in [MATERIAL] — arranged on [BACKGROUND] in a styled gift presentation. [LIGHTING] with deliberate casual elegance throughout. Shot [ANGLE]. The image communicates premium gifting, thoughtful curation, and the specific unboxing joy that drives luxury e-commerce conversion.`,
+  21: `A lifestyle product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — held or used by a person in a cozy, scene-appropriate setting. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells not the product but the feeling it enables — warmth, comfort, and the specific pleasure of the product in its ideal moment of use. Commercial lifestyle photography quality, aspirational and emotionally resonant.`,
+  22: `A sun-drenched lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in an active outdoor setting. [BACKGROUND]. [LIGHTING]. A person's hand reaches for the product from off-frame. Shot [ANGLE]. The image sells the lifestyle aspirations behind the product — adventure, health, and sustainability — rather than the product's features alone.`,
+  23: `A cozy home lifestyle shot of [PRODUCT] — a [TYPE] in [MATERIAL] — styled in a home setting with appropriate props. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The material texture is the hero. The image sells home comfort and the specific aesthetic of elevated casual living. Interior design and lifestyle brand photography quality.`,
+  24: `A bright, energetic lifestyle product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — worn or in use by an active person. [BACKGROUND]. [LIGHTING]. The product is clearly visible and in active use. Shot [ANGLE]. The image sells active freedom and the technology that makes the activity better — aspirational fitness lifestyle photography.`,
+  25: `A warm kitchen lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in active use in a kitchen setting. [BACKGROUND]. [LIGHTING]. The product's action and power are captured. Shot [ANGLE]. The image sells the joy and the specific pleasure of a quality kitchen appliance in its natural environment.`,
+  26: `A serene morning lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in a wellness setting with appropriate props. [BACKGROUND]. [LIGHTING]. No model, product-as-hero in a lifestyle context, the image inviting the viewer to imagine themselves in the scene. Shot [ANGLE]. Outdoor wellness brand photography quality.`,
+  27: `A bright home office lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on a styled desk with plants and everyday items suggesting an active session. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells productive, aesthetic workspace, appealing to people who want their environment to reflect their standards.`,
+  28: `A warm bath and body lifestyle product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — shown in its natural use context with a full scene of sensory props. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells the complete sensory ritual — the warmth, colour, and the pleasure of slowing down. Spa and wellness brand photography quality.`,
+  29: `A golden-hour outdoor lifestyle shot of [PRODUCT] — a [TYPE] in [MATERIAL] — in active outdoor use by a person enjoying leisure time. [BACKGROUND]. [LIGHTING]. The product's construction and key features are clearly visible. Shot [ANGLE]. The image sells freedom, nature, and the specific pleasure of the activity the product enables.`,
+  30: `A bright, clean lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in use in a kitchen or organisational context with relevant props. [BACKGROUND]. [LIGHTING]. A person in appropriate attire engages with the product. Shot [ANGLE]. The image sells healthy living, organised habits, and the specific pride of a well-prepared lifestyle.`,
+  31: `A moody evening lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — burning or in use in a styled home interior. [BACKGROUND]. [LIGHTING]. The jar and label are sharp and legible. Shot [ANGLE]. The image sells evening comfort, the ritual of unwinding, and the specific sensory pleasure of a beautifully appointed home.`,
+  32: `A vibrant summer lifestyle shot of [PRODUCT] — a [TYPE] in [MATERIAL] — in active outdoor use with summer props. [BACKGROUND]. [LIGHTING]. The product's design and key functional features are all visible. Shot [ANGLE]. The image sells summer fun, quality outdoor gear, and the peak experience of the product in its ideal moment of use.`,
+  33: `A warm and beautiful lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — used to display or serve food in a dinner-party context with elegant props. [BACKGROUND]. [LIGHTING]. The product's craftsmanship is the hero. Shot [ANGLE]. The image sells the product as a vehicle for the lifestyle of hosting beautifully.`,
+  34: `A bright morning lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in use in a beautiful kitchen or dining setting with morning ritual props. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells the slow morning ritual, the pleasure of quality at home, and the specific feeling that a great product enables.`,
+  35: `A dynamic lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — worn or in use during active physical activity. [BACKGROUND]. [LIGHTING]. The product's display or key feature is sharp and legible. Shot [ANGLE]. The image sells performance tracking, active identity, and the satisfaction of having data that proves you are working hard.`,
+  36: `A serene lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — styled in a bathroom or wellness setting with spa-appropriate props. [BACKGROUND]. [LIGHTING]. The product's design is the hero. Shot [ANGLE]. The image sells the daily ritual of creating a spa environment at home and the accessible luxury of a premium wellness product.`,
+  37: `A warm family lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in active use with people mid-experience around it. [BACKGROUND]. [LIGHTING]. The product's design is bright and clear. Shot [ANGLE]. The image sells connection, shared time, and the specific joy the product enables — this product is a vehicle for the experiences that matter most.`,
+  38: `A bright, aspirational lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on a styled desk with organisational and creative props. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells the fantasy of an organised, intentional life and the specific joy of a beautiful system that makes you feel like the best version of yourself.`,
+  39: `A golden-hour outdoor lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — at a social outdoor gathering with friends' presence suggested. [BACKGROUND]. [LIGHTING]. The product's design and colour are prominent. Shot [ANGLE]. The image sells social joy, outdoor living, and the specific pleasure of great entertainment anywhere.`,
+  40: `A rich, moody home bar lifestyle photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — being held or enjoyed by a person in a premium interior setting. [BACKGROUND]. [LIGHTING]. The product's craftsmanship is the hero. Shot [ANGLE]. The image sells the ritual of an evening drink and the lifestyle of someone who believes the vessel is as important as what it holds.`,
+  41: `A luxury beauty product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND] with a single floral or botanical accent. [LIGHTING] creates a gentle shadow and brings out the [MATERIAL] clarity and surface sheen. The product formula or texture is partially visible. Shot [ANGLE]. The image communicates luxury skincare at a premium price point.`,
+  42: `A bold editorial beauty photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — positioned on [BACKGROUND] with its reflection perfectly mirrored below. A small colour swatch beside it shows the true shade and texture. [LIGHTING] creates a sharp specular highlight on the product. Shot [ANGLE]. High-fashion beauty magazine cosmetics photography quality.`,
+  43: `A dewy, fresh skincare product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — surrounded by its key botanical or active ingredients on [BACKGROUND]. [LIGHTING] makes the product glow with ingredient colour. Shot [ANGLE]. The image communicates efficacy through ingredient visualisation — the customer understands what is inside and why it works.`,
+  44: `A vibrant, colour-rich flat lay of [PRODUCT] — a [TYPE] in [MATERIAL] — opened to reveal all shades, with pigment swatches scattered beside it on [BACKGROUND]. [LIGHTING] shows the true pigment of each shade, shimmer and matte finishes clearly differentiated. Shot [ANGLE]. Bold, confident beauty brand photography with accurate colour representation critical to the commercial use of the image.`,
+  45: `A clean, clinical skincare brand photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND] with scientific or clinical props. [LIGHTING] — no warm tones, the clean cool light communicating science and efficacy. Shot [ANGLE]. Clinical beauty brand aesthetic photography quality.`,
+  46: `A luxurious beauty product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — reflected in [BACKGROUND] with scattered botanical props. [LIGHTING] creates a dramatic highlight on the product and a warm glow through the liquid. Shot [ANGLE]. Fashion house perfume photography visual quality.`,
+  47: `A natural, organic beauty product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — surrounded by the fresh botanical ingredients of its formula on [BACKGROUND]. [LIGHTING] creating an organic, garden-fresh feeling. Shot [ANGLE]. The image communicates natural ingredients, clean beauty philosophy, and artisan formulation.`,
+  48: `A dramatic, editorial beauty photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a swatch of the product shade on a model's skin showing texture and coverage, a brush beside it. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image communicates perfect skin and the premium end of the colour cosmetics market with bold editorial confidence.`,
+  49: `A bright, clean haircare product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND] with water droplets on the bottles, steam visible in the background. [LIGHTING]. The bottles' colour and label are sharp through the water drops. Shot [ANGLE]. Premium haircare brand photography quality — aspirational but real.`,
+  50: `A delicate, editorial beauty product shot of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND] with fresh rose petals and a sprig of dried botanical. [LIGHTING] beautifully renders the product's natural colour variation and translucency. Shot [ANGLE]. The image communicates facial ritual, holistic beauty, and the Instagram-worthy aesthetic that wellness beauty products require.`,
+  51: `A moody, masculine grooming product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — beside a straight razor, a brush, and a grooming accessory on [BACKGROUND]. [LIGHTING] creating deep shadows. Shot [ANGLE]. The image sells the ritual of male grooming — masculinity, craft, and the specific pleasure of a deliberate morning routine.`,
+  52: `A bright, playful beauty photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — arranged in a diagonal gradient line with colour swatches on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image communicates colour range, formula quality, and the playful joy of self-expression through colour.`,
+  53: `A rich, sensory beauty product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a spatula partially dipped, beside the key natural ingredients on [BACKGROUND]. [LIGHTING] in a warm, organic colour palette. Shot [ANGLE]. The texture of the product is the hero — it looks rich, thick, and deeply nourishing just by how it renders.`,
+  54: `A dramatic cosmetics editorial photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with the applicator extended showing the full bristle design on [BACKGROUND]. [LIGHTING] renders every bristle in photorealistic detail. Shot [ANGLE]. The image communicates product innovation and the result-promise through an extraordinary view of the tool.`,
+  55: `A clean, minimal K-beauty product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — arranged as a routine flat lay on [BACKGROUND] with cherry blossom or gentle botanical petals. [LIGHTING] in a pastel colour palette. Shot [ANGLE]. The image speaks to the K-beauty aesthetic of gentle, multi-step care with instant cultural recognition.`,
+  56: `A bold, maximalist beauty flat lay of [PRODUCT] — a [TYPE] in [MATERIAL] — with a complete professional toolkit: brushes fanned, palettes open, and various product types arranged on [BACKGROUND]. [LIGHTING] ensuring all products are visible. Shot [ANGLE]. The image communicates professional-grade quality and comprehensive coverage.`,
+  57: `An ethereal, high-fashion beauty product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with prismatic or rainbow light refractions spreading across [BACKGROUND] from the product itself. [LIGHTING] at a strategic angle to create the light effect. Shot [ANGLE]. The image captures the transformative promise of the product in a single extraordinary visual.`,
+  58: `A warm, skin-focused beauty photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — being applied to or squeezed onto a model's finger showing the formula texture and coverage. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells skin health first, product performance second — appealing to the skincare-first consumer.`,
+  59: `A dramatic night-time skincare ritual beauty photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND] with a warm lamp casting soft light and a sleep accessory draped beside them. [LIGHTING]. Shot [ANGLE]. The image communicates the overnight beauty ritual — the luxurious act of caring for your skin before sleep.`,
+  60: `A vibrant, inclusive beauty brand photograph featuring [PRODUCT] — a [TYPE] in [MATERIAL] — in a full shade range, arranged in a graduated arc on [BACKGROUND]. [LIGHTING]. Each variant is clearly labelled. Shot [ANGLE]. The image communicates shade inclusivity, diversity, and the brand commitment to serving all customers beautifully.`,
+  61: `A vibrant, appetite-triggering food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — beside a poured or plated serving showing the product in its best consumption moment. Shot on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. A key texture or pour element is frozen mid-motion. The image sells the premium consumption experience through texture, colour, and an irresistible sensory detail.`,
+  62: `A dramatic food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — surrounded by fresh key ingredients on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image communicates artisan quality, authentic flavour, and the specific personality of a small-batch brand that takes its product as seriously as its customer takes taste.`,
+  63: `A bright, fresh food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — beside freshly cut key ingredients on [BACKGROUND]. [LIGHTING] making the product's natural colour glow through the container. Shot [ANGLE]. The image sells health, freshness, and the premium category promise of cold-pressed nutrition in every sip.`,
+  64: `A luxurious product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — partially unwrapped with some sections broken away to show the interior cross-section, beside the raw ingredient props on [BACKGROUND]. [LIGHTING] creating deep shadows and bringing out the product's surface sheen. Shot [ANGLE]. The image communicates premium single-origin quality and the artisan aesthetic.`,
+  65: `A warm, artisan bakery-style product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on [BACKGROUND] with a knife, a dish of butter, and scattered flour. [LIGHTING]. The crust colour is rendered perfectly, the interior texture visible in the cut slice. Shot [ANGLE]. The image sells craft baking culture, the ritual of real bread, and the warmth of a sourdough bakery.`,
+  66: `A dramatic beverage product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — being cracked open or poured into a matching branded glass, condensation visible, foam crowning perfectly. Shot against [BACKGROUND] with [LIGHTING]. Shot [ANGLE]. The image communicates cold refreshment, craft quality, and the specific pride of a premium brand that takes design as seriously as their product.`,
+  67: `A clean, healthy food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — beside a serving vessel with a freshly made portion and fresh natural ingredients beside the package on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image communicates clean ingredients, performance nutrition, and the aspirational lifestyle of the product's ideal customer.`,
+  68: `A rich, moody food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a dramatic pour showing the liquid catching the light, styled with regional prop ingredients on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells the product as a complete sensory and cultural experience — not just a cooking ingredient but a connection to a specific place and tradition.`,
+  69: `A bright and cheerful snack food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — unwrapped and broken in half to show the interior beside its full packaging, with key ingredient props on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells the joy of healthy snacking — bold, ingredient-forward, designed to win a split-second decision.`,
+  70: `A dramatic, cinematic food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a dramatic pour of the contents onto a surface below, creating a glossy or flowing visual element on [BACKGROUND] with [LIGHTING]. Shot [ANGLE]. The product's density and texture are the hero — photographed with the reverence of a fine luxury product.`,
+  71: `A fresh, seasonal food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a serving utensil resting across it with product threading down, beside natural prop ingredients on [BACKGROUND]. [LIGHTING] making the product's colour translucent and glowing. Shot [ANGLE]. The image communicates artisan craft, natural provenance, and the specific pleasure of a quality product that comes from somewhere real.`,
+  72: `A dramatic cocktail product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in the foreground with a perfectly crafted drink beside it — ice, garnish, and condensation — in a moody [BACKGROUND]. [LIGHTING] making the product glow and the garnishes float luminously. Shot [ANGLE]. The image sells the complete ritual — the bottle, the pour, and the specific pleasure of a perfectly made drink.`,
+  73: `A bright, appetite-triggering food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with the lid open and a serving utensil lifting out a generous portion, beside a served portion on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The product's colour is vivid and contents clearly visible. The image sells the homemade quality and the specific pleasure of the product at its ideal consumption moment.`,
+  74: `A rich, indulgent food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a spoonful of the product resting on the jar's edge, natural ingredient texture visible on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells clean ingredient integrity and the specific pleasure of a quality product that tastes of its ingredients, not of fillers.`,
+  75: `A vibrant product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — beside a traditional preparation tool and a beautifully made serving of the product in a handmade ceramic vessel. Cultural prop elements scattered around on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image communicates heritage quality, artisan preparation, and the beauty of a well-made serving — premium market positioning.`,
+  76: `A bold, colourful food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — beside a perfectly made serving topped with an indulgent finishing element, a complementary spice or garnish propped against the vessel on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells seasonal comfort, the ritual of a proper serving, and the premium gift-worthiness of a beautifully branded product.`,
+  77: `A clean, aspirational wellness food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — beside a beautifully styled serving of the product incorporated into a wellness meal or drink on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells the specific health promise of the product through the aspirational context of a beautiful wellness routine.`,
+  78: `A dramatic, cinematic spirits product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in the foreground with a heavy crystal glass with ice and a perfect pour beside it on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image communicates the entire product ritual — provenance, quality, the pleasure of a proper pour — in a single extraordinary frame.`,
+  79: `A vibrant, fresh food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in mid-pour into a tall glass with ice and garnish, the effervescence or bubbles rising in sharp detail on [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells hydration, flavour, and the specific fun of the product as the premium, health-conscious alternative.`,
+  80: `A beautiful, artisan food product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in multiple variants arranged in a line or display formation with a preparation tool below on [BACKGROUND]. [LIGHTING] making the product colours glow through the containers. Shot [ANGLE]. The image communicates artisan quality, visual variety, and the pleasure of a well-stocked, beautiful collection.`,
+  81: `An Apple-inspired product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — screen or display open at the ideal angle, showing vibrant content, positioned on [BACKGROUND]. [LIGHTING] creates a single elegant specular highlight along the [MATERIAL] edge. Surface detail — keyboard, trackpad, ports — visible with photorealistic precision. Shot [ANGLE]. The image communicating premium engineering through visual restraint.`,
+  82: `A dramatic tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — shot from a dramatic low angle that creates perspective and shows the construction, RGB or lighting details, and underglow on [BACKGROUND]. [LIGHTING] creating coloured light pools across the surface. Shot [ANGLE]. The image communicates premium enthusiast culture and photorealistic detail.`,
+  83: `A cinematic device product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — held at a slight angle in a human hand, the screen displaying a stunning image. [BACKGROUND]. [LIGHTING] where the product screen is the primary light source. Shot [ANGLE]. The image sells the display quality and premium build through the specific visual language of flagship tech advertising.`,
+  84: `A dramatic smart home product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in a beautifully designed home interior, the LED or status indicator visible as the focal accent colour. [BACKGROUND]. [LIGHTING]. The device's active state is suggested. Shot [ANGLE]. The image sells integration, home intelligence, and the specific modern-home aesthetic that smart home products aspire to inhabit.`,
+  85: `A clean, precision tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in its natural use environment, displaying its key capability in context. [BACKGROUND]. [LIGHTING]. The product's camera or functional element is visible. Shot [ANGLE]. The image sells the promise of the product: the capability it unlocks and the experiences it enables.`,
+  86: `A sleek tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — held in a person's hands against an in-context environment. [BACKGROUND]. [LIGHTING]. The product's display or key feature is visible. Shot [ANGLE]. The image has the documentary, real-world quality of the product in use, in the environment it was designed for.`,
+  87: `A dramatic gaming peripheral product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — on a gaming surface at an angle showing its side profile and RGB underglow on [BACKGROUND]. [LIGHTING] is the RGB itself as primary source. Shot [ANGLE]. The image communicates precision performance and the specific enthusiast aesthetic of high-end gaming products.`,
+  88: `A clean, health-tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — shown both as a standalone on [BACKGROUND] and in context on a person's body, with a paired smartphone app displaying the product's data. [LIGHTING]. Shot [ANGLE]. The image sells the promise of the product — real-time health insight and the specific empowerment of personal data.`,
+  89: `A premium audio product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a record or media already active, positioned in a warm, curated home listening environment. [BACKGROUND]. [LIGHTING]. The mechanical detail and the listening context are rendered with macro precision. Shot [ANGLE]. The image sells the vinyl or analogue lifestyle — ritual, warmth, and the specific sensory pleasure of physical media.`,
+  90: `A dramatic, minimalist tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with a connected cable on [BACKGROUND], a single dramatic directional light creating one elegant shadow. [LIGHTING]. Shot [ANGLE]. The [MATERIAL] texture is the hero. The image communicates premium storage or tech — fast, beautiful, and serious.`,
+  91: `A clean smart home product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — installed in its exact real-world context on [BACKGROUND], showing the product both in place and the paired smartphone displaying the product's live output. [LIGHTING]. Shot [ANGLE]. The image communicates home security, peace of mind, and seamless smart home integration.`,
+  92: `A vibrant, colourful tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — in active operation, the key mechanical process shown in close-up detail. [BACKGROUND]. [LIGHTING]. The product's display and the output in progress are visible. Shot [ANGLE]. The image sells creative possibility — the specific empowerment of a technology that makes things at the user's direction.`,
+  93: `A dramatic tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — mounted or connected in its exact real-world installation context on [BACKGROUND]. [LIGHTING]. The product's LED status indicator glows appropriately. Shot [ANGLE]. The image sells the specific convenience and lifestyle transformation the product enables when installed in its ideal environment.`,
+  94: `A precise, detailed product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — mounted or positioned for active capture, showing the product in its adventure use context. [BACKGROUND]. [LIGHTING]. The person or subject in motion blur, the product sharp. Shot [ANGLE]. The image sells the core promise: capturing the moments of real adventure from the first-person perspective.`,
+  95: `A sleek, minimal tech product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with devices or accessories charging or connected simultaneously, showing the ecosystem in use. Shot from [ANGLE] on [BACKGROUND]. [LIGHTING]. The image communicates seamless wireless connectivity — the convenience and elegance of a cable-free, fully integrated experience.`,
+  96: `A dramatic home theater product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — positioned below or beside a large display in a darkened room, the display light and the product's status LED illuminating the scene. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells immersive home audio and the specific transformation of a living room into a cinema.`,
+  97: `A clean, clinical medical device product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — displayed on [BACKGROUND] with a paired tablet or display showing the product's output. [LIGHTING]. The product's key functional component is rendered in sharp macro detail. Shot [ANGLE]. The image communicates professional medical technology made portable — precise and trustworthy.`,
+  98: `A cinematic device product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — at a dramatic angle, its sensor array and lens system rendered in extraordinary detail on [BACKGROUND]. [LIGHTING] with a soft ambient glow from within the device suggesting an active virtual or spatial environment. Shot [ANGLE]. The image communicates the promise of the device — another world delivered through it.`,
+  99: `A dramatic home audio product photograph of [PRODUCT] — a [TYPE] in [MATERIAL] — with the grille removed to show the driver configuration, positioned in a beautifully designed listening room with relevant source equipment visible behind. [BACKGROUND]. [LIGHTING]. Shot [ANGLE]. The image sells the audiophile lifestyle — the room designed around the product, music as the primary sensory event of the space.`,
+  100: `A grand, cinematic tech product hero shot of [PRODUCT] — a [TYPE] in [MATERIAL] — arranged [ANGLE] on [BACKGROUND], each component displaying complementary content or function that demonstrates the ecosystem working together. [LIGHTING] — each element rendered with photorealistic fidelity. The image communicates the specific modern luxury of a complete, integrated product experience at its most aspirational.`,
+}
+
+const H = {  1:'E-commerce clean shot · material texture colour accuracy',   2:'Amazon hero studio · specular highlights shadow ground',   3:'Macro e-commerce · commercial retouch no-dust whites',   4:'Catalogue straight-on · colour faithful full form',   5:'2000px hero image · sRGB even diffused listing-ready',   6:'Gradient shadow studio · centred border shopify PDP',   7:'Lifestyle e-commerce · inviting warm conversion crop',   8:'Multi-angle pack shot · consistent label sharp zoom',   9:'Detail macro 1:1 · texture focus Etsy zoom feature',   10:'Packaging unboxing · premium both-product faithful',   11:'Ghost mannequin · diffused no-shadow fashion market',   12:'Bundle family flat-lay · colour variant consistent set',   13:'Thumbnail 200px bold · Google Shopping social ad',   14:'Seasonal campaign · warm festive banner-text space',   15:'Before/after display · usage-story DTC explainer',   16:'Scale reference hand · true dimensions returns-reduce',   17:'360-spin frame 1 · consistent light 3D viewer',   18:'Lifestyle banner · atmospheric ambient homepage hero',   19:'Label detail no-glare · compliance product-page',   20:'Colour swatch fan · neutral precise apparel cosmetics',   21:'Lifestyle contextual · warm natural aspirational brand',   22:'Brand story context · mood editorial Instagram',   23:'In-use human moment · ambient natural product enhances',   24:'Home interior situ · warm Airbnb-quality prop styling',   25:'Outdoor golden-hour · wide-to-product adventure brand',   26:'Morning routine window · soft early-morning wellness',   27:'Evening tungsten · warm intimate DTC night-product',   28:'Travel daylight · casual blogger crop accessories',   29:'Kitchen 45-degree · tilted top-down food brand',   30:'Desk work-from-home · lamp plus window productivity',   31:'Bathroom wellness · side-on flat-lay beauty care',   32:'Fitness gym high-energy · dynamic sportswear active',   33:'Gifting flat-lay · warm festive holiday occasion',   34:'Café table editorial · warm ambient over-table crop',   35:'Garden outdoor · bright summer wide establishing',   36:'Seasonal props styling · mood-reinforced campaign asset',   37:'Social story 9:16 · punchy vertical TikTok reveal',   38:'Colour-pop graphic · flat even art-directed social-ad',   39:'Aspirational hands · editorial beauty luxury DTC',   40:'Campaign hero widescreen · cinematic billboard homepage',   41:'Luxury single-source · long shadow material reveal',   42:'Perfume back-lit · internal glow fragrance campaign',   43:'Jewellery-box · directional facets boutique quality',   44:'Dark moody premium · hard narrow spirits watches',   45:'Minimal luxury · maximum white space Aesop Apple',   46:'Marble side-rake · grain revealed homeware cosmetics',   47:'Velvet texture · soft frontal deep shadow jewellery',   48:'Gold accent warm · gift reflection premium food',   49:'Cinematic luxury wide · motivated environmental auto',   50:'Underwater caustic · refracted light watch IP-rating',   51:'Fog atmosphere · dry-ice catch spirits fragrance',   52:'Mirror reflection · even straight-on cosmetics watch',   53:'Deconstructed flat · ingredients overhead skincare story',   54:'Transparent back-lit · internal colour play fragrance',   55:'Embossed macro raked · relief detail brand craftsmanship',   56:'Unboxing sequence · tissue ribbon premium gifting',   57:'Heritage patina · antique-warm provenance brand',   58:'Crystal rainbow · macro refraction glassware jewellery',   59:'Silk drape sheen · editorial couture accessory',   60:'Art-director hero · every beam intent Cannes standard',   61:'Appetite 45-degree · steam warmth menu print',   62:'Hero food editorial · garnish magazine double-page',   63:'Beverage back-lit · liquid depth drinks homepage',   64:'Coffee steam morning · 30-degree tilt café brand',   65:'Craft beer condensation · dramatic side label crop',   66:'Confectionery flat-lay · saturated colour gifting ad',   67:'Organic natural window · rustic overhead health-food',   68:'Frozen chill crystals · close texture ice-cream brand',   69:'Spirits cocktail bar · moody ambient pour glass',   70:'Baked cross-section · warm bakery delivery app',   71:'Sauce pour motion · bright editorial FMCG pour',   72:'Charcuterie board · warm natural deli cheese-maker',   73:'Supplement macro spill · clean neutral wellness DTC',   74:'Tea botanical overhead · natural window wellness gift',   75:'Oil back-lit gold · translucency gourmet straight-on',   76:'Protein gym upshot · high-contrast power sports',   77:'Wine bottle side-rake · vineyard bokeh merchant',   78:'Street food hand-hold · bright delivery app casual',   79:'Baby food pastel flat · bright clean parent-facing',   80:'Food master lighting · warm textural James Beard',   81:'Campaign hero wide · cinematic billboard magazine',   82:'Social campaign multi-crop · 1:1 4:5 16:9 Meta',   83:'Video thumbnail bold · punchy contrast TikTok cover',   84:'Influencer flat-lay · bright natural PR seeding',   85:'Craftsmanship macro · raked texture brand story',   86:'Before/after diptych · matched light DTC testimonial',   87:'Limited edition drop · scarcity cue collector quality',   88:'Sustainability natural · B-Corp ESG campaign clean',   89:'Collab symmetrical · equal treatment drop-campaign',   90:'DPA retargeting · highest-converting primary catalogue',   91:'Exhibition straight-on · LED trade-catalogue panel',   92:'Cause marketing · warm purposeful social impact',   93:'Localisation cultural · regional props market-entry',   94:'Seasonal art-directed · establishing retailer hero',   95:'Press kit hi-res · studio precise wire-service',   96:'Loyalty exclusive · premium warm VIP campaign',   97:'Tutorial background · bright step-visible creator kit',   98:'Print catalogue CMYK · 300dpi colour-accurate DM',   99:'OOH billboard bold · high-key graphic enlargement',   100:'D&AD Cannes hero · every photon intent definitive'}
+
+const vars = {
+  product:        () => document.getElementById('v-product').value.trim() || '[PRODUCT]',
+  type:        () => document.getElementById('v-type').value.trim() || '[TYPE]',
+  material:        () => document.getElementById('v-material').value.trim() || '[MATERIAL]',
+  background:        () => document.getElementById('v-background').value.trim() || '[BACKGROUND]',
+  lighting:        () => document.getElementById('v-lighting').value.trim() || '[LIGHTING]',
+  angle:        () => document.getElementById('v-angle').value.trim() || '[ANGLE]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[PRODUCT\]/g, vars.product())
+    .replace(/\[TYPE\]/g, vars.type())
+    .replace(/\[MATERIAL\]/g, vars.material())
+    .replace(/\[BACKGROUND\]/g, vars.background())
+    .replace(/\[LIGHTING\]/g, vars.lighting())
+    .replace(/\[ANGLE\]/g, vars.angle());
+}
+
+function buildBlock(n) {
+  const pr = vars.product(), ty = vars.type(), ma = vars.material(), ba = vars.background(), li = vars.lighting(), an = vars.angle();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[PRODUCT]" is Product name or brand.
+"[TYPE]" is Product category or type.
+"[MATERIAL]" is Primary material or finish.
+"[BACKGROUND]" is Background or surface.
+"[LIGHTING]" is Lighting style.
+"[ANGLE]" is Camera angle or framing.
+
+Now let's give these variables our values.
+[PRODUCT] = "${pr}"
+[TYPE] = "${ty}"
+[MATERIAL] = "${ma}"
+[BACKGROUND] = "${ba}"
+[LIGHTING] = "${li}"
+[ANGLE] = "${an}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

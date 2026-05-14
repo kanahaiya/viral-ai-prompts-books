@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historical Time Travel Prompts — PDF Edition | Book 10</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #05041a;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #4f46e5;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #4f46e566;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #05041a;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #4f46e5;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #4f46e5;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #4f46e5;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #2d27a0;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #4f46e5;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #4f46e5;
+  border: 0.5px solid #4f46e580;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #4f46e559;
+  background: #4f46e514;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #4f46e5;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #4f46e5;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #4f46e5; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #4f46e5;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #4f46e5; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #4f46e5; }
+.guide-ex-text .token { color: #4f46e5; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#4f46e52e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 10</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Historical Time Travel</h1>
+      <div class="cover-title-sub">History & Anachronism Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Ancient Civilizations</span>
+        <span class="cover-cat">Medieval & Renaissance</span>
+        <span class="cover-cat">Victorian & Industrial</span>
+        <span class="cover-cat">20th Century</span>
+        <span class="cover-cat">Time Travel</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Your character's name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. ISABELLA, MARCUS, ELEANOR' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ROLE]</span>
+        <span class="var-desc">Historical role or station</span>
+        <input class="var-input" id="v-role" placeholder='e.g. royalty, a warrior, a merchant' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PERIOD]</span>
+        <span class="var-desc">Historical era or period</span>
+        <input class="var-input" id="v-period" placeholder='e.g. Ancient Egypt, Victorian England' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[APPEARANCE]</span>
+        <span class="var-desc">Physical description</span>
+        <input class="var-input" id="v-appearance" placeholder='e.g. woman with dark braided hair' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Period-appropriate clothing</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. golden pharaoh robes, armour' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Historical location</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. a palace throne room, battlefield' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised historical time travel portrait image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[NAME]</span> <span class="tok">[ROLE]</span> <span class="tok">[PERIOD]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[NAME]</span><span class="guide-var-desc">Your character's name</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[ROLE]</span><span class="guide-var-desc">Historical role or station</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[PERIOD]</span><span class="guide-var-desc">Historical era or period</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[APPEARANCE]</span><span class="guide-var-desc">Physical description</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[OUTFIT]</span><span class="guide-var-desc">Period-appropriate clothing</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[SETTING]</span><span class="guide-var-desc">Historical location</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A photorealistic portrait of <span class="tok">[NAME]</span> as
+<span class="tok">[ROLE]</span> in <span class="tok">[PERIOD]</span> — standing in a vast
+ancient hypostyle hall. <span class="tok">[APPEARANCE]</span>,
+wearing <span class="tok">[OUTFIT]</span>. Set in <span class="tok">[SETTING]</span>,
+dramatic torchlight, ultra-detailed
+period-accurate costume and architecture.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A photorealistic portrait of <span class="filled-val">ISABELLA</span> as
+<span class="filled-val">a royal court advisor</span> in <span class="filled-val">Ancient Egypt</span> — standing in a vast
+ancient hypostyle hall. <span class="filled-val">woman with dark braided hair and gold jewellery</span>,
+wearing <span class="filled-val">white linen robes with a golden collar</span>. Set in <span class="filled-val">a vast sandstone hypostyle hall</span>,
+dramatic torchlight, ultra-detailed
+period-accurate costume and architecture.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Ancient Civilizations</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Medieval &amp; Renaissance Era</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Victorian &amp; Industrial Revolution</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">20th Century History</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Time Travel &amp; Anachronism Art</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 10: Historical Time Travel &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A photorealistic portrait of [NAME] as [ROLE] in [PERIOD] — standing in a vast ancient Egyptian hypostyle hall of massive painted sandstone columns covered in polychrome hieroglyphic reliefs, the floor reflecting torchlight, incense smoke rising from bronze braziers. [APPEARANCE], wearing [OUTFIT]. The colours are saturated and warm — cobalt blue, ochre, malachite green, crimson — as the carvings appear freshly painted, not the bare stone of ruins. Set in [SETTING].`,
+  2: `A cinematic portrait of [NAME] as [ROLE] in [PERIOD] — set in Rome at its peak of one million people, the Colosseum gleaming with its original marble facing, the Forum Romanum packed with temples and triumphal arches, aqueducts threading through the urban landscape. [APPEARANCE], wearing [OUTFIT]. Midday Italian light creating sharp shadows across white marble and terracotta rooftops of the ancient world's greatest city. Set in [SETTING].`,
+  3: `A majestic portrait of [NAME] as [ROLE] in [PERIOD] — on the Athenian Acropolis, the Parthenon freshly finished in polychrome paint behind them, the columns white marble, the pediments filled with painted sculptures of the gods in terracotta, blue, and gold. [APPEARANCE], wearing [OUTFIT]. The city of Athens spreads below, the Aegean Sea a deep blue on the horizon, olive groves blanketing the hillsides to every edge of vision. Set in [SETTING].`,
+  4: `A cinematic portrait of [NAME] as [ROLE] in [PERIOD] — aboard a gilded cedar royal barge on the Nile, purple silk sails above, musicians and attendants waving ostrich-feather fans, the warm scent of kyphi incense hanging in the delta air. [APPEARANCE], wearing [OUTFIT]. Negotiating across cultures in the world's most powerful river valley, Roman diplomats visible in the background. The scene is cinematic, historically grounded, and visually magnificent. Set in [SETTING].`,
+  5: `A dramatic portrait of [NAME] as [ROLE] in [PERIOD] — in the Colosseum arena, 50,000 roaring spectators visible in the marble tiered seats, the Emperor's box with imperial purple awning overhead, the velarium shade cloth partially deployed above the stands. [APPEARANCE], wearing [OUTFIT]. Afternoon sun slanting across the packed sand of the arena, the composition of terrible beautiful drama that made Rome's greatest spectacle the most famous in the ancient world. Set in [SETTING].`,
+  6: `A breathtaking portrait of [NAME] as [ROLE] in [PERIOD] — among the terraced gardens of ancient Babylon, lush with imported trees — palm, cedar, pomegranate, cypress, rose — cascading 75 feet above the Babylonian plain, watered by an ingenious irrigation system. [APPEARANCE], wearing [OUTFIT]. The Euphrates River reflects gold sunset light behind them, and the Etemenanki ziggurat rises at the city center in the distance. Set in [SETTING].`,
+  7: `A luminous portrait of [NAME] as [ROLE] in [PERIOD] — in the great Library of Alexandria, surrounded by papyrus scrolls arranged in honeycomb pigeonhole shelving along every wall from floor to ceiling, scholars in Greek himation robes working at reading desks. [APPEARANCE], wearing [OUTFIT]. Sunlight streams through high clerestory windows across thousands of scrolls representing the collected knowledge of the ancient world — the most ambitious intellectual project in human history. Set in [SETTING].`,
+  8: `A documentary portrait of [NAME] as [ROLE] in [PERIOD] — at the construction site of the Great Pyramid of Giza, organized work gangs hauling limestone blocks up ramp systems, foremen with papyrus record scrolls, supply teams bringing water and bread. [APPEARANCE], wearing [OUTFIT]. The pyramid already rising 200 feet with gleaming white casing stones at the upper sections — not slaves, but organized paid labor, giving this scene the dignity of a genuine collective human achievement. Set in [SETTING].`,
+  9: `A spectacular portrait of [NAME] as [ROLE] in [PERIOD] — in ancient Teotihuacan, the Avenue of the Dead stretching to the Pyramid of the Moon, both pyramids freshly plastered and painted in brilliant terracotta red with geometric frieze borders. [APPEARANCE], wearing [OUTFIT]. Obsidian, jade, and mica traders visible in the market zones, murals of Tlaloc and Quetzalcoatl decorating every compound wall in the bold flat style of Mesoamerican fresco. Set in [SETTING].`,
+  10: `A serene portrait of [NAME] as [ROLE] in [PERIOD] — in a Gandharan Buddhist monastery where Greek and Indian artistic traditions fuse, grey schist sculptures of the Buddha in a Hellenistic style visible alongside devotees in both Indian and Greek dress performing puja. [APPEARANCE], wearing [OUTFIT]. The rocky grandeur of the Northwest Frontier under a vast blue sky — a place where two of the ancient world's greatest civilizations met and created something entirely new. Set in [SETTING].`,
+  11: `A cinematic portrait of [NAME] as [ROLE] in [PERIOD] — on the ancient Silk Road, a great camel caravan crossing the desert landscape between Parthia and the Roman frontier, carrying Chinese silk, Roman glass, Indian spices, and Central Asian lapis lazuli. [APPEARANCE], wearing [OUTFIT]. The pre-modern night sky blazes above — no light pollution, the Milky Way a physical presence — the trading network connecting China to Rome alive in this single moving caravan. Set in [SETTING].`,
+  12: `A vivid portrait of [NAME] as [ROLE] in [PERIOD] — at the Olympic Games at Olympia, athletes from across the Greek world competing in the stadion footrace before 40,000 spectators on the grass embankment of the ancient stadium, judges in purple robes standing at the finish line with olive wreaths. [APPEARANCE], wearing [OUTFIT]. The Temple of Zeus visible through the grove of plane and poplar trees, the cult statue glimpsed through the open bronze doors. Set in [SETTING].`,
+  13: `A haunting portrait of [NAME] as [ROLE] in [PERIOD] — in Pompeii on the last normal morning before Vesuvius erupted, the city alive with market-day activity: a baker pulling bread from a domed oven, election notices freshly painted on a street wall, children playing in a courtyard. [APPEARANCE], wearing [OUTFIT]. In the distant background, a column of ash beginning to rise from Vesuvius that most people will initially dismiss as an interesting cloud. Set in [SETTING].`,
+  14: `A spectacular portrait of [NAME] as [ROLE] in [PERIOD] — at the ancient Maya city of Tikal at dawn, the jungle canopy broken by towering limestone temple peaks, the Great Plaza below surrounded by palace complexes and astronomical observatories. [APPEARANCE], wearing [OUTFIT]. Dawn mist rises from the jungle floor around the temple bases, the carved roof combs catching the first light of the rising sun above the treeline — a civilization at the height of its intellectual and architectural achievement. Set in [SETTING].`,
+  15: `A cinematic battle portrait of [NAME] as [ROLE] in [PERIOD] — at the Battle of Gaugamela, cavalry chaos in full force, dust and battle smoke filling the air, the Persian lines crumbling in the distance, the decisive cavalry charge breaking through. [APPEARANCE], wearing [OUTFIT]. The composition references the drama of the Alexander mosaic from Pompeii — photographic immediacy and scale applied to the most decisive battle of the ancient world. Set in [SETTING].`,
+  16: `A sweeping portrait of [NAME] as [ROLE] in [PERIOD] — in ancient Carthage at its commercial height, the circular military harbor with its 220-ship capacity and covered shipsheds behind, trading vessels from Spain, Sicily, Sardinia, and Libya in the outer merchant harbor. [APPEARANCE], wearing [OUTFIT]. The Tunisian sea glitters beyond the harbor mouth — the commercial energy of the Mediterranean's richest city visible in every crammed quay and market street. Set in [SETTING].`,
+  17: `A documentary portrait of [NAME] as [ROLE] in [PERIOD] — in a Roman military field hospital, army surgeons using bronze scalpels, forceps, and needles of a sophistication not surpassed until the 19th century, surgical instruments laid out with professional precision. [APPEARANCE], wearing [OUTFIT]. Torch-lit and historically grounded in the texts of Celsus and Galen — a scene of ancient medical skill that would be recognizable to a modern surgical practitioner. Set in [SETTING].`,
+  18: `A vibrant portrait of [NAME] as [ROLE] in [PERIOD] — in the Tang Dynasty capital Changan, the most cosmopolitan city on earth, its broad planned avenues filled with Chinese officials in court robes, Central Asian merchants, Japanese students, Persian Zoroastrian priests, and Buddhist monks. [APPEARANCE], wearing [OUTFIT]. The West Market overflowing with goods from across the entire Silk Road network — a world city whose street plan influenced capitals from Kyoto to Nara. Set in [SETTING].`,
+  19: `A dramatic portrait of [NAME] as [ROLE] in [PERIOD] — inside the Minoan palace at Akrotiri in the final moment before the volcanic ash fall, the famous wall paintings still brilliant with their blue monkeys and spring landscapes, storage jars of olive oil and wine stacked in the magazines. [APPEARANCE], wearing [OUTFIT]. Through an open window, the terrifying vertical ash column of the Thera eruption rising to the stratosphere — a Bronze Age civilization's most prosperous trading port entering geological preservation. Set in [SETTING].`,
+  20: `A poetic twilight portrait of [NAME] as [ROLE] in [PERIOD] — in ancient Babylon under Nebuchadnezzar II, the Ishtar Gate's glazed blue brick tiles gleaming at the end of the Processional Way, the seven-tiered Etemenanki ziggurat rising above the urban fabric, royal palm gardens and irrigation channels threading between mud-brick residential districts. [APPEARANCE], wearing [OUTFIT]. Smoke from a thousand hearth fires rising in the still desert air of evening — the most powerful city in the world, at its height. Set in [SETTING].`,
+  21: `A stunning portrait of [NAME] as [ROLE] in [PERIOD] — at the construction site of a 12th-century Norman castle in England, timber scaffolding rising around a half-built stone keep, quarried limestone being winched by treadwheel cranes, master masons directing workers with templates and plumb lines. [APPEARANCE], wearing [OUTFIT]. The bailey full of blacksmiths, fletchers, and carpenters, the surrounding English countryside of open-field farming strips and wattle-and-daub village visible beyond the earthwork ramparts — the most sophisticated engineering of its age given the epic scale it deserves. Set in [SETTING].`,
+  22: `A luminous portrait of [NAME] as [ROLE] in [PERIOD] — in the scriptorium of a 12th-century Benedictine monastery, monks bent over angled writing desks copying manuscripts by tallow candle and narrow window light, each working on a different text — a Gospel, a medical treatise, a classical poem — in careful caroline minuscule. [APPEARANCE], wearing [OUTFIT]. The illuminator's desk nearby shows a page in progress: gold leaf on the initial letter, red underpainting complete, lapis lazuli blue of the Virgin's robe half-applied. How European knowledge survived 500 years of instability — through dedicated, ink-stained hands. Set in [SETTING].`,
+  23: `A spectacular illuminated portrait of [NAME] as [ROLE] in [PERIOD] — depicted in the style of a 14th-century Flemish Book of Hours calendar miniature: nobles and servants in a meadow of wildflowers, a castle with pennants on a distant hill, a river scene behind. [APPEARANCE], wearing [OUTFIT]. The image surrounded by the extraordinary botanical borders of the era — acanthus scrolls, strawberry plants, dragonflies, gold bezants — in pigments of jewel intensity: lapis lazuli, vermilion, lead white, verdigris, and burnished gold. Set in [SETTING].`,
+  24: `A harrowing historical portrait of [NAME] as [ROLE] in [PERIOD] — in a European town during the Black Death of 1348, a prosperous Tuscan cloth-trading town in the grip of catastrophe: the plague cart at dawn, priests in bird-masked costume, the market deserted, a quarantine cross on a shuttered door, fresh graves in the churchyard beyond. [APPEARANCE], wearing [OUTFIT]. The image references Boccaccio's Decameron — the lived experience of a catastrophe that killed half of Europe, captured with historical honesty and stoic dignity. Set in [SETTING].`,
+  25: `A spectacular oil painting portrait of [NAME] as [ROLE] in [PERIOD] — in the style of Jan van Eyck, a Flemish merchant's counting house interior of 1430, every detail rendered with glass-like Netherlandish precision: a desk spread with gold coins on a checkered cloth, ledgers on shelves, imported spices and Venetian glass vessels behind. [APPEARANCE], wearing [OUTFIT]. Through the window an impossibly detailed view of Bruges with the belfry tower, a convex mirror in the corner reflecting the entire room — as van Eyck himself would have arranged the composition. Set in [SETTING].`,
+  26: `A dramatic night portrait of [NAME] as [ROLE] in [PERIOD] — at the siege of Orléans in 1429, standing on the rampart of the Tourelles fortress just taken, holding a banner of white silk with gold lilies as soldiers cheer and burning timbers cast dramatic orange light across polished armor. [APPEARANCE], wearing [OUTFIT]. The Loire River reflects the fire below, the expression one of absolute certainty — the face of someone who has never for a single moment doubted that they were sent to do exactly this. Set in [SETTING].`,
+  27: `A luminous interior portrait of [NAME] as [ROLE] in [PERIOD] — inside the Sistine Chapel circa 1511, working on the scaffold 60 feet above the floor where the freshly applied buon fresco of the Creation still gleams wet — the brilliant saturated colors of the fresco's original state, not the darkened varnish of centuries before restoration. [APPEARANCE], wearing [OUTFIT]. Below, a cardinal's footsteps echo across the marble floor, looking up at the most consequential ceiling in the history of art being painted this morning. Set in [SETTING].`,
+  28: `A thunderous battle portrait of [NAME] as [ROLE] in [PERIOD] — at the Battle of Agincourt on October 25, 1415, the decisive moment as English longbowmen unleash their arrow storm on advancing French men-at-arms floundering in muddy plowed field. [APPEARANCE], wearing [OUTFIT]. Overlapping waves of arrows hang in the grey October sky, French knights in full plate armor sinking to their knees in clay mud under the weight of their equipment, the English lines steady and disciplined behind their sharpened stakes. Set in [SETTING].`,
+  29: `A stunning workshop portrait of [NAME] as [ROLE] in [PERIOD] — in Johannes Gutenberg's Mainz workshop circa 1450, the first screw-type press in operation, composed metal type being inked, a fresh vellum sheet pressed and carefully removed to reveal the crisp Latin text of the Gutenberg Bible. [APPEARANCE], wearing [OUTFIT]. The workshop smells of linseed oil ink and metal, stacked page gatherings showing this is not an experiment but a production — the first mass media technology in history, being operated by craftsmen who do not yet understand what they are beginning. Set in [SETTING].`,
+  30: `A spectacular illuminated portrait of [NAME] as [ROLE] in [PERIOD] — recreating the Très Riches Heures du Duc de Berry's January feast scene at full period accuracy: a magnificent figure in rich blue robe embroidered with fleurs-de-lis at the high table before a roaring fireplace, courtiers crowding in, servants bearing elaborate dishes, a Trojan War tapestry behind. [APPEARANCE], wearing [OUTFIT]. Painted with the miniaturist precision of the Limbourg brothers at the height of International Gothic art — every face, fold, and flame a masterwork of medieval illumination. Set in [SETTING].`,
+  31: `A grand Florentine portrait of [NAME] as [ROLE] in [PERIOD] — in the Medici bank counting house circa 1470, clerks copying letters of credit in humanist cursive, balance books open to accounts with the Pope and the King of France, silk cloth samples stacked against one wall. [APPEARANCE], wearing [OUTFIT]. Through the arched window, the Florentine skyline with Brunelleschi's dome newly completed — banking, art patronage, and diplomacy conducted simultaneously in the nerve centre of European finance by a family that essentially invented modern commerce. Set in [SETTING].`,
+  32: `A breathtaking Gothic portrait of [NAME] as [ROLE] in [PERIOD] — inside Chartres Cathedral in 1220, just a decade after its completion, the nave filled with the extraordinary colored light of the rose windows in the famous Chartres blue — a formula lost to history — making the interior glow with the quality of light contemporaries described as heaven itself. [APPEARANCE], wearing [OUTFIT]. Pilgrims crowd the nave, canons chant in the choir, and incense and beeswax candles rise into the vaulted space 120 feet above the worn limestone floor. Set in [SETTING].`,
+  33: `A serene and detailed portrait of [NAME] as [ROLE] in [PERIOD] — in a 15th-century Japanese tea ceremony in Kyoto, the wabi-cha aesthetic of tea master Murata Juko visible in every choice: a small rustic room of rough plaster and aged timber, an iron kettle over a sunken hearth, handmade bowls in rough imperfect forms celebrating the beauty of impermanence, a single hanging scroll of calligraphy. [APPEARANCE], wearing [OUTFIT]. Every movement choreographed, every material choice philosophical — simplicity understood as the highest refinement. Set in [SETTING].`,
+  34: `A spectacular Renaissance oil portrait of [NAME] as [ROLE] in [PERIOD] — in the high Renaissance style of Raphael's School of Athens, philosophers from across Greek intellectual history gathered in a grand barrel-vaulted hall: Plato and Aristotle at the center, Pythagoras demonstrating his theorem, Euclid drawing geometric figures for students. [APPEARANCE], wearing [OUTFIT]. The architecture simultaneously ancient and Renaissance — a dream space for thought where the entire Greek intellectual tradition gathers to argue and celebrate ideas in the presence of the best minds civilization produced. Set in [SETTING].`,
+  35: `A dramatic maritime portrait of [NAME] as [ROLE] in [PERIOD] — at Christopher Columbus's landfall at San Salvador on October 12, 1492, three ships anchored in turquoise Caribbean water, the crew wading ashore in court dress to plant the Castilian royal standard, the Lucayan Taíno people watching from the treeline. [APPEARANCE], wearing [OUTFIT]. The collision of worlds captured with historical honesty — European wonder at tropical paradise, the Taíno's reasonable uncertainty about strangers emerging from the sea with iron armor, large ships, and horses they have never seen before. Set in [SETTING].`,
+  36: `A richly detailed portrait of [NAME] as [ROLE] in [PERIOD] — in a 13th-century Islamic hospital (bimaristan) in Cairo during the Mamluk sultanate, the most sophisticated medical institution in the medieval world: separate wards, a pharmacy dispensing Ibn Sina's formulations, surgeons performing operations under clean conditions, specialists in ophthalmology treating patients from across the Islamic world without charge. [APPEARANCE], wearing [OUTFIT]. The architecture beautiful with tilework, muqarnas vaults, and a central fountain courtyard — healing the body as an act of spiritual obligation. Set in [SETTING].`,
+  37: `A powerful portrait of [NAME] as [ROLE] in [PERIOD] — in the Aztec capital Tenochtitlan at its peak circa 1500 CE, the island city in Lake Texcoco connected by three great causeways, the ceremonial precinct dominated by the twin-temple Templo Mayor, the great market at Tlatelolco overflowing with cacao, quetzal feathers, jade, obsidian, and cotton mantles from across Mesoamerica. [APPEARANCE], wearing [OUTFIT]. A city of 200,000 — one of the five largest on earth — its sophistication and scale about to astonish Hernán Cortés's army of 600 arriving from the coast. Set in [SETTING].`,
+  38: `A luminous studio portrait of [NAME] as [ROLE] in [PERIOD] — in the style of Jan Vermeer, a Dutch Golden Age domestic interior circa 1665, diffuse north light falling across a scene of intimate daily life. [APPEARANCE], wearing [OUTFIT]. Every object rendered with Vermeer's specific attention to how light transforms surface — a pewter pitcher, blue and white Delft tiles, a rumpled tablecloth — each material with its own light-absorbing quality made visible in paint, the camera obscura composition and jewel-like rendering making domestic life sacred through pure attention. Set in [SETTING].`,
+  39: `A magnificent portrait of [NAME] as [ROLE] in [PERIOD] — at William Shakespeare's Globe Theatre on a summer afternoon in 1600, a performance of Hamlet in progress, the groundlings packed into the standing yard, galleries filled with every class of Elizabethan London society from nobles to apprentices. [APPEARANCE], wearing [OUTFIT]. Afternoon sunlight filling the open-roofed space, the tiring house facade painted to look like a marble palace, the smell of the Thames and orange sellers on the summer air — the extraordinary democratic energy of theatre where the same drama served everyone. Set in [SETTING].`,
+  40: `A dramatic Baroque portrait of [NAME] as [ROLE] in [PERIOD] — in the style of Peter Paul Rubens depicting the signing of the Peace of Westphalia in 1648, the great hall filled with diplomats from every European power in their elaborate lace and velvet court dress, gathered around the treaty table after thirty years of the most devastating war Europe had known. [APPEARANCE], wearing [OUTFIT]. The allegorical grandeur of Baroque diplomatic art — putti with olive branches above, a shaft of light on the treaty itself — and the exhausted human relief of men who have ended a generation of mass slaughter. Set in [SETTING].`,
+  41: `A dramatic industrial portrait of [NAME] as [ROLE] in [PERIOD] — in a 19th-century iron foundry in the Black Country of England circa 1860, the interior of a massive open-hearth furnace shed, molten iron being tapped in a cascade of liquid metal and sparks across the dark workshop floor, workers in leather aprons and cloth caps in the orange hell-glow. [APPEARANCE], wearing [OUTFIT]. The sublime terror and beauty of the Industrial Revolution's core technology — iron ore transformed into the material of empire — painted with the dramatic chiaroscuro of Joseph Wright of Derby applied to photographic realism. Set in [SETTING].`,
+  42: `A sweeping aerial portrait of [NAME] as [ROLE] in [PERIOD] — at the Crystal Palace in Hyde Park during the Great Exhibition of 1851, the revolutionary cast-iron and plate glass structure gleaming in May sunlight, 14,000 exhibitors from across Britain and the world displaying manufactures to six million visitors. [APPEARANCE], wearing [OUTFIT]. Inside, elm trees too large to fell incorporated into the design, exhibitions of machinery and textiles stretching to the horizon, afternoon sun streaming through the glass roof creating cathedral-quality light inside a building made entirely of prefabricated industrial components. Set in [SETTING].`,
+  43: `A stunning portrait of [NAME] as [ROLE] in [PERIOD] — in Florence Nightingale's ward at the Scutari barracks hospital during the Crimean War in 1855, the long corridors of wounded soldiers on cots, the nighttime lantern-lit rounds that gave Nightingale her lasting image, clean water and ventilation transforming the ward mortality rate from 42% to 2% through sanitation alone. [APPEARANCE], wearing [OUTFIT]. Both the horror of what she arrived to find and the systematic, data-driven reform she imposed — the founding of modern nursing practice visible in every ordered detail. Set in [SETTING].`,
+  44: `A magnificent portrait of [NAME] as [ROLE] in [PERIOD] — at the completion of the First Transcontinental Railroad at Promontory Summit, Utah on May 10, 1869, two locomotives face to face on the newly joined track, the ceremonial golden Last Spike being photographed before its symbolic tap. [APPEARANCE], wearing [OUTFIT]. Workers from both companies crowded on the engines — and the invisible half of the story present too: the Chinese workers of the Central Pacific who built the hardest section through the Sierra Nevada, finally acknowledged in the scene that history once excluded them from. Set in [SETTING].`,
+  45: `A spectacular night portrait of [NAME] as [ROLE] in [PERIOD] — on the Victorian Thames Embankment in 1880, newly built and gas-lit in warm amber glow reflected in the dark water, top-hatted gentlemen and crinoline-skirted women strolling the granite walkway, wherries and barges moving on the river. [APPEARANCE], wearing [OUTFIT]. The Houses of Parliament under gaslight on the opposite bank, new electric arc lights at Westminster Bridge competing with gas in eerie blue-white — a city living simultaneously in the gas age and glimpsing the electric future, the exact transitional moment between eras. Set in [SETTING].`,
+  46: `A detailed portrait of [NAME] as [ROLE] in [PERIOD] — in Charles Darwin's study at Down House in 1858, the year before On the Origin of Species, his desk covered in manuscripts, specimen jars, geological samples, and the crucial letter from Alfred Russel Wallace whose independent discovery of natural selection finally forced publication. [APPEARANCE], wearing [OUTFIT]. Magnifying glass, dissecting tools, and barnacle specimens reflecting a 20-year research program — a modest domestic workspace that contained the most consequential idea in the history of biology. Set in [SETTING].`,
+  47: `A stunning portrait of [NAME] as [ROLE] in [PERIOD] — at Kitty Hawk, North Carolina on December 17, 1903, the Wright Flyer leaving the ground for the first time, a figure prone at the controls, the 12-horsepower engine turning wooden propellers, the cold Atlantic wind of Kill Devil Hills the perfect laboratory for a methodical engineering solution. [APPEARANCE], wearing [OUTFIT]. The cinematic low-angle viewpoint the original photograph could not achieve — the 12-second flight that changed everything, captured from the viewpoint of history rather than the ground. Set in [SETTING].`,
+  48: `A magnificent Victorian portrait of [NAME] as [ROLE] in [PERIOD] — at Isambard Kingdom Brunel's Great Eastern steamship stranded sideways on the Thames bank at Millwall in 1858 after the failed launch, the largest ship ever built wedged immovably, hydraulic rams and checking chains failing one by one. [APPEARANCE], wearing [OUTFIT]. Brunel himself visible in his stovepipe hat directing operations from the chains — the particular Victorian combination of genius ambition and catastrophic practical failure, a ship six times bigger than any afloat, built by a man whose projects regularly exceeded the engineering of his era. Set in [SETTING].`,
+  49: `A detailed interior portrait of [NAME] as [ROLE] in [PERIOD] — in Thomas Edison's Menlo Park laboratory in 1879 at the moment of the working incandescent light bulb demonstration, the long laboratory filled with equipment and assistants, a single glowing filament bulb suspended in its vacuum globe casting warm light across every face in the room. [APPEARANCE], wearing [OUTFIT]. Edison watching from the corner with the satisfaction of someone who has tried 1,600 materials and found the one that works — while outside, reporters are already writing headlines about the death of gaslight. Set in [SETTING].`,
+  50: `A cinematic street portrait of [NAME] as [ROLE] in [PERIOD] — in Paris during Haussmann's transformation in 1860, a broad new boulevard being cut through medieval tenement neighborhoods, old buildings partially demolished on one side, the new uniform Haussmann limestone facades with mansard roofs and iron balconies already complete on the other. [APPEARANCE], wearing [OUTFIT]. Displaced residents watching from carts piled with furniture, bourgeois Parisians strolling the new wide pavements — the urban surgery that created the Paris we know today continuing around everyone simultaneously. Set in [SETTING].`,
+  51: `A luminous scientific portrait of [NAME] as [ROLE] in [PERIOD] — in Marie Curie's laboratory at the Paris School of Physics circa 1898, the austere converted shed with leaking roof and equipment cobbled from whatever the university would spare, the residue of processed pitchblende uranium ore in large vats. [APPEARANCE], wearing [OUTFIT]. The glowing blue-green luminescence of isolated radium compounds visible in the darkened corner, careful notes in cramped handwriting on a discovery that will reshape physics and medicine — and eventually cost her her life. Set in [SETTING].`,
+  52: `A sweeping industrial portrait of [NAME] as [ROLE] in [PERIOD] — at the construction of the Eiffel Tower in 1888, one year before completion, riveting gangs working at the 200-meter level with Paris spread below — Notre-Dame, the Tuileries, and Sacré-Cœur under construction on Montmartre all visible from a height no Parisian had experienced without a balloon. [APPEARANCE], wearing [OUTFIT]. Workers in work caps handling hot rivets with tongs, the iron lattice emerging from engineering drawings, and the tower that was meant to be temporary already looking permanent. Set in [SETTING].`,
+  53: `A dramatic documentary portrait of [NAME] as [ROLE] in [PERIOD] — on the Chilkoot Pass trail during the Klondike Gold Rush in 1898, the steep snow slope crowded with thousands of stampeders climbing in single-file chain, each carrying the required one ton of supplies demanded by the Canadian Mounties, the near-vertical Golden Stairs cut into the ice above. [APPEARANCE], wearing [OUTFIT]. The scale of human effort visible — 100,000 people attempting this route, an endless line stretching back to the treeline below and continuing to the summit above, driven by the dream of gold and the reality of exhaustion. Set in [SETTING].`,
+  54: `A stunning portrait of [NAME] as [ROLE] in [PERIOD] — at the sinking of the RMS Titanic on April 15, 1912, the stern rising at 45 degrees above the black North Atlantic as the ship breaks in two, lifeboats in the middle distance, the extraordinary lights still blazing through the portholes as the generators keep running until the very end. [APPEARANCE], wearing [OUTFIT]. The night perfectly clear and bitterly cold, the stars reflected in the calm water around the descending hull, tiny figures on the tilting deck illuminating the catastrophic scale by their smallness against the enormous ship. Set in [SETTING].`,
+  55: `A poignant portrait of [NAME] as [ROLE] in [PERIOD] — at a Victorian outdoor portrait session circa 1860 using wet collodion glass plate technology: a massive bellows camera on a wooden tripod, a portable darkroom tent for plate preparation, the subject sitting rigid and perfectly still for the 30-second exposure required in full afternoon sun. [APPEARANCE], wearing [OUTFIT]. The complete production of Victorian portrait photography visible — its chemistry, equipment, and social ritual — where capturing a face was still recent enough to be treated as a solemn, miraculous occasion by everyone present. Set in [SETTING].`,
+  56: `A sweeping portrait of [NAME] as [ROLE] in [PERIOD] — at Ellis Island immigration station circa 1905 at peak processing, the Great Hall filled with thousands of new arrivals from Italy, Russia, Poland, and Eastern Europe carrying their worldly possessions, waiting in metal-railed queues while Public Health Service doctors examine them. [APPEARANCE], wearing [OUTFIT]. The noise of thirty languages mixed with crying children and the clatter of boots, chalk codes marked on lapels, and through the tall windows the Manhattan skyline and Statue of Liberty visible across the harbor — the threshold between the old world and the new. Set in [SETTING].`,
+  57: `A magnificent oil portrait of [NAME] as [ROLE] in [PERIOD] — in the style of Frédéric Bazille, a gathering of Impressionist painters in Manet's Paris studio circa 1870, Monet, Renoir, Degas, Berthe Morisot, and Manet discussing a large canvas in progress in their everyday 1870s middle-class clothing. [APPEARANCE], wearing [OUTFIT]. The studio walls hung with rejected Salon submissions and studies — the social reality of the Impressionist circle before their fame, young struggling artists who believed painting should capture the actual visual experience of modern life. Set in [SETTING].`,
+  58: `A haunting portrait of [NAME] as [ROLE] in [PERIOD] — at the trenches of the Western Front on Christmas Day 1914, the unofficial Christmas Truce bringing soldiers into No Man's Land between the opposing trench systems, exchanging cigarettes and buttons, a football kicked in the frosted mud, men standing together in bewildered temporary peace. [APPEARANCE], wearing [OUTFIT]. The barbed wire, mud parapets, and bare winter trees of Belgium all present — and the absolute strangeness of men killing each other yesterday, exchanging gifts today, and returning to killing each other tomorrow. Set in [SETTING].`,
+  59: `A vivid portrait of [NAME] as [ROLE] in [PERIOD] — on a summer Saturday afternoon at 125th Street and 7th Avenue, Harlem circa 1925, the Apollo Theater marquee announcing a new show, the street filled with well-dressed Black Americans in the latest fashions, newsstands selling The Crisis and the Chicago Defender, a jazz musician's case open on the sidewalk. [APPEARANCE], wearing [OUTFIT]. The specific cultural confidence and artistic vitality of a community building the first great Black metropolis in American history — cloche hats, flapper dresses, zoot suits, and the sound of jazz from every open window. Set in [SETTING].`,
+  60: `A stunning portrait of [NAME] as [ROLE] in [PERIOD] — at the construction of the Empire State Building in 1930, workers on exposed structural steel girders 80 stories above Manhattan without safety harnesses, a riveting gang tossing hot rivets through the air to catchers with buckets, the city below already the most vertical urban landscape in human history. [APPEARANCE], wearing [OUTFIT]. The Chrysler Building newly crowned as the tallest structure visible a few blocks away — industrial-era construction courage captured at the limits of human endurance in the documentary style of Lewis Hine's social photography. Set in [SETTING].`,
+  61: `A monumental portrait of [NAME] as [ROLE] in [PERIOD] — on the lunar surface at the Apollo 11 landing site, the Eagle lunar module behind, the Earth hanging in the black lunar sky above the horizon as a blue marble the size of a thumbnail. [APPEARANCE], wearing [OUTFIT]. Footprints in the regolith perfectly sharp in the airless vacuum, the gold-foil wrapped landing legs casting long shadows in unfiltered solar light — the immensity of what humanity has just done visible in one small figure standing against the vast, silent, dead universe. Set in [SETTING].`,
+  62: `A powerful documentary portrait of [NAME] as [ROLE] in [PERIOD] — at the March on Washington on August 28, 1963, the Mall stretching from the Lincoln Memorial to the Washington Monument filled with a quarter million people in the August heat, just after Martin Luther King Jr. has finished the "I Have a Dream" speech, handmade signs from every civil rights organisation in America visible throughout the crowd. [APPEARANCE], wearing [OUTFIT]. Shot in the high-contrast documentary style of 1963 photojournalism while adding cinematic scale that ground-level press photographs could not capture. Set in [SETTING].`,
+  63: `A sweeping military portrait of [NAME] as [ROLE] in [PERIOD] — at the D-Day landings at Omaha Beach on June 6, 1944, landing craft approaching through defensive obstacles, smoke from naval bombardment hanging over the bluffs, the English Channel filled with the largest naval armada ever assembled stretching to the horizon. [APPEARANCE], wearing [OUTFIT]. The low aerial angle impossible in 1944 reveals the full operational scale — earlier waves of soldiers pinned behind obstacles, hundreds of craft in the water, the terrifying scope of the operation made visible in one composite image. Set in [SETTING].`,
+  64: `A cinematic portrait of [NAME] as [ROLE] in [PERIOD] — recreating the quiet dignity of Montgomery, Alabama, December 1, 1955: a carefully considered act by a trained NAACP secretary who knew exactly what she was doing and why, not a spontaneous act of exhaustion but a deliberate choice at a deliberate moment. [APPEARANCE], wearing [OUTFIT]. The expression of someone who has decided that this is the day, this is the moment — and nothing about what follows will be dignified except the act of refusal itself and the movement it was designed to ignite. Set in [SETTING].`,
+  65: `A dramatic portrait of [NAME] as [ROLE] in [PERIOD] — recreating Yuri Gagarin's return to Earth on April 12, 1961, parachuting down through clouds over the Saratov region of Russia after becoming the first human to orbit the earth, the burned Vostok 1 re-entry capsule visible in the distance trailing its parachute. [APPEARANCE], wearing [OUTFIT]. The fields below show a woman and a young girl from a local farm who will be the first humans to greet the first human to leave the planet — looking up with total bewilderment at the strange figure dropping from the sky. Set in [SETTING].`,
+  66: `A magnificent portrait of [NAME] as [ROLE] in [PERIOD] — at the fall of the Berlin Wall on the night of November 9, 1989, crowds atop the Wall at the Brandenburg Gate — East and West together, strangers embracing, some dancing, some crying, young people with hammers beginning to chip away at the concrete, border guards standing down and looking lost. [APPEARANCE], wearing [OUTFIT]. The floodlights of both sides illuminating a scene no one dared imagine would come in their lifetime — the specific quality of collective joy that arrives when an impossible thing becomes suddenly, actually real. Set in [SETTING].`,
+  67: `A sober documentary portrait of [NAME] as [ROLE] in [PERIOD] — at a Texas Panhandle farmstead in 1935, a vast black dust storm rolling across the plains toward a wooden farmhouse, the family on the porch watching the wall of airborne topsoil approach — two miles high, a hundred miles wide, turning afternoon into midnight. [APPEARANCE], wearing [OUTFIT]. The style references Dorothea Lange and Walker Evans — the dignity of people enduring conditions beyond endurance, and the evidence of how agricultural choices turned the Great Plains into a desert in a single generation. Set in [SETTING].`,
+  68: `A vibrant color portrait of [NAME] as [ROLE] in [PERIOD] — at the Woodstock Festival on August 16, 1969, the half-million strong crowd stretching across the Catskill hillsides of Max Yasgur's dairy farm during a main stage performance, the previous night's rain mud everywhere, people sharing food, stage lights competing with late afternoon sun. [APPEARANCE], wearing [OUTFIT]. A generation that briefly believed if enough of them gathered and listened to music, something fundamental about the world would change — photographed in the saturated Kodachrome palette of the era. Set in [SETTING].`,
+  69: `A dramatic portrait of [NAME] as [ROLE] in [PERIOD] — recreating Nelson Mandela walking free from Victor Verster Prison on February 11, 1990, after 27 years of imprisonment, the gates opening, a right fist raised in salute, television cameras from every country broadcasting live as the most famous political prisoner in the world walks into the afternoon sun of the Cape winelands. [APPEARANCE], wearing [OUTFIT]. The weight of a man who spent more than a quarter century imprisoned walking toward the presidency of his country without bitterness — captured as the most extraordinary thing it is. Set in [SETTING].`,
+  70: `A luminous portrait of [NAME] as [ROLE] in [PERIOD] — in Alan Turing's office at Bletchley Park in 1943, the mathematician in a rumpled jacket at a desk covered in papers, the Bombe machine humming in the room beyond, intelligence intercepts from German U-boats pinned to a board. [APPEARANCE], wearing [OUTFIT]. The weight of a secret that may be shortening the war by two years visible in the concentration of someone doing the most important work of the century — a civil servant's salary, a second-class citizen, the finest codebreaking mind alive, winning a war nobody outside this room knows he is fighting. Set in [SETTING].`,
+  71: `A stunning color portrait of [NAME] as [ROLE] in [PERIOD] — at the Stonewall Inn on Christopher Street in Greenwich Village on the warm summer night of June 28, 1969, a crowd refusing to disperse — drag queens, gay men, lesbians, and transgender women facing the police with the specific defiant joy of people who have been pushed to the edge and found that the edge is where they are strongest. [APPEARANCE], wearing [OUTFIT]. Documentary in style, capturing the spontaneous historical moment before anyone knew it would be remembered as the birth of the modern LGBTQ+ rights movement. Set in [SETTING].`,
+  72: `A dramatic aerial portrait of [NAME] as [ROLE] in [PERIOD] — at the construction of the Interstate Highway System in 1958, a massive earth-moving operation outside a midwestern American city, scrapers, bulldozers, and paving trains working simultaneously across a half-mile wide swath of cleared landscape that will become the eight-lane I-80. [APPEARANCE], wearing [OUTFIT]. Adjacent neighborhoods visible on either side, some houses already demolished — the full machine grandeur of the infrastructure project that reshaped American urban geography and made the suburb the default American living environment. Set in [SETTING].`,
+  73: `A spectacular industrial portrait of [NAME] as [ROLE] in [PERIOD] — at the first mass production Ford Model T assembly line at Highland Park, Michigan circa 1914, the revolutionary moving assembly line in operation, partially assembled cars moving slowly as workers at fixed stations perform single repetitive tasks, a Model T taking shape from chassis to complete vehicle in 93 minutes. [APPEARANCE], wearing [OUTFIT]. The industrial photography style of Ford's own documentation era — a marvel of modern organization that reduced the car price from $850 to $260 and put cars within reach of the workers who built them. Set in [SETTING].`,
+  74: `A heartfelt portrait of [NAME] as [ROLE] in [PERIOD] — with Mahatma Gandhi's Salt March on the 241-mile route from Sabarmati Ashram to the Arabian Sea coast at Dandi in 1930, a growing column of followers on the march to commit the illegal act of picking up salt from the beach — and thereby defying British colonial law. [APPEARANCE], wearing [OUTFIT]. The moral genius of the tactic made visible: the empire must either allow an elderly man to pick up salt (defeat) or arrest him for doing so (also defeat). The expression peaceful, focused, already free. Set in [SETTING].`,
+  75: `A cinematic portrait of [NAME] as [ROLE] in [PERIOD] — inside the White House Situation Room during the Cuban Missile Crisis in October 1962, aerial reconnaissance photographs of Soviet missile sites in Cuba spread across the table, U-2 images annotated with military intelligence markers. [APPEARANCE], wearing [OUTFIT]. The tension of thirteen days that came closer to nuclear war than any moment in history — the knowledge that a wrong decision in either direction could end human civilisation within hours, carried in the faces of people in a room that history will not immediately know existed. Set in [SETTING].`,
+  76: `A vivid night portrait of [NAME] as [ROLE] in [PERIOD] — at the Chicago World's Columbian Exposition of 1893 at night, the White City's Beaux-Arts buildings illuminated by 100,000 incandescent light bulbs — the first time most visitors had ever seen electric light on such a scale, turning the fairgrounds into a vision of what cities could become. [APPEARANCE], wearing [OUTFIT]. The Grand Basin with its electric reflections, the first-ever Ferris wheel rising 264 feet above the Midway, crowds in their Victorian best making a once-in-a-lifetime pilgrimage to see the future in the warm, revelatory light of the electrical age's debut. Set in [SETTING].`,
+  77: `A powerful documentary portrait of [NAME] as [ROLE] in [PERIOD] — with the Freedom Riders arriving in Anniston, Alabama on May 14, 1961, a Greyhound bus stopped by a mob, windows being smashed moments before it was firebombed, the riders trying to escape through smoke while state troopers stand aside. [APPEARANCE], wearing [OUTFIT]. The specific moral courage of ordinary Americans who bought bus tickets and rode into states where the law promised violence, because the Supreme Court said they had the right to integrated interstate travel and they intended to exercise it regardless of cost. Set in [SETTING].`,
+  78: `A magnificent portrait of [NAME] as [ROLE] in [PERIOD] — at the Chernobyl nuclear disaster response in the first 24 hours after the explosion on April 26, 1986, firefighters and plant workers on the roof of Reactor 3 fighting what they believe to be a conventional fire, not yet knowing the reactor core has exploded and they are absorbing fatal radiation doses. [APPEARANCE], wearing [OUTFIT]. The surreal scene at night: a burning reactor building, sparks of radioactive graphite on the roof, workers in ordinary firefighting gear lit by the eerie blue glow of atmospheric ionizing radiation visible above the open reactor. Set in [SETTING].`,
+  79: `A stunning color portrait of [NAME] as [ROLE] in [PERIOD] — at the Beatles' rooftop concert at Apple Corps, 3 Savile Row, London, on January 30, 1969, John, Paul, George, and Ringo playing on a cold grey afternoon to office workers gathered on surrounding rooftops and a crowd building in the street below. [APPEARANCE], wearing [OUTFIT]. The final public performance of the most influential band of the 20th century — playing as if it does not matter that this is the last time, and playing better than they have in years, because the music is all that is left and nothing has consequences any more. Set in [SETTING].`,
+  80: `A luminous portrait of [NAME] as [ROLE] in [PERIOD] — at the Human Genome Project completion announcement on June 26, 2000, in the White House East Room, President Clinton flanked by the scientists who led rival sequencing teams, announcing that the first draft of the complete human genetic sequence has been read for the first time in history. [APPEARANCE], wearing [OUTFIT]. The science and political theatre simultaneously present — sequencing printouts on the table, scientists from every contributing nation, and the specific human pride of decoding the blueprint of the species that did the decoding. Set in [SETTING].`,
+  81: `A photorealistic time-travel portrait of [NAME] as [ROLE] in [PERIOD] — [APPEARANCE], wearing [OUTFIT], standing completely naturally in the Roman Forum circa 100 CE, surrounded by toga-clad senators and merchants going about their daily business, none of them finding the presence remarkable. Looking at a phone trying to navigate toward the Palatine Hill while a Roman magistrate peers at the glowing screen with polite bewilderment. Shot as a candid street photograph — the naturalism of someone who belongs there and someone who absolutely does not, sharing a frame in perfect temporal impossibility. Set in [SETTING].`,
+  82: `A deadpan photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT], sitting in a modern Apple Store surrounded by MacBooks and iPhones, studying an iPad Pro with the same concentrated intensity once brought to anatomy and engineering. The Notes app filled with updated flying machine studies and anatomical diagrams annotated with modern terminology, an Apple Genius employee looking at the sketches with genuine astonishment, a translation app mediating the entire conversation. Set in [SETTING].`,
+  83: `A stunning photorealistic composite portrait of [NAME] as [ROLE] — [APPEARANCE], wearing [OUTFIT] of modern tourists with backpacks and selfie sticks, standing inside an ancient Egyptian temple at Karnak in [PERIOD] — but the temple is intact and fully painted in brilliant polychrome color, priests in white linen crossing the inner court, kyphi incense smoke thick in the air. The modern visitors utterly invisible to the ancient Egyptians around them — ghosts from a future that has not happened yet, photographing a present that is already ancient history. Set in [SETTING].`,
+  84: `A comedic photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of ancient Roman arena fighting equipment, standing in a modern MMA octagon cage in Las Vegas alongside equally armored companions, the arena filled with spectators holding phones and a scoreboard showing odds. A ringside commentator looks with visible career uncertainty at their notes. Completely at ease in the new context (fighting is fighting), professionally impressed by the rubber mat floor compared to sand. Set in [SETTING].`,
+  85: `A stunning photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT], working at a modern university physics laboratory surrounded by state-of-the-art particle detection equipment and computer monitors showing spectroscopic analysis, a cyclotron visible through the lab window. Studying a periodic table on the wall with elements not yet known already marked, taking notes in precise handwriting, working at a pace suggesting the equipment has already been understood and the experimental design is now being optimised. The most productive visitor the laboratory has ever had. Set in [SETTING].`,
+  86: `A dreamlike photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of Viking period-accurate mail and wool, on a longship with dragon prow cutting through modern harbor waters, a skyline of glass and steel towers visible behind in complete contemporary glory. The expression of someone who has arrived somewhere they cannot make sense of — buildings taller than anything ever imagined, no horizon visible through the urban canyon, the sound of helicopters and traffic and subway. The water is the same water their ancestors navigated. Everything else has changed. Set in [SETTING].`,
+  87: `A photorealistic oil portrait of [NAME] as [ROLE] in [PERIOD] — [APPEARANCE], wearing [OUTFIT], painted in the exact style of Johannes Vermeer: the Dutch Golden Age window lighting, the characteristic camera obscura composition, the jewel-like rendering of every surface — but depicting a completely contemporary scene. A laptop instead of a letter, jeans instead of a satin jacket, a coffee cup instead of a pewter pitcher, IKEA shelving instead of carved wood. The fall of light, the warmth of the interior, domestic life made sacred by pure attention — exactly as Vermeer would have painted it. Set in [SETTING].`,
+  88: `A photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of period formal clothes, visiting a modern data center and walking between rows of server racks with blinking LEDs and cooling systems, pointing something out to a data center engineer holding a tablet. Explaining with complete authority how the whole system should be redesigned using wireless power transmission — a concept patented over a century ago that this data center is now seriously reconsidering. Not wrong. Set in [SETTING].`,
+  89: `A cinematic photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of full ceremonial regalia, stuck in modern city traffic — a war chariot wedged between a yellow microbus and a delivery motorcycle, horses looking at the surrounding cars with existential confusion. Standing with arms crossed with the specific expression of someone accustomed to parting seas rather than waiting for a traffic light on a Wednesday morning. The modern city skyline visible behind in complete contemporary detail. Set in [SETTING].`,
+  90: `A surreal photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of full medieval plate armor, at a modern gym using weight machines, treadmills, and squat racks with completely earnest dedication, the other gym members giving polite space and continuing their own workouts. The gym staff is used to this. Everyone is getting their workout done. Armor maintenance visible in the corner by the foam rollers. The complete normality of the gym environment versus the complete historical impossibility of the visitor — perfectly coexisting. Set in [SETTING].`,
+  91: `A photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of 1870s period clothes, at a modern Parisian sidewalk café, studying a contemporary art exhibition review on someone's phone, sketching modern passersby in a notebook, arguing with a companion about the show's curation with complete conviction. The Pompidou Centre's bold colorful exterior visible down the street. The argument is 150 years old and completely contemporary simultaneously. Set in [SETTING].`,
+  92: `A stunning photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of full Edo-era Japanese armor and helmet, riding a modern subway during rush hour, standing in the crowded car holding a katana carefully upright to avoid jabbing fellow passengers, the other commuters in business suits giving polite space without staring — because staring is rude regardless of what the person next to you is wearing. Looking at the station map above the door with professional attention, planning the route. Changing at the next major hub. Set in [SETTING].`,
+  93: `A photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of period-accurate ancient court dress, at a modern beauty salon in a salon chair with a cape on, consulting with a hairstylist over a phone showing period hairstyle references, while a manicurist works on the other hand and a translation app runs on speakerphone. A regular customer with strong opinions. The salon has learned appointments must be booked for three hours minimum, the water temperature must be exact, and the tipping customs are precise and always honoured. Set in [SETTING].`,
+  94: `A photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of ancient Greek himation robes, seated around a seminar table at a modern university philosophy department with other ancient Athenian thinkers in what appears to be a completely normal graduate seminar. One figure doing the Socratic method on a PhD student who is beginning to regret raising their hand, another taking notes on a yellow legal pad, a third having strong opinions about everyone's methodology from the corner while eating grapes brought from home. Set in [SETTING].`,
+  95: `A photorealistic portrait of [NAME] as [ROLE] in [PERIOD] — [APPEARANCE], wearing [OUTFIT] of full modern trekking gear with GPS watch and hiking poles, standing at the active construction site of Stonehenge in 2800 BCE, watching massive sarsen stones being moved on wooden rollers by organised work gangs across Salisbury Plain. Photographing the construction process on a phone for a story that no one back home will believe — the correct response to witnessing the most mysterious construction project in British prehistory. Set in [SETTING].`,
+  96: `A spectacular photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of Roman legionary armor with red cloak and rectangular shield, marching in perfect military formation with 5,000 fellow legionaries down a modern American highway, cars pulled to the shoulder, a state trooper on a motorcycle speaking into his radio with visible uncertainty about which jurisdiction covers this situation. The aquila eagle standard carried at the front. The formation has not broken. It never breaks formation. Set in [SETTING].`,
+  97: `A photorealistic composite portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] with a museum visitor sticker on the coat, standing in front of their own most famous work at a modern art museum. Looking at the painting with complex emotion — recognition, distance, the strangeness of seeing something from inside your own head hanging in a white-walled gallery while strangers have feelings about it that were never imagined. A school group taking a selfie with the painting behind. Confusing. Not entirely displeasing. Set in [SETTING].`,
+  98: `A photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of ancient ceremonial regalia, at a modern observatory operating a contemporary research-grade telescope and computer imaging system to study the celestial cycles tracked manually for centuries. Comparing hand-calculated ancient predictions against the telescope's computational ephemeris — predictions accurate to within minutes over centuries — which the modern astronomers working alongside find both humbling and professionally challenging. Ancient knowledge and modern instruments discovering the same truth. Set in [SETTING].`,
+  99: `A beautiful and melancholy photorealistic portrait of [NAME] as [ROLE] from [PERIOD] — [APPEARANCE], wearing [OUTFIT] of a distinctive period medical costume with beaked mask and wide-brimmed hat, walking through a modern hospital corridor, passing contemporary nurses in scrubs who acknowledge the visitor with the collegial nod of healthcare workers from another department. Carrying the herbs and remedies meant to heal by keeping bad air away — while the modern ventilation system humming overhead is the descendant of the same epidemiological instinct, finally understood centuries after it was first intuited. Set in [SETTING].`,
+  100: `A sweeping cinematic portrait of [NAME] as [ROLE] in [PERIOD] — [APPEARANCE], wearing [OUTFIT], standing at the control panel of a time machine hovering above the Earth in space, surrounded by screens showing different historical eras simultaneously — ancient civilisations, medieval kingdoms, the Industrial Revolution, the 20th century, and the present day — each screen a window into the past with documentary accuracy. The expression of someone who has witnessed everything history contains and understands that none of it can be changed, only witnessed. History as it was, not as we wished it. Set in [SETTING].`,
+}
+
+const H = {  1:'Hieroglyphic gold · ancient role photorealistic',   2:'Oil painting jewels · period accurate ancient',   3:'Chiaroscuro columns · dramatic ancient power',   4:'Gold tessera mosaic · imperial ancient portrait',   5:'Marble proportions · heroic classical statue',   6:'Cinematic sky epic · ancient civilisation peak',   7:'Sacred light ceremony · fine-art ancient portrait',   8:'Historical authenticity · photorealistic period',   9:'Coin-quality laurel · Greco-Roman noble profile',   10:'Divine mandate awe · ceremonial palace temple',   11:'Canopic hieroglyph · pharaonic afterlife portrait',   12:'Battle standard fierce · warrior ancient glory',   13:'Incense sacred flame · priestly devotional light',   14:'Trade goods prosperity · merchant prince ancient',   15:'Scrolls Socratic · philosopher academy reason',   16:'Arena sand defiant · gladiator roaring crowd',   17:'Toga oratory forum · senator Republic height',   18:'Gold lapis divine · god-king living deity',   19:'Papyrus reed pen · scribe knowledge portrait',   20:'Archaeological height · timeless ancient portrait',   21:'Illuminated heraldic · medieval candlelight portrait',   22:'Sfumato Florentine · Renaissance Medici grandeur',   23:'Pointed arch devotion · Gothic medieval realism',   24:'Millefleur courtly · tapestry Flemish thread',   25:'Brocade ermine Holbein · court royal authority',   26:'Armour pennant · battle chivalric medieval glory',   27:'Illuminated scriptorium · monastery spiritual',   28:'Tournament lance heraldic · joust courtly',   29:'Memento mori stoic · plague-era dark history',   30:'Lute lyric courtly · troubadour castle hall',   31:'Mask canal decadent · Venetian carnival mystery',   32:'Gothic plans craftsman · cathedral-builder dignity',   33:'Ledger guild seal · merchant Hanseatic prosperity',   34:'Bronze Homeric · trojan-war epic heroism',   35:'Palazzo Florentine · Medici patron power portrait',   36:'Cross Holy Land · crusader faith and steel',   37:'Longship rune saga · Viking age portrait',   38:'Salem defiance · witch-trial injustice portrait',   39:'Eleanor energy · troubadour-queen power culture',   40:'Works-in-progress · Renaissance master studio',   41:'Maps compass horizon · exploration new world',   42:'Armour jungle gold · conquistador empire',   43:'Sextant star chart · navigator ocean ambition',   44:'Cutlass treasure · pirate Caribbean golden age',   45:'Spices silk global · merchant-trader post',   46:'British India authority · colonial governor mansion',   47:'Flag planted discovery · explorer new continent',   48:'Unfinished map compasses · cartographer knowledge',   49:'Tea docks empire · East India Company leaves',   50:'Camel desert East-West · Silk Road trade',   51:'Letter of marque · privateer crown-sanctioned',   52:'Bible rainforest faith · missionary complex',   53:'Historical complexity · plantation era portrait',   54:'Rigging horizon sea-dog · sailor experience',   55:'Specimens drawing board · botanist discovery',   56:'Pamphlet moral courage · abolitionist portrait',   57:'Canvas new world · colonial-era artist European',   58:'Peacock throne jewelled · Mughal East-West',   59:'Vermeer tulip · Dutch Golden Age prosperity',   60:'Globe Drake energy · circumnavigation world-beater',   61:'Gas-lamp Empire · Victorian daguerreotype quality',   62:'Smokestacks iron steam · industrial authority',   63:'Locomotive timetable · railway Victorian progress',   64:'Crystal Palace innovation · Great Exhibition',   65:'Votes-for-Women sash · suffragette courage',   66:'Industrial wealth moral · factory owner Victorian',   67:'Bunsen specimens rational · Victorian scientist',   68:'Pith helmet map · colonial administrator desk',   69:'Afternoon tea rigid · parlour Victorian society',   70:'London fog Dickensian · social commentary drama',   71:'Blackboard moral · governess quiet dignity',   72:'Camera tripod pioneer · Victorian photographer',   73:'Footlights popular · music-hall Victorian stage',   74:'Ice Scott-era grit · polar explorer heroic',   75:'Morse communication · telegraph Victorian modernity',   76:'Petition working-class · Chartist political fire',   77:'Rossetti nature · Pre-Raphaelite medieval romance',   78:'Field notebook Darwin · naturalist wonder life',   79:'Empire abroad complex · Victorian memsahib',   80:'Nursing education · Victorian reformer courage',   81:'Country house tea · Edwardian pre-war confidence',   82:'Trenches mud stoic · World War One bravery',   83:'Jazz flapper Prohibition · Roaring Twenties',   84:'Dust bowl dignity · Great Depression hardship',   85:'First vote triumph · suffrage historic milestone',   86:'Home front resolve · World War Two sacrifice',   87:'Silver-screen glamour · Hollywood golden age',   88:'Cotton-club hot jazz · Jazz Age musician',   89:'Freedom rally national · colonial independence',   90:'Wartime hospital · nurse Florence spirit',   91:'Geometric modernist · Bauhaus function beauty',   92:'Union banner solidarity · Labour movement rights',   93:'Cultural pride art · Harlem Renaissance portrait',   94:'First-in-field barrier · women\'s pioneer portrait',   95:'Goggles leather sky · aviator pioneer portrait',   96:'Microphone golden · radio broadcaster studio',   97:'Paris café lost · modernist writer stream',   98:'Double identity shadow · spy Cold War Berlin',   99:'March dignity moral · civil rights turning point',   100:'Century-defining life · portrait for all time'}
+
+const vars = {
+  name:        () => document.getElementById('v-name').value.trim() || '[NAME]',
+  role:        () => document.getElementById('v-role').value.trim() || '[ROLE]',
+  period:        () => document.getElementById('v-period').value.trim() || '[PERIOD]',
+  appearance:        () => document.getElementById('v-appearance').value.trim() || '[APPEARANCE]',
+  outfit:        () => document.getElementById('v-outfit').value.trim() || '[OUTFIT]',
+  setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[NAME\]/g, vars.name())
+    .replace(/\[ROLE\]/g, vars.role())
+    .replace(/\[PERIOD\]/g, vars.period())
+    .replace(/\[APPEARANCE\]/g, vars.appearance())
+    .replace(/\[OUTFIT\]/g, vars.outfit())
+    .replace(/\[SETTING\]/g, vars.setting());
+}
+
+function buildBlock(n) {
+  const na = vars.name(), ro = vars.role(), pe = vars.period(), ap = vars.appearance(), ou = vars.outfit(), se = vars.setting();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[NAME]" is Your character's name.
+"[ROLE]" is Historical role or station.
+"[PERIOD]" is Historical era or period.
+"[APPEARANCE]" is Physical description.
+"[OUTFIT]" is Period-appropriate clothing.
+"[SETTING]" is Historical location.
+
+Now let's give these variables our values.
+[NAME] = "${na}"
+[ROLE] = "${ro}"
+[PERIOD] = "${pe}"
+[APPEARANCE] = "${ap}"
+[OUTFIT] = "${ou}"
+[SETTING] = "${se}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Childhood Nostalgia Prompts — PDF Edition | Book 3</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #1a0e05;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #f97316;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #f9731666;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #1a0e05;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #f97316;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #f97316;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #f97316;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #c2600d;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #f97316;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #f97316;
+  border: 0.5px solid #f9731680;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #f9731659;
+  background: #f9731614;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #f97316;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #f97316;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #f97316; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #f97316;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #f97316; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #f97316; }
+.guide-ex-text .token { color: #f97316; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#f973162e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 3</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Childhood Nostalgia</h1>
+      <div class="cover-title-sub">Portrait & Memory Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Childhood Portraits</span>
+        <span class="cover-cat">Family Bonds</span>
+        <span class="cover-cat">Era Aesthetics</span>
+        <span class="cover-cat">School Days</span>
+        <span class="cover-cat">Holiday Memories</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Child's first name (in capitals)</span>
+        <input class="var-input" id="v-name" placeholder='e.g. EMMA, OLIVER, MAYA' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[AGE]</span>
+        <span class="var-desc">Age description of the child</span>
+        <input class="var-input" id="v-age" placeholder='e.g. 5-year-old, 8-year-old' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[HAIR]</span>
+        <span class="var-desc">Hair colour and style</span>
+        <input class="var-input" id="v-hair" placeholder='e.g. wild curly red hair' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ERA]</span>
+        <span class="var-desc">Decade or era for the aesthetic</span>
+        <input class="var-input" id="v-era" placeholder='e.g. 1970s, 1980s, timeless' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ACTIVITY]</span>
+        <span class="var-desc">What the child is doing</span>
+        <input class="var-input" id="v-activity" placeholder='e.g. picking flowers, reading' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Location or environment</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. sunlit meadow, back garden' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised childhood nostalgia portrait image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[NAME]</span> <span class="tok">[AGE]</span> <span class="tok">[HAIR]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[NAME]</span><span class="guide-var-desc">Child's first name (in capitals)</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[AGE]</span><span class="guide-var-desc">Age description of the child</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[HAIR]</span><span class="guide-var-desc">Hair colour and style</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[ERA]</span><span class="guide-var-desc">Decade or era for the aesthetic</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[ACTIVITY]</span><span class="guide-var-desc">What the child is doing</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[SETTING]</span><span class="guide-var-desc">Location or environment</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A photorealistic portrait of <span class="tok">[NAME]</span>,
+a <span class="tok">[AGE]</span> with <span class="tok">[HAIR]</span>, <span class="tok">[ACTIVITY]</span>
+in <span class="tok">[SETTING]</span>. Warm golden-hour lighting,
+soft film grain, captured as if on a
+beloved family camera.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A photorealistic portrait of <span class="filled-val">EMMA</span>,
+a <span class="filled-val">6-year-old</span> with <span class="filled-val">wild curly red hair</span>, <span class="filled-val">picking wildflowers</span>
+in <span class="filled-val">a sunlit meadow</span>. Warm golden-hour lighting,
+soft film grain, captured as if on a
+beloved family camera.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Childhood Portraits</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Family &amp; Memory Moments</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Vintage Childhood Aesthetics</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">School Days &amp; Coming-of-Age</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Holidays &amp; Special Childhood Memories</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 3: Childhood Nostalgia &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A photorealistic portrait of [NAME], a [AGE] with [HAIR] and rosy cheeks, [ACTIVITY] in [SETTING]. Warm golden-hour lighting, shallow depth of field, soft bokeh background, shot on 85mm portrait lens, gentle dust particles in the air. [ERA] golden-hour photographic style.`,
+  2: `An oil painting portrait of [NAME], a [AGE] with [HAIR] and a gap-toothed grin, [ACTIVITY] in [SETTING]. Painterly impressionist style, warm afternoon light, dabs of thick impasto texture, muted greens and golds in the background. [ERA] Saturday-afternoon atmosphere.`,
+  3: `A soft watercolour illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Muted pastel colour palette — blush pinks, pale lavenders, and warm creams. Delicate watercolour washes, no outlines, dreamy and ethereal mood, bedside lamp casting a soft amber glow. [ERA] storybook art style.`,
+  4: `A cinematic portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Backlit by a glowing sunset, lens flare in the upper right, dramatic hero angle from below, rich orange and purple sky, photorealistic quality. [ERA] summer evening atmosphere.`,
+  5: `A candid documentary-style photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Face scrunched in intense concentration. Shot from eye level, natural overcast lighting, authentic and unposed, muted earth tones, fine detail on tiny fingers. [ERA] childhood authenticity.`,
+  6: `A charcoal sketch portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Fine cross-hatching texture, monochromatic tones with a single accent of warm amber from dappled sunlight on the pages. Classic storybook illustration quality, complete absorption and focus captured beautifully. [ERA] illustrative style, pencil marks visible as artful texture.`,
+  7: `A vibrant digital portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Warm summer afternoon, long shadows, slightly desaturated nostalgic colour grade, pastel house exterior, golden light through porch railings. [ERA] summer afternoon atmosphere.`,
+  8: `A hyperrealistic portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Forehead pressed against the glass, watching with a mixture of boredom and wonder. Cold blue exterior light contrasts with warm amber interior, moody and contemplative atmosphere. [ERA] rainy-day introspective mood.`,
+  9: `A painterly portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Eyes closed, face turned up toward the sky in pure joy. Motion blur on spinning fabric, frozen expression of delight, soft afternoon sunlight filtering through leaves. [ERA] impressionist brushstrokes, vibrant summer palette.`,
+  10: `A photorealistic close-up portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Eyes wide with amazement, mouth open in a silent "wow." Macro lens detail, warm dappled garden light, shallow focus, rich greens in the background bokeh. [ERA] childhood wonder captured in extraordinary detail.`,
+  11: `An acrylic painting portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Colourful paint smears on cheeks and arms, beaming with pride. Bold and expressive brushwork, primary colours popping, bright art studio lighting, joyful and messy. [ERA] childlike energy preserved in every stroke.`,
+  12: `A soft film-photography style portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Face a mixture of determination and glee. [ERA] 35mm film aesthetic — slight grain, warm tones, slightly overexposed highlights. Late morning light from a large window.`,
+  13: `A digital painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Chin resting on folded hands, totally absorbed. Eye-level perspective, golden-hour light making everything glow, warm amber and green tones, photorealistic natural detail. [ERA] peaceful summer afternoon atmosphere.`,
+  14: `A whimsical storybook illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Eyes glowing with reflected magic. Soft warm palette, candlelight quality, face half-shadow half-glow. [ERA] Shaun Tan-inspired illustration style with extraordinary warmth and wonder.`,
+  15: `A dramatic portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Shadows and dramatic torchlight creating a sense of grand adventure. Warm orange-gold interior light contrasting with cool blue ambient room light. [ERA] cardboard and imagination atmosphere — fine texture detail throughout.`,
+  16: `A tender close-up portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Both eyes closed in a moment of pure loving connection. Soft natural window light, warm skin tones, shallow depth of field, the background a warm cream blur. [ERA] intergenerational warmth and love beautifully rendered.`,
+  17: `A vintage illustration portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Cheeks puffed in effort, a look of absolute determination. Warm sepia tones, Norman Rockwell-inspired style. [ERA] rural America aesthetic with pure childhood determination beautifully captured.`,
+  18: `A photorealistic portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Face glowing in warm candlelight, eyes squeezed shut in a wish. Confetti frozen in midair, low-key birthday lighting, the candle flames creating a magical halo. [ERA] birthday celebration captured in its most perfect moment.`,
+  19: `A moody black-and-white portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Lost in thought, dappled light through tree leaves creating dramatic shadows. Classic Ansel Adams monochromatic quality, fine grain, the world beyond blurred and dreamy. [ERA] summer solitude beautifully rendered.`,
+  20: `A luminous digital painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Eyes reflecting tiny lights, face filled with wonder. Magical realism style, deep indigo-green grass, firefly lights as tiny golden orbs with soft glows, a galaxy overhead. [ERA] dreamy and otherworldly yet deeply familiar childhood magic.`,
+  21: `A warm photorealistic photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Both laughing, genuine joy captured mid-motion. Morning sunlight streaming through the window, flour dust in the air, warm golden colour grade. [ERA] Sunday morning kitchen warmth and connection.`,
+  22: `A cinematic wide-angle photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Surrounded by wrapping paper and boxes, different expressions from sleepy to ecstatic. Warm Christmas morning light, slightly chaotic and perfectly real, shot from a high corner angle. [ERA] holiday morning magic.`,
+  23: `A painted family portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Snuggled under a patchwork quilt, faces warm in amber lamplight. Oil painting style, Norman Rockwell sentiment, extraordinary warmth and detail in fabric and expressions. [ERA] bedtime story magic.`,
+  24: `A documentary-style photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Tongue poking out in concentration, guided by loving hands. Warm natural kitchen light, afternoon sun through gingham curtains, richly textured detail throughout. [ERA] kitchen tradition passed down through generations.`,
+  25: `A joyful photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Mid-laugh and mid-air, motion blur capturing pure childhood flight. Golden summer afternoon light, green lawn, nostalgic colour grade with slightly lifted shadows. [ERA] backyard joy preserved forever.`,
+  26: `A tender watercolour painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Curtains drifting in a light breeze, dappled light falling over the scene. Soft, delicate palette of cream, blush, and sage. [ERA] the quiet, intimate weight of this moment captured in gentle brushstrokes.`,
+  27: `A dramatic aerial photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Mid-conversation and mid-laugh, caught in authentic unstaged connection. Shot from directly above, warm interior lighting, the table a visual anchor. [ERA] family gathering preserved from above.`,
+  28: `A candid photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Joy and cooperation captured in warm afternoon light, messy authentic space, fine fabric and texture details throughout. [ERA] shared childhood adventure and sibling teamwork.`,
+  29: `A heartwarming photorealistic scene of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Both in companionable silence, a gentle hand resting on shoulder. Soft rose and gold sunrise light, reflections on still water, fine detail throughout. [ERA] tranquil and emotionally resonant.`,
+  30: `A vibrant summer photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Captured mid-air with pure summer joy, different body positions and expressions. Bright July light, crystal blue water below, fast shutter speed freezing every droplet. [ERA] photorealistic and energetic.`,
+  31: `A painted portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Reaching up with determined tiny steps. Oil painting, warm copper and amber autumn palette, long raking afternoon light, fine leaf texture beneath their feet. [ERA] Mary Cassatt-inspired loose yet emotional brushwork.`,
+  32: `A candid family portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. One already asleep, one requesting a hug, one sneaking a flashlight under the covers. Warm lamp-lit room, dark cosy atmosphere. [ERA] Quentin Blake-inspired nostalgic illustration style.`,
+  33: `A photorealistic image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. A look of focused determination, someone running alongside in quiet pride. Suburban sidewalk, dappled afternoon light. [ERA] emotionally cinematic milestone of independence beautifully lit.`,
+  34: `A wintry cosy photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Firelight flickering across faces, snow falling outside the large window. Warm amber firelight fills the room, pine garland on the mantle. [ERA] comfortable and deeply nostalgic winter evening atmosphere.`,
+  35: `A black-and-white documentary photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Small hand resting on a knee, face-to-face at eye level. High-contrast monochrome, available window light, the intimacy of the moment preserved with extraordinary emotional depth. [ERA] raw connection beautifully captured.`,
+  36: `A wide establishing photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Golden hour, dramatic landscape backdrop, the humorous and real truth of family adventure. Cinematic colour grade. [ERA] road trip memory captured in all its beautiful, imperfect reality.`,
+  37: `A tender oil painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Face overwhelmed with love, cradling with enormous, careful hands. Warm light, all else in soft blur. [ERA] Rembrandt chiaroscuro palette — deep shadows and warm candlelight tones rendering raw parental emotion.`,
+  38: `A photorealistic summer evening scene of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Street-level golden hour light, rich nostalgic atmosphere, wide lens, lens flare through the tree canopy. [ERA] suburban neighbourhood summer — the whole community alive with evening play.`,
+  39: `A heartfelt illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. A parent kneeling down in absolute joy to receive the gift at eye level. Warm pastel watercolour style. [ERA] sweetly imperfect and beautiful moment of childhood love and pride.`,
+  40: `A cinematic photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Exhausted, windswept, and absolutely beaming. Dramatic mountain vista behind them, golden late-afternoon light, photorealistic quality capturing the specific triumph of a hard-earned family achievement. [ERA] adventure preserved forever.`,
+  41: `A Polaroid-style photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Characteristic Polaroid light leaks and colour shift, faded warm tones, overexposed highlights, slightly off-centre framing. [ERA] white Polaroid border, handwritten date in pencil below — pure nostalgic time capsule.`,
+  42: `A nostalgic [ERA] colour photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Slightly orange colour cast, grainy texture, soft focus, high contrast. Period-accurate clothing and props. Printed on matte paper, slightly faded at the edges as if from a family album.`,
+  43: `A [ERA]-era illustration in the style of Saturday Evening Post covers, depicting [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Period-accurate clothing and setting, warm summer afternoon, expression bursting with pride. Rich illustrative detail, classic Americana colour palette of red, white, and sunny yellow.`,
+  44: `A [ERA] Saturday morning cartoon aesthetic scene of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Early morning blue light from outside, TV glow on their face. Rendered in a slightly chunky, bright period animation style — warm, funny, immediately recognisable, deeply generational.`,
+  45: `A richly detailed oil painting in the style of [ERA] commercial illustration, showing [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Wide eyes reflecting the scene. Period-accurate clothing and hairstyles, warm advertising-era palette, idealised family portrait quality.`,
+  46: `A faded [ERA] school photograph aesthetic: [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Slightly awkward smile in front of the classic speckled blue gradient background. Flash-overexposure, period-accurate hair and clothing. Every detail of the school photo aesthetic captured with loving accuracy and gentle humour.`,
+  47: `A warm 35mm film photograph from the [ERA] of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Expression frozen in intense focus. Period-accurate bedroom details. Grainy film texture, warm practical lighting competing with blue TV glow, authentic generational memory preserved in pixels.`,
+  48: `A vintage illustration of a [ERA] birthday party scene — [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Classic [ERA] colour palette: pastel blue, pink, and cream. Illustrated in the rounded, cheerful commercial style of mid-century children's books, with decorative borders and the warmth of a simpler era.`,
+  49: `A [ERA]-style road trip photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Characteristic faded period colour tones, road stretching ahead into flat American highway landscape. Period-accurate roadside billboards, the specific exhausted-but-alive feeling of a multi-day family car trip.`,
+  50: `A [ERA]-style home video screenshot aesthetic of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Grainy VHS scan lines, date stamp in the corner, slightly shaky framing. Washed-out VHS colour palette, the pure archival quality of a memory that feels both universal and deeply personal.`,
+  51: `A richly nostalgic watercolour illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Running with coins in hand, pure anticipation. Late afternoon summer light, tree-lined suburban street, period-accurate details. [ERA] warm and communal neighbourhood feeling beautifully rendered.`,
+  52: `A sepia-toned photograph in the style of [ERA] portrait photography of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Formally arranged, serious expression as was the custom. Rich sepia tones, vignetting around edges, slightly uneven exposure — the weight and texture of a family heirloom photograph.`,
+  53: `A [ERA] neighbourhood scene illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Summer evening blue light, suburban lawns, the specific golden-hour-into-dusk transition. [ERA] warm nostalgic style evoking the last summer of pure outdoor childhood freedom.`,
+  54: `A Norman Rockwell-inspired oil painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Various expressions of pride, distraction, and joy telling separate stories. Rich painted detail, warm Saturday afternoon light. [ERA] pure Americana atmosphere.`,
+  55: `A [ERA] summer camp photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Friendship bracelets and name tags, arms around each other, huge grins. Pine forest background, a lake visible through the trees. Slightly overexposed 35mm colour print tonality, handwritten names on the border.`,
+  56: `A lush [ERA]-style children's book illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Illustrated in the flat, bright style of [ERA] Scholastic books: bold outlines, flat colour fills, chunky shapes, a palette of harvest gold, burnt orange, and avocado green.`,
+  57: `A VHS-quality aesthetic image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. VHS scan lines, time-code in corner, orange and black colour scheme. [ERA] grainy intimacy of every family's home video archive, instantly recognisable and deeply evocative.`,
+  58: `A warm [ERA] Kodachrome colour photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Rich, saturated Kodachrome colour palette: vivid blues and reds slightly oversaturated. [ERA] colour print film quality — everything looks like it belongs in a time capsule of pure summer joy.`,
+  59: `A [ERA] illustrated advertisement style featuring [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Bright commercial illustration colours, classic advertisement typography, starbursts in the background. [ERA] warmth and idealism — a child's achievement given the full Saturday Evening Post treatment.`,
+  60: `A moody [ERA]-era Polaroid of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Faces dramatically underlit by flames, darkness pressing in from all sides. Characteristic Polaroid square format, colour shift toward warm amber and deep shadow. [ERA] the electric feeling of being young and alive in the summer dark.`,
+  61: `A photorealistic image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Anxious-excited expression, early morning light, one hand brave and one hand held. [ERA] emotional weight of this milestone perfectly captured without being staged — the first step into the wider world.`,
+  62: `A nostalgic illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. October morning light, maples in red and gold, the familiar ritual of waiting illustrated with warmth and detail. [ERA] rich autumn colour palette, the specific anticipation and community of the bus stop morning.`,
+  63: `A detailed oil painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Varying states of attention — diligently working, daydreaming, passing notes. Warm chalk-dust afternoon light, richly painted period detail. [ERA] universal school experience captured in extraordinary painted depth.`,
+  64: `A photorealistic portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Completely at peace in their own world while chaos swirls around them. Bright midday school-yard light, pages slightly windblown. [ERA] a celebration of the quiet child, the inner-world explorer, rendered with dignity and affection.`,
+  65: `A vibrant school cafeteria scene with [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Trading food, laughing, the social ecosystem alive around them. Bright fluorescent cafeteria light. [ERA] warm detailed style finding beauty in the ordinary cacophony of the school lunch hour.`,
+  66: `A cinematic portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Slightly awkward with pride, warm spotlight from above, the auditorium in soft blur. [ERA] the specific cocktail of embarrassment and joy of being called out in front of everyone — photorealistic, emotionally true.`,
+  67: `A joyful illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Nervously preparing alongside others, each child's individual story told in their expression. Painted in warm backstage light. [ERA] the chaos and excitement of performance, richly detailed and warmly observed.`,
+  68: `A nostalgic photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Matching friendship bracelets, sharing the last day together. June heat, battered backpacks, a mark on the wall showing how much they've grown. [ERA] the tender weight of transition beautifully and simply captured.`,
+  69: `A warm illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Classmates reacting with wonder, disgust, excitement, and scepticism. The teacher leaning in with genuine curiosity. [ERA] cheerful, slightly exaggerated style capturing the pure theatre of the show-and-tell ritual.`,
+  70: `A photorealistic image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Action frozen mid-motion, the entire gym class watching. Gymnasium lighting, squeaky shoes on hardwood. [ERA] fast shutter speed sports photography composition capturing the genuine athletic drama of childhood's most important sporting event.`,
+  71: `A tender oil painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Brow furrowed in concentration, guided with an encouraging smile. Warm afternoon classroom light through tall windows, the rest of the class softly blurred. [ERA] Mary Cassatt emotional depth — the quiet intimacy of teaching beautifully preserved.`,
+  72: `A vibrant photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Their reflection and the exhibit creating a double image, museum lighting. A sea of matching t-shirts, chaperones consulting pamphlets. [ERA] photorealistic quality capturing the awestruck educational energy of a school field trip.`,
+  73: `A bittersweet coming-of-age portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. A mixture of excitement and dread — too cool to look scared, too young to hide it entirely. September morning light, new backpack, new sneakers. [ERA] cinematic and emotionally resonant threshold moment.`,
+  74: `A richly detailed illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Standing proudly or nervously by their work, parents and judges circulating. Gymnasium setting, fluorescent light. [ERA] the democratic circus of childhood ambition and creativity illustrated with loving detail and gentle humour.`,
+  75: `A dramatic low-angle photorealistic image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Wind in their hair, arms slightly spread for balance, expression of conquest. The world looking very small and very big at once. [ERA] the enormity of childhood accomplishment captured in perfect perspective.`,
+  76: `A painted portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Cap and gown, diploma in hand, looking slightly ridiculous and completely delighted. Parents behind with cameras, gym decorated with balloons. [ERA] warm acrylic with affectionate humour and genuine pride for a rite of passage that means everything.`,
+  77: `A quiet documentary photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Late afternoon light slanting through windows, dust motes, the chalkboard with today's lesson still visible. [ERA] the rare intimacy of a student-teacher relationship that changes a life, beautifully and respectfully observed.`,
+  78: `A nostalgic illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Carefully depositing little cards, the high-stakes social theatre of who gives what to whom. [ERA] classroom aesthetic, construction paper and glitter, warm red and pink palette — pure childhood social drama.`,
+  79: `A photorealistic scene of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Delivering their one line with every ounce of dramatic commitment. Stage lights up, parents' pride visible in the first rows. [ERA] theatrical lighting and quiet reverence for this singular, irreplaceable childhood moment.`,
+  80: `A cinematic coming-of-age image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Long afternoon shadow stretching ahead, the whole world suddenly wider and more theirs. Suburban street, golden light raking across fallen leaves, shot from behind and slightly above. [ERA] the specific freedom and loneliness of first independence beautifully preserved.`,
+  81: `A magical photorealistic Christmas morning scene: [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. The tree lights illuminating their awestruck face in the dark living room, warm amber and cool blue shadows. [ERA] Santa's magic palpable in the air — the single most perfect moment of childhood wonder.`,
+  82: `A glowing painted portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Holding up their candy bag triumphantly, face lit from below, jack-o-lanterns glowing on every porch behind them. [ERA] orange and black Halloween palette, pure childhood triumph painted in warm nostalgic oils.`,
+  83: `A heartwarming photorealistic scene of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Racing with baskets swinging, grass still dewy, one triumphant find mid-motion. Soft morning spring light, pastels everywhere. [ERA] Easter morning joy captured in its most authentic and energetic moment.`,
+  84: `A cinematic summer night photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Face turned to the sky, illuminated in alternating colours of bursting fireworks. Sparklers in hands, mouths open in "oohs." Shot from blanket level, wide angle, emotionally rich. [ERA] the July night sky and its magic preserved forever.`,
+  85: `A tender painted portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Examining it with sceptical curiosity before committing to destruction — the expression of "is this allowed?" preserved forever. Parents behind in soft blur. [ERA] oil painting style, warm intimate lighting, rich impasto detail.`,
+  86: `A joyful illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Watching with absolute focus as each candle is lit. Warm candlelight in a cosy home, dreidels mid-spin. [ERA] blue and silver colour palette of the holiday — the tradition honoured with beauty and specificity.`,
+  87: `A photorealistic image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Mouth wide open showing the gap, examining the tiny tooth with enormous seriousness while a parent looks on with barely concealed delight. Bright bathroom mirror light. [ERA] the absurd importance of this tiny event captured with perfect documentary honesty.`,
+  88: `A dramatic Thanksgiving table scene portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Eyes going wide, someone sneaking food, someone already asleep, the full cast of family gathered in warm amber light. [ERA] richly detailed Norman Rockwell style with modern warmth.`,
+  89: `A magical watercolour illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Frozen in pure wonder and terror at something half-visible and ambiguous at the fireplace. Soft blues and dark shadows, warm amber glow. [ERA] delicate, dreamy washes — the extraordinary liminality of childhood belief rendered in breathtaking watercolour.`,
+  90: `A vibrant photorealistic image of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Expression frozen in the two-second gap between startled and delighted, confetti in midair, balloons everywhere. Party lights, motion blur on everyone jumping. [ERA] the specific joy of a milestone birthday in its most unguarded authentic moment.`,
+  91: `A heartfelt documentary photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Standing on tiptoe, tongue out in concentration, the tree half-decorated behind them. Warm Christmas tree light glow. [ERA] the quiet liturgy of a family tradition passed forward beautifully preserved.`,
+  92: `A glowing oil painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Tiny flames reflected in their eyes, fireworks blooming in the sky above. Warm amber and gold light everywhere. [ERA] the colour and festivity of the celebration rendered with gorgeous detail and authentic reverence.`,
+  93: `A tender photorealistic portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Clutching it to their chest with eyes closed in disbelief — a private moment of pure gratitude before the celebration starts. Soft party light, wrapping paper everywhere. [ERA] focus entirely on this single face in this single perfect moment.`,
+  94: `A magical New Year's Eve illustration of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Huddled with noisemakers and confetti, everyone mid-countdown. The clock showing 11:59, adults with champagne in the background. [ERA] the specific electric joy of a first midnight — illustrated in warm celebration colours of gold and silver.`,
+  95: `A photorealistic scene of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Pressing both mittened hands into the white surface with absolute concentration and wonder. Breath visible in cold air, pristine undisturbed snow behind them. [ERA] the adults at a respectful distance — no intrusion on this pure, unrepeatable experience.`,
+  96: `A joyful photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Hats, scarves, carrot nose — the whole family contributing to the masterpiece. Winter afternoon, snow still falling gently, everyone pink-cheeked and steaming. [ERA] photorealistic and gloriously alive with effort and laughter.`,
+  97: `A glowing painted portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Dressed in new clothes, holding their gift carefully in both hands, beaming with pride and joy. Extended family gathered behind them. [ERA] rich warm tones with extraordinary detail in the clothing and expressions — celebration and love in every brushstroke.`,
+  98: `A cinematic childhood milestone photograph of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Halfway across, clearly tired but refusing to stop, determination overriding everything. Shot from poolside, water droplets frozen in splash. [ERA] the specific private triumph of surpassing a limit you weren't sure you could pass, beautifully and simply captured.`,
+  99: `A luminous watercolour painting of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Half-asleep already, the magic implied by the softest suggestion of light at the window's edge. Dreamy pastel palette. [ERA] the specific poignancy of childhood faith at its tenderest edge, beautifully observed.`,
+  100: `A grand cinematic finale portrait of [NAME], a [AGE] with [HAIR], [ACTIVITY] in [SETTING]. Shoes off, feet in the water, a summer's worth of memory behind them. The entire warmth and melancholy and beauty of childhood distilled into one luminous golden image. [ERA] the last perfect day, rendered in breathtaking, heartbreaking light.`,
+}
+
+const H = {  1:'Sunlit meadow dandelion · warm golden-hour portrait',   2:'Gap-toothed grin baseball glove · impressionist 1970s',   3:'Watercolour wildflower field · soft wet-on-wet golden',   4:'Kodachrome film portrait · film-grain shallow depth',   5:'Norman Rockwell Saturday afternoon · impasto warmth',   6:'Close-up freckles window light · fine photographic quality',   7:'Dreamy fairy-tale soft-focus · golden motes floating',   8:'Sargent painterly loose brush · confident childhood',   9:'Cheesy school photo blue backdrop · gap-toothed charm',   10:'Golden-hour backlight halo · film photography portrait',   11:'Overcast candid documentary · quiet childhood emotion',   12:'Quentin Blake storybook watercolour · warm pastel',   13:'Dutch Golden Age chiaroscuro · amber glow portrait',   14:'Renoir impressionist garden · dappled joyful brushwork',   15:'Rainy day window · cosy indoor rain-streak portrait',   16:'Authentic vintage film · faded tones soft vignette',   17:'Magic-hour amber last light · wind-in-hair portrait',   18:'Harvest autumn palette · amber red gold farmstead',   19:'Mid-laugh candid joy · documentary photography style',   20:'Timeless family portrait · classic childhood photography',   21:'Beach portrait sandy feet · coastal summer freedom',   22:'First snow red nose · winter breath-cloud portrait',   23:'Summer garden lemonade · long carefree afternoon',   24:'Autumn crunching leaves · cosy knitwear ember-orange',   25:'Cherry blossom spring · hope new-beginnings soft pink',   26:'Treehouse adventure · dappled forest imagination light',   27:'Birthday candlelight frosting · celebration portrait',   28:'Family kitchen cookies · warm afternoon curtain light',   29:'Discovery wonder eyes · curious childhood find',   30:'Imaginary world wonder · magical child\'s-eye palette',   31:'Nursery pastel soft · stuffed-animal companions warm',   32:'First day backpack · nervous-excited school portrait',   33:'Muddy knees wild hair · childhood adventure freedom',   34:'Torchlight reading blanket · secret-world cosy portrait',   35:'Ballet recital tutu · stage-fright turning to pride',   36:'Toy imaginative play · mid-story captured creative',   37:'Polaroid faded vintage · warm nostalgia white border',   38:'Grandmother kitchen baking · flour-on-cheeks warmth',   39:'First bicycle ride · freedom and terror expression',   40:'Bath bubbles mischief · warm bathroom steam portrait',   41:'Superhero cape determined · imagination power portrait',   42:'Sandcastle serious architect · beach golden light',   43:'Best-friend mid-laugh · perfect childhood friendship',   44:'Camping stargazing sleeping bag · awe under stars',   45:'Fishing stick and string · patience hope summer portrait',   46:'Wildflower daisy crown · meadow picking portrait',   47:'Autumn leaf pile · pure sensory joy ember-orange',   48:'Firefly jam jar dusk · magic summer evening portrait',   49:'Dandelion wish suspended · breath eyes closed portrait',   50:'Asleep mid-story book · pure innocence peace portrait',   51:'Kitchen floor painting · hands and face colourful',   52:'Puddle splash boots · zero-consequence joy portrait',   53:'Lemonade stand pride · childhood entrepreneurship',   54:'Sofa-cushion fort · ultimate home architecture portrait',   55:'Dance rehearsal focus · artistry beginning portrait',   56:'Dress-up parent clothes · giant shoes hat over eyes',   57:'Lake swimming freedom · summer sunlight on water',   58:'Friendship bracelet hands · string and care portrait',   59:'Birthday candles wish · smoke and light suspended',   60:'Caterpillar wonder · face-inches-away curiosity portrait',   61:'Ice cream summer dedication · sticky hands joy',   62:'School performance spotlight · nervous pride portrait',   63:'Tree climbing top view · adventure confidence portrait',   64:'Grassy hill roll · uncontrolled momentum laughter',   65:'Christmas morning wide-eyed · disbelief and pure joy',   66:'Cardboard box rocket · imagination makes it real',   67:'First piano keys · concentration and wonder portrait',   68:'Bubble chasing garden · iridescent outstretched hands',   69:'Father Christmas letter · belief and urgency portrait',   70:'Duck pond wonder · nature discovery from the bank',   71:'Mud pie culinary · serious face filthy portrait',   72:'First solo bicycle · triumphant terror no training wheels',   73:'Saturday morning cartoons · pyjamas cosy contentment',   74:'Grandparent baking cookies · flour cloud warm kitchen',   75:'Halloween costume reveal · monster-masterpiece pride',   76:'Sprinkler summer relief · water-soaked joy portrait',   77:'New baby sibling · gravity and love first hold',   78:'First day uniform too big · bravery and excitement',   79:'First snow tongue · snowflake catching winter magic',   80:'Garden treasure hunt · magnifying glass face-down',   81:'Snowman red mittens · carrot nose ready portrait',   82:'School poem recital · small voice standing proud',   83:'Secret hiding spot · quiet joy private world portrait',   84:'Shoelace tying focus · tongue out concentration',   85:'Farm nose-to-nose calf · pure animal delight portrait',   86:'Crayon self-portrait · tongue-tip hard-pressed focus',   87:'Autumn leaf pile run · unstoppable joy chaos portrait',   88:'Watermelon porch · seed-spitting summer competition',   89:'Sunday morning pyjamas · cartoons no-hurry portrait',   90:'Star-gazing blanket · infinite curiosity universe',   91:'Dog play shared joy · unconditional animal love',   92:'Stream splash shoes-off · cold water summer freedom',   93:'Firefly jar dusk · summer magic hands portrait',   94:'Stone wall climber · surveying kingdom from the top',   95:'Toy-shop window longing · face pressed absolute want',   96:'Swimming floaties terrified · determined lesson portrait',   97:'Garden trowel tiny · soil-on-hands total pride',   98:'Spelling bee eyes-up · searching for every letter',   99:'Tree reading summer · book propped knees afternoon',   100:'Timeless childhood fine-art · wonder joy magic portrait'}
+
+const vars = {
+  name:        () => document.getElementById('v-name').value.trim() || '[NAME]',
+  age:        () => document.getElementById('v-age').value.trim() || '[AGE]',
+  hair:        () => document.getElementById('v-hair').value.trim() || '[HAIR]',
+  era:        () => document.getElementById('v-era').value.trim() || '[ERA]',
+  activity:        () => document.getElementById('v-activity').value.trim() || '[ACTIVITY]',
+  setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[NAME\]/g, vars.name())
+    .replace(/\[AGE\]/g, vars.age())
+    .replace(/\[HAIR\]/g, vars.hair())
+    .replace(/\[ERA\]/g, vars.era())
+    .replace(/\[ACTIVITY\]/g, vars.activity())
+    .replace(/\[SETTING\]/g, vars.setting());
+}
+
+function buildBlock(n) {
+  const na = vars.name(), ag = vars.age(), ha = vars.hair(), er = vars.era(), ac = vars.activity(), se = vars.setting();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[NAME]" is Child's first name (in capitals).
+"[AGE]" is Age description of the child.
+"[HAIR]" is Hair colour and style.
+"[ERA]" is Decade or era for the aesthetic.
+"[ACTIVITY]" is What the child is doing.
+"[SETTING]" is Location or environment.
+
+Now let's give these variables our values.
+[NAME] = "${na}"
+[AGE] = "${ag}"
+[HAIR] = "${ha}"
+[ERA] = "${er}"
+[ACTIVITY] = "${ac}"
+[SETTING] = "${se}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>

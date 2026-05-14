@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Transformation Prompts — PDF Edition | Book 9</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif;
+  background: #f0ede8;
+  color: #1a1a1a;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── COVER ── */
+.cover {
+  background: #1a1505;
+  color: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  overflow: hidden;
+}
+/* Outer accent frame */
+.cover-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid #eab308;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Inner subtle frame */
+.cover-frame-inner {
+  position: absolute;
+  inset: 20px;
+  border: 0.5px solid #eab30866;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Corner diamonds */
+.cover-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #1a1505;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #eab308;
+}
+.cover-corner.tl { top: 8px; left: 8px; }
+.cover-corner.tr { top: 8px; right: 8px; }
+.cover-corner.bl { bottom: 8px; left: 8px; }
+.cover-corner.br { bottom: 8px; right: 8px; }
+
+/* Dot-grid SVG */
+.cover-bg-dots {
+  position: absolute;
+  inset: 28px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main content area */
+.cover-body {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3.5rem 2rem;
+  text-align: center;
+}
+.cover-series {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #eab308;
+  margin-bottom: 1.8rem;
+}
+.cover-big-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 9rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #eab308;
+  letter-spacing: -8px;
+  margin-bottom: 0;
+}
+.cover-big-num-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #9a7605;
+  margin-bottom: 1.8rem;
+}
+.cover-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.cover-title-sub {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: #ccc;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+/* Accent rule */
+.cover-rule {
+  width: 50%;
+  height: 1px;
+  background: #eab308;
+  margin: 0 auto 1.5rem;
+  opacity: 0.85;
+}
+/* 5 category pills */
+.cover-cats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.cover-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #eab308;
+  border: 0.5px solid #eab30880;
+  padding: 4px 12px;
+}
+.cover-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #999;
+}
+
+/* Stats bar at bottom */
+.cover-stats {
+  position: relative;
+  z-index: 3;
+  border-top: 1px solid #eab30859;
+  background: #eab30814;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cover-stat { text-align: center; }
+.cover-stat-num {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #eab308;
+  line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── SETUP SECTION (no-print) ── */
+.setup-section {
+  background: #fff;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.setup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.setup-subtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+.var-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.var-row { display: flex; flex-direction: column; gap: 0.25rem; }
+.var-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+.var-desc { font-size: 0.78rem; color: #777; margin-bottom: 0.2rem; }
+.var-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  border: 1.5px solid #bbb;
+  border-radius: 3px;
+  padding: 7px 10px;
+  background: #fafafa;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.var-input:focus { outline: none; border-color: #333; background: #fff; }
+
+.action-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btn-print {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-print:hover { background: #333; }
+.print-hint { font-size: 0.78rem; color: #888; }
+
+/* ── CATEGORY HEADERS ── */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 0.6rem;
+}
+.cat-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* ── PROMPT CARDS ── */
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1rem;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.6rem;
+}
+.pnum {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  flex-shrink: 0;
+}
+.headline {
+  font-size: 0.82rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* ── HOW-TO GUIDE ── */
+.guide {
+  background: #fff;
+  border: 1px solid #d0ccc5;
+  padding: 0 1.8rem 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.2rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding: 0.9rem 0 0.6rem;
+}
+.guide-header-num {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.guide-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+}
+.guide-sub {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.guide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.guide-section-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #eab308;
+  margin-bottom: 0.7rem;
+}
+.guide-steps { display: flex; flex-direction: column; gap: 0.65rem; }
+.guide-step { display: flex; gap: 0.6rem; align-items: flex-start; }
+.guide-step-num {
+  min-width: 20px; height: 20px;
+  background: #eab308; color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem; font-weight: 700;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.guide-step-text { font-size: 0.83rem; color: #333; line-height: 1.5; }
+.guide-step-text strong { color: #1a1a1a; }
+/* Unified accent token style */
+.tok {
+  font-family: 'Courier New', monospace;
+  color: #eab308;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.guide-vars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.2rem;
+}
+.guide-var-row { display: flex; gap: 0.5rem; align-items: baseline; }
+.guide-var-token {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: #eab308; flex-shrink: 0;
+}
+.guide-var-desc { font-size: 0.75rem; color: #666; }
+/* Example area */
+.guide-example {
+  background: #f8f6f2;
+  border: 1px solid #e0ddd6;
+  padding: 1.2rem 1.5rem;
+}
+.guide-example-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.9rem;
+}
+.guide-ex-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.guide-ex-block-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.guide-ex-block-label.lbl-template { background: #64748b; }
+.guide-ex-block-label.lbl-filled   { background: #1a1a1a; }
+.guide-ex-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  background: #fff;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #ccc;
+  padding: 0.6rem 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333;
+}
+.guide-ex-text.filled { border-left-color: #eab308; }
+.guide-ex-text .token { color: #eab308; font-weight: 700; }
+.guide-ex-text .filled-val { color: #059669; font-weight: 700; }
+.guide-tip {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: #888;
+  font-style: italic;
+}
+.guide-tip strong { color: #555; font-style: normal; }
+@media print {
+  .guide {
+    break-after: page;
+    page-break-after: always;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
+  .guide-title { font-size: 13pt; }
+  .guide-sub { font-size: 8pt; }
+  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
+  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
+  .guide-var-token { font-size: 7pt; }
+  .guide-var-desc { font-size: 7pt; }
+  .guide-tip { font-size: 7pt; }
+  .guide-example-title { font-size: 6pt; }
+  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
+  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+}
+
+/* ── HORMOZI BLOCK ── */
+.hormozi-block {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  background: #faf9f6;
+  border: 1px solid #e0ddd6;
+  border-left: 3px solid #1a1a1a;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.hormozi-block .section-label {
+  color: #888;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hormozi-block .var-def { color: #555; }
+.hormozi-block .var-name { color: #1a1a1a; font-weight: 700; }
+.hormozi-block .var-value { color: #222; }
+.hormozi-block .divider { color: #ccc; }
+.hormozi-block .prompt-text { color: #1a1a1a; }
+
+/* ── COPY BTN ── */
+.copy-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  background: #f0ede8;
+  border: 1px solid #bbb;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #555;
+  transition: background 0.1s;
+}
+.copy-btn:hover { background: #e0ddd6; color: #222; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1a1a1a;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: white; font-family: 'Aptos', 'Aptos (Body)', Calibri, 'Segoe UI', Arial, sans-serif; font-size: 9pt; line-height: 1.6; }
+  .page-wrap { padding: 0; max-width: 100%; }
+  .setup-section { display: none !important; }
+  .btn-print { display: none !important; }
+  .copy-btn { display: none !important; }
+  @page :first { margin: 0; size: A4; }
+  .cover {
+    height: 297mm;
+    width: 210mm;
+    margin: 0 auto 0;
+    page-break-after: always;
+    break-after: page;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .cover-body { padding: 2.5cm 2.5cm 1.5cm; }
+  .cover-big-num { font-size: 110pt; }
+  .cover-title { font-size: 52pt; }
+  .cover-title-sub { font-size: 16pt; }
+  .cover-series { font-size: 8pt; }
+  .cover-big-num-label { font-size: 7pt; }
+  .cover-cats { gap: 0.3cm; }
+  .cover-cat { font-size: 6.5pt; padding: 2pt 8pt; }
+  .cover-tagline { font-size: 7pt; }
+  .cover-stats { padding: 0.8cm 2.5cm; }
+  .cover-stat-num { font-size: 22pt; }
+  .cover-stat-label { font-size: 6pt; }
+  .cat-header {
+    margin-top: 0;
+    padding-top: 0;
+    break-before: page;
+    page-break-before: always;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.25cm;
+  }
+  .cat-header:empty {
+    padding-top: 0.7cm;
+  }
+  .cat-header:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .prompt-card {
+    border: 1px solid #ccc;
+    padding: 0.5cm 0.7cm;
+    margin-bottom: 0.4cm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    min-height: 128mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-top {
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.25cm;
+    flex-shrink: 0;
+  }
+  .hormozi-block {
+    font-size: 7pt;
+    line-height: 1.45;
+    padding: 0.4cm 0.6cm;
+    flex-grow: 1;
+  }
+  .pnum { font-size: 7.5pt; }
+  .headline { font-size: 8pt; }
+  @page { margin: 1cm 1.2cm; size: A4; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <!-- Dot-grid texture -->
+    <div class="cover-bg-dots" aria-hidden="true">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="1.2" fill="#eab3082e"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotgrid)"/>
+      </svg>
+    </div>
+
+    <!-- Accent border frames -->
+    <div class="cover-frame"></div>
+    <div class="cover-frame-inner"></div>
+    <!-- Corner diamonds -->
+    <div class="cover-corner tl">◆</div>
+    <div class="cover-corner tr">◆</div>
+    <div class="cover-corner bl">◆</div>
+    <div class="cover-corner br">◆</div>
+
+    <!-- Main body -->
+    <div class="cover-body">
+      <div class="cover-series">Viral AI Prompt Series &nbsp;·&nbsp; Book 9</div>
+      <div class="cover-big-num">100</div>
+      <div class="cover-big-num-label">Personalised Prompts</div>
+      <h1 class="cover-title">Pet Transformation</h1>
+      <div class="cover-title-sub">Pet Portrait & Character Prompts</div>
+      <div class="cover-rule"></div>
+      <div class="cover-cats">
+        <span class="cover-cat">Royal Portraiture</span>
+        <span class="cover-cat">Superhero Pets</span>
+        <span class="cover-cat">Magical Fantasy</span>
+        <span class="cover-cat">Studio Photography</span>
+        <span class="cover-cat">Cosplay & Fandom</span>
+      </div>
+      <div class="cover-tagline">ChatGPT &nbsp;·&nbsp; Midjourney &nbsp;·&nbsp; Firefly &nbsp;·&nbsp; Ideogram &nbsp;·&nbsp; PDF Edition</div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">100</div>
+        <div class="cover-stat-label">Prompts</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Categories</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">6</div>
+        <div class="cover-stat-label">Variables</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[PET NAME]</span>
+        <span class="var-desc">Your pet's name</span>
+        <input class="var-input" id="v-petname" placeholder='e.g. BUDDY, LUNA, WHISKERS' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[BREED]</span>
+        <span class="var-desc">Breed or species</span>
+        <input class="var-input" id="v-breed" placeholder='e.g. golden retriever, black cat' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[COAT]</span>
+        <span class="var-desc">Coat colour and texture</span>
+        <input class="var-input" id="v-coat" placeholder='e.g. golden fluffy, sleek jet-black' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[THEME]</span>
+        <span class="var-desc">Creative transformation theme</span>
+        <input class="var-input" id="v-theme" placeholder='e.g. royal portrait, action hero' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PROP]</span>
+        <span class="var-desc">Prop or accessory</span>
+        <input class="var-input" id="v-prop" placeholder='e.g. a tiny crown, a monocle' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Background or location</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. ornate royal chamber, cityscape' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
+    </div>
+  </div>
+
+  <!-- HOW-TO GUIDE -->
+  <div class="guide">
+    <div class="guide-header">
+      <span class="guide-header-num">GUIDE</span>
+      <h2 class="guide-title">How to Use This Prompt Book</h2>
+    </div>
+    <div class="guide-sub">100 personalised pet transformation portrait image prompts — each with 6 variable slots. Replace the <span class="tok">[TOKENS]</span> with your details and paste into any AI image tool.</div>
+
+    <div class="guide-cols">
+      <!-- LEFT: Steps -->
+      <div>
+        <div class="guide-section-label">How to Use — 4 Steps</div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-text"><strong>Each prompt contains 6 personal variables</strong> shown in <span class="tok">[SQUARE BRACKETS]</span> — such as <span class="tok">[PET NAME]</span> <span class="tok">[BREED]</span> <span class="tok">[COAT]</span> etc. Replace each with your own details before using.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-text"><strong>Browse the 100 prompts</strong> grouped into 5 categories. Find one that matches the look you want to create — each is a complete image generation prompt.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-text"><strong>Copy the prompt text</strong> and replace every <span class="tok">[TOKEN]</span> with your personal detail. See the example below — it shows a blank template next to the same prompt fully filled in.</div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-text"><strong>Paste the completed prompt</strong> into ChatGPT, Midjourney, Adobe Firefly, or DALL·E 3. The preamble at the top helps the AI understand each variable before it reads the creative prompt.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Variable reference -->
+      <div>
+        <div class="guide-section-label">Your 6 Variables — What Each Means</div>
+        <div class="guide-vars">
+          <div class="guide-var-row"><span class="guide-var-token">[PET NAME]</span><span class="guide-var-desc">Your pet's name</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[BREED]</span><span class="guide-var-desc">Breed or species</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[COAT]</span><span class="guide-var-desc">Coat colour and texture</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[THEME]</span><span class="guide-var-desc">Creative transformation theme</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[PROP]</span><span class="guide-var-desc">Prop or accessory</span></div>
+          <div class="guide-var-row"><span class="guide-var-token">[SETTING]</span><span class="guide-var-desc">Background or location</span></div>
+        </div>
+        <div class="guide-tip" style="margin-top:1rem;">
+          <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
+        </div>
+        <div class="guide-tip" style="margin-top:0.5rem;">
+          <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE AREA -->
+    <div class="guide-example">
+      <div class="guide-example-title">Example — Prompt #1 — Template vs Filled-In</div>
+      <div class="guide-ex-cols">
+        <div>
+          <span class="guide-ex-block-label lbl-template">Template (unfilled)</span>
+          <div class="guide-ex-text">A regal oil painting portrait of <span class="tok">[PET NAME]</span>
+the <span class="tok">[BREED]</span> with <span class="tok">[COAT]</span> fur, dressed as
+<span class="tok">[THEME]</span>, wearing a rich velvet coat with
+gold brocade trim and a lace cravat,
+one paw resting on <span class="tok">[PROP]</span>.
+Seated in <span class="tok">[SETTING]</span> with an aristocratic air.</div>
+        </div>
+        <div>
+          <span class="guide-ex-block-label lbl-filled">Filled-in example (tokens replaced with your details)</span>
+          <div class="guide-ex-text filled">A regal oil painting portrait of <span class="filled-val">LUNA</span>
+the <span class="filled-val">golden retriever</span> with <span class="filled-val">fluffy golden</span> fur, dressed as
+<span class="filled-val">a Victorian aristocrat</span>, wearing a rich velvet coat with
+gold brocade trim and a lace cravat,
+one paw resting on <span class="filled-val">a tiny brass telescope</span>.
+Seated in <span class="filled-val">an ornate royal library</span> with an aristocratic air.</div>
+        </div>
+      </div>
+      <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT CARDS -->
+
+    <div class="cat-header">
+      <span class="cat-num">1–20</span>
+      <h2 class="cat-title">Royal &amp; Renaissance Pet Portraits</h2>
+    </div>
+    <div class="prompt-card" id="card-1">
+      <div class="card-top">
+        <span class="pnum">#1</span>
+        <span class="headline" id="hl-1"></span>
+      </div>
+      <div class="hormozi-block" id="hb-1"></div>
+    </div>
+    <div class="prompt-card" id="card-2">
+      <div class="card-top">
+        <span class="pnum">#2</span>
+        <span class="headline" id="hl-2"></span>
+      </div>
+      <div class="hormozi-block" id="hb-2"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-3">
+      <div class="card-top">
+        <span class="pnum">#3</span>
+        <span class="headline" id="hl-3"></span>
+      </div>
+      <div class="hormozi-block" id="hb-3"></div>
+    </div>
+    <div class="prompt-card" id="card-4">
+      <div class="card-top">
+        <span class="pnum">#4</span>
+        <span class="headline" id="hl-4"></span>
+      </div>
+      <div class="hormozi-block" id="hb-4"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-5">
+      <div class="card-top">
+        <span class="pnum">#5</span>
+        <span class="headline" id="hl-5"></span>
+      </div>
+      <div class="hormozi-block" id="hb-5"></div>
+    </div>
+    <div class="prompt-card" id="card-6">
+      <div class="card-top">
+        <span class="pnum">#6</span>
+        <span class="headline" id="hl-6"></span>
+      </div>
+      <div class="hormozi-block" id="hb-6"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-7">
+      <div class="card-top">
+        <span class="pnum">#7</span>
+        <span class="headline" id="hl-7"></span>
+      </div>
+      <div class="hormozi-block" id="hb-7"></div>
+    </div>
+    <div class="prompt-card" id="card-8">
+      <div class="card-top">
+        <span class="pnum">#8</span>
+        <span class="headline" id="hl-8"></span>
+      </div>
+      <div class="hormozi-block" id="hb-8"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-9">
+      <div class="card-top">
+        <span class="pnum">#9</span>
+        <span class="headline" id="hl-9"></span>
+      </div>
+      <div class="hormozi-block" id="hb-9"></div>
+    </div>
+    <div class="prompt-card" id="card-10">
+      <div class="card-top">
+        <span class="pnum">#10</span>
+        <span class="headline" id="hl-10"></span>
+      </div>
+      <div class="hormozi-block" id="hb-10"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-11">
+      <div class="card-top">
+        <span class="pnum">#11</span>
+        <span class="headline" id="hl-11"></span>
+      </div>
+      <div class="hormozi-block" id="hb-11"></div>
+    </div>
+    <div class="prompt-card" id="card-12">
+      <div class="card-top">
+        <span class="pnum">#12</span>
+        <span class="headline" id="hl-12"></span>
+      </div>
+      <div class="hormozi-block" id="hb-12"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-13">
+      <div class="card-top">
+        <span class="pnum">#13</span>
+        <span class="headline" id="hl-13"></span>
+      </div>
+      <div class="hormozi-block" id="hb-13"></div>
+    </div>
+    <div class="prompt-card" id="card-14">
+      <div class="card-top">
+        <span class="pnum">#14</span>
+        <span class="headline" id="hl-14"></span>
+      </div>
+      <div class="hormozi-block" id="hb-14"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-15">
+      <div class="card-top">
+        <span class="pnum">#15</span>
+        <span class="headline" id="hl-15"></span>
+      </div>
+      <div class="hormozi-block" id="hb-15"></div>
+    </div>
+    <div class="prompt-card" id="card-16">
+      <div class="card-top">
+        <span class="pnum">#16</span>
+        <span class="headline" id="hl-16"></span>
+      </div>
+      <div class="hormozi-block" id="hb-16"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-17">
+      <div class="card-top">
+        <span class="pnum">#17</span>
+        <span class="headline" id="hl-17"></span>
+      </div>
+      <div class="hormozi-block" id="hb-17"></div>
+    </div>
+    <div class="prompt-card" id="card-18">
+      <div class="card-top">
+        <span class="pnum">#18</span>
+        <span class="headline" id="hl-18"></span>
+      </div>
+      <div class="hormozi-block" id="hb-18"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-19">
+      <div class="card-top">
+        <span class="pnum">#19</span>
+        <span class="headline" id="hl-19"></span>
+      </div>
+      <div class="hormozi-block" id="hb-19"></div>
+    </div>
+    <div class="prompt-card" id="card-20">
+      <div class="card-top">
+        <span class="pnum">#20</span>
+        <span class="headline" id="hl-20"></span>
+      </div>
+      <div class="hormozi-block" id="hb-20"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">21–40</span>
+      <h2 class="cat-title">Superhero &amp; Action Hero Pets</h2>
+    </div>
+    <div class="prompt-card" id="card-21">
+      <div class="card-top">
+        <span class="pnum">#21</span>
+        <span class="headline" id="hl-21"></span>
+      </div>
+      <div class="hormozi-block" id="hb-21"></div>
+    </div>
+    <div class="prompt-card" id="card-22">
+      <div class="card-top">
+        <span class="pnum">#22</span>
+        <span class="headline" id="hl-22"></span>
+      </div>
+      <div class="hormozi-block" id="hb-22"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-23">
+      <div class="card-top">
+        <span class="pnum">#23</span>
+        <span class="headline" id="hl-23"></span>
+      </div>
+      <div class="hormozi-block" id="hb-23"></div>
+    </div>
+    <div class="prompt-card" id="card-24">
+      <div class="card-top">
+        <span class="pnum">#24</span>
+        <span class="headline" id="hl-24"></span>
+      </div>
+      <div class="hormozi-block" id="hb-24"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-25">
+      <div class="card-top">
+        <span class="pnum">#25</span>
+        <span class="headline" id="hl-25"></span>
+      </div>
+      <div class="hormozi-block" id="hb-25"></div>
+    </div>
+    <div class="prompt-card" id="card-26">
+      <div class="card-top">
+        <span class="pnum">#26</span>
+        <span class="headline" id="hl-26"></span>
+      </div>
+      <div class="hormozi-block" id="hb-26"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-27">
+      <div class="card-top">
+        <span class="pnum">#27</span>
+        <span class="headline" id="hl-27"></span>
+      </div>
+      <div class="hormozi-block" id="hb-27"></div>
+    </div>
+    <div class="prompt-card" id="card-28">
+      <div class="card-top">
+        <span class="pnum">#28</span>
+        <span class="headline" id="hl-28"></span>
+      </div>
+      <div class="hormozi-block" id="hb-28"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-29">
+      <div class="card-top">
+        <span class="pnum">#29</span>
+        <span class="headline" id="hl-29"></span>
+      </div>
+      <div class="hormozi-block" id="hb-29"></div>
+    </div>
+    <div class="prompt-card" id="card-30">
+      <div class="card-top">
+        <span class="pnum">#30</span>
+        <span class="headline" id="hl-30"></span>
+      </div>
+      <div class="hormozi-block" id="hb-30"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-31">
+      <div class="card-top">
+        <span class="pnum">#31</span>
+        <span class="headline" id="hl-31"></span>
+      </div>
+      <div class="hormozi-block" id="hb-31"></div>
+    </div>
+    <div class="prompt-card" id="card-32">
+      <div class="card-top">
+        <span class="pnum">#32</span>
+        <span class="headline" id="hl-32"></span>
+      </div>
+      <div class="hormozi-block" id="hb-32"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-33">
+      <div class="card-top">
+        <span class="pnum">#33</span>
+        <span class="headline" id="hl-33"></span>
+      </div>
+      <div class="hormozi-block" id="hb-33"></div>
+    </div>
+    <div class="prompt-card" id="card-34">
+      <div class="card-top">
+        <span class="pnum">#34</span>
+        <span class="headline" id="hl-34"></span>
+      </div>
+      <div class="hormozi-block" id="hb-34"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-35">
+      <div class="card-top">
+        <span class="pnum">#35</span>
+        <span class="headline" id="hl-35"></span>
+      </div>
+      <div class="hormozi-block" id="hb-35"></div>
+    </div>
+    <div class="prompt-card" id="card-36">
+      <div class="card-top">
+        <span class="pnum">#36</span>
+        <span class="headline" id="hl-36"></span>
+      </div>
+      <div class="hormozi-block" id="hb-36"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-37">
+      <div class="card-top">
+        <span class="pnum">#37</span>
+        <span class="headline" id="hl-37"></span>
+      </div>
+      <div class="hormozi-block" id="hb-37"></div>
+    </div>
+    <div class="prompt-card" id="card-38">
+      <div class="card-top">
+        <span class="pnum">#38</span>
+        <span class="headline" id="hl-38"></span>
+      </div>
+      <div class="hormozi-block" id="hb-38"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-39">
+      <div class="card-top">
+        <span class="pnum">#39</span>
+        <span class="headline" id="hl-39"></span>
+      </div>
+      <div class="hormozi-block" id="hb-39"></div>
+    </div>
+    <div class="prompt-card" id="card-40">
+      <div class="card-top">
+        <span class="pnum">#40</span>
+        <span class="headline" id="hl-40"></span>
+      </div>
+      <div class="hormozi-block" id="hb-40"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">41–60</span>
+      <h2 class="cat-title">Fantasy &amp; Magical Creature Pets</h2>
+    </div>
+    <div class="prompt-card" id="card-41">
+      <div class="card-top">
+        <span class="pnum">#41</span>
+        <span class="headline" id="hl-41"></span>
+      </div>
+      <div class="hormozi-block" id="hb-41"></div>
+    </div>
+    <div class="prompt-card" id="card-42">
+      <div class="card-top">
+        <span class="pnum">#42</span>
+        <span class="headline" id="hl-42"></span>
+      </div>
+      <div class="hormozi-block" id="hb-42"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-43">
+      <div class="card-top">
+        <span class="pnum">#43</span>
+        <span class="headline" id="hl-43"></span>
+      </div>
+      <div class="hormozi-block" id="hb-43"></div>
+    </div>
+    <div class="prompt-card" id="card-44">
+      <div class="card-top">
+        <span class="pnum">#44</span>
+        <span class="headline" id="hl-44"></span>
+      </div>
+      <div class="hormozi-block" id="hb-44"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-45">
+      <div class="card-top">
+        <span class="pnum">#45</span>
+        <span class="headline" id="hl-45"></span>
+      </div>
+      <div class="hormozi-block" id="hb-45"></div>
+    </div>
+    <div class="prompt-card" id="card-46">
+      <div class="card-top">
+        <span class="pnum">#46</span>
+        <span class="headline" id="hl-46"></span>
+      </div>
+      <div class="hormozi-block" id="hb-46"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-47">
+      <div class="card-top">
+        <span class="pnum">#47</span>
+        <span class="headline" id="hl-47"></span>
+      </div>
+      <div class="hormozi-block" id="hb-47"></div>
+    </div>
+    <div class="prompt-card" id="card-48">
+      <div class="card-top">
+        <span class="pnum">#48</span>
+        <span class="headline" id="hl-48"></span>
+      </div>
+      <div class="hormozi-block" id="hb-48"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-49">
+      <div class="card-top">
+        <span class="pnum">#49</span>
+        <span class="headline" id="hl-49"></span>
+      </div>
+      <div class="hormozi-block" id="hb-49"></div>
+    </div>
+    <div class="prompt-card" id="card-50">
+      <div class="card-top">
+        <span class="pnum">#50</span>
+        <span class="headline" id="hl-50"></span>
+      </div>
+      <div class="hormozi-block" id="hb-50"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-51">
+      <div class="card-top">
+        <span class="pnum">#51</span>
+        <span class="headline" id="hl-51"></span>
+      </div>
+      <div class="hormozi-block" id="hb-51"></div>
+    </div>
+    <div class="prompt-card" id="card-52">
+      <div class="card-top">
+        <span class="pnum">#52</span>
+        <span class="headline" id="hl-52"></span>
+      </div>
+      <div class="hormozi-block" id="hb-52"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-53">
+      <div class="card-top">
+        <span class="pnum">#53</span>
+        <span class="headline" id="hl-53"></span>
+      </div>
+      <div class="hormozi-block" id="hb-53"></div>
+    </div>
+    <div class="prompt-card" id="card-54">
+      <div class="card-top">
+        <span class="pnum">#54</span>
+        <span class="headline" id="hl-54"></span>
+      </div>
+      <div class="hormozi-block" id="hb-54"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-55">
+      <div class="card-top">
+        <span class="pnum">#55</span>
+        <span class="headline" id="hl-55"></span>
+      </div>
+      <div class="hormozi-block" id="hb-55"></div>
+    </div>
+    <div class="prompt-card" id="card-56">
+      <div class="card-top">
+        <span class="pnum">#56</span>
+        <span class="headline" id="hl-56"></span>
+      </div>
+      <div class="hormozi-block" id="hb-56"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-57">
+      <div class="card-top">
+        <span class="pnum">#57</span>
+        <span class="headline" id="hl-57"></span>
+      </div>
+      <div class="hormozi-block" id="hb-57"></div>
+    </div>
+    <div class="prompt-card" id="card-58">
+      <div class="card-top">
+        <span class="pnum">#58</span>
+        <span class="headline" id="hl-58"></span>
+      </div>
+      <div class="hormozi-block" id="hb-58"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-59">
+      <div class="card-top">
+        <span class="pnum">#59</span>
+        <span class="headline" id="hl-59"></span>
+      </div>
+      <div class="hormozi-block" id="hb-59"></div>
+    </div>
+    <div class="prompt-card" id="card-60">
+      <div class="card-top">
+        <span class="pnum">#60</span>
+        <span class="headline" id="hl-60"></span>
+      </div>
+      <div class="hormozi-block" id="hb-60"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">61–80</span>
+      <h2 class="cat-title">Studio &amp; Professional Pet Photography</h2>
+    </div>
+    <div class="prompt-card" id="card-61">
+      <div class="card-top">
+        <span class="pnum">#61</span>
+        <span class="headline" id="hl-61"></span>
+      </div>
+      <div class="hormozi-block" id="hb-61"></div>
+    </div>
+    <div class="prompt-card" id="card-62">
+      <div class="card-top">
+        <span class="pnum">#62</span>
+        <span class="headline" id="hl-62"></span>
+      </div>
+      <div class="hormozi-block" id="hb-62"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-63">
+      <div class="card-top">
+        <span class="pnum">#63</span>
+        <span class="headline" id="hl-63"></span>
+      </div>
+      <div class="hormozi-block" id="hb-63"></div>
+    </div>
+    <div class="prompt-card" id="card-64">
+      <div class="card-top">
+        <span class="pnum">#64</span>
+        <span class="headline" id="hl-64"></span>
+      </div>
+      <div class="hormozi-block" id="hb-64"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-65">
+      <div class="card-top">
+        <span class="pnum">#65</span>
+        <span class="headline" id="hl-65"></span>
+      </div>
+      <div class="hormozi-block" id="hb-65"></div>
+    </div>
+    <div class="prompt-card" id="card-66">
+      <div class="card-top">
+        <span class="pnum">#66</span>
+        <span class="headline" id="hl-66"></span>
+      </div>
+      <div class="hormozi-block" id="hb-66"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-67">
+      <div class="card-top">
+        <span class="pnum">#67</span>
+        <span class="headline" id="hl-67"></span>
+      </div>
+      <div class="hormozi-block" id="hb-67"></div>
+    </div>
+    <div class="prompt-card" id="card-68">
+      <div class="card-top">
+        <span class="pnum">#68</span>
+        <span class="headline" id="hl-68"></span>
+      </div>
+      <div class="hormozi-block" id="hb-68"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-69">
+      <div class="card-top">
+        <span class="pnum">#69</span>
+        <span class="headline" id="hl-69"></span>
+      </div>
+      <div class="hormozi-block" id="hb-69"></div>
+    </div>
+    <div class="prompt-card" id="card-70">
+      <div class="card-top">
+        <span class="pnum">#70</span>
+        <span class="headline" id="hl-70"></span>
+      </div>
+      <div class="hormozi-block" id="hb-70"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-71">
+      <div class="card-top">
+        <span class="pnum">#71</span>
+        <span class="headline" id="hl-71"></span>
+      </div>
+      <div class="hormozi-block" id="hb-71"></div>
+    </div>
+    <div class="prompt-card" id="card-72">
+      <div class="card-top">
+        <span class="pnum">#72</span>
+        <span class="headline" id="hl-72"></span>
+      </div>
+      <div class="hormozi-block" id="hb-72"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-73">
+      <div class="card-top">
+        <span class="pnum">#73</span>
+        <span class="headline" id="hl-73"></span>
+      </div>
+      <div class="hormozi-block" id="hb-73"></div>
+    </div>
+    <div class="prompt-card" id="card-74">
+      <div class="card-top">
+        <span class="pnum">#74</span>
+        <span class="headline" id="hl-74"></span>
+      </div>
+      <div class="hormozi-block" id="hb-74"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-75">
+      <div class="card-top">
+        <span class="pnum">#75</span>
+        <span class="headline" id="hl-75"></span>
+      </div>
+      <div class="hormozi-block" id="hb-75"></div>
+    </div>
+    <div class="prompt-card" id="card-76">
+      <div class="card-top">
+        <span class="pnum">#76</span>
+        <span class="headline" id="hl-76"></span>
+      </div>
+      <div class="hormozi-block" id="hb-76"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-77">
+      <div class="card-top">
+        <span class="pnum">#77</span>
+        <span class="headline" id="hl-77"></span>
+      </div>
+      <div class="hormozi-block" id="hb-77"></div>
+    </div>
+    <div class="prompt-card" id="card-78">
+      <div class="card-top">
+        <span class="pnum">#78</span>
+        <span class="headline" id="hl-78"></span>
+      </div>
+      <div class="hormozi-block" id="hb-78"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-79">
+      <div class="card-top">
+        <span class="pnum">#79</span>
+        <span class="headline" id="hl-79"></span>
+      </div>
+      <div class="hormozi-block" id="hb-79"></div>
+    </div>
+    <div class="prompt-card" id="card-80">
+      <div class="card-top">
+        <span class="pnum">#80</span>
+        <span class="headline" id="hl-80"></span>
+      </div>
+      <div class="hormozi-block" id="hb-80"></div>
+    </div>
+    <div class="cat-header">
+      <span class="cat-num">81–100</span>
+      <h2 class="cat-title">Cosplay &amp; Character Pets</h2>
+    </div>
+    <div class="prompt-card" id="card-81">
+      <div class="card-top">
+        <span class="pnum">#81</span>
+        <span class="headline" id="hl-81"></span>
+      </div>
+      <div class="hormozi-block" id="hb-81"></div>
+    </div>
+    <div class="prompt-card" id="card-82">
+      <div class="card-top">
+        <span class="pnum">#82</span>
+        <span class="headline" id="hl-82"></span>
+      </div>
+      <div class="hormozi-block" id="hb-82"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-83">
+      <div class="card-top">
+        <span class="pnum">#83</span>
+        <span class="headline" id="hl-83"></span>
+      </div>
+      <div class="hormozi-block" id="hb-83"></div>
+    </div>
+    <div class="prompt-card" id="card-84">
+      <div class="card-top">
+        <span class="pnum">#84</span>
+        <span class="headline" id="hl-84"></span>
+      </div>
+      <div class="hormozi-block" id="hb-84"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-85">
+      <div class="card-top">
+        <span class="pnum">#85</span>
+        <span class="headline" id="hl-85"></span>
+      </div>
+      <div class="hormozi-block" id="hb-85"></div>
+    </div>
+    <div class="prompt-card" id="card-86">
+      <div class="card-top">
+        <span class="pnum">#86</span>
+        <span class="headline" id="hl-86"></span>
+      </div>
+      <div class="hormozi-block" id="hb-86"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-87">
+      <div class="card-top">
+        <span class="pnum">#87</span>
+        <span class="headline" id="hl-87"></span>
+      </div>
+      <div class="hormozi-block" id="hb-87"></div>
+    </div>
+    <div class="prompt-card" id="card-88">
+      <div class="card-top">
+        <span class="pnum">#88</span>
+        <span class="headline" id="hl-88"></span>
+      </div>
+      <div class="hormozi-block" id="hb-88"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-89">
+      <div class="card-top">
+        <span class="pnum">#89</span>
+        <span class="headline" id="hl-89"></span>
+      </div>
+      <div class="hormozi-block" id="hb-89"></div>
+    </div>
+    <div class="prompt-card" id="card-90">
+      <div class="card-top">
+        <span class="pnum">#90</span>
+        <span class="headline" id="hl-90"></span>
+      </div>
+      <div class="hormozi-block" id="hb-90"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-91">
+      <div class="card-top">
+        <span class="pnum">#91</span>
+        <span class="headline" id="hl-91"></span>
+      </div>
+      <div class="hormozi-block" id="hb-91"></div>
+    </div>
+    <div class="prompt-card" id="card-92">
+      <div class="card-top">
+        <span class="pnum">#92</span>
+        <span class="headline" id="hl-92"></span>
+      </div>
+      <div class="hormozi-block" id="hb-92"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-93">
+      <div class="card-top">
+        <span class="pnum">#93</span>
+        <span class="headline" id="hl-93"></span>
+      </div>
+      <div class="hormozi-block" id="hb-93"></div>
+    </div>
+    <div class="prompt-card" id="card-94">
+      <div class="card-top">
+        <span class="pnum">#94</span>
+        <span class="headline" id="hl-94"></span>
+      </div>
+      <div class="hormozi-block" id="hb-94"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-95">
+      <div class="card-top">
+        <span class="pnum">#95</span>
+        <span class="headline" id="hl-95"></span>
+      </div>
+      <div class="hormozi-block" id="hb-95"></div>
+    </div>
+    <div class="prompt-card" id="card-96">
+      <div class="card-top">
+        <span class="pnum">#96</span>
+        <span class="headline" id="hl-96"></span>
+      </div>
+      <div class="hormozi-block" id="hb-96"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-97">
+      <div class="card-top">
+        <span class="pnum">#97</span>
+        <span class="headline" id="hl-97"></span>
+      </div>
+      <div class="hormozi-block" id="hb-97"></div>
+    </div>
+    <div class="prompt-card" id="card-98">
+      <div class="card-top">
+        <span class="pnum">#98</span>
+        <span class="headline" id="hl-98"></span>
+      </div>
+      <div class="hormozi-block" id="hb-98"></div>
+    </div>
+    <div class="cat-header"></div>
+    <div class="prompt-card" id="card-99">
+      <div class="card-top">
+        <span class="pnum">#99</span>
+        <span class="headline" id="hl-99"></span>
+      </div>
+      <div class="hormozi-block" id="hb-99"></div>
+    </div>
+    <div class="prompt-card" id="card-100">
+      <div class="card-top">
+        <span class="pnum">#100</span>
+        <span class="headline" id="hl-100"></span>
+      </div>
+      <div class="hormozi-block" id="hb-100"></div>
+    </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Viral AI Prompt Series — Book 9: Pet Transformation &nbsp;·&nbsp; 100 Personalised Prompts<br>
+    For use with ChatGPT, Midjourney, Adobe Firefly, Ideogram &amp; more
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const T = {
+  1: `A regal oil painting portrait of [PET NAME] the [BREED] with [COAT] fur, dressed as [THEME], wearing a rich velvet coat with gold brocade trim and a white lace cravat, one paw resting on [PROP]. Seated in [SETTING] with an aristocratic air of intellectual superiority. Thomas Gainsborough style — soft brushwork, warm amber glazing, and the luminous English Grand Tour tradition applied to fur.`,
+  2: `A magnificent Renaissance oil painting of [PET NAME] the [BREED] with [COAT] coat, depicted as [THEME] in a deep silk gown with pearl embroidery and jeweled headband, posed three-quarter view against [SETTING]. [PROP] completing the aristocratic portrait. Leonardo da Vinci composition — luminous sfumato technique, jewel-like colour, detailed textile rendering of a genuine Quattrocento masterwork.`,
+  3: `A stately Flemish Baroque oil painting of [PET NAME] the [BREED] with [COAT] fur, portrayed as [THEME] in a silk doublet with white ruching at collar and cuffs, a golden chain of office, holding [PROP] at [SETTING]. Velázquez — dark background, single directional light source, extreme attention to silk and fur texture, and the psychological intensity of centuries of aristocratic self-possession.`,
+  4: `A magnificent royal portrait of [PET NAME] the [BREED] with [COAT] coat as [THEME] in full coronation regalia — ermine-trimmed crimson velvet mantle with golden embroidery, a towering crown set with precious stones. Standing in [SETTING] in the Hyacinthe Rigaud pose of absolute royal authority, [PROP] held with imperial command, red velvet drapery and marble column behind.`,
+  5: `An exquisite Victorian court portrait of [PET NAME] the [BREED] with [COAT] fur as [THEME], wearing a jeweled crown, a midnight-blue velvet dress embroidered with silver stars, seated on [SETTING] gazing forward with serene authority. [PROP] held regally. Franz Xaver Winterhalter style — jewel-bright colours, flattering softness, sumptuous detail celebrating aristocratic dress and jewels.`,
+  6: `A dramatic Dutch Golden Age oil painting of [PET NAME] the [BREED] with [COAT] as [THEME], wearing a naval coat heavy with gold epaulettes and medals, [PROP] held in one paw. Behind, [SETTING] stretches with dramatic scale. Rembrandt chiaroscuro — deep shadows, a single shaft of golden light illuminating the face, thick impasto paint building texture in the uniform's gold braiding.`,
+  7: `A luminous Renaissance oil painting of [PET NAME] the [BREED] with [COAT] coat as [THEME], wearing traditional ecclesiastical vestments, seated at [SETTING] covered in manuscripts and scrolls, [PROP] held mid-letter. Raphael portrait style — idealized features, warm golden light, and the sense of educated spiritual authority that Renaissance patrons cultivated in their religious portrait commissions.`,
+  8: `A grand equestrian portrait of [PET NAME] the [BREED] with [COAT] as [THEME], wearing an empire-era uniform with gold frogging and a bicorne hat at a rakish angle, [PROP] extended in command, above [SETTING] with a victorious army visible below. Jacques-Louis David heroic neo-classical style — bold compositional diagonals, idealized heroism, theatrical lighting of revolutionary ambition made immortal in paint.`,
+  9: `An opulent Mughal-style miniature painting of [PET NAME] the [BREED] with [COAT] as [THEME], seated at [SETTING] in a diaphanous silk jama in jeweled blue and gold, pearls wound in the hair, holding [PROP]. Characteristic Mughal features: flat perspective, intense jewel colours, gold paint for sky and ornamental details, fine brushwork in facial features, floral border with calligraphic panels.`,
+  10: `A majestic Japanese screen painting of [PET NAME] the [BREED] with [COAT] as [THEME], seated in formal kimono of deep indigo silk with a mon crest in gold, [PROP] resting across the knees, retainers visible at [SETTING]. Kano school — bold ink outlines, flat gold leaf background panels, stylised pine and rock garden through an open shoji screen, the restrained dignity of Edo-period military rulers.`,
+  11: `A spectacular Byzantine mosaic portrait of [PET NAME] the [BREED] with [COAT] as [THEME], rendered in gleaming tesserae of gold, lapis lazuli, and crimson glass at [SETTING]. [PROP] raised with sacred authority. Pure gold tessera background with formal architectural detailing — frontal eyes carrying the supernatural intensity of sacred Byzantine portraiture that bridges the divine and the mortal world.`,
+  12: `A sumptuous Rococo portrait of [PET NAME] the [BREED] with [COAT] as [THEME], wearing a powder-pink silk robe à la française with cascading lace, roses tucked into a tall powdered wig, captured in a graceful pose at [SETTING], [PROP] held with delighted amusement. François Boucher style — soft, flattering pastel tones, ornamental excess, and the belief that beauty and pleasure are the highest virtues.`,
+  13: `A noble Celtic warrior portrait of [PET NAME] the [BREED] with [COAT] as [THEME], shown in profile in chainmail armour decorated with interlaced knotwork patterns, holding [PROP] and a round shield with a spiral boss design, standing before [SETTING]. Book of Kells medieval illuminated manuscript style — flat colour, bold outline, combining authentic medieval visual language with the breed's ancient heroic anatomy.`,
+  14: `A magnificent Egyptian pharaoh portrait of [PET NAME] the [BREED] with [COAT] as [THEME], wearing the double crown of Egypt, a broad usekh collar of faience beads in turquoise and gold, holding [PROP] crossed over the chest at [SETTING]. Egyptian New Kingdom tomb art — precise flat profile, composite body view, frontal eye, hieroglyphic cartouches flanking the figure, ochre, cobalt, and malachite palette.`,
+  15: `A vibrant Tudor dynasty portrait of [PET NAME] the [BREED] with [COAT] as [THEME], in the famous wide-stance Holbein pose of absolute royal authority — legs planted wide, chest forward, wearing a jeweled cloth-of-gold doublet with pearl-decorated sleeves, a broad fur-trimmed coat, and [PROP] at [SETTING]. Hans Holbein the Younger style — every textile, jewel, and gesture rendered with complete period fidelity.`,
+  16: `A stunning Art Nouveau portrait of [PET NAME] the [BREED] with [COAT] as [THEME], seated at [SETTING], wearing a flowing dress covered in embroidered nature motifs, the fur blending into the surrounding landscape. [PROP] completing the composition. Alphonse Mucha style — sinuous decorative botanical borders, gold accents, soft luminous tones, the merging of animal and natural world into one continuous ornamental tapestry.`,
+  17: `A grand imperial Chinese court portrait of [PET NAME] the [BREED] with [COAT] as [THEME], wearing the dragon robe in imperial golden yellow silk with five-clawed dragons among clouds and waves, a pearl-tipped court hat, seated at [SETTING] before a painted screen, [PROP] held as an emblem of sacred authority. Precise, formal Qing dynasty imperial portraiture — every symbol correctly and reverently rendered.`,
+  18: `A regal Viking chieftain portrait of [PET NAME] the [BREED] with [COAT] as [THEME], wearing iron chainmail over a wool tunic, [PROP] resting on one shoulder, standing before [SETTING] under Northern Lights of green and gold. Norse illuminated manuscript style — flat Viking patterning blended with dramatic chiaroscuro lighting, a heroic portrait of the North in its full mythological splendour.`,
+  19: `A spectacular oil painting portrait of [PET NAME] the [BREED] with [COAT] as [THEME], wearing a wide-hooped skirt of pale rose silk with an embroidered stomacher and a small white powder wig, one delicate paw holding [PROP], with [SETTING] stretching behind in vanishing-point perspective. Martin van Meytens court portrait tradition — precise, jeweled, celebrating textile magnificence above all else.`,
+  20: `A proud royal portrait of [PET NAME] the [BREED] with [COAT] as [THEME], dressed in full ceremonial regalia — a beaded conical crown with veil of beads, richly embroidered agbada robe in royal indigo and gold, holding [PROP], seated at [SETTING]. Yoruba royal court tradition blended with formal portraiture — warm West African daylight, rich saturated colours celebrating the oldest unbroken royal traditions on earth.`,
+  21: `A powerful [THEME] portrait of [PET NAME] the [BREED] with [COAT] fur — in battle-worn silver armour with a winged helmet, a red flowing cape caught in a dramatic gust, one paw raised holding [PROP] crackling with yellow lightning. Hovering above [SETTING] as thunder rolls and lightning splits the dark sky. Dynamic Marvel Comics cover illustration style — high contrast, dramatic upward angle, electric blue and gold colour palette.`,
+  22: `A sleek and mysterious [THEME] portrait of [PET NAME] the [BREED] with [COAT] — in a perfectly fitted cowl and cape with golden emblem on the chest, perched at [SETTING] at night. [PROP] glowing behind the mask. Rain-soaked city reflections below. Deep blue shadows, perpetual rain, and the theatrical contrast of a single spotlight catching the edge of the cape.`,
+  23: `A cinematic [THEME] action portrait of [PET NAME] the [BREED] with [COAT] — [PROP] raised and spinning in a dynamic throw pose, wearing a star-spangled uniform with an "A" helmet, mid-air above [SETTING]. Lit by explosions casting warm orange light on the uniform's surface, motion blur conveying speed and power. The expression of a hero who has never given up on the right thing.`,
+  24: `A spectacular [THEME] space opera portrait of [PET NAME] the [BREED] with [COAT] — wearing the iconic uniform, floating in the void of [SETTING] surrounded by energy constructs shaped like enormous paws and the pet's own subconscious desires made solid light. [PROP] glowing so intensely it illuminates the face with otherworldly light. Thousands of stars and a distant nebula behind.`,
+  25: `A ferocious [THEME] action portrait of [PET NAME] the [BREED] with [COAT] — mid-transformation, wearing tattered shorts, enormous muscles bursting from a normal-sized body, [PROP] slammed into [SETTING] creating a shockwave crater. Eyes glowing white with gamma fury. Photorealistic anatomy combined with cartoon proportions — the face capturing the combination of bewildered fury that makes the character both terrifying and weirdly sympathetic.`,
+  26: `A dazzling [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing the iconic gold tiara, armoured bustier, and golden gauntlets, twirling [PROP] above the head in a pose of divine power. [SETTING] landscape behind — white marble temples, turquoise sea, and brilliant blue sky. The painterly, heroic quality of a DC Comics cover, with every detail of the iconic costume carefully rendered.`,
+  27: `A moody cinematic [THEME] portrait of [PET NAME] the [BREED] with [COAT] — with [PROP] extended between the knuckles, wearing a classic comics uniform, standing in [SETTING] with a determined scowl. Neon light from a bar sign reflects off the wet metal. The gritty, serious tone of the Logan aesthetic applied to the natural grace of the breed.`,
+  28: `A thrilling aerial [THEME] action portrait of [PET NAME] the [BREED] with [COAT] — swinging between skyscrapers on [PROP] at sunset, [SETTING] glittering below, wearing the classic red and blue suit scaled to their proportions. Caught mid-swing in perfect silhouette against a sunset sky of peach and deep blue, one paw outstretched. Joyful, kinetic, and perfectly heroic.`,
+  29: `A cosmic and ethereal [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing the Cloak of Levitation in deep crimson velvet, both paws creating [PROP] swirling magical energy. Kaleidoscopic mirror dimensions unfold behind in fractaling geometric patterns of impossible architecture at [SETTING]. The natural grace of the breed perfectly at home in impossible places and dimensions.`,
+  30: `A jaw-dropping [THEME] portrait of [PET NAME] the [BREED] with [COAT] — in a perfectly fitted red and gold nanotech armour suit, [PROP] glowing in both front paws and the chest arc reactor lighting up the chin. The helmet split open in the classic face-plate-up pose. [SETTING] glows in the setting sun behind. Equal parts tech genius and very, very good companion energy.`,
+  31: `A mythological [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing the Asgardian golden horned helmet and dark green leather tunic, holding [PROP] with a glowing blue stone on the tip. Duplicates of the same pet visible in the background — classic illusion magic. A crackling rainbow bridge of light frames the composition at [SETTING]. The mischievous intelligence that makes the character both villain and compelling antihero.`,
+  32: `A thrilling [THEME] action portrait of [PET NAME] the [BREED] with [COAT] — wearing a torn haori flaring in the wind at [SETTING], [PROP] mid-draw with glowing particle effects, sakura petals frozen in the air. Dynamic diagonal lines of anime fight sequences with speed lines suggesting supernatural movement. Fierce, focused, and entirely at peace with the violence it is about to enact.`,
+  33: `A spy-thriller [THEME] portrait of [PET NAME] the [BREED] with [COAT] — impeccably dressed in a black tie dinner suit at [SETTING], one paw holding [PROP] (shaken, not stirred), the other resting near a sidearm on the table. The expression of unflappable, devastating cool. Warm key light on the face, deep shadows behind, a chandelier's reflection in the glass.`,
+  34: `A spectacular cosmic [THEME] portrait of [PET NAME] the [BREED] with [COAT] — seated on the Infinity Throne with [PROP] raised and glowing with all six stones blazing different colours at [SETTING]. The face: the gravitas and exhaustion of someone who believes they are doing the right thing for the universe — no villainy, only tired conviction. The golden glow illuminating the face with heavenly light.`,
+  35: `A galactic bounty hunter [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing battered beskar steel armour, [PROP] peeking from a satchel, standing in the blue desert landscape of [SETTING] with a twin-sun horizon. The metallic armour shows battle damage, scoring, and field repairs. Wide-legged gunslinger pose of a creature with nothing to prove.`,
+  36: `A legendary [THEME] portrait of [PET NAME] the [BREED] with [COAT] — [PROP] raised aloft with blinding light emanating from the tip, robes and long beard flowing in a supernatural wind, making the immortal last stand at [SETTING]. Extreme wide-angle perspective making the subject massive against the architectural grandeur behind, smoke and fire below, the single light of the staff cutting through darkness.`,
+  37: `A dark and dramatic [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing a purple suit with a green flower boutonnière, chalk-white face paint, and a wide crimson painted smile, holding [PROP] at [SETTING]. The eyes filled with theatrical madness — somewhere between genuine menace and performance. Dramatically lit, half the face in shadow, styled like the best portraits of the character from comics history.`,
+  38: `A supersonic [THEME] action portrait of [PET NAME] the [BREED] with [COAT] — running so fast the landscape at [SETTING] has become a horizontal smear of colour and light, leaving [PROP] crackling in its wake. Speed Force energy radiating from every surface of the classic suit. The streamlined body the perfect physical embodiment of the world's fastest hero. A single frame from the blur of perpetual motion.`,
+  39: `A bold and regal [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing the vibranium nanotech suit in gleaming midnight black with purple energy accents, standing at [SETTING] with the golden city shimmering on the horizon. [PROP] in the warrior's hands. The posture of absolute authority — sunset light bathing the entire composition in warm gold and purple.`,
+  40: `A spectacular [THEME] team portrait of [PET NAME] the [BREED] with [COAT] — posed with five companions as the legendary team in their respective uniforms, arranged in the iconic battle-ready formation with [SETTING] showing the scale of the conflict. [PROP] raised in the hero's characteristic pose. Every character's expression mirroring their specific personality. An assembled portrait worthy of legend.`,
+  41: `A breathtaking [THEME] fantasy portrait of [PET NAME] the [BREED] with [COAT] — transformed into a celestial being, the coat replaced with living starlight, thousands of tiny stars visible through translucent fur glowing from within. Floating in the deep violet of [SETTING], comets and nebulae surrounding them, eyes containing entire galaxies. [PROP] trails from the paws as they move — a creature both intimate and infinite.`,
+  42: `A magnificent [THEME] digital oil painting of [PET NAME] the [BREED] with [COAT] — wearing robes of moss and bark, a crown of living antlers wreathed in flowering vines, sitting in [SETTING]. [PROP] circling the head like a halo, and small forest creatures at rest at the feet. The expression radiating ancient wisdom — the eternal patience of something that has watched forests grow and fall over centuries.`,
+  43: `A stunning [THEME] portrait of [PET NAME] the [BREED] with [COAT] — body a living fire, fur transitioning through amber and red to pure white flame at the core, great wings of brilliant fire spreading behind against [SETTING]. [PROP] trails sparks of gold and white that become stars as they cool. The graceful anatomy of the breed combined with the mythological drama of the eternal cycle of death and rebirth.`,
+  44: `A storybook [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing a pointed hat decorated with moons and stars, a long velvet robe, and round spectacles, seated at [SETTING] filled with bubbling potions, a floating grimoire, and a crystal ball showing swirling visions. [PROP] glowing in the raised paw. Warm and luminous — grown old and more powerful.`,
+  45: `A Studio Ghibli-style [THEME] portrait of [PET NAME] the [BREED] with [COAT] — transformed into a great wolf deity with semi-transparent fur through which deep forest light glimmers, ancient trees visible through the body, small spirits riding on the back like passengers on a living mountain. [PROP] visible as the creature moves through [SETTING]. The dignity of the ancient world before human dominance — terrible beauty.`,
+  46: `A divine [THEME] portrait of [PET NAME] the [BREED] with [COAT] — reigning as an Olympian deity at [SETTING] with marble columns reaching to the heavens. [PROP] in the raised paw, crackling with divine electricity. The golden light of the gods illuminates the coat from above. Absolute divine authority, expressed with the natural imperious posture of the breed — a creature that has always known it deserves worship.`,
+  47: `An ancient [THEME] portrait of [PET NAME] the [BREED] with [COAT] — depicted as an Egyptian deity at [SETTING], the desert gold and lapis lazuli palette of the pharaoh's court surrounding the figure. [PROP] held as a ceremonial staff. Hieroglyphs border the composition, and the natural stillness and mystery of the breed translates perfectly into the sacred iconography of the ancient world.`,
+  48: `A [THEME] warrior portrait of [PET NAME] the [BREED] with [COAT] — in a moment of samurai stillness at [SETTING], [PROP] at rest but ready, cherry blossom petals caught frozen in the air. Edo-era brushwork: calligraphic line, minimal negative space, the honour and controlled power of bushido expressed in a single frame of absolute readiness. Ancient breed, ancient code.`,
+  49: `A Ghibli-inspired [THEME] portrait of [PET NAME] the [BREED] with [COAT] — a forest spirit moving through bioluminescent [SETTING], the semi-translucent body glowing with ancient energy. [PROP] worn as a crown of living leaves. Small woodland creatures follow in silent reverence. A world where every living thing has a spirit — this one simply more visible than most.`,
+  50: `A [THEME] phoenix portrait of [PET NAME] the [BREED] with [COAT] — reborn from the ashes in [SETTING], blazing with otherworldly light, great wings of living flame spreading to fill the frame. [PROP] trails sparks of gold and white as the creature rises. The [COAT] coat becomes the colours of fire — every strand a flame, every movement a rebirth. Mythological power made intimate by a beloved familiar form.`,
+  51: `An underwater [THEME] portrait of [PET NAME] the [BREED] with [COAT] — transformed into a sea creature moving through bioluminescent [SETTING]. [PROP] worn as a coral crown, and iridescent fish move in schools around the figure. The [COAT] coat fans out in the water like a living fin. The grace the breed already possesses on land translated into perfect fluid movement in the deep ocean.`,
+  52: `A fairy-tale [THEME] portrait of [PET NAME] the [BREED] with [COAT] — depicted as a royal figure at [SETTING], the enchanted castle's towers rising into a painted sky. [PROP] resting on a cushion of silk. The storybook palette — deep forest green, candlelight gold, and midnight blue — creates a world where this animal was always a royal in disguise. Every paw a perfect expression of inherited dignity.`,
+  53: `A dark elf [THEME] portrait of [PET NAME] the [BREED] with [COAT] — an elven warrior in ancient armour moving through the silver moonlight of [SETTING], [PROP] gleaming at the hip. The deep forest closes in, bioluminescent flowers marking the elven path. The natural grace of the breed translates perfectly into ancient elven movements — swift, silent, and carrying the weight of centuries.`,
+  54: `A dragon lord [THEME] portrait of [PET NAME] the [BREED] with [COAT] — ruling a volcanic [SETTING] with absolute power, the heat-shimmer of magma illuminating the [COAT] coat from below. [PROP] of treasures surrounds the figure. The natural authority in the breed's face becomes genuinely fearsome at this scale — ancient, powerful, and utterly convinced of its own supremacy.`,
+  55: `A cosmic guardian [THEME] portrait of [PET NAME] the [BREED] with [COAT] — floating in the nebula of [SETTING], the zodiac constellations visible within the fur itself. [PROP] spread before them like a prophecy of stars. The natural watchfulness of the breed transformed into something cosmic — watching from the dark spaces between stars long before anyone thought to look.`,
+  56: `A mystical oracle [THEME] portrait of [PET NAME] the [BREED] with [COAT] — gazing into [PROP] at [SETTING], the prophecy light casting colours across the [COAT] face. Ancient wisdom in every line of the expression. The golden light of foreseen futures filters through the crystal, and the natural mystery the breed already carries in its gaze becomes something genuinely supernatural.`,
+  57: `An alchemist [THEME] portrait of [PET NAME] the [BREED] with [COAT] — at work in an ancient laboratory at [SETTING], [PROP] bubbling on the workbench as the philosopher's stone transmutation approaches. The [COAT] coat faintly illuminated by the glow of experiments in progress. Parchment formulas, astrolabes, and the residue of centuries of trial cover every surface.`,
+  58: `A demon lord [THEME] portrait of [PET NAME] the [BREED] with [COAT] — ruling a shadow realm of [SETTING] from a throne of dark fire and obsidian. [PROP] blazes with infernal energy above the figure. The [COAT] coat absorbs the hellish light, and the natural intensity of the breed's stare becomes genuinely unsettling at demonic scale. Terrifying majesty — the kind that makes the whole universe reconsider its plans.`,
+  59: `A pure fantasy [THEME] portrait of [PET NAME] the [BREED] with [COAT] — riding through the rainbow meadow of [SETTING] in a cascade of sparkle dust, [PROP] raised in a graceful arc. The natural elegance of the breed and the magic of the scene create something completely genuine — a world where this animal's grace was always a sign of hidden enchantment.`,
+  60: `An epic titan [THEME] portrait of [PET NAME] the [BREED] with [COAT] — a creature larger than mountains, rising from [SETTING] with [PROP] cupped in one enormous paw. At this scale, the natural features of the breed become geography — the [COAT] coat like cloud formations, the eyes like lakes. Pure mythological grandeur applied to the most beloved of familiar forms.`,
+  61: `A [THEME] fashion editorial portrait of [PET NAME] the [BREED] with [COAT] — wearing [PROP] on the head, against [SETTING]. The gaze direct and imperious — the kind that wins fashion shows by sheer force of personality. Single overhead key light and hair light create theatrical glamour. Technically perfect photography treating the subject with the reverence of a fashion legend in full command of the camera.`,
+  62: `A [THEME] studio portrait of [PET NAME] the [BREED] with [COAT] — the famous triangular light patch on the shadow-side cheek perfectly formed, one eye brilliantly lit and the other in deep warm shadow against [SETTING]. [PROP] adding depth to the composition. Shot on a medium format camera — the concentrated intelligence of the breed captured with the gravitas of a formal portrait from the golden age of studio photography.`,
+  63: `A joyful [THEME] freeze-frame portrait of [PET NAME] the [BREED] with [COAT] — photographed with a high-speed studio strobe catching [PROP] and water droplets suspended in space, ears in full flight against [SETTING]. A perfect ring light creating catchlights in both eyes. The image simultaneously technically masterful and absolutely, purely funny — physics made briefly visible by a very good animal.`,
+  64: `An intimate [THEME] fine art portrait of [PET NAME] the [BREED] with [COAT] — curled at [SETTING] in warm afternoon window light, [PROP] suggesting the complete private world of the sleeping animal. Large format film with slightly soft focus, warm darkroom tone, deep blacks, exquisite highlight detail in the fur. The almost obscene peace of a creature with no worries — privately magnificent.`,
+  65: `A powerful [THEME] wildlife-style portrait of [PET NAME] the [BREED] with [COAT] — photographed with a long telephoto lens as though a wild predator, stalking through [SETTING] at dusk with the setting sun creating a rim-lit silhouette. [PROP] suggesting the focused purpose of the hunt. Dramatic low angle, shallow depth of field, the predator's intense stare. A creature whose domestication is entirely unconvincing.`,
+  66: `A stunning [THEME] underwater portrait of [PET NAME] the [BREED] with [COAT] — photographed from below [SETTING] at the moment of entry, paws extended, bubbles streaming from every inch of fur, eyes open and bright. [PROP] creating a cascade of white water and air around the subject. The pool surface fractures sunlight into complex caustic patterns — technically brilliant, genuinely joyful, unlike any portrait taken on land.`,
+  67: `A [THEME] editorial beauty portrait of [PET NAME] the [BREED] with [COAT] — against [SETTING], lit with a single large softbox from the upper left creating a gentle even light that renders every individual hair with museum-quality clarity. [PROP] completing the minimalist composition. The face staring directly down the lens with the expression of someone who has been told they are beautiful their entire life and has simply decided to believe it.`,
+  68: `A dramatic [THEME] action portrait of [PET NAME] the [BREED] with [COAT] — caught mid-sprint across [SETTING] at a slow shutter speed panning with the subject, the background becoming a streaked impressionistic blur while the animal remains tack-sharp, one paw extended forward, [PROP] suggesting purposeful motion. Early morning light creates long golden shadows. A sense of speed a frozen image could never capture.`,
+  69: `A [THEME] conceptual portrait of [PET NAME] the [BREED] with [COAT] — sitting at [SETTING] with a completely straight face, [PROP] arranged with impeccable executive precision. No winking, no smiling — treating the absurd scenario with the same seriousness as an actual corporate portrait. Impeccable studio lighting, neutral background. Devastating. The expression of someone who has just been interrupted during a very important meeting.`,
+  70: `A warm and luminous [THEME] lifestyle portrait of [PET NAME] the [BREED] with [COAT] — lying in a shaft of afternoon sunlight at [SETTING], surrounded by [PROP]. Shot on a vintage lens wide open, giving an almost painterly bokeh that turns the background into impressionistic colour fields. The image celebrates the perfect existential satisfaction of an animal doing exactly what it was born to do.`,
+  71: `A technically extraordinary [THEME] macro portrait of [PET NAME] the [BREED] with [COAT] — at [SETTING], face filling the entire frame, every individual feather or hair scale and [PROP] rendered in perfect detail by a 180mm macro lens with ring flash. The iridescent colour shifting with the exact angle of reflected light. One bright eye perfectly focused, containing a miniature reflection of the photographer. A world of detail invisible to the naked eye.`,
+  72: `A stunning [THEME] neon art portrait of [PET NAME] the [BREED] with [COAT] — at [SETTING], surrounded by [PROP] in electric colours, the reflected neon creating an aura around every dark hair. The eyes glow with compound reflections of all the neon light. The contrast of the [COAT] fur against the blazing neon creates a composition that feels like the visual definition of feline independence and nocturnal power.`,
+  73: `A spectacular [THEME] freeze-frame portrait of [PET NAME] the [BREED] with [COAT] — photographed with a high-speed strobe at 1/10,000th of a second, every water droplet and [PROP] suspended in space in perfect clarity, against [SETTING] seamless background. Beauty dish above and two fill panels creating perfect spherical forms throughout. A world too fast for the human eye, made briefly and completely visible.`,
+  74: `An award-winning [THEME] portrait of [PET NAME] the [BREED] with [COAT] — photographed in natural light at [SETTING] with a 35mm lens on Tri-X film, slightly underexposed and developed for enhanced grain. [PROP] as evidence of a life fully lived. No staging, no posing — the exact right moment photographed with love and technical mastery. White-flecked muzzle and complete trusting peace communicate years of excellent companionship.`,
+  75: `A vibrant [THEME] portrait of [PET NAME] the [BREED] with [COAT] — running toward the camera through a cloud of [PROP] theatrical smoke at [SETTING] at golden hour, the smoke catching the late sun and creating volumetric light shafts through the colour. The [COAT] coat tinted by the surrounding smoke. Shot with a long lens to compress the smoke layers. An image that looks impossible but is purely photographic.`,
+  76: `A spectacular [THEME] overhead flat-lay portrait of [PET NAME] the [BREED] with [COAT] — photographed directly above looking up at the camera with a completely bewildered expression, surrounded by [PROP] arranged in a perfect circular composition at [SETTING]. Shot with a medium format camera and strobe-lit from directly above — the precise, art-directed perfection of a luxury magazine spread containing a very confused small animal.`,
+  77: `A moody cinematic [THEME] portrait of [PET NAME] the [BREED] with [COAT] — sitting at [SETTING] at night, streetlight casting dramatic shadows across the face, a single lamp creating a pool of warm amber light that silhouettes the outline. [PROP] visible in the dim room. The narrative suggestion of a great novel's opening scene — this animal is waiting for something, has been waiting for a long time, and will continue with perfect composure.`,
+  78: `A pristine [THEME] luxury portrait of [PET NAME] the [BREED] with [COAT] — positioned in [SETTING] exactly where the luxury item would rest, posed as though [PROP] is the subject of a high-end product advertisement. Studio lighting: two silver reflectors at 45 degrees creating clean shadow-free light showing every detail of the remarkable texture. The contrast of the living animal against precision-manufactured perfection — unexpected poetry of form.`,
+  79: `A stunning [THEME] wildlife portrait of [PET NAME] the [BREED] with [COAT] — photographed in the precise twenty-minute window after sunset at [SETTING] when the sky turns deep cobalt and makes the [COAT] coat impossibly vibrant against the blue shadows. [PROP] paused mid-step across a frozen stream. A long lens at high ISO captures the real conditions of the encounter — exquisite grain of available-light photography in deep winter.`,
+  80: `A heartbreakingly beautiful [THEME] portrait of [PET NAME] the [BREED] with [COAT] — at [SETTING] for the first time in a long time, face turned to look out the window at the moving world, a human arm visible at the edge of the frame, [PROP] suggesting the life ahead. Natural light flooding in. The expression: a complex mix of fear and wonder and cautious hope that no studio lighting can manufacture. The most important portrait this animal will ever sit for.`,
+  81: `A stunningly realized [THEME] portrait of [PET NAME] the [BREED] with [COAT] — dressed as a beloved royal figure in full regalia, performing the practiced restrained greeting of a monarch who has reduced ceremony to a precise and minimal art form at [SETTING]. [PROP] completing the iconic look. The breed-character connection made unexpectedly perfect — as if the casting was always obvious to everyone but the official record.`,
+  82: `A charming [THEME] portrait of [PET NAME] the [BREED] with [COAT] — dressed as the beloved young hero with [PROP] indicating their school and house affiliation, wearing robes and round spectacles with a lightning scar at the forehead. Looking deeply unimpressed but tolerating the outfit with resigned dignity. [SETTING] visible through an impossibly small window. The natural expression matching the character's combination of bravery and perpetual mild inconvenience.`,
+  83: `A delightful [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing a white chef's jacket and tall toque at [SETTING], [PROP] being plated with professional culinary precision. Passionate dedication expressed in every line of the face. A tiny partner directing operations from above — the warm golden aesthetic of a classic Parisian bistro rendered with impeccable period detail and perfect absurdist sincerity.`,
+  84: `A perfectly recreated [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing a towering [PROP] and an elaborate panniere skirt in pale silk with cream lace trim, rouge circles on the cheeks, at [SETTING]. The expression the exact blend of oblivious pleasure and imperious entitlement that defines history's most complicated figures. The breed's natural regal bearing elevated to its absolute logical conclusion.`,
+  85: `A charming [THEME] portrait of [PET NAME] the [BREED] with [COAT] — with [PROP] in paw and ancient robes, at [SETTING]. Looking at the camera with the wizened, slightly confused expression that defines the character — the similarity to the original genuinely uncanny. The breed's natural physical features an almost supernatural casting fit for this particular ancient and powerful role. Much to learn, you still have. And also snacks.`,
+  86: `A spectacular [THEME] Renaissance oil painting recreation featuring [PET NAME] the [BREED] with [COAT] — seated in the exact [PROP] pose, wearing the period dress, with the famous aerial perspective landscape of [SETTING] behind. The famous ambiguous almost-smile replicated naturally — it turns out to be the breed's default expression. Mysterious, faintly amused, and utterly in control of the encounter after five hundred years.`,
+  87: `A vibrant [THEME] anime-style portrait of [PET NAME] the [BREED] with [COAT] — in the classic costume with [PROP] on the forehead, performing the Shadow Clone technique with multiple copies materialising from white smoke behind at [SETTING]. Full Shonen anime with speed lines and energy bursts. The breed's natural features making this the most convincing casting in the series' history — as if the creators had the right idea all along.`,
+  88: `A cinematic [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing a battered leather fedora and leather jacket, at [SETTING] with [PROP] in one paw. The breed's low profile perfectly suited to the dramatic prone-crawl the character is famous for. The expression: weary, brave, and deeply concerned about the snakes that are definitely in there. Harrison Ford circa 1981 — translated with remarkable precision.`,
+  89: `A dreamy fairy-tale [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing a shimmering [PROP] gown, surrounded by magical swirls of golden and white sparkles at [SETTING]. The [COAT] coat naturally suggesting the layers of tulle, and the expression the pure wonder of someone who didn't expect the magic to actually work. A glass slipper beside a tiny carriage in the background. Bibbidi bobbidi complete.`,
+  90: `A dramatic [THEME] portrait of [PET NAME] the [BREED] with [COAT] — in the full black armour and flowing black cape, [PROP] ignited, standing in [SETTING] with white-clad companions visible behind. The iconic chest-piece details implying the famous breathing. The eyes communicating absolute breed-typical friendliness and a hope for treats regardless of the galaxy-scale conflict. The dark side has never been more confusingly warm-hearted.`,
+  91: `A magnificent [THEME] historical recreation portrait of [PET NAME] the [BREED] with [COAT] — seated in the exact pose of the famous painting, [PROP] held with earnest seriousness, at [SETTING] with the distinctive Gothic arch window visible behind. The original American regionalist oil technique applied with complete fidelity. The breed's naturally excellent posture making them more convincingly stoic than most human recreations of the image.`,
+  92: `A gorgeous [THEME] portrait of [PET NAME] the [BREED] with [COAT] — in full warrior armour, wearing a [PROP] with flowing plume, standing confidently at [SETTING] with blossom petals falling. The breed's naturally regal appearance ideal casting. The expression reflecting the character's determination — someone who has been underestimated their entire life and is about to prove everyone exactly wrong in the most spectacular way available.`,
+  93: `A completely straight-faced [THEME] fashion photography portrait of [PET NAME] the [BREED] with [COAT] — wearing the dramatic half-and-half colour scheme, wild styled hair, crimson gloves, and [PROP] at [SETTING]. The expression of someone who has redesigned their entire personality around one extremely specific aesthetic vision and is at absolute peace with it. Impeccably lit. Terrifying. Magnificent. Maximum energy for this particular breed.`,
+  94: `A charming [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing a deerstalker cap and tweed coat at [SETTING], [PROP] being examined with intense focus. The slightly bewildered expression perfectly capturing the character's famous claim of using deductive reasoning while clearly having no idea what deductive reasoning is. The case files on the wall appear to involve the theft of various personal items. Completely unimpressed by their own legend.`,
+  95: `A whimsical [THEME] storybook portrait of [PET NAME] the [BREED] with [COAT] — in the blue pinafore and white apron, seated at [SETTING] with [PROP] the size of a bucket, surrounded by other animals in character. The illustration style combines the original Tenniel woodcut tradition with a modern colour palette — wonderfully strange, logically impossible, and perfectly at home with its own delightful absurdity.`,
+  96: `A magnificent [THEME] anime portrait of [PET NAME] the [BREED] with [COAT] — wearing the iconic sailor-collar uniform with [PROP] raised, the [COAT] fur naturally suggesting the character's signature silhouette at [SETTING]. The expression combining absolute determination and complete emotional transparency — you know exactly what this animal is thinking about. The classic pink and white backdrop with sparkles. Equal parts hero and creature of appetite.`,
+  97: `A spectacular [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing the silver and white queen costume at [SETTING], with [PROP] companions perched on the armrests and shoulders. The [COAT] coat and dignified expression an absolutely flawless casting. Golden hour throne room lighting bathing the entire composition. The Mother of something — every inch a ruler, every inch the most obvious casting choice available.`,
+  98: `A joyful [THEME] portrait of [PET NAME] the [BREED] with [COAT] — wearing the iconic red boots, a blue duffle coat with toggle buttons, and a wide-brimmed red hat, standing at [SETTING] with [PROP] in one paw. The Victorian iron and glass architecture soaring behind, crowds swirling past unaware. The expression: slight confusion and fundamental cheerfulness — a mixture so natural to the breed that no acting is required.`,
+  99: `A spectacular [THEME] portrait of [PET NAME] the [BREED] with [COAT] — standing in a perfectly scaled landscape where the breed's natural size becomes the right size, [PROP] raised, looking down at [SETTING] with the benevolent concern of someone who has arrived precisely when they meant to. Forced-perspective photography makes the scale an asset. The beard floats with dignified purpose in the wind of an ancient world.`,
+  100: `A magnificent [THEME] final portrait featuring [PET NAME] the [BREED] with [COAT] — presiding at [SETTING] in a long table composition alongside eleven companions each dressed as a different iconic figure from storytelling history, [PROP] arranged before them. Every face expressing their character's specific personality — looking at the camera with the dignity of beloved stories made briefly, joyfully, and impossibly real. A celebration of storytelling, pets, and the purest of joys.`,
+}
+
+const H = {  1:'Baroque Rembrandt oil · royal pet portrait grandeur',   2:'Flemish Old Master gilt · heraldic royal portrait',   3:'Marble columns velvet · aristocratic classical',   4:'Gainsborough English · country-house oil portrait',   5:'Dutch Masters chiaroscuro · palatial 17th-century',   6:'Gold-leaf three-quarter · dignified formal portrait',   7:'Velázquez silk court · aristocratic authority',   8:'Neoclassical laurel · timeless column portrait',   9:'Napoleonic campaign · medal sash military grandeur',   10:'Rococo powder-blue · French-court gilded extravagance',   11:'Tudor brocade ermine · Holbein-flat perspective',   12:'Leonardo sfumato · Renaissance contemplative gaze',   13:'Byzantine gold mosaic · sacred icon portrait',   14:'Mughal lapis jewel · miniature garden pavilion',   15:'Imperial dragon robe · Chinese jade yellow portrait',   16:'Persian arabesque · jewel-tone tiled palace',   17:'Victorian daguerreotype · mahogany fern plinth',   18:'Jacobean oak lace · solemn panelled hall',   19:'Romantic sublime windswept · Friedrich landscape',   20:'Royal gallery worthy · timeless classical portrait',   21:'CEO power suit · corner office Forbes-cover',   22:'Editorial Forbes · professional shallow depth',   23:'Mortarboard gown · academic library scholar',   24:'Fireproof soot · heroic firefighter portrait',   25:'Admiral epaulettes · naval sea-battle portrait',   26:'Barrister wig · legal courtroom scales portrait',   27:'White toque starred · celebrity chef kitchen',   28:'Medal dress uniform · decorated military portrait',   29:'Surgical mask scrubs · star surgeon theatre',   30:'NASA suit Earth · astronaut cosmos hero',   31:'Blueprint rolls · renowned architect studio',   32:'Leather inkwell · celebrated author literary',   33:'Deerstalker trench · master detective case board',   34:'Hoodie holographic · tech visionary Silicon Valley',   35:'Runway sketch Paris · fashion designer chic',   36:'Gold medal confetti · sports champion podium',   37:'Guitar stadium · rockstar legends-only portrait',   38:'Nobel eureka · world-class scientist laboratory',   39:'Oval Office flag · presidential leader world',   40:'Paint-splattered · celebrated artist creative genius',   41:'Deity divine cloud · mythological ancient painting',   42:'Dragon-fire medieval · rider heroic fantasy',   43:'Wizard runes glowing · mystical library sorcerer',   44:'Knight armour castle · valiant battle crusade',   45:'Viking longship fjord · Norse horned fur battle',   46:'Greek Olympus lightning · deity marble columns',   47:'Egyptian ankh hieroglyphs · god desert gold lapis',   48:'Samurai cherry blossom · honour Edo brushwork',   49:'Bioluminescent mist · forest spirit Miyazaki',   50:'Phoenix fire rebirth · radiant mythological power',   51:'Underwater coral crown · mermaid ocean magic',   52:'Enchanted castle fairy-tale · prince princess',   53:'Obsidian blade moonlight · dark elf elven grace',   54:'Volcanic treasure scales · dragon lord absolute',   55:'Cosmic nebula zodiac · celestial guardian star',   56:'Crystal orb prophecy · siren oracle wisdom',   57:'Philosopher flask · alchemist transformation lab',   58:'Infernal crown shadow · demon lord dark fire',   59:'Rainbow sparkle · unicorn rider magic wand',   60:'Atlas titan world-in-paw · mythology epic scale',   61:'Cape lightning rooftop · superhero origin city',   62:'Halftone bold type · Marvel comic cover action',   63:'Sinister Gotham cape · DC villain portrait',   64:'Tuxedo casino Bond · spy-thriller Monte Carlo',   65:'Lightsaber Force · Star Wars Jedi galaxy',   66:'Starfleet bridge · Star Trek captain boldly',   67:'Wand moving portraits · wizard school magical',   68:'Pixel health bar · video-game final-boss',   69:'Big eyes shonen · anime hero battle energy',   70:'Jolly Roger treasure · pirate captain adventure',   71:'Wanted poster saloon · Wild West outlaw legend',   72:'Mirror ball sequins · disco superstar Saturday',   73:'Mohawk studs anarchy · punk rock icon guitar',   74:'Gold record mic skyline · hip-hop mogul empire',   75:'Explosion action · 1980s hero one-liner ready',   76:'Bold outline flat · cartoon Saturday-morning',   77:'Avengers assembly epic · superhero team leader',   78:'Rain shadow rooftop · vigilante masked justice',   79:'Warhol screen-print · pop-art flat-tone celebrity',   80:'Blockbuster typography · movie poster epic hero',   81:'Fireplace stockings · Christmas cosy festive glow',   82:'Jack-o\'-lantern moon · Halloween perfectly spooked',   83:'Balloons streamers · birthday very important pet',   84:'Pastel meadow basket · Easter egg-hunt spring',   85:'Red roses hearts · Valentine irresistible portrait',   86:'Harvest table autumn · Thanksgiving pilgrim chef',   87:'Emerald shamrock gold · St Patrick lucky portrait',   88:'Countdown confetti · New Year party portrait',   89:'Sun hat ice cream · summer holiday vacation',   90:'Cap gown diploma · graduation summa cum laude',   91:'Boutonnière best dressed · wedding guest portrait',   92:'Sparkler fireworks · bonfire night sky magic',   93:'Pumpkin hay bales · harvest festival autumn',   94:'Menorah dreidel · Hanukkah festival of lights',   95:'Diya rangoli golden · Diwali festival portrait',   96:'Flower bouquet warmth · Mother\'s Day best gift',   97:'Trophy tie dad-jokes · Father\'s Day proudest',   98:'Athletic podium medal · sports-day champion',   99:'First snowfall scarf · winter wonderland portrait',   100:'Lifetime award legend · most celebrated pet ever'}
+
+const vars = {
+  petname:        () => document.getElementById('v-petname').value.trim() || '[PET NAME]',
+  breed:        () => document.getElementById('v-breed').value.trim() || '[BREED]',
+  coat:        () => document.getElementById('v-coat').value.trim() || '[COAT]',
+  theme:        () => document.getElementById('v-theme').value.trim() || '[THEME]',
+  prop:        () => document.getElementById('v-prop').value.trim() || '[PROP]',
+  setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
+};
+
+function fill(str) {
+  return str
+    .replace(/\[PET\sNAME\]/g, vars.petname())
+    .replace(/\[BREED\]/g, vars.breed())
+    .replace(/\[COAT\]/g, vars.coat())
+    .replace(/\[THEME\]/g, vars.theme())
+    .replace(/\[PROP\]/g, vars.prop())
+    .replace(/\[SETTING\]/g, vars.setting());
+}
+
+function buildBlock(n) {
+  const pe = vars.petname(), br = vars.breed(), co = vars.coat(), th = vars.theme(), pr = vars.prop(), se = vars.setting();
+  const prompt = fill(T[n]);
+
+  return `We'll be creating an AI image prompt.
+First, let's define some variables.
+
+"[PET NAME]" is Your pet's name.
+"[BREED]" is Breed or species.
+"[COAT]" is Coat colour and texture.
+"[THEME]" is Creative transformation theme.
+"[PROP]" is Prop or accessory.
+"[SETTING]" is Background or location.
+
+Now let's give these variables our values.
+[PET NAME] = "${pe}"
+[BREED] = "${br}"
+[COAT] = "${co}"
+[THEME] = "${th}"
+[PROP] = "${pr}"
+[SETTING] = "${se}"
+
+─────────────────────────────────────────
+${prompt}`;
+}
+
+function update() {
+  for (let n = 1; n <= 100; n++) {
+    const hb = document.getElementById('hb-' + n);
+    const hl = document.getElementById('hl-' + n);
+    if (hb) hb.textContent = buildBlock(n);
+    if (hl && H[n]) hl.textContent = H[n];
+  }
+}
+
+// Copy individual prompt
+function copyPrompt(n) {
+  const text = document.getElementById('hb-' + n).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`[data-copy="${n}"]`);
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => btn.textContent = 'Copy Prompt', 1500); }
+  });
+}
+
+// Add copy buttons after render
+function addCopyButtons() {
+  for (let n = 1; n <= 100; n++) {
+    const card = document.getElementById('card-' + n);
+    if (!card) continue;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('data-copy', n);
+    btn.textContent = 'Copy Prompt';
+    btn.onclick = () => copyPrompt(n);
+    card.appendChild(btn);
+  }
+}
+
+update();
+addCopyButtons();
+</script>
+</body>
+</html>
