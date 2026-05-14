@@ -1,0 +1,15 @@
+.DS_Store
+
+# Wibey/Cursor local task artifacts
+.wibey-tasks/
+.wibey/
+.cursor/
+
+# Local runtime/dev artifacts
+local.db
+*.sqlite
+*.sqlite3
+*.db
+*.log
+tmp/
+temp/

@@ -1,0 +1,31 @@
+# =============================================================================
+#  admin/.htaccess — HTTP Basic Auth for the admin dashboard
+#
+#  SETUP STEPS:
+#  1. Generate a password hash on your server:
+#       htpasswd -n youradminusername
+#     (it will prompt for a password and print the hash)
+#  2. Create the file /home/yourhostingeraccount/.htpasswd  (outside webroot!)
+#     and paste the line:   youradminusername:$apr1$...hashedpassword...
+#  3. Update AuthUserFile below to that absolute path.
+#     On Hostinger the webroot is typically:
+#       /home/uXXXXXXXX/domains/yourdomain.com/public_html
+#     So .htpasswd should live at:
+#       /home/uXXXXXXXX/.htpasswd
+# =============================================================================
+
+AuthType     Basic
+AuthName     "Admin Area — Authorized Access Only"
+
+# ⚠️  Replace this path with the absolute path on your Hostinger server
+AuthUserFile /home/uXXXXXXXX/.htpasswd
+
+Require valid-user
+
+# Also deny non-PHP/HTML files that shouldn't exist here
+<FilesMatch "\.(sql|log|bak|sh|py)$">
+    Require all denied
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes

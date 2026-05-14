@@ -1,0 +1,123 @@
+# =============================================================================
+#  Root .htaccess — AI Prompt Books
+#  Apache 2.4 + mod_rewrite + mod_headers
+# =============================================================================
+
+Options -Indexes -MultiViews
+ServerSignature Off
+
+# -----------------------------------------------------------------------------
+# Rewrite engine
+# -----------------------------------------------------------------------------
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove trailing slash from non-directories
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# -----------------------------------------------------------------------------
+# Block direct access to sensitive files
+# -----------------------------------------------------------------------------
+
+# config files and auth bootstrap — never served directly
+<FilesMatch "^(config|config\.production|auth)\.php$">
+    Require all denied
+</FilesMatch>
+
+# Block dotfiles (.env, .git, .htpasswd, etc.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Block backup / editor artefacts
+<FilesMatch "\.(bak|swp|swo|orig|log|sql|sh|py|ini|DS_Store)$">
+    Require all denied
+</FilesMatch>
+
+# db.sql — should never be in webroot, but block it just in case
+<FilesMatch "^db\.sql$">
+    Require all denied
+</FilesMatch>
+
+# -----------------------------------------------------------------------------
+# Security headers
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options    "nosniff"
+    Header always set X-Frame-Options           "SAMEORIGIN"
+    Header always set X-XSS-Protection          "1; mode=block"
+    Header always set Referrer-Policy           "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy        "geolocation=(), microphone=(), camera=()"
+
+    # Strict-Transport-Security (1 year, include sub-domains)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Basic CSP — tighten once you know all external domains
+    Header always set Content-Security-Policy \
+        "default-src 'self'; \
+         script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://www.paypal.com https://www.paypalobjects.com; \
+         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+         font-src 'self' https://fonts.gstatic.com; \
+         img-src 'self' data: https:; \
+         connect-src 'self' https://api.razorpay.com https://www.paypal.com https://api-m.paypal.com https://api-m.sandbox.paypal.com; \
+         frame-src https://checkout.razorpay.com https://www.paypal.com; \
+         object-src 'none'; \
+         base-uri 'self';"
+
+    # Remove PHP version disclosure
+    Header always unset X-Powered-By
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# MIME types
+# -----------------------------------------------------------------------------
+<IfModule mod_mime.c>
+    AddType application/json        .json
+    AddType text/javascript         .js
+    AddType text/css                .css
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Compression
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css
+    AddOutputFilterByType DEFLATE application/json text/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Browser caching for static assets
+# -----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css                  "access plus 1 month"
+    ExpiresByType text/javascript           "access plus 1 month"
+    ExpiresByType application/javascript    "access plus 1 month"
+    ExpiresByType image/png                 "access plus 1 year"
+    ExpiresByType image/jpeg                "access plus 1 year"
+    ExpiresByType image/webp                "access plus 1 year"
+    ExpiresByType image/svg+xml             "access plus 1 year"
+    ExpiresByType image/x-icon              "access plus 1 year"
+    ExpiresByType application/pdf           "access plus 1 month"
+    ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Custom error pages
+# -----------------------------------------------------------------------------
+ErrorDocument 403 /index.php
+ErrorDocument 404 /index.php
+ErrorDocument 500 /index.php
+
+# -----------------------------------------------------------------------------
+# Protect session cookies (belt-and-suspenders alongside PHP settings)
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always edit Set-Cookie "^(.*)$" "$1; HttpOnly; Secure; SameSite=Lax"
+</IfModule>

@@ -1,0 +1,13 @@
+# =============================================================================
+#  books/.htaccess — Block ALL direct browser access to book HTML files
+#  Books are served exclusively through book.php after login verification.
+# =============================================================================
+
+# Apache 2.4
+Require all denied
+
+# Apache 2.2 fallback (Hostinger supports both)
+<IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+</IfModule>
