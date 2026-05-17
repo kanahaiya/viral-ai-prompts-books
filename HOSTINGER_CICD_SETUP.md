@@ -31,7 +31,8 @@ In Hostinger hPanel:
 2. Files -> FTP Accounts
 3. Copy server host, username, password, and port
 
-Use FTPS in the workflow for encrypted transfer.
+Current workflow uses FTP on port 21 for compatibility with Hostinger shared hosting.
+If your Hostinger account supports stable FTPS from GitHub runners, you can switch protocol later.
 
 ## 4) Branch strategy
 
