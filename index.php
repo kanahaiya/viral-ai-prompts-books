@@ -154,7 +154,7 @@ img{max-width:100%;display:block;}
 .modal-close-btn:hover{color:#fff;}
 .checkout-close-btn{background:none;border:none;color:#888;font-size:1.5rem;cursor:pointer;}
 .checkout-close-btn:hover{color:#fff;}
-.pay-btn-razorpay{display:none;background:#2e86c1;color:#fff;font-family:'Courier New',monospace;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px;border:none;border-radius:3px;cursor:pointer;transition:background 0.15s;}
+.pay-btn-razorpay{display:block;background:#2e86c1;color:#fff;font-family:'Courier New',monospace;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px;border:none;border-radius:3px;cursor:pointer;transition:background 0.15s;}
 .pay-btn-razorpay:hover{background:#236da0;}
 
 /* ── STICKY MOBILE CTA ── */
