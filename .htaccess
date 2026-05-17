@@ -12,9 +12,13 @@ ServerSignature Off
 RewriteEngine On
 RewriteBase /
 
-# Force HTTPS
+# Force canonical host + HTTPS
+# http://aipromptbooks.in/*      -> https://www.aipromptbooks.in/*
+# https://aipromptbooks.in/*     -> https://www.aipromptbooks.in/*
+# http://www.aipromptbooks.in/*  -> https://www.aipromptbooks.in/*
+RewriteCond %{HTTP_HOST} !^www\.aipromptbooks\.in$ [NC,OR]
 RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://www.aipromptbooks.in%{REQUEST_URI} [L,R=301]
 
 # Remove trailing slash from non-directories
 RewriteCond %{REQUEST_FILENAME} !-d

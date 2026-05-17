@@ -8,8 +8,8 @@ $books    = getBooks();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Prompt Books — 1,100 Fill-in-the-Blank AI Prompt Templates</title>
-<meta name="description" content="11 books · 1,100 proven AI image prompt templates. Every trending style — Ghibli, action figures, movie posters, pet art. Fill in your details, copy, paste, create.">
+<title>Viral AI Prompts System — 11 Books, 1,100 AI Image Templates</title>
+<meta name="description" content="The Viral AI Prompts System — 11 books, 1,100 fill-in-the-blank templates. Create better AI images faster with Midjourney, ChatGPT, Firefly and more.">
 <link rel="canonical" href="<?= htmlspecialchars(rtrim(SITE_URL, '/')) ?>/">
 <style>
 /* ── RESET ── */
@@ -32,7 +32,7 @@ img{max-width:100%;display:block;}
 
 /* ── NAV ── */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;}
-.nav-inner{max-width:1100px;margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.nav-inner{max-width:1280px;margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{font-family:'Courier New',monospace;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
 .nav-links{display:flex;align-items:center;gap:1.2rem;}
 .nav-login{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--border);padding:7px 18px;border-radius:3px;transition:all 0.15s;}
@@ -41,45 +41,66 @@ img{max-width:100%;display:block;}
 .nav-cta:hover{background:#e8b93a;}
 
 /* ── HERO ── */
-.hero{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:100px 2rem 60px;position:relative;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,168,54,0.1) 0%, transparent 70%);pointer-events:none;}
-/* Split layout */
-.hero-split{display:flex;align-items:center;gap:3.2rem;width:100%;max-width:1240px;margin-bottom:3rem;}
-.hero-text{flex:1;min-width:0;}
-.hero-visual{flex:0 0 540px;margin-top:-12px;}
-.hero-badge{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,168,54,0.7);background:rgba(212,168,54,0.07);padding:5px 16px;border-radius:2px;margin-bottom:1.8rem;display:inline-block;}
-.hero h1{font-size:clamp(2.5rem,5.5vw,4.8rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:1.4rem;color:#fff;}
+.hero{position:relative;padding:64px 2rem 0;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 90% 55% at 50% -10%, rgba(212,168,54,0.13) 0%, transparent 65%);pointer-events:none;}
+.hero-container{max-width:1280px;margin:0 auto;position:relative;}
+
+/* Row 1 — full-width headline, left-aligned to match copy column */
+.hero-headline{text-align:left;margin-bottom:1.6rem;}
+.hero h1{font-size:clamp(2.4rem,4.6vw,5.4rem);font-weight:900;line-height:1.07;letter-spacing:-3px;margin:0;color:#fff;}
+.hero h1 .gold{color:var(--gold);}
 .hero h1 span{color:var(--gold);}
-.hero-sub{font-size:clamp(0.95rem,1.8vw,1.15rem);color:#aaa;max-width:520px;margin:0 0 2rem;}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;}
-.hero-trust{font-size:0.75rem;color:#555;line-height:2;margin-bottom:0;}
-.hero-trust span{color:#444;}
-.hero-proof-strip{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1rem 0 1.2rem;}
-.hero-proof-pill{font-size:0.72rem;color:#aaa;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:16px;padding:6px 12px;}
-.hero-mini-testimonial{margin-top:0.9rem;font-size:0.8rem;color:#888;max-width:560px;line-height:1.7;border-left:2px solid rgba(212,168,54,0.35);padding-left:0.9rem;}
-.hero-mini-testimonial strong{color:#ccc;}
-.btn-primary{background:var(--gold);color:#000;font-weight:700;font-family:'Courier New',monospace;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;border-radius:3px;border:none;cursor:pointer;transition:all 0.15s;animation:ctaGlow 3.5s ease-in-out infinite;}
+
+/* Row 2 — columns stretch to match each other's height */
+.hero-split{display:flex;align-items:stretch;gap:4rem;border-top:none;padding-top:0;}
+
+/* Left column — fills from top, same start point as image */
+.hero-copy{flex:0 0 46%;min-width:0;display:flex;flex-direction:column;justify-content:space-between;}
+.hero-hook{font-size:0.85rem;font-family:'Courier New',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin:0 0 1.4rem;opacity:0.85;}
+.hero-sub{font-size:clamp(1.1rem,1.5vw,1.25rem);color:#bbb;margin:0 0 2.4rem;line-height:2;}
+.hero-ctas{display:flex;gap:0.85rem;flex-wrap:nowrap;margin-bottom:1.6rem;align-items:center;}
+.hero-proof-strip{display:flex;flex-wrap:wrap;gap:0.55rem;margin:0 0 1.8rem;}
+.hero-trust{font-size:0.78rem;color:#666;line-height:2.3;text-align:left;margin-bottom:1.8rem;}
+.hero-trust-gold{color:var(--gold) !important;opacity:0.85;}
+.hero-mini-testimonial{margin:0;font-size:0.92rem;color:#888;line-height:1.85;border-left:2px solid rgba(212,168,54,0.45);padding-left:1rem;}
+
+/* Right column — top-aligned, fills remaining width */
+.hero-visual{flex:1 1 0;display:flex;align-items:flex-start;justify-content:flex-end;}
+.hero-mockup-link{display:block;cursor:pointer;}
+.hero-mockup-link:focus{outline:2px solid var(--gold);outline-offset:4px;border-radius:10px;}
+.hero-mockup-img{width:100%;height:auto;display:block;filter:drop-shadow(0 32px 80px rgba(212,168,54,0.3));border-radius:10px;transition:filter 0.25s ease,transform 0.25s ease;}
+.hero-mockup-link:hover .hero-mockup-img{filter:drop-shadow(0 36px 90px rgba(212,168,54,0.5));transform:scale(1.015);}
+
+/* CTA buttons */
+.btn-primary--priced{display:inline-flex;flex-direction:column;align-items:center;gap:3px;padding:15px 32px 12px;white-space:nowrap;}
+.btn-main-text{font-size:0.85rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;line-height:1;}
+.btn-price-line{display:flex;align-items:baseline;gap:5px;line-height:1;}
+.btn-price-now{font-size:1.15rem;font-weight:900;letter-spacing:-0.5px;}
+.btn-price-orig{font-size:0.72rem;text-decoration:line-through;opacity:0.5;letter-spacing:0;}
+.btn-price-label{font-size:0.7rem;opacity:0.7;letter-spacing:0;text-transform:none;font-weight:400;}
+.hero-proof-pill{font-size:0.8rem;color:#bbb;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:8px 15px;display:flex;align-items:center;gap:5px;}
+.hero-proof-pill::before{content:'✓';color:var(--gold);font-size:0.72rem;font-weight:700;}
+.hero-mini-testimonial strong{color:#ddd;}
+
+/* Buttons */
+.btn-primary{background:var(--gold);color:#000;font-weight:700;font-family:'Courier New',monospace;font-size:0.82rem;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:3px;border:none;cursor:pointer;transition:all 0.15s;animation:ctaGlow 3.5s ease-in-out infinite;}
 .btn-primary:hover{background:#e8b93a;transform:translateY(-2px);box-shadow:0 6px 24px rgba(212,168,54,0.4);}
-@keyframes ctaGlow{0%,100%{box-shadow:0 0 0 0 rgba(212,168,54,0.0),0 2px 8px rgba(0,0,0,0.3);}55%{box-shadow:0 0 0 7px rgba(212,168,54,0.14),0 4px 20px rgba(212,168,54,0.22);}}
-.btn-secondary{background:transparent;color:#fff;font-family:'Courier New',monospace;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;padding:13px 32px;border-radius:3px;border:1.5px solid #444;cursor:pointer;transition:all 0.15s;}
-.btn-secondary:hover{border-color:#888;transform:translateY(-1px);}
-.hero-stats{display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;padding-top:2rem;border-top:1px solid var(--border);width:100%;max-width:1200px;}
-.hero-stat-num{font-family:'Courier New',monospace;font-size:2.5rem;font-weight:900;color:var(--gold);line-height:1;}
-.hero-stat-label{font-size:0.78rem;color:var(--text-dim);letter-spacing:1px;margin-top:4px;}
-/* Style preview cards */
-.style-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.65rem;}
-.sp-card{border-radius:8px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.08);transition:transform 0.2s;aspect-ratio:4/5;}
-.sp-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.35s;}
-.sp-card:hover{transform:translateY(-3px);}
-.sp-card:hover img{transform:scale(1.07);}
-.sp-overlay{position:absolute;bottom:0;left:0;right:0;padding:0.65rem 0.7rem;background:linear-gradient(0deg,rgba(0,0,0,0.92) 0%,transparent 100%);}
-.sp-name{font-size:0.72rem;font-weight:700;color:#fff;line-height:1.3;}
-.sp-count{font-family:'Courier New',monospace;font-size:0.55rem;color:rgba(255,255,255,0.45);margin-top:0.15rem;letter-spacing:1px;}
-.sp-tag{position:absolute;top:7px;right:7px;font-family:'Courier New',monospace;font-size:0.5rem;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:0.5px;z-index:1;}
+@keyframes ctaGlow{0%,100%{box-shadow:0 0 0 0 rgba(212,168,54,0.0),0 2px 8px rgba(0,0,0,0.3);}55%{box-shadow:0 0 0 8px rgba(212,168,54,0.15),0 4px 20px rgba(212,168,54,0.25);}}
+.btn-secondary{background:transparent;color:#ccc;font-family:'Courier New',monospace;font-size:0.78rem;letter-spacing:1px;text-transform:uppercase;padding:13px 22px;border-radius:3px;border:1.5px solid rgba(255,255,255,0.2);cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.btn-secondary:hover{border-color:#888;color:#fff;transform:translateY(-1px);}
+
+/* Stats bar */
+.hero-stats-wrap{padding:0 0 52px;}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap;justify-content:space-between;padding:1.2rem 0 0.4rem;margin-top:2rem;border-top:1px solid rgba(212,168,54,0.15);}
+.hero-stat-num{font-family:'Courier New',monospace;font-size:1.5rem;font-weight:900;color:var(--gold);line-height:1;}
+.hero-stat-label{font-size:0.67rem;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;}
 /* Gallery section */
-.gallery-section{border-top:1px solid var(--border);padding:52px 2rem 44px;}
-.gallery-img{width:100%;max-width:900px;margin:2rem auto 0;border-radius:10px;overflow:hidden;border:1px solid var(--border);display:block;}
-.gallery-img img{width:100%;display:block;}
+.gallery-section{border-top:1px solid var(--border);padding:60px 2rem 52px;background:linear-gradient(180deg,#0d0d0d 0%,#0a0a0a 100%);}
+.gallery-section--alt{background:linear-gradient(180deg,#0a0a0a 0%,#0d0d0d 100%);}
+.gallery-collage-wrap{display:flex;justify-content:center;margin-top:2rem;}
+.gallery-img{border-radius:14px;overflow:hidden;border:1px solid var(--border);display:block;box-shadow:0 8px 48px rgba(0,0,0,0.6);max-width:520px;width:100%;}
+.gallery-img img{display:block;width:100%;height:auto;transition:transform 0.4s ease;}
+.gallery-img:hover img{transform:scale(1.015);}
 /* Gallery style tag strip */
 .gallery-styles{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin:1.2rem auto 0;max-width:900px;}
 .gallery-style-tag{font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:1px;text-transform:uppercase;background:rgba(212,168,54,0.06);color:var(--gold);border:1px solid rgba(212,168,54,0.25);padding:4px 12px;border-radius:20px;}
@@ -91,11 +112,11 @@ img{max-width:100%;display:block;}
 .testimonial-card:hover{border-color:rgba(212,168,54,0.4);transform:translateY(-2px);}
 .testimonial-card::before{content:'❝';position:absolute;top:12px;right:16px;font-size:2.5rem;color:rgba(212,168,54,0.12);line-height:1;}
 .testimonial-stars{color:#f59e0b;font-size:0.85rem;letter-spacing:2px;margin-bottom:0.8rem;}
-.testimonial-text{font-size:0.9rem;color:#bbb;line-height:1.75;margin-bottom:1.2rem;font-style:italic;}
+.testimonial-text{font-size:0.97rem;color:#ccc;line-height:1.8;margin-bottom:1.2rem;font-style:italic;}
 .testimonial-author{display:flex;align-items:center;gap:0.8rem;}
 .testimonial-avatar{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:800;font-family:'Courier New',monospace;flex-shrink:0;color:#fff;letter-spacing:0;}
-.testimonial-name{font-size:0.82rem;font-weight:700;color:#e8e4de;}
-.testimonial-sub{font-size:0.72rem;color:#555;margin-top:2px;}
+.testimonial-name{font-size:0.88rem;font-weight:700;color:#f0ece6;}
+.testimonial-sub{font-size:0.76rem;color:#666;margin-top:2px;}
 .testimonial-badge{display:inline-flex;align-items:center;gap:4px;font-family:'Courier New',monospace;font-size:0.55rem;letter-spacing:1px;background:rgba(212,168,54,0.08);color:rgba(212,168,54,0.7);border:1px solid rgba(212,168,54,0.2);padding:2px 8px;border-radius:2px;margin-top:4px;}
 .testimonial-badge::before{content:'✓';font-size:0.6rem;color:var(--gold);font-weight:900;}
 /* Social proof bar — card treatment */
@@ -114,8 +135,8 @@ img{max-width:100%;display:block;}
 .cd-sep{font-family:'Courier New',monospace;font-size:1.4rem;color:#f59e0b;align-self:center;margin-top:-8px;animation:cdPulse 2s ease-in-out infinite;}
 
 /* ── EXIT INTENT POPUP ── */
-.exit-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.7);backdrop-filter:blur(3px);align-items:flex-end;justify-content:center;}
-.exit-overlay.show{display:flex;}
+.exit-overlay{display:none !important;}
+.exit-overlay.show{display:none !important;}
 .exit-popup{background:#141414;border:1px solid var(--gold);border-radius:8px 8px 0 0;padding:2rem;max-width:480px;width:100%;position:relative;animation:slideUp 0.3s ease;}
 @keyframes slideUp{from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 .exit-popup-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#555;font-size:1.4rem;cursor:pointer;line-height:1;}
@@ -147,10 +168,10 @@ img{max-width:100%;display:block;}
 
 /* ── SECTION COMMON ── */
 section{padding:64px 2rem;}
-.container{max-width:1100px;margin:0 auto;}
+.container{max-width:1280px;margin:0 auto;}
 .section-badge{font-family:'Courier New',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
 .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-1px;color:#fff;margin-bottom:1rem;}
-.section-sub{font-size:1rem;color:#888;max-width:540px;}
+.section-sub{font-size:1.05rem;color:#999;max-width:560px;line-height:1.8;}
 
 /* ── BOOKS GRID ── */
 .books-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem;}
@@ -186,9 +207,9 @@ section{padding:64px 2rem;}
 .price-amount{font-size:3rem;font-weight:900;color:#fff;line-height:1;margin-bottom:0.3rem;}
 .price-amount .currency{font-size:1.5rem;vertical-align:top;margin-top:0.5rem;display:inline-block;color:var(--gold);}
 .price-amount .original{font-size:1.2rem;color:var(--text-dim);text-decoration:line-through;margin-left:0.5rem;}
-.price-billing{font-size:0.78rem;color:#888;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.price-billing{font-size:0.85rem;color:#aaa;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
 .price-features{list-style:none;margin-bottom:2rem;text-align:left;}
-.price-features li{font-size:0.85rem;color:#aaa;padding:5px 0;display:flex;gap:8px;align-items:flex-start;text-align:left;}
+.price-features li{font-size:0.9rem;color:#bbb;padding:6px 0;display:flex;gap:8px;align-items:flex-start;text-align:left;}
 .price-features li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:2px;}
 .price-feature-tools{line-height:1.6;}
 .btn-buy{width:100%;background:var(--gold);color:#000;font-family:'Courier New',monospace;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px;border:none;border-radius:3px;cursor:pointer;transition:background 0.15s;}
@@ -232,15 +253,16 @@ section{padding:64px 2rem;}
 .footer-copy{font-size:0.72rem;color:#555;}
 
 /* ── PAIN SECTION ── */
-.pain-section{background:var(--surface);padding-bottom:48px;}
-.pain-text{max-width:740px;margin:0 auto;}
-.pain-text .story{font-size:1.05rem;color:#aaa;line-height:1.9;margin-bottom:1rem;}
+.pain-section{background:var(--surface);padding-bottom:48px;text-align:center;}
+.pain-text{max-width:700px;margin:0 auto;text-align:left;}
+.pain-text .story{font-size:1.02rem;color:#aaa;line-height:1.95;margin-bottom:0.9rem;}
 .pain-text .story strong{color:#fff;}
 .pain-bullets{list-style:none;margin:1.8rem 0;}
-.pain-bullets li{display:flex;gap:12px;align-items:flex-start;padding:9px 0;font-size:0.92rem;color:#aaa;border-bottom:1px solid var(--border);}
+.pain-bullets li{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;font-size:0.92rem;color:#aaa;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.015);}
+.pain-bullets li:hover{background:rgba(255,255,255,0.03);}
 .pain-bullets li:last-child{border-bottom:none;}
-.pain-bullets li .x{color:#f87171;font-weight:900;flex-shrink:0;font-size:1rem;}
-.pain-punch{font-size:1rem;font-weight:700;color:#fff;margin-top:1.8rem;padding:1.2rem 1.5rem;background:#0a0a0a;border-left:3px solid var(--gold);border-radius:0 4px 4px 0;font-style:italic;}
+.pain-bullets li .x{color:#f87171;font-weight:900;flex-shrink:0;font-size:1.08rem;line-height:1.2;}
+.pain-punch{font-size:1rem;font-weight:700;color:#fff;margin-top:1.9rem;padding:1.35rem 1.6rem;background:#0a0a0a;border-left:3px solid var(--gold);border-radius:0 4px 4px 0;font-style:italic;box-shadow:0 0 0 1px rgba(212,168,54,0.12);}
 
 /* ── SOLUTION BRIDGE ── */
 .solution-section{text-align:center;border-top:1px solid var(--border);padding-top:48px;}
@@ -294,8 +316,8 @@ section{padding:64px 2rem;}
 .urgency-live-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Courier New',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#f87171;margin-bottom:0.8rem;}
 .urgency-live-dot{width:7px;height:7px;border-radius:50%;background:#f87171;animation:livePulse 1.2s ease-in-out infinite;}
 @keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(248,113,113,0.6);}50%{opacity:0.7;box-shadow:0 0 0 5px rgba(248,113,113,0);}}
-.urgency-title{font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:0.6rem;letter-spacing:-0.5px;}
-.urgency-sub{font-size:0.9rem;color:#bbb;line-height:1.8;}
+.urgency-title{font-size:1.65rem;font-weight:900;color:#fff;margin-bottom:0.6rem;letter-spacing:-0.5px;line-height:1.2;}
+.urgency-sub{font-size:0.95rem;color:#ccc;line-height:1.85;}
 .urgency-sub strong{color:#f59e0b;}
 
 /* ── FINAL CTA ── */
@@ -338,21 +360,20 @@ section{padding:64px 2rem;}
 .value-card p{font-size:0.8rem;color:#8f8f8f;line-height:1.6;}
 
 /* ── RESPONSIVE ── */
-@media(max-width:1000px){
-  .hero-split{flex-direction:column;gap:2rem;}
-  .hero-visual{flex:none;width:100%;max-width:520px;margin:0 auto;}
-  .hero-text{text-align:center;}
-  .hero-sub{margin:0 auto 2rem;}
-  .hero-ctas{justify-content:center;}
-  .hero-trust{text-align:center;}
+@media(max-width:960px){
+  .hero h1{font-size:clamp(2rem,5.5vw,3.4rem);letter-spacing:-2px;}
+  .hero-split{flex-direction:column;gap:2.5rem;padding-top:2rem;}
+  .hero-copy{flex:none;width:100%;}
+  .hero-visual{flex:none;width:100%;justify-content:center;}
+  .hero-ctas{flex-wrap:wrap;}
 }
-@media(min-width:1001px) and (max-width:1360px){
-  .hero h1{
-    font-size:clamp(2.9rem,4.5vw,4.2rem);
-    line-height:1.08;
-    letter-spacing:-1.5px;
-    max-width:13ch;
-  }
+@media(max-width:600px){
+  .hero{padding:48px 1.25rem 0;}
+  .hero h1{font-size:clamp(1.8rem,7vw,2.6rem);letter-spacing:-1.5px;}
+  .hero-headline{margin-bottom:1.8rem;}
+  .hero-eyebrow{font-size:0.62rem;letter-spacing:2px;}
+  .hero-ctas{flex-direction:column;align-items:flex-start;}
+  .btn-primary--priced,.btn-secondary{width:100%;justify-content:center;text-align:center;}
 }
 @media(max-width:768px){
   .nav{padding:0 1rem;}
@@ -365,6 +386,10 @@ section{padding:64px 2rem;}
   .guarantee-inner{flex-direction:column;}
   .guarantee-badge{width:100%;}
   .offer-item .val,.offer-bonus .val{display:none;}
+  .pain-section .section-title{font-size:clamp(1.6rem,7.5vw,2.15rem);line-height:1.2;}
+  .pain-text .story{font-size:0.98rem;line-height:1.85;}
+  .pain-bullets li{font-size:0.9rem;padding:10px;}
+  .pain-punch{font-size:0.95rem;padding:1.1rem 1.2rem;}
 }
 
 /* ── BOOK SELECTOR MODAL ────────────────────────────────── */
@@ -422,110 +447,71 @@ section{padding:64px 2rem;}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+  <div class="hero-container">
 
-  <!-- Split: Text (left) + Visual grid (right) -->
-  <div class="hero-split">
-
-    <!-- LEFT: Copy -->
-    <div class="hero-text">
-      <div class="hero-badge">🔥 Full Bundle · 11 Books · 1,100 Templates · Built for Indian Creators</div>
-      <h1>Create Better AI Visuals<br>Faster with the <span>Full Bundle</span></h1>
-      <p class="hero-sub">Built for college creators, freelancers, and small business owners who want polished AI images without wasting hours on prompt trial-and-error. Pick a style, fill a few blanks, and generate results you can post, pitch, or sell.</p>
-      <div class="hero-ctas">
-        <a href="#pricing" class="btn-primary">Buy Full Bundle Now — ₹199 →</a>
-        <a href="#pricing" class="btn-secondary">See Offer Details</a>
-      </div>
-      <div class="hero-proof-strip">
-        <span class="hero-proof-pill">No prompt-writing required</span>
-        <span class="hero-proof-pill">Works with ChatGPT, Midjourney, Firefly</span>
-        <span class="hero-proof-pill">Most buyers get first usable result in first session</span>
-      </div>
-      <div class="hero-trust">
-        🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription<br>
-        <span style="color:var(--gold);opacity:0.8;">⭐ Trusted by 200+ paying customers · 4.6★ average rating</span>
-      </div>
+    <!-- Row 1: eyebrow + full-width headline -->
+    <div class="hero-headline">
+      <h1>Use the <span>Viral AI Prompts</span> <span class="gold">System</span><br>to Create Better AI Images Faster</h1>
     </div>
 
-    <!-- RIGHT: Style preview grid (real AI-generated images) -->
-    <div class="hero-visual">
-      <div class="style-preview-grid">
+    <!-- Row 2: two-column split -->
+    <div class="hero-split">
 
-        <div class="sp-card">
-          <div class="sp-tag" style="background:#ec4899;color:#fff;">HOT</div>
-          <img src="/assets/style-ghibli.jpg" alt="Ghibli & Anime style AI art" loading="eager">
-          <div class="sp-overlay">
-            <div class="sp-name">Ghibli &amp; Anime</div>
-            <div class="sp-count">100 PROMPTS</div>
-          </div>
+      <!-- Left: copy -->
+      <div class="hero-copy">
+        <p class="hero-hook">Fill in the blank. Generate. Done.</p>
+        <p class="hero-sub">Not a random prompt pack. The Viral AI Prompts System is a full bundle of 11 books, 1,100 fill-in-the-blank templates — a structured framework for creating polished AI images on demand.</p>
+        <div class="hero-ctas">
+          <a href="#pricing" class="btn-primary btn-primary--priced">
+            <span class="btn-main-text">Get the System →</span>
+            <span class="btn-price-line"><span class="btn-price-now">₹299</span> <span class="btn-price-orig">₹2,189</span></span>
+          </a>
+          <a href="#pricing" class="btn-secondary">See What's Inside</a>
         </div>
-
-        <div class="sp-card">
-          <div class="sp-tag" style="background:#d4a836;color:#000;">VIRAL</div>
-          <img src="/assets/style-action-figure.jpg" alt="Action Figure toy box AI art" loading="eager">
-          <div class="sp-overlay">
-            <div class="sp-name">Action Figure</div>
-            <div class="sp-count">100 PROMPTS</div>
-          </div>
+        <div class="hero-proof-strip">
+          <span class="hero-proof-pill">No prompt-writing required</span>
+          <span class="hero-proof-pill">Works with ChatGPT, Midjourney, Firefly</span>
+          <span class="hero-proof-pill">First result in your first session</span>
         </div>
-
-        <div class="sp-card">
-          <div class="sp-tag" style="background:#e11d48;color:#fff;">🔥</div>
-          <img src="/assets/style-movie-poster.jpg" alt="Cinematic Movie Poster AI art" loading="lazy" style="object-position:top;">
-          <div class="sp-overlay">
-            <div class="sp-name">Movie Poster</div>
-            <div class="sp-count">100 PROMPTS</div>
-          </div>
+        <div class="hero-trust">
+          🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription<br>
+          <span class="hero-trust-gold">⭐ Trusted by 200+ paying customers · 4.6★ average rating</span>
         </div>
+        <p class="hero-mini-testimonial"><strong>Never used AI before?</strong> Prashant (software engineer, Pune) had never opened Midjourney. He made his son's action figure toy box the same evening — posted it Saturday, three relatives asked where he bought it. If you can fill in a form, you can do this.</p>
+      </div>
 
-        <div class="sp-card">
-          <img src="/assets/style-pet.jpg" alt="Pet Transformation AI art" loading="lazy">
-          <div class="sp-overlay">
-            <div class="sp-name">Pet Art</div>
-            <div class="sp-count">100 PROMPTS</div>
-          </div>
+      <!-- Right: product mockup -->
+      <div class="hero-visual">
+        <a href="#pricing" class="hero-mockup-link" aria-label="Get the Viral AI Prompts System">
+          <img src="assets/hero-mockup.png" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529">
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-stats-wrap">
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">1,100</div>
+          <div class="hero-stat-label">Prompt Templates</div>
         </div>
-
-        <div class="sp-card">
-          <img src="/assets/style-headshot.jpg" alt="Professional Headshot AI art" loading="lazy" style="object-position:top;">
-          <div class="sp-overlay">
-            <div class="sp-name">Headshots</div>
-            <div class="sp-count">100 PROMPTS</div>
-          </div>
+        <div>
+          <div class="hero-stat-num">11</div>
+          <div class="hero-stat-label">Style Books</div>
         </div>
-
-        <div class="sp-card">
-          <img src="/assets/style-historical.jpg" alt="Historical Time Travel AI art" loading="lazy">
-          <div class="sp-overlay" style="background:linear-gradient(0deg,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.4) 100%);">
-            <div class="sp-name" style="color:var(--gold);font-size:1rem;font-weight:900;">+6 More</div>
-            <div class="sp-count">600 PROMPTS</div>
-          </div>
+        <div>
+          <div class="hero-stat-num">60s</div>
+          <div class="hero-stat-label">To First Result</div>
         </div>
-
+        <div>
+          <div class="hero-stat-num">5+</div>
+          <div class="hero-stat-label">AI Tools Supported</div>
+        </div>
       </div>
     </div>
 
-  </div><!-- /hero-split -->
-
-  <!-- Stats bar -->
-  <div class="hero-stats">
-    <div>
-      <div class="hero-stat-num">1,100</div>
-      <div class="hero-stat-label">Prompt Templates</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">11</div>
-      <div class="hero-stat-label">Style Books</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">60s</div>
-      <div class="hero-stat-label">To First Result</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">5+</div>
-      <div class="hero-stat-label">AI Tools Supported</div>
-    </div>
   </div>
-
 </section>
 
 <!-- PAIN AGITATION -->
@@ -550,9 +536,59 @@ section{padding:64px 2rem;}
 <section class="solution-section">
   <div class="container">
     <div class="section-badge">Solution Section</div>
-    <p class="big-intro">Instead of guessing every prompt from zero,<br><span>start from proven templates and personalize in minutes.</span></p>
-    <p class="solution-desc">You get 1,100 fill-in-the-blank templates covering real use cases: portraits, posters, products, pets, and more. Fill in a few details. Copy. Paste. Generate. It's the fastest path from idea to a result you're happy to share.</p>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;">Yes — I Want the Full Bundle →</a>
+    <p class="big-intro">Replace random prompting with a reusable system:<br><span>pick a format, fill key inputs, generate consistent output.</span></p>
+    <p class="solution-desc">The full bundle gives you a proven working method across major visual use cases. Instead of starting from zero, you use a tested framework that turns ideas into usable visuals in minutes.</p>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;">Yes — I Want the Prompt System →</a>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section">
+  <div class="container" style="text-align:center;">
+    <div class="section-badge">Benefits Section</div>
+    <h2 class="section-title">What Results You Get With This System</h2>
+    <p class="section-sub" style="margin:0 auto 0.5rem;">Outcome-focused benefits for college creators, freelancers, and small business owners.</p>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-title">Create Faster</div>
+        <div class="benefit-desc">Move from blank screen to usable output in minutes, not hours of trial-and-error.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-title">Improve Quality Consistently</div>
+        <div class="benefit-desc">Use a repeatable structure that gives cleaner, more polished visuals across styles.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-title">Post With Confidence</div>
+        <div class="benefit-desc">Generate visuals you can confidently publish on social without second-guessing results.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-title">Deliver Client Work Faster</div>
+        <div class="benefit-desc">Freelancers can turn requests into output quickly and handle more projects per week.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-title">Create Better Marketing Assets</div>
+        <div class="benefit-desc">Small businesses can produce product creatives and campaign visuals without a full design team.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-title">Reuse Forever</div>
+        <div class="benefit-desc">One-time purchase, repeatable system: reuse the framework for ongoing content and launches.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLAGE: Visual Proof -->
+<section class="gallery-section">
+  <div class="container" style="text-align:center;">
+    <div class="section-badge">What You Can Create</div>
+    <h2 class="section-title">Real Outputs. Real Prompts. <span style="color:var(--gold);">From Your Books.</span></h2>
+    <p class="section-sub" style="max-width:640px;margin:0 auto 0.5rem;">Action figures, Ghibli art, Mughal warriors, royal pet portraits, cinematic movie posters, professional portraits — all from the same system, all from the same ₹299.</p>
+    <div class="gallery-collage-wrap">
+      <div class="gallery-img">
+        <img src="assets/collage-1.jpg" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="600" height="900" loading="lazy">
+      </div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-top:1rem;">6 styles shown. 1,100+ prompt templates across 11 books — many more styles inside.</p>
   </div>
 </section>
 
@@ -633,7 +669,7 @@ section{padding:64px 2rem;}
 
       <div class="testimonial-card">
         <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">"I create Reels about AI tools. Used these prompts for a Midjourney demo Reel and gained 43 followers that week — better than my usual growth. Other creators asked which prompts I used. I just said I bought a prompt bundle. At ₹199 for all 11, it felt like good value."</p>
+        <p class="testimonial-text">"I create Reels about AI tools. Used these prompts for a Midjourney demo Reel and gained 43 followers that week — better than my usual growth. Other creators asked which prompts I used. I just said I bought a prompt system. At ₹299 for all 11, it still felt like strong value."</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar" style="background:#15803d;">SM</div>
           <div>
@@ -661,7 +697,7 @@ section{padding:64px 2rem;}
         <div class="spb-label">To First Result</div>
       </div>
       <div class="spb-item">
-        <div class="spb-num">₹18</div>
+        <div class="spb-num">₹27</div>
         <div class="spb-label">Per Book · Lifetime</div>
       </div>
     </div>
@@ -671,9 +707,9 @@ section{padding:64px 2rem;}
 <!-- OFFER STACK -->
 <section class="offer-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Bonuses + Value Stack</div>
-    <h2 class="section-title">₹199 Unlocks the Full Bundle + Bonuses.</h2>
-    <p class="section-sub" style="margin:0 auto;">Every book. Every bonus. Every future update. Here's the full list — and what it would cost if bought separately.</p>
+    <div class="section-badge">System Delivery + Bonuses</div>
+    <h2 class="section-title">₹299 Unlocks the Full Prompt System + Bonuses.</h2>
+    <p class="section-sub" style="margin:0 auto;">You are buying a proven system for repeatable output. The full bundle is how that system is delivered: every module, every bonus, every future update.</p>
     <div class="offer-list">
       <div class="offer-item"><span class="chk">✦</span><span class="name">🧸 Book 1 — Action Figure &amp; Toy Box (100 prompts)</span><span class="val">₹199</span></div>
       <div class="offer-item"><span class="chk">✦</span><span class="name">🌸 Book 2 — Ghibli &amp; Anime Style (100 prompts)</span><span class="val">₹199</span></div>
@@ -692,12 +728,12 @@ section{padding:64px 2rem;}
         <span class="offer-total-label">If bought separately</span>
         <div class="offer-total-price">
           <span class="offer-total-orig" id="offerOrig">₹2,189</span>
-          <span class="offer-total-today" id="offerToday">₹199</span>
+          <span class="offer-total-today" id="offerToday">₹299</span>
         </div>
       </div>
     </div>
-    <p style="margin-top:1rem;font-size:0.8rem;color:#555;" id="offerSavingLine">Save ₹1,990 on the bundle — plus 2 free bonuses included. Limited-time launch price.</p>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Buy Now — Get Full Bundle Access →</a>
+    <p style="margin-top:1rem;font-size:0.8rem;color:#555;" id="offerSavingLine">Save ₹1,890 vs buying each book separately — plus 2 free bonuses. Early-access price: ₹299 → ₹499 when this window closes.</p>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Buy Now — Get System Access →</a>
   </div>
 </section>
 
@@ -719,8 +755,8 @@ section{padding:64px 2rem;}
         <p>One designer session can cost far more than this full prompt library.</p>
       </div>
       <div class="value-card">
-        <div class="label">This bundle</div>
-        <div class="price">₹199 once</div>
+        <div class="label">This system</div>
+        <div class="price">₹299 once</div>
         <p>11 books, 1,100 templates, bonus guide, and future updates included.</p>
       </div>
     </div>
@@ -750,9 +786,9 @@ section{padding:64px 2rem;}
       <!-- Full Bundle -->
       <div class="price-card popular">
         <div class="price-badge">BEST VALUE</div>
-        <div class="price-plan">Full Bundle</div>
-        <div class="price-amount"><span class="currency">₹</span>199 <span class="original">₹2,189</span></div>
-        <div class="price-billing">Save ₹1,990 · All 11 books + bonus guide · Lifetime access</div>
+        <div class="price-plan">Full System Access</div>
+        <div class="price-amount"><span class="currency">₹</span>299 <span class="original">₹2,189</span></div>
+        <div class="price-billing">Save ₹1,890 · All 11 books + bonus guide · Lifetime access</div>
         <div class="price-card-social">Chosen by <strong>200+ creators</strong> — from beginners to freelancers</div>
         <ul class="price-features">
           <li>All 11 books — 1,100 prompt templates</li>
@@ -765,25 +801,24 @@ section{padding:64px 2rem;}
           <li>All future books automatically added</li>
         </ul>
         <button class="btn-buy" data-action="start-checkout" data-plan="bundle">
-          Buy Full Bundle Now — ₹199 →
+          Get Full System Access — ₹299 →
         </button>
         <div class="price-risk-reversal">Best for serious use: all styles now, plus future books included.</div>
       </div>
     </div>
 
-    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 At ₹199, that's just ₹18 per book — less than a cup of coffee for 100 prompts that change how you use AI.</p>
+    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 At ₹299, that's about ₹27 per book — still lower than one cafe snack for a reusable creation system.</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Razorpay (India)</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
-    <p style="margin-top:0.8rem;font-size:0.78rem;color:var(--gold);">👥 Join 200+ creators already using these prompts →</p>
   </div>
 </section>
 
 <!-- URGENCY -->
 <div class="urgency-section">
   <div class="urgency-inner">
-    <div class="urgency-live-badge"><span class="urgency-live-dot"></span>DEADLINE / URGENCY</div>
+    <div class="urgency-live-badge"><span class="urgency-live-dot"></span>EARLY ACCESS PRICING</div>
     <div class="urgency-icon">⚡</div>
-    <div class="urgency-title">Launch pricing ends when this timer hits zero.</div>
+    <div class="urgency-title">₹299 is the early-access price.<br>It goes to ₹499 when this window closes.</div>
     <!-- Countdown timer -->
     <div class="countdown-row" id="countdownRow">
       <div class="cd-block"><div class="cd-num" id="cdH">47</div><div class="cd-label">Hours</div></div>
@@ -792,10 +827,25 @@ section{padding:64px 2rem;}
       <div class="cd-sep">:</div>
       <div class="cd-block"><div class="cd-num" id="cdS">59</div><div class="cd-label">Sec</div></div>
     </div>
-    <div class="urgency-sub">The styles in these books — <strong>Ghibli, action figures, cinematic posters</strong> — are trending right now. Every day, more creators use these templates to move from random outputs to consistent results.<br><br>If you've been stuck in prompt trial-and-error, this is your shortcut to a first win today.<br><br><strong>200+ creators already started. You can start in minutes.</strong></div>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Buy Before Price Increases — ₹199 →</a>
+    <div class="urgency-sub">Ghibli art, action figure toy boxes, cinematic posters — these styles are trending across Instagram and Reels right now. The creators using these templates are posting results today, not next week.<br><br>At ₹299 (less than a movie ticket), you get a reusable system you'll use for months. At ₹499 later, it still pays for itself the first time it saves you an hour.</div>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Lock In ₹299 — Get System Access →</a>
   </div>
 </div>
+
+<!-- COLLAGE 2: More Styles -->
+<section class="gallery-section gallery-section--alt">
+  <div class="container" style="text-align:center;">
+    <div class="section-badge">More Styles Inside</div>
+    <h2 class="section-title">Still Not Sure? <span style="color:var(--gold);">See What Else Is Possible.</span></h2>
+    <p class="section-sub" style="max-width:640px;margin:0 auto 0.5rem;">Pixar-style portraits, luxury product shots, Barbiecore fashion, childhood nostalgia, festive scrapbooks, cyberpunk cities — all using prompts from this single ₹299 bundle.</p>
+    <div class="gallery-collage-wrap">
+      <div class="gallery-img">
+        <img src="assets/collage-2.jpg" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="600" height="900" loading="lazy">
+      </div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-top:1rem;">Still only 6 of 1,100+ styles. Every prompt works the same way — fill in the blanks, generate, done.</p>
+  </div>
+</section>
 
 <!-- FAQ -->
 <section id="faq">
@@ -814,7 +864,7 @@ section{padding:64px 2rem;}
         ['Can I use these prompts to create and sell art?',
          'Yes. The AI images you generate using these prompts are 100% yours — use them for personal projects, Etsy prints, client content, social media, YouTube thumbnails, whatever you like.'],
         ['What if I only want one specific book?',
-         'You can buy any single book for ₹99 (regular ₹199). But the full bundle is ₹199 — you get all 11 for the regular price of one, so most people grab the bundle.'],
+         'You can buy any single book for ₹99 (regular ₹199). But the full system is ₹299 — you get all 11 for less than the regular price of two, so most people choose full access.'],
         ['Are new books added to the bundle automatically?',
          'Yes. Bundle buyers automatically get every new book we publish — forever, at no extra charge. Your investment only grows.'],
         ['How is payment processed? Is it safe?',
@@ -839,9 +889,9 @@ section{padding:64px 2rem;}
 <section class="final-cta-section">
   <div class="container">
     <h2>You're Minutes Away From<br><span>Your First Better AI Visual</span></h2>
-    <p class="sub">₹199 one-time. No subscriptions. Open your library, pick a style, fill in a few blanks, and generate something you'd actually share. No prompt-writing stress required.</p>
+    <p class="sub">₹299 one-time. No subscriptions. Open your library, pick a style, fill in a few blanks, and generate something you'd actually share. No prompt-writing stress required.</p>
     <a href="#pricing" class="btn-primary" style="display:inline-block;font-size:1rem;padding:16px 40px;">
-      Buy Full Bundle Now — ₹199 →
+      Get the Prompt System — ₹299 →
     </a>
     <div class="whats-next">
       <div class="wn-step"><span class="wn-n">1</span>Click the button</div>
@@ -857,7 +907,6 @@ section{padding:64px 2rem;}
       <span class="final-cta-pill">📱 Any Device</span>
       <span class="final-cta-pill">🔒 Secure Checkout</span>
     </div>
-    <div style="margin-top:1rem;font-size:0.78rem;color:var(--gold);">👥 200+ creators already inside · 4.6★ buyer-rated</div>
   </div>
 </section>
 
@@ -877,9 +926,9 @@ section{padding:64px 2rem;}
 <div class="exit-overlay" id="exitOverlay">
   <div class="exit-popup">
     <button type="button" class="exit-popup-close" data-action="dismiss-exit">×</button>
-    <div class="exit-popup-badge">⚡ WAIT — BEFORE YOU GO</div>
-    <h3>The price goes up when the timer hits zero.</h3>
-    <p>Drop your email and we'll notify you before the price increases — and send you a free sample prompt from Book 2: Ghibli &amp; Anime.</p>
+    <div class="exit-popup-badge">⚡ WAIT — ONE SECOND</div>
+    <h3>₹299 closes when this early-access window ends.</h3>
+    <p>Drop your email and we'll send you a free sample prompt from Book 2: Ghibli &amp; Anime — and remind you before the price goes to ₹499.</p>
     <div class="exit-popup-form">
       <input type="email" class="exit-popup-input" id="exitEmail" placeholder="your@email.com">
       <button type="button" class="exit-popup-btn" data-action="submit-exit-email">Send Me The Sample</button>
@@ -892,8 +941,8 @@ section{padding:64px 2rem;}
 <div class="sticky-cta" id="stickyCta">
   <div class="sticky-cta-inner">
     <div class="sticky-cta-text">
-      <strong>Full Bundle — All 11 Books</strong>
-      <span id="stickyPrice">₹199 · One-time payment</span>
+      <strong>Prompt System — All 11 Books</strong>
+      <span id="stickyPrice">₹299 · One-time payment</span>
     </div>
     <button class="sticky-cta-btn" data-action="start-checkout" data-plan="bundle">Get Access →</button>
   </div>
@@ -994,7 +1043,7 @@ function proceedCheckout(plan, bookId) {
   currentPlan   = plan;
   currentBookId = bookId;
 
-  const price = plan === 'bundle' ? '₹199' : '₹99';
+  const price = plan === 'bundle' ? '₹299' : '₹99';
 
   // Summary text
   const bookName = bookId
@@ -1100,31 +1149,8 @@ document.querySelectorAll('.faq-q').forEach(q => {
   });
 });
 
-// ── Exit Intent ──────────────────────────────────────────────────────────────
-(function initExitIntent() {
-  if (localStorage.getItem('aipb_exit_seen')) return;
-  let triggered = false;
-  // Desktop: mouse leaves viewport upward
-  document.addEventListener('mouseleave', (e) => {
-    if (e.clientY < 30 && !triggered) {
-      triggered = true;
-      localStorage.setItem('aipb_exit_seen', '1');
-      document.getElementById('exitOverlay').classList.add('show');
-    }
-  });
-  // Mobile: scroll back up fast after 30s
-  let lastScroll = 0, lastTime = 0;
-  window.addEventListener('scroll', () => {
-    const now = Date.now(), sy = window.scrollY;
-    const velocity = (lastScroll - sy) / Math.max(1, now - lastTime);
-    if (velocity > 2 && sy > 800 && !triggered && now - lastTime < 100) {
-      triggered = true;
-      localStorage.setItem('aipb_exit_seen', '1');
-      document.getElementById('exitOverlay').classList.add('show');
-    }
-    lastScroll = sy; lastTime = now;
-  }, { passive: true });
-})();
+// ── Exit Intent — DISABLED ───────────────────────────────────────────────────
+// (function initExitIntent() { ... })(); // disabled
 
 function dismissExit() {
   document.getElementById('exitOverlay').classList.remove('show');
@@ -1234,7 +1260,7 @@ document.addEventListener('click', (event) => {
   // Update sticky price text on currency change
   function updateStickyPrice() {
     const sp = document.getElementById('stickyPrice');
-    if (sp) sp.textContent = '₹199 · One-time payment';
+    if (sp) sp.textContent = '₹299 · One-time payment';
   }
   updateStickyPrice();
 

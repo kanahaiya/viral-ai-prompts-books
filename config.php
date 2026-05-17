@@ -33,7 +33,7 @@ define('WHATSAPP_INVITE_LINK', 'https://chat.whatsapp.com/test-link');
 
 // ── Pricing ───────────────────────────────────────────────────────────────────
 define('PRICE_SINGLE_INR',  99);
-define('PRICE_BUNDLE_INR',  199);
+define('PRICE_BUNDLE_INR',  299);
 define('PRICE_SINGLE_USD',  2.99);
 define('PRICE_BUNDLE_USD',  9.00);
 

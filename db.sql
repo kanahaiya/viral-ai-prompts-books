@@ -59,7 +59,7 @@ SELECT
   u.created_at,
   u.last_login,
   CASE WHEN u.plan = 'bundle' THEN
-    CASE u.currency WHEN 'INR' THEN 199 ELSE 9.00 END
+    CASE u.currency WHEN 'INR' THEN 299 ELSE 9.00 END
   ELSE
     CASE u.currency WHEN 'INR' THEN 99 ELSE 2.99 END
   END AS `revenue`

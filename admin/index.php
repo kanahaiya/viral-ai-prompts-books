@@ -13,7 +13,7 @@ $stats = $db->query('
       COUNT(*) AS total_users,
       SUM(plan = "bundle") AS bundle_users,
       SUM(plan = "single") AS single_users,
-      SUM(currency = "INR" AND plan = "bundle") * 199 +
+      SUM(currency = "INR" AND plan = "bundle") * 299 +
       SUM(currency = "INR" AND plan = "single") * 99 AS inr_revenue,
       SUM(currency = "USD" AND plan = "bundle") * 9 +
       SUM(currency = "USD" AND plan = "single") * 2.99 AS usd_revenue
