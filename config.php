@@ -18,9 +18,9 @@ define('SITE_NAME', 'AI Prompt Books');
 // ── Books path ────────────────────────────────────────────────────────────────
 define('BOOKS_DIR', __DIR__ . '/books/');
 
-// ── Razorpay (test keys — get real ones from dashboard.razorpay.com) ──────────
-define('RAZORPAY_KEY_ID',     'rzp_test_placeholder');
-define('RAZORPAY_KEY_SECRET', 'test_secret_placeholder');
+// ── Razorpay (test keys) ───────────────────────────────────────────────────────
+define('RAZORPAY_KEY_ID',     'rzp_test_SqXAfiLToxWQLI');
+define('RAZORPAY_KEY_SECRET', 'zpFXxm3RaCUh568uiLC0PRlD');
 
 // ── PayPal (sandbox — get real ones from developer.paypal.com) ────────────────
 define('PAYPAL_CLIENT_ID',     'sandbox_paypal_client_id');
