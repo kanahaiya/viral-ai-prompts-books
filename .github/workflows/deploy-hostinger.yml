@@ -48,7 +48,9 @@ jobs:
           # Use FTP on port 21 behind strong unique credentials.
           protocol: ftp
           port: ${{ secrets.HOSTINGER_FTP_PORT }}
-          server-dir: /public_html/
+          # This FTP user is chrooted to Hostinger web root already.
+          # Using /public_html/ here creates public_html/public_html.
+          server-dir: /
           dangerous-clean-slate: false
           exclude: |
             **/.git*

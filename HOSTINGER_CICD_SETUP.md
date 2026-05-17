@@ -38,7 +38,7 @@ If your Hostinger account supports stable FTPS from GitHub runners, you can swit
 
 - Work in feature/stage branches.
 - Merge to `main` only when production-ready.
-- Every push to `main` deploys automatically to `/public_html/`.
+- Every push to `main` deploys automatically to FTP root `/` (this Hostinger FTP user is already chrooted to web root).
 
 ## 5) Safety checks included
 
