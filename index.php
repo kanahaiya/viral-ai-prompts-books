@@ -1097,8 +1097,18 @@ async function payWithRazorpay() {
         name:    data.name
       })
     });
-    const order = await res.json();
-    if (!order.id) { showError(order.error || 'Failed to create order. Please try again.'); return; }
+    const responseText = await res.text();
+    let order = null;
+    try {
+      order = JSON.parse(responseText);
+    } catch (parseError) {
+      showError('Checkout setup failed on server. Please refresh and try again.');
+      return;
+    }
+    if (!res.ok || !order.id) {
+      showError(order.error || 'Failed to create order. Please try again.');
+      return;
+    }
 
     const options = {
       key:         '<?= RAZORPAY_KEY_ID ?>',
@@ -1121,7 +1131,7 @@ async function payWithRazorpay() {
     };
     new Razorpay(options).open();
   } catch(e) {
-    showError('Network error. Please try again.');
+    showError('Could not reach payment service. Check internet and try again.');
   } finally {
     document.getElementById('razorpayBtn').textContent = 'Pay with UPI / Card (Razorpay)';
     document.getElementById('razorpayBtn').disabled    = false;
