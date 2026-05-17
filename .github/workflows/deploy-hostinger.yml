@@ -52,11 +52,13 @@ jobs:
           dangerous-clean-slate: false
           exclude: |
             **/.git*
+            **/.git/**
             **/.github/**
             **/.cursor/**
             **/node_modules/**
             **/local.db
             **/setup-local.php
+            **/.ftp-deploy-sync-state.json
             **/*.md
             **/*.plan.md
             **/.DS_Store
