@@ -50,6 +50,8 @@ The workflow excludes:
 
 - `.github/`
 - `.cursor/`
+- `.git/`
+- `.ftp-deploy-sync-state.json`
 - `local.db`
 - `setup-local.php`
 - markdown docs
