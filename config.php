@@ -39,7 +39,7 @@ define('PRICE_BUNDLE_USD',  9.00);
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 define('ADMIN_USER', 'admin');
-define('ADMIN_PASS', 'admin123');
+define('ADMIN_PASS', 'change_this_in_local_env');
 
 // ── Session ───────────────────────────────────────────────────────────────────
 define('SESSION_NAME',    'aipb_session');
