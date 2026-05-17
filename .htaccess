@@ -33,6 +33,14 @@ RewriteRule ^(.*)/$ /$1 [L,R=301]
     Require all denied
 </FilesMatch>
 
+# Never expose local setup helper or local SQLite files
+<FilesMatch "^(setup-local)\.php$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "\.(db|sqlite|sqlite3)$">
+    Require all denied
+</FilesMatch>
+
 # Block dotfiles (.env, .git, .htpasswd, etc.)
 <FilesMatch "^\.">
     Require all denied
