@@ -27,6 +27,10 @@ $amountPaise = ($plan === 'bundle')
     ? PRICE_BUNDLE_INR * 100
     : PRICE_SINGLE_INR * 100;
 
+if (!function_exists('curl_init')) {
+    jsonResponse(['error' => 'Server payment module is unavailable (cURL disabled). Enable cURL in hosting PHP settings.'], 500);
+}
+
 // Create Razorpay order via API
 $payload = json_encode([
     'amount'          => $amountPaise,
@@ -45,13 +49,19 @@ curl_setopt_array($ch, [
     CURLOPT_TIMEOUT        => 30,
 ]);
 $response = curl_exec($ch);
+$curlError = curl_error($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
 $order = json_decode($response, true);
 
+if ($response === false || !empty($curlError)) {
+    error_log('Razorpay order curl error: ' . $curlError);
+    jsonResponse(['error' => 'Unable to connect to payment gateway from server. Please try again in a minute.'], 502);
+}
+
 if ($httpCode !== 200 || empty($order['id'])) {
-    error_log('Razorpay order error: ' . $response);
+    error_log('Razorpay order API error: ' . $response);
     jsonResponse(['error' => 'Failed to create payment order. Please try again.'], 500);
 }
 
