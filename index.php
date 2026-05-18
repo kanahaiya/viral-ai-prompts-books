@@ -270,6 +270,18 @@ section{padding:64px 2rem;}
 .solution-section .big-intro{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;max-width:760px;margin:1.5rem auto 1rem;line-height:1.25;letter-spacing:-0.5px;}
 .solution-section .big-intro span{color:var(--gold);}
 .solution-desc{font-size:0.98rem;color:#888;max-width:580px;margin:0 auto 2rem;line-height:1.8;}
+.solution-no-list{list-style:none;display:grid;gap:0.45rem;max-width:520px;margin:0.4rem auto 1.4rem;padding:0;}
+.solution-no-list li{font-size:0.98rem;color:#bcbcbc;}
+.solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:760px;margin:0.6rem auto 1.2rem;text-align:left;}
+.solution-card{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:8px;padding:1.1rem 1rem 1rem;transition:border-color 0.2s,transform 0.15s;}
+.solution-card:hover{border-color:rgba(212,168,54,0.35);transform:translateY(-1px);}
+.solution-card-title{font-size:0.72rem;color:var(--gold);font-family:'Courier New',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.65rem;}
+.solution-card-list{list-style:none;margin:0;padding:0;display:grid;gap:0.52rem;}
+.solution-card-list li{font-size:0.92rem;color:#bebebe;line-height:1.55;}
+.solution-step{display:flex;align-items:center;gap:8px;}
+.solution-step-badge{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(212,168,54,0.14);border:1px solid rgba(212,168,54,0.45);color:var(--gold);font-family:'Courier New',monospace;font-size:0.68rem;font-weight:700;flex-shrink:0;}
+.solution-note{font-size:0.96rem;color:#aaa;line-height:1.85;max-width:640px;margin:0.7rem auto 1.5rem;}
+@media(max-width:760px){.solution-grid{grid-template-columns:1fr;}}
 
 /* ── BENEFITS ── */
 .benefits-section{border-top:1px solid var(--border);background:linear-gradient(180deg,#0a0a0a 0%,#0d0d0d 100%);padding-bottom:44px;}
@@ -557,9 +569,36 @@ section{padding:64px 2rem;}
 <section class="solution-section">
   <div class="container">
     <div class="section-badge">Solution Section</div>
-    <p class="big-intro">Replace random prompting with a reusable system:<br><span>pick a format, fill key inputs, generate consistent output.</span></p>
-    <p class="solution-desc">The full bundle gives you a proven working method across major visual use cases. Instead of starting from zero, you use a tested framework that turns ideas into usable visuals in minutes.</p>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;">Yes — I Want the Prompt System →</a>
+    <p class="big-intro">This Makes AI Image Creation Feel <span>Easy</span></p>
+    <ul class="solution-no-list">
+      <li>No prompt engineering.</li>
+      <li>No complicated tutorials.</li>
+      <li>No blank-screen frustration.</li>
+    </ul>
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="solution-card-title">Just</div>
+        <ul class="solution-card-list">
+          <li class="solution-step"><span class="solution-step-badge">1</span><span>Pick a style</span></li>
+          <li class="solution-step"><span class="solution-step-badge">2</span><span>Fill in a few blanks</span></li>
+          <li class="solution-step"><span class="solution-step-badge">3</span><span>Paste the prompt</span></li>
+          <li class="solution-step"><span class="solution-step-badge">4</span><span>Generate stunning AI visuals in minutes</span></li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-card-title">Create</div>
+        <ul class="solution-card-list">
+          <li>Anime portraits</li>
+          <li>Cinematic posters</li>
+          <li>Action figure toy boxes</li>
+          <li>Pet transformations</li>
+          <li>Professional headshots</li>
+          <li>Viral-style AI art</li>
+        </ul>
+      </div>
+    </div>
+    <p class="solution-note">Everything is designed for complete beginners.<br>Even if this is the very first time using AI tools.</p>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;">Start Creating Now</a>
   </div>
 </section>
 
