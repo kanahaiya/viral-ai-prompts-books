@@ -1,7 +1,7 @@
 <?php
 // ─────────────────────────────────────────────────────────────────────────────
 // api/razorpay-order.php  —  Create a Razorpay order (INR)
-// POST body: { plan, book_id, email, name }
+// POST body: { plan, book_id, book_ids, email, name }
 // Returns: { id, amount, currency } or { error }
 // ─────────────────────────────────────────────────────────────────────────────
 require_once dirname(__DIR__) . '/auth.php';
@@ -15,17 +15,29 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $body   = json_decode(file_get_contents('php://input'), true);
 $plan   = $body['plan']    ?? '';
 $bookId = intval($body['book_id'] ?? 0);
+$bookIdsRaw = is_array($body['book_ids'] ?? null) ? $body['book_ids'] : [];
 $email  = strtolower(trim($body['email'] ?? ''));
 $name   = trim($body['name']  ?? '');
+$bookIds = array_values(array_unique(array_filter(array_map('intval', $bookIdsRaw), static function ($id) {
+    return $id >= 1 && $id <= 11;
+})));
 
 // Validate
 if (!in_array($plan, ['single', 'bundle'], true)) jsonResponse(['error' => 'Invalid plan'], 400);
-if ($plan === 'single' && ($bookId < 1 || $bookId > 11))  jsonResponse(['error' => 'Invalid book'], 400);
+if ($plan === 'single') {
+    if (empty($bookIds)) {
+        if ($bookId >= 1 && $bookId <= 11) {
+            $bookIds = [$bookId];
+        } else {
+            jsonResponse(['error' => 'Select at least one valid book'], 400);
+        }
+    }
+}
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))            jsonResponse(['error' => 'Invalid email'], 400);
 
 $amountPaise = ($plan === 'bundle')
     ? PRICE_BUNDLE_INR * 100
-    : PRICE_SINGLE_INR * 100;
+    : (count($bookIds) * PRICE_SINGLE_INR * 100);
 
 if (!function_exists('curl_init')) {
     jsonResponse(['error' => 'Server payment module is unavailable (cURL disabled). Enable cURL in hosting PHP settings.'], 500);
@@ -36,7 +48,13 @@ $payload = json_encode([
     'amount'          => $amountPaise,
     'currency'        => 'INR',
     'receipt'         => 'order_' . time(),
-    'notes'           => ['plan' => $plan, 'book_id' => $bookId, 'email' => $email, 'name' => $name],
+    'notes'           => [
+        'plan' => $plan,
+        'book_id' => $bookId,
+        'book_ids' => implode(',', $bookIds),
+        'email' => $email,
+        'name' => $name,
+    ],
 ]);
 
 $ch = curl_init('https://api.razorpay.com/v1/orders');
@@ -72,20 +90,49 @@ if ($httpCode !== 200 || empty($order['id'])) {
 // Store pending payment in DB
 try {
     $db   = getDB();
-    $stmt = $db->prepare('
-        INSERT INTO payments (email, name, plan, book_id, amount, currency, payment_method, order_id, status, setup_token)
-        VALUES (?, ?, ?, ?, ?, "INR", "razorpay", ?, "created", ?)
-    ');
     $token = generateToken(32);
-    $stmt->execute([
-        $email,
-        $name,
-        $plan,
-        $plan === 'single' ? $bookId : null,
-        PRICE_BUNDLE_INR * ($plan === 'bundle' ? 1 : 0) + PRICE_SINGLE_INR * ($plan === 'single' ? 1 : 0),
-        $order['id'],
-        $token,
-    ]);
+    $bookIdsJson = $plan === 'single' ? json_encode($bookIds) : null;
+
+    $hasBookIdsJsonColumn = false;
+    $columnCheckStmt = $db->query("SHOW COLUMNS FROM payments LIKE 'book_ids_json'");
+    if ($columnCheckStmt !== false && $columnCheckStmt->fetch()) {
+        $hasBookIdsJsonColumn = true;
+    }
+
+    if (!$hasBookIdsJsonColumn && $plan === 'single' && count($bookIds) > 1) {
+        jsonResponse(['error' => 'Multi-book checkout requires DB update. Add payments.book_ids_json column and retry.'], 500);
+    }
+
+    if ($hasBookIdsJsonColumn) {
+        $stmt = $db->prepare('
+            INSERT INTO payments (email, name, plan, book_id, book_ids_json, amount, currency, payment_method, order_id, status, setup_token)
+            VALUES (?, ?, ?, ?, ?, ?, "INR", "razorpay", ?, "created", ?)
+        ');
+        $stmt->execute([
+            $email,
+            $name,
+            $plan,
+            $plan === 'single' && count($bookIds) === 1 ? $bookIds[0] : null,
+            $bookIdsJson,
+            $plan === 'bundle' ? PRICE_BUNDLE_INR : (count($bookIds) * PRICE_SINGLE_INR),
+            $order['id'],
+            $token,
+        ]);
+    } else {
+        $stmt = $db->prepare('
+            INSERT INTO payments (email, name, plan, book_id, amount, currency, payment_method, order_id, status, setup_token)
+            VALUES (?, ?, ?, ?, ?, "INR", "razorpay", ?, "created", ?)
+        ');
+        $stmt->execute([
+            $email,
+            $name,
+            $plan,
+            $plan === 'single' && count($bookIds) === 1 ? $bookIds[0] : null,
+            $plan === 'bundle' ? PRICE_BUNDLE_INR : PRICE_SINGLE_INR,
+            $order['id'],
+            $token,
+        ]);
+    }
 } catch (Throwable $databaseError) {
     error_log('Razorpay payment DB write error: ' . $databaseError->getMessage());
     jsonResponse(['error' => 'Payment setup failed while saving order. Please verify DB config and try again.'], 500);

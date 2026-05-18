@@ -101,7 +101,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-logo"><a href="/dashboard.php">AI Prompt Books</a></div>
+    <div class="nav-logo"><a href="/">AI Prompt Books</a></div>
     <div class="nav-user">
       <span class="nav-name">👋 <?= htmlspecialchars($user['name'] ?? $user['email']) ?></span>
       <a href="/" class="nav-home">Home</a>

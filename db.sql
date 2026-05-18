@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `name`           VARCHAR(255)    DEFAULT NULL,
   `plan`           ENUM('single','bundle') NOT NULL,
   `book_id`        TINYINT UNSIGNED DEFAULT NULL,   -- NULL means bundle
+  `book_ids_json`  JSON            DEFAULT NULL,    -- [1,3,5] for multi-book single checkout
   `amount`         DECIMAL(10,2)   NOT NULL,
   `currency`       ENUM('INR','USD') NOT NULL,
   `payment_method` ENUM('razorpay','paypal') NOT NULL,
