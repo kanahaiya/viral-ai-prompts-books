@@ -70,20 +70,25 @@ if ($httpCode !== 200 || empty($order['id'])) {
 }
 
 // Store pending payment in DB
-$db   = getDB();
-$stmt = $db->prepare('
-    INSERT INTO payments (email, name, plan, book_id, amount, currency, payment_method, order_id, status, setup_token)
-    VALUES (?, ?, ?, ?, ?, "INR", "razorpay", ?, "created", ?)
-');
-$token = generateToken(32);
-$stmt->execute([
-    $email,
-    $name,
-    $plan,
-    $plan === 'single' ? $bookId : null,
-    PRICE_BUNDLE_INR * ($plan === 'bundle' ? 1 : 0) + PRICE_SINGLE_INR * ($plan === 'single' ? 1 : 0),
-    $order['id'],
-    $token,
-]);
+try {
+    $db   = getDB();
+    $stmt = $db->prepare('
+        INSERT INTO payments (email, name, plan, book_id, amount, currency, payment_method, order_id, status, setup_token)
+        VALUES (?, ?, ?, ?, ?, "INR", "razorpay", ?, "created", ?)
+    ');
+    $token = generateToken(32);
+    $stmt->execute([
+        $email,
+        $name,
+        $plan,
+        $plan === 'single' ? $bookId : null,
+        PRICE_BUNDLE_INR * ($plan === 'bundle' ? 1 : 0) + PRICE_SINGLE_INR * ($plan === 'single' ? 1 : 0),
+        $order['id'],
+        $token,
+    ]);
+} catch (Throwable $databaseError) {
+    error_log('Razorpay payment DB write error: ' . $databaseError->getMessage());
+    jsonResponse(['error' => 'Payment setup failed while saving order. Please verify DB config and try again.'], 500);
+}
 
 jsonResponse(['id' => $order['id'], 'amount' => $amountPaise, 'currency' => 'INR']);
