@@ -19,6 +19,7 @@ function renderBookUnavailablePage(string $bookTitle): void {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>Book Temporarily Unavailable — AI Prompt Books</title>
 <style>
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
@@ -64,6 +65,7 @@ function renderPdfUnavailablePage(string $bookTitle): void {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>PDF Not Available — AI Prompt Books</title>
 <style>
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}

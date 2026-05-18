@@ -8,6 +8,7 @@ $books    = getBooks();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>Viral AI Prompts System — 11 Books, 1,100 AI Image Templates</title>
 <meta name="description" content="The Viral AI Prompts System — 11 books, 1,100 fill-in-the-blank templates. Create better AI images faster with Midjourney, ChatGPT, Firefly and more.">
 <link rel="canonical" href="<?= htmlspecialchars(rtrim(SITE_URL, '/')) ?>/">
@@ -104,6 +105,31 @@ img{max-width:100%;display:block;}
 /* Gallery style tag strip */
 .gallery-styles{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin:1.2rem auto 0;max-width:900px;}
 .gallery-style-tag{font-family:'Courier New',monospace;font-size:0.62rem;letter-spacing:1px;text-transform:uppercase;background:rgba(212,168,54,0.06);color:var(--gold);border:1px solid rgba(212,168,54,0.25);padding:4px 12px;border-radius:20px;}
+.bundle-includes-list{list-style:none;max-width:900px;margin:1.8rem auto 1.8rem;padding:0;display:grid;gap:0.65rem;text-align:left;}
+.bundle-collection-visual{max-width:980px;margin:1.4rem auto 1.2rem;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 10px 36px rgba(0,0,0,0.5);}
+.bundle-collection-visual img{width:100%;height:auto;display:block;}
+.bundle-includes-list li{font-size:1rem;color:#c2c2c2;line-height:1.65;padding:0.85rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:8px;display:grid;gap:0.3rem;}
+.bundle-includes-list li strong{color:#fff;font-size:1rem;}
+.bundle-group-title{font-family:'Courier New',monospace;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin:1.3rem auto 0.65rem;max-width:900px;text-align:left;}
+.bundle-pricing-line{display:flex;justify-content:center;gap:1.2rem;align-items:baseline;flex-wrap:wrap;margin:0.6rem 0 1.3rem;}
+.bundle-value{font-size:1rem;color:#8f8f8f;}
+.bundle-price{font-size:1.35rem;color:var(--gold);font-weight:900;}
+.bundle-bridge{font-size:0.95rem;color:#a9a9a9;margin:0.8rem auto 0.4rem;max-width:620px;line-height:1.7;}
+.perfect-for-list{list-style:none;max-width:900px;margin:1.8rem auto 1.8rem;padding:0;display:grid;gap:0.65rem;text-align:left;}
+.perfect-for-list li{font-size:0.95rem;color:#c2c2c2;line-height:1.68;padding:0.8rem 1rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:8px;display:flex;gap:10px;align-items:flex-start;}
+.perfect-for-list li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0;margin-top:1px;}
+.bundle-detail-label{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin:0.8rem auto 0.8rem;}
+.bundle-detail-list{list-style:none;max-width:860px;margin:0 auto 1.4rem;padding:0;display:grid;gap:0.55rem;text-align:left;}
+.bundle-detail-list li{font-size:0.94rem;color:#c0c0c0;line-height:1.55;padding:0.72rem 0.9rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:7px;}
+.bundle-detail-value{font-size:0.97rem;color:#a8a8a8;line-height:1.8;}
+.bonus-block{max-width:900px;margin:1.8rem auto 0;text-align:left;}
+.bonus-item{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:1.3rem 1.2rem;margin-bottom:1rem;}
+.bonus-label{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:1.8px;color:var(--gold);text-transform:uppercase;margin-bottom:0.35rem;}
+.bonus-title{font-size:1.06rem;font-weight:800;color:#fff;margin-bottom:0.55rem;}
+.bonus-desc{font-size:1rem;color:#d7d7d7;line-height:1.8;}
+.bonus-points{list-style:none;margin:0.55rem 0 0;padding:0;display:grid;gap:0.35rem;}
+.bonus-points li{font-size:0.98rem;color:#e0e0e0;display:flex;gap:8px;align-items:flex-start;}
+.bonus-points li::before{content:'*';color:var(--gold);font-weight:800;flex-shrink:0;}
 
 /* ── TESTIMONIALS ── */
 .testimonials-section{border-top:1px solid var(--border);background:var(--surface);}
@@ -216,6 +242,27 @@ section{padding:64px 2rem;}
 .btn-buy:hover{background:#e8b93a;}
 .btn-buy-outline{width:100%;background:transparent;color:var(--gold);font-family:'Courier New',monospace;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:12px;border:1.5px solid var(--gold);border-radius:3px;cursor:pointer;transition:all 0.15s;}
 .btn-buy-outline:hover{background:rgba(212,168,54,0.08);}
+.support-access{max-width:780px;margin:1.6rem auto 0;padding:1rem 1.1rem;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;text-align:left;}
+.support-access-title{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.support-access-list{list-style:none;margin:0;padding:0;display:grid;gap:0.42rem;}
+.support-access-list li{font-size:0.9rem;color:#c4c4c4;line-height:1.55;display:flex;gap:8px;align-items:flex-start;}
+.support-access-list li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0;}
+.early-access-copy{max-width:820px;margin:1.2rem auto 0;text-align:center;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.25rem 1.35rem;}
+.early-access-copy p{font-size:1rem;color:#c9c9c9;line-height:1.8;margin-bottom:0.8rem;}
+.early-access-copy p:last-child{margin-bottom:0;}
+.early-access-copy .early-access-lead{font-size:1.06rem;color:#f1f1f1;font-weight:700;}
+.early-access-copy .early-access-vision{color:#d6d6d6;}
+.early-access-copy .early-access-punch{color:#e8e4de;font-weight:700;}
+.offer-bonus-callout{max-width:820px;margin:1rem auto 0;text-align:center;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.1rem 1.25rem;}
+.offer-bonus-callout h3{font-size:1.25rem;color:#fff;font-weight:800;margin-bottom:0.55rem;letter-spacing:-0.2px;}
+.offer-bonus-callout p{font-size:0.97rem;color:#c8c8c8;line-height:1.75;margin-bottom:0.55rem;}
+.offer-bonus-callout p:last-of-type{margin-bottom:0.95rem;}
+.offer-bonus-callout--secondary{background:rgba(255,255,255,0.015);border-color:rgba(255,255,255,0.06);}
+.offer-bonus-callout p,.momentum-copy p{max-width:680px;margin-left:auto;margin-right:auto;}
+.momentum-copy{max-width:820px;margin:1.4rem auto 0;text-align:center;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:1.25rem 1.35rem;}
+.momentum-copy h3{font-size:1.4rem;color:#fff;font-weight:900;letter-spacing:-0.3px;line-height:1.3;margin-bottom:0.85rem;}
+.momentum-copy p{font-size:0.98rem;color:#c8c8c8;line-height:1.8;margin-bottom:0.6rem;}
+.momentum-copy p:last-of-type{margin-bottom:1rem;}
 
 /* ── COMMUNITY ── */
 .community-section{background:linear-gradient(135deg,#0e0c08 0%,#0a0a0a 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -299,21 +346,23 @@ section{padding:64px 2rem;}
 
 /* ── OFFER STACK ── */
 .offer-section{background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.offer-list{max-width:660px;margin:2rem auto 0;}
-.offer-item{display:flex;align-items:center;gap:1rem;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.88rem;color:#ccc;}
+.offer-list{max-width:760px;margin:2rem auto 0;}
+.offer-item{display:flex;align-items:center;gap:1rem;padding:14px 0;border-bottom:1px solid var(--border);font-size:1rem;line-height:1.7;color:#e1e1e1;}
 .offer-item:last-child{border-bottom:none;}
 .offer-item .chk{color:var(--gold);font-weight:700;flex-shrink:0;}
 .offer-item .name{flex:1;}
-.offer-item .val{font-family:'Courier New',monospace;font-size:0.72rem;color:var(--text-dim);text-decoration:line-through;flex-shrink:0;}
-.offer-bonus{display:flex;align-items:center;gap:1rem;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.88rem;color:var(--gold);}
+.offer-item .val{font-family:'Courier New',monospace;display:inline-flex;align-items:baseline;gap:0.28rem;flex-shrink:0;}
+.offer-item .val-now{font-size:0.9rem;font-weight:800;color:var(--gold);}
+.offer-item .val-old{font-size:0.84rem;font-weight:700;color:rgba(232,228,222,0.52);text-decoration:line-through;text-decoration-color:rgba(232,228,222,0.42);}
+.offer-bonus{display:flex;align-items:center;gap:1rem;padding:14px 0;border-bottom:1px solid var(--border);font-size:1rem;line-height:1.7;color:var(--gold);}
 .offer-bonus .chk{font-weight:700;flex-shrink:0;}
 .offer-bonus .name{flex:1;}
 .offer-bonus .val{font-family:'Courier New',monospace;font-size:0.72rem;color:var(--gold);flex-shrink:0;}
 .offer-total-row{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0 0;margin-top:0.5rem;border-top:2px solid var(--gold);}
-.offer-total-label{font-family:'Courier New',monospace;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:#888;}
+.offer-total-label{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:#9a9a9a;}
 .offer-total-price{display:flex;align-items:baseline;gap:0.8rem;}
-.offer-total-orig{font-size:1rem;color:var(--text-dim);text-decoration:line-through;}
-.offer-total-today{font-size:1.8rem;font-weight:900;color:var(--gold);font-family:'Courier New',monospace;}
+.offer-total-orig{font-size:1.05rem;color:#818181;text-decoration:line-through;}
+.offer-total-today{font-size:2.05rem;font-weight:900;color:var(--gold);font-family:'Courier New',monospace;}
 
 /* ── GUARANTEE ── */
 .guarantee-section{background:var(--surface);border-top:1px solid var(--border);}
@@ -338,9 +387,16 @@ section{padding:64px 2rem;}
 
 /* ── FINAL CTA ── */
 .final-cta-section{border-top:1px solid var(--border);text-align:center;background:radial-gradient(ellipse 80% 100% at 50% 100%, rgba(212,168,54,0.07) 0%, transparent 70%);}
-.final-cta-section h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-1px;color:#fff;margin-bottom:1rem;}
+.final-cta-section h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-1px;color:#fff;margin:0 auto 1rem;max-width:980px;line-height:1.22;}
 .final-cta-section h2 span{color:var(--gold);}
 .final-cta-section .sub{font-size:1rem;color:#888;max-width:480px;margin:0 auto 2.5rem;line-height:1.8;}
+.final-cta-inner{max-width:760px;margin:0 auto;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:1.2rem 1.2rem 1.35rem;}
+.final-cta-list{list-style:none;max-width:390px;margin:1rem auto 1.05rem;padding:0;display:grid;gap:0.52rem;text-align:center;}
+.final-cta-list li{font-size:0.98rem;color:#cecece;line-height:1.6;display:flex;gap:8px;align-items:center;justify-content:center;}
+.final-cta-list li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0;margin-top:1px;}
+.final-cta-value{font-size:1rem;color:#8f8f8f;margin-top:0.25rem;}
+.final-cta-price{font-size:1.55rem;font-weight:900;color:var(--gold);margin:0.2rem 0 1rem;font-family:'Courier New',monospace;}
+.final-cta-micro{margin-top:0.75rem;font-size:0.8rem;color:#777;line-height:1.7;}
 .final-cta-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin-top:1.2rem;}
 .final-cta-pill{font-size:0.72rem;color:#aaa;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:20px;padding:5px 12px;display:inline-flex;align-items:center;gap:5px;}
 .final-cta-meta{margin-top:1rem;font-size:0.75rem;color:#555;line-height:2;}
@@ -418,7 +474,9 @@ section{padding:64px 2rem;}
 .mbb-emoji{font-size:1.5rem;margin-bottom:0.5rem;display:block;line-height:1;}
 .mbb-title{font-size:0.8rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.25rem;}
 .mbb-meta{font-family:'Courier New',monospace;font-size:0.57rem;letter-spacing:1.5px;text-transform:uppercase;color:#666;margin-bottom:0.35rem;}
-.mbb-price{font-family:'Courier New',monospace;font-size:0.78rem;font-weight:700;color:var(--gold);}
+.mbb-price{font-family:'Courier New',monospace;display:inline-flex;align-items:baseline;gap:0.28rem;}
+.mbb-price-now{font-size:0.78rem;font-weight:800;color:var(--gold);}
+.mbb-price-old{font-size:0.7rem;font-weight:700;color:rgba(232,228,222,0.5);text-decoration:line-through;text-decoration-color:rgba(232,228,222,0.4);}
 .modal-bonus-card{position:relative;background:rgba(212,168,54,0.04);border:1.5px solid rgba(212,168,54,0.2);border-radius:8px;padding:1.1rem 0.9rem 0.9rem;text-align:left;overflow:hidden;}
 .mbb-free-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(212,168,54,0.12);border:1px solid rgba(212,168,54,0.3);border-radius:20px;padding:3px 10px;margin-top:0.45rem;}
 .mbb-free-badge span{font-size:0.6rem;font-family:'Courier New',monospace;letter-spacing:1px;color:var(--gold);font-weight:700;}
@@ -631,13 +689,204 @@ section{padding:64px 2rem;}
   <div class="container" style="text-align:center;">
     <div class="section-badge">What You Can Create</div>
     <h2 class="section-title">Real Outputs. Real Prompts. <span style="color:var(--gold);">From This System.</span></h2>
-    <p class="section-sub" style="max-width:640px;margin:0 auto 0.5rem;">Action figures, Ghibli art, Mughal warriors, royal pet portraits, cinematic movie posters, professional portraits — all from the same system, all from the same ₹299.</p>
+    <p class="section-sub" style="max-width:640px;margin:0 auto 0.5rem;">Action figures, Ghibli art, Mughal warriors, royal pet portraits, cinematic movie posters, and professional portraits — all from the same system, all for the same ₹299.</p>
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
-        <img src="assets/collage-1.jpg" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="600" height="900" loading="lazy">
+        <img src="assets/collage-1.jpg" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="699" height="1024" loading="lazy">
       </div>
     </div>
     <p style="font-size:0.85rem;color:var(--muted);margin-top:1rem;">6 styles shown. 1,100+ prompt templates across 11 books — many more styles inside.</p>
+  </div>
+</section>
+
+<!-- BUNDLE INCLUDES -->
+<section class="benefits-section">
+  <div class="container" style="text-align:center;">
+    <div class="section-badge">Bundle Includes</div>
+    <h2 class="section-title">What&rsquo;s Included Inside The Bundle</h2>
+    <div class="bundle-collection-visual">
+      <img src="assets/sections/bundle-collection.jpg" alt="Complete Viral AI Prompts System collection showing all 11 books and the bonus guide" width="1800" height="900" loading="lazy">
+    </div>
+    <div class="bundle-group-title">Core Books</div>
+    <ul class="bundle-includes-list">
+      <li class="bundle-highlight"><strong>11 AI Style Books</strong><span>Each book includes 100 ready-to-use prompts, so creating AI visuals never feels confusing or overwhelming.</span></li>
+      <li><strong>All 11 styles shown above</strong><span>Action Figure, Ghibli, Nostalgia, Caricature, Headshots, Product, Cinematic, Scrapbook, Pet, Historical, and Bonus Trending.</span></li>
+    </ul>
+    <div class="bundle-group-title">Templates + Bonus</div>
+    <ul class="bundle-includes-list">
+      <li class="bundle-highlight"><strong>1,100 Fill-in-the-Blank Prompt Templates</strong><span>Just customize, paste, and generate. No technical prompting skills needed.</span></li>
+      <li><strong>AI Image Cheat Code Bonus Guide</strong><span>Simple tricks and beginner-friendly guidance to improve results faster.</span></li>
+    </ul>
+    <div class="bundle-group-title">Community + Support</div>
+    <ul class="bundle-includes-list">
+      <li><strong>Private WhatsApp Community Access</strong><span>Get new ideas, trending styles, support, and inspiration regularly.</span></li>
+    </ul>
+    <p class="bundle-bridge">Everything you need to go from beginner to confident creator.</p>
+    <div class="bundle-pricing-line">
+      <div class="bundle-value">Total Value ₹2,189+</div>
+      <div class="bundle-price">Today&rsquo;s Price: Just ₹299</div>
+    </div>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:0.45rem;">Unlock The Bundle</a>
+  </div>
+</section>
+
+<!-- PERFECT FOR -->
+<section class="benefits-section">
+  <div class="container" style="text-align:center;">
+    <div class="section-badge">Audience Fit</div>
+    <h2 class="section-title">This Is Perfect For</h2>
+    <ul class="perfect-for-list">
+      <li>People who see stunning AI art online and want to create similar visuals themselves.</li>
+      <li>Complete beginners who want amazing AI results without learning complicated prompting.</li>
+      <li>Instagram creators who want scroll-stopping visuals people actually react to.</li>
+      <li>Parents who want to create emotional and memorable AI images for their children and family.</li>
+      <li>Freelancers and creators who want professional-looking visuals without hiring designers.</li>
+      <li>Pet lovers who want to turn ordinary pet photos into creative AI artwork.</li>
+      <li>Small business owners who want better-looking product photos and promotional visuals.</li>
+      <li>Anyone who wants to create cool, impressive AI images for fun, gifts, content, or social media.</li>
+    </ul>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;">Yes, I Want This</a>
+  </div>
+</section>
+
+<!-- OFFER STACK -->
+<section class="offer-section">
+  <div class="container" style="text-align:center;">
+    <div class="section-badge">System Delivery + Bonuses</div>
+    <h2 class="section-title">Unlocks the Full Prompt System + Bonuses.</h2>
+    <p class="section-sub" style="margin:0 auto;">You&rsquo;re getting a complete, proven system: every book, every bonus, and every future update.</p>
+    <div class="offer-list">
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🧸 Book 1 — Action Figure &amp; Toy Box (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🌸 Book 2 — Ghibli &amp; Anime Style (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">📷 Book 3 — Childhood Nostalgia (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🎨 Book 4 — Caricature &amp; Chibi (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">💼 Book 5 — Professional Headshots (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">📦 Book 6 — Product Photography (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🎬 Book 7 — Cinematic Movie Poster (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">📜 Book 8 — Vintage Scrapbook (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🐾 Book 9 — Pet Transformation (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">🕰️ Book 10 — Historical Time Travel (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-item"><span class="chk">✦</span><span class="name">✨ Book 11 — Bonus Trending Styles (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+      <div class="offer-total-row">
+        <span class="offer-total-label">Value if bought separately</span>
+        <div class="offer-total-price">
+          <span class="offer-total-orig" id="offerOrig">₹2,189</span>
+          <span class="offer-total-today" id="offerToday">₹299</span>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.8rem;color:#555;" id="offerSavingLine">Save ₹1,890 vs buying each book separately — plus 2 free bonuses. Early-access price: ₹299 → ₹499 when this window closes.</p>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Unlock Full System Access</a>
+    <div class="bonus-block">
+      <div class="bonus-item">
+        <div class="bonus-label">BONUS #1</div>
+        <div class="bonus-title">AI Prompt Finder CustomGPT</div>
+        <div class="bonus-desc">Describe the image you want, and the CustomGPT instantly recommends the best prompt book and style.<br>Perfect for beginners who are not sure where to start.</div>
+      </div>
+      <div class="bonus-item">
+        <div class="bonus-label">BONUS #2</div>
+        <div class="bonus-title">AI Image Cheat Code Ebook</div>
+        <div class="bonus-desc">Simple prompt tricks and beginner-friendly guidance to help you create better AI visuals faster.<br>No technical jargon.<br>No overwhelm.</div>
+      </div>
+      <div class="bonus-item">
+        <div class="bonus-label">BONUS #3</div>
+        <div class="bonus-title">Private WhatsApp Community Access</div>
+        <div class="bonus-desc">Get:</div>
+        <ul class="bonus-points">
+          <li>New prompt ideas</li>
+          <li>Trending AI style updates</li>
+          <li>Creative inspiration</li>
+          <li>Beginner support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER DETAILS (PRICING) -->
+<section id="pricing" class="pricing-section">
+  <div class="container" style="text-align:center;">
+    <div class="section-badge">Offer Details</div>
+    <h2 class="section-title">One Price. No Subscription.<br><span style="color:var(--gold);">Use It For Years.</span></h2>
+    <p class="section-sub" style="margin:0 auto 1.5rem;">No subscription. No renewal. No price creep. Pay once — own it for life, including every new book added to the collection.</p>
+    <div class="value-compare">
+      <div class="value-card">
+        <div class="label">Doing it manually</div>
+        <div class="price">10-50 hours</div>
+        <p>Researching styles, writing prompts, and fixing failed outputs from scratch.</p>
+      </div>
+      <div class="value-card">
+        <div class="label">Hiring help</div>
+        <div class="price">₹2,000+</div>
+        <p>One designer session can cost far more than this full prompt library.</p>
+      </div>
+      <div class="value-card">
+        <div class="label">This system</div>
+        <div class="price">₹299 once</div>
+        <p>11 books, 1,100 templates, bonus guide, and future updates included.</p>
+      </div>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Single Book -->
+      <div class="price-card">
+        <div class="price-plan">Single Book</div>
+        <div class="price-amount"><span class="currency">₹</span>99 <span class="original">₹199</span></div>
+        <div class="price-billing">One book · 100 prompts · Lifetime access</div>
+        <ul class="price-features">
+          <li>1 book of your choice (you pick)</li>
+          <li>100 fill-in-the-blank prompt templates</li>
+          <li>6 personal variable slots per prompt</li>
+          <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
+          <li>Interactive online viewer — no downloads</li>
+          <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
+          <li>WhatsApp community access</li>
+          <li>All future updates to your book</li>
+        </ul>
+        <button class="btn-buy-outline" data-action="start-checkout" data-plan="single">
+          Start with One Book - ₹99 (was ₹199)
+        </button>
+        <div class="price-risk-reversal">Good if you want to test one style first before committing.</div>
+      </div>
+
+      <!-- Full Bundle -->
+      <div class="price-card popular">
+        <div class="price-badge">BEST VALUE</div>
+        <div class="price-plan">Full System Access</div>
+        <div class="price-amount"><span class="currency">₹</span>299 <span class="original">₹2,189</span></div>
+        <div class="price-billing">Save ₹1,890 · All 11 books + bonus guide · Lifetime access</div>
+        <div class="price-card-social">Chosen by <strong>200+ creators</strong> — from beginners to freelancers</div>
+        <ul class="price-features">
+          <li>All 11 books — 1,100 prompt templates</li>
+          <li>Every trending style covered (Ghibli, posters, pets, fashion…)</li>
+          <li>6 personal variable slots per prompt</li>
+          <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
+          <li>Interactive online viewer — no downloads</li>
+          <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
+          <li>🎁 Exclusive WhatsApp community access</li>
+          <li>All future books automatically added</li>
+        </ul>
+        <button class="btn-buy" data-action="start-checkout" data-plan="bundle">
+          Get Full System Access — ₹299 →
+        </button>
+        <div class="price-risk-reversal">Best for serious use: all styles now, plus future books included.</div>
+      </div>
+    </div>
+    <div class="support-access">
+      <div class="support-access-title">SUPPORT &amp; ACCESS</div>
+      <ul class="support-access-list">
+        <li>Instant Access After Payment</li>
+        <li>Works on Mobile &amp; Laptop</li>
+        <li>Works with ChatGPT, Midjourney, Firefly &amp; More</li>
+        <li>Beginner-Friendly</li>
+        <li>Lifetime Access</li>
+        <li>Future Updates Included</li>
+      </ul>
+    </div>
+
+    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 At ₹299, that's about ₹27 per book — still lower than one cafe snack for a reusable creation system.</p>
+    <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Razorpay (India)</p>
+    <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
   </div>
 </section>
 
@@ -645,7 +894,7 @@ section{padding:64px 2rem;}
 <section class="testimonials-section" id="reviews">
   <div class="container">
     <div class="section-badge" style="text-align:center;">Real Buyers · Real Results</div>
-    <h2 class="section-title" style="text-align:center;">Real Buyers. Real Use Cases.<br><span style="color:var(--gold);">No Hype.</span></h2>
+    <h2 class="section-title" style="text-align:center;">What Buyers Are Saying</h2>
 
     <p class="testimonial-lead">Most of them were not "AI experts." They were creators, parents, freelancers, and side-hustlers trying to get better output without spending hours experimenting. <strong style="color:#ccc;">These are their practical outcomes.</strong></p>
 
@@ -753,133 +1002,35 @@ section{padding:64px 2rem;}
   </div>
 </section>
 
-<!-- OFFER STACK -->
-<section class="offer-section">
+<!-- EARLY ACCESS PRICING -->
+<section class="benefits-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">System Delivery + Bonuses</div>
-    <h2 class="section-title">₹299 Unlocks the Full Prompt System + Bonuses.</h2>
-    <p class="section-sub" style="margin:0 auto;">You are buying a proven system for repeatable output. The full bundle is how that system is delivered: every module, every bonus, every future update.</p>
-    <div class="offer-list">
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🧸 Book 1 — Action Figure &amp; Toy Box (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🌸 Book 2 — Ghibli &amp; Anime Style (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📷 Book 3 — Childhood Nostalgia (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🎨 Book 4 — Caricature &amp; Chibi (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">💼 Book 5 — Professional Headshots (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📦 Book 6 — Product Photography (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🎬 Book 7 — Cinematic Movie Poster (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📜 Book 8 — Vintage Scrapbook (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🐾 Book 9 — Pet Transformation (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🕰️ Book 10 — Historical Time Travel (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">✨ Book 11 — Bonus Trending Styles (100 prompts)</span><span class="val">₹199</span></div>
-      <div class="offer-bonus"><span class="chk">🎁</span><span class="name">🎯 The AI Image Cheat Code — Style guide + practice prompts (bonus for ALL buyers)</span><span class="val">FREE</span></div>
-      <div class="offer-bonus"><span class="chk">🎁</span><span class="name">Private WhatsApp Community Access (new prompts, trending drops)</span><span class="val">FREE</span></div>
-      <div class="offer-total-row">
-        <span class="offer-total-label">If bought separately</span>
-        <div class="offer-total-price">
-          <span class="offer-total-orig" id="offerOrig">₹2,189</span>
-          <span class="offer-total-today" id="offerToday">₹299</span>
-        </div>
-      </div>
+    <div class="section-badge">Pricing Window</div>
+    <h2 class="section-title">Early Access Pricing</h2>
+    <div class="early-access-copy">
+      <p class="early-access-lead">Right now, the complete 11-book bundle is available for just ₹299.</p>
+      <p>Each book individually costs ₹199.</p>
+      <p>Once the launch offer ends, the price increases.</p>
+      <p class="early-access-vision">If AI art trends are already everywhere on Instagram and Reels, imagine where they&rsquo;ll be 3 months from now.</p>
+      <p class="early-access-punch">Best time to start creating is while the trends, styles, and tools are still fresh.</p>
     </div>
-    <p style="margin-top:1rem;font-size:0.8rem;color:#555;" id="offerSavingLine">Save ₹1,890 vs buying each book separately — plus 2 free bonuses. Early-access price: ₹299 → ₹499 when this window closes.</p>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Buy Now — Get System Access →</a>
+    <div class="offer-bonus-callout offer-bonus-callout--secondary">
+      <h3>Bonuses Available During This Offer</h3>
+      <p>The AI Prompt Finder CustomGPT, bonus ebook, and private WhatsApp community are currently included free with the full bundle.</p>
+      <p>These bonuses may not stay included permanently as new updates and books are added later.</p>
+      <a href="#pricing" class="btn-secondary" style="display:inline-block;">Claim My Bonuses</a>
+    </div>
+    <div class="momentum-copy">
+      <h3>Don&rsquo;t Keep Watching Others Create Cool AI Art</h3>
+      <p>Every day, more people are turning ordinary photos into stunning AI visuals, cinematic posters, anime portraits, and viral-style edits.</p>
+      <p>Most are not designers.</p>
+      <p>Most are not AI experts.</p>
+      <p>They simply started.</p>
+      <p>A few minutes from now, the bundle could already be inside the inbox and the first AI image could already be created.</p>
+      <a href="#pricing" class="btn-primary" style="display:inline-block;">Make My First AI Image</a>
+    </div>
   </div>
 </section>
-
-<!-- OFFER DETAILS (PRICING) -->
-<section id="pricing" class="pricing-section">
-  <div class="container" style="text-align:center;">
-    <div class="section-badge">Offer Details</div>
-    <h2 class="section-title">One Price. No Subscription.<br><span style="color:var(--gold);">Use It For Years.</span></h2>
-    <p class="section-sub" style="margin:0 auto 1.5rem;">No subscription. No renewal. No price creep. Pay once — own it for life, including every new book added to the collection.</p>
-    <div class="value-compare">
-      <div class="value-card">
-        <div class="label">Doing it manually</div>
-        <div class="price">10-50 hours</div>
-        <p>Researching styles, writing prompts, and fixing failed outputs from scratch.</p>
-      </div>
-      <div class="value-card">
-        <div class="label">Hiring help</div>
-        <div class="price">₹2,000+</div>
-        <p>One designer session can cost far more than this full prompt library.</p>
-      </div>
-      <div class="value-card">
-        <div class="label">This system</div>
-        <div class="price">₹299 once</div>
-        <p>11 books, 1,100 templates, bonus guide, and future updates included.</p>
-      </div>
-    </div>
-
-    <div class="pricing-grid">
-      <!-- Single Book -->
-      <div class="price-card">
-        <div class="price-plan">Single Book</div>
-        <div class="price-amount"><span class="currency">₹</span>99 <span class="original">₹199</span></div>
-        <div class="price-billing">One book · 100 prompts · Lifetime access</div>
-        <ul class="price-features">
-          <li>1 book of your choice (you pick)</li>
-          <li>100 fill-in-the-blank prompt templates</li>
-          <li>6 personal variable slots per prompt</li>
-          <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
-          <li>Interactive online viewer — no downloads</li>
-          <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
-          <li>WhatsApp community access</li>
-          <li>All future updates to your book</li>
-        </ul>
-        <button class="btn-buy-outline" data-action="start-checkout" data-plan="single">
-          Start with One Book - ₹99 (was ₹199)
-        </button>
-        <div class="price-risk-reversal">Good if you want to test one style first before committing.</div>
-      </div>
-
-      <!-- Full Bundle -->
-      <div class="price-card popular">
-        <div class="price-badge">BEST VALUE</div>
-        <div class="price-plan">Full System Access</div>
-        <div class="price-amount"><span class="currency">₹</span>299 <span class="original">₹2,189</span></div>
-        <div class="price-billing">Save ₹1,890 · All 11 books + bonus guide · Lifetime access</div>
-        <div class="price-card-social">Chosen by <strong>200+ creators</strong> — from beginners to freelancers</div>
-        <ul class="price-features">
-          <li>All 11 books — 1,100 prompt templates</li>
-          <li>Every trending style covered (Ghibli, posters, pets, fashion…)</li>
-          <li>6 personal variable slots per prompt</li>
-          <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
-          <li>Interactive online viewer — no downloads</li>
-          <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
-          <li>🎁 Exclusive WhatsApp community access</li>
-          <li>All future books automatically added</li>
-        </ul>
-        <button class="btn-buy" data-action="start-checkout" data-plan="bundle">
-          Get Full System Access — ₹299 →
-        </button>
-        <div class="price-risk-reversal">Best for serious use: all styles now, plus future books included.</div>
-      </div>
-    </div>
-
-    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 At ₹299, that's about ₹27 per book — still lower than one cafe snack for a reusable creation system.</p>
-    <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Razorpay (India)</p>
-    <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
-  </div>
-</section>
-
-<!-- URGENCY -->
-<div class="urgency-section">
-  <div class="urgency-inner">
-    <div class="urgency-live-badge"><span class="urgency-live-dot"></span>EARLY ACCESS PRICING</div>
-    <div class="urgency-icon">⚡</div>
-    <div class="urgency-title">₹299 is the early-access price.<br>It goes to ₹499 when this window closes.</div>
-    <!-- Countdown timer -->
-    <div class="countdown-row" id="countdownRow">
-      <div class="cd-block"><div class="cd-num" id="cdH">47</div><div class="cd-label">Hours</div></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-block"><div class="cd-num" id="cdM">59</div><div class="cd-label">Min</div></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-block"><div class="cd-num" id="cdS">59</div><div class="cd-label">Sec</div></div>
-    </div>
-    <div class="urgency-sub">Ghibli art, action figure toy boxes, cinematic posters — these styles are trending across Instagram and Reels right now. The creators using these templates are posting results today, not next week.<br><br>At ₹299 (less than a movie ticket), you get a reusable system you'll use for months. At ₹499 later, it still pays for itself the first time it saves you an hour.</div>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Lock In ₹299 — Get System Access →</a>
-  </div>
-</div>
 
 <!-- COLLAGE 2: More Styles -->
 <section class="gallery-section gallery-section--alt">
@@ -889,7 +1040,7 @@ section{padding:64px 2rem;}
     <p class="section-sub" style="max-width:640px;margin:0 auto 0.5rem;">Pixar-style portraits, luxury product shots, Barbiecore fashion, childhood nostalgia, festive scrapbooks, cyberpunk cities — all using prompts from this single ₹299 bundle.</p>
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
-        <img src="assets/collage-2.jpg" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="600" height="900" loading="lazy">
+        <img src="assets/collage-2.jpg" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="699" height="1024" loading="lazy">
       </div>
     </div>
     <p style="font-size:0.85rem;color:var(--muted);margin-top:1rem;">Still only 6 of 1,100+ styles. Every prompt works the same way — fill in the blanks, generate, done.</p>
@@ -939,24 +1090,20 @@ section{padding:64px 2rem;}
 <!-- FINAL CTA -->
 <section class="final-cta-section">
   <div class="container">
-    <h2>You're Minutes Away From<br><span>Your First Better AI Visual</span></h2>
-    <p class="sub">₹299 one-time. No subscriptions. Open your library, pick a style, fill in a few blanks, and generate something you'd actually share. No prompt-writing stress required.</p>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;font-size:1rem;padding:16px 40px;">
-      Get the Prompt System — ₹299 →
-    </a>
-    <div class="whats-next">
-      <div class="wn-step"><span class="wn-n">1</span>Click the button</div>
-      <div class="wn-step"><span class="wn-n">2</span>Checkout in 30 sec</div>
-      <div class="wn-step"><span class="wn-n">3</span>Login link hits your inbox</div>
-      <div class="wn-step"><span class="wn-n">4</span>Create your first share-worthy image</div>
-    </div>
-    <div class="final-cta-pills" style="margin-top:1.2rem;">
-      <span class="final-cta-pill">✦ 1,100 Prompt Templates</span>
-      <span class="final-cta-pill">✦ 11 Style Books</span>
-      <span class="final-cta-pill">🎁 Free Bonus Guide</span>
-      <span class="final-cta-pill">⚡ Instant Access</span>
-      <span class="final-cta-pill">📱 Any Device</span>
-      <span class="final-cta-pill">🔒 Secure Checkout</span>
+    <h2>Create Stunning AI Images Without Learning <span>Prompting</span></h2>
+    <div class="final-cta-inner">
+      <ul class="final-cta-list">
+        <li>11 Premium AI Prompt Books</li>
+        <li>1,100 Fill-in-the-Blank Templates</li>
+        <li>Bonuses Included</li>
+        <li>Lifetime Access</li>
+      </ul>
+      <div class="final-cta-value">Total Value: ₹2,189+</div>
+      <div class="final-cta-price">Today Only: ₹299</div>
+      <a href="#pricing" class="btn-primary" style="display:inline-block;font-size:1rem;padding:16px 40px;">
+        Get Instant Access
+      </a>
+      <div class="final-cta-micro">Instant email access after payment.</div>
     </div>
   </div>
 </section>
@@ -1031,7 +1178,7 @@ section{padding:64px 2rem;}
         <?php endif; ?>
         <div class="mbb-title"><?= htmlspecialchars($book['title']) ?></div>
         <div class="mbb-meta">100 PROMPTS</div>
-        <div class="mbb-price" id="modalPrice<?= $id ?>">₹99</div>
+        <div class="mbb-price" id="modalPrice<?= $id ?>"><span class="mbb-price-now">₹99</span><span class="mbb-price-old">₹199</span></div>
       </button>
       <?php endforeach; ?>
       <!-- Bonus card — included free with any purchase -->
