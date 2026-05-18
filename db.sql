@@ -47,6 +47,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `uq_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- ── Password reset tokens ─────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `email`      VARCHAR(255) NOT NULL,
+  `token`      CHAR(64)     NOT NULL,
+  `used`       TINYINT(1)   NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_email` (`email`),
+  KEY `idx_token` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ── Sample view: admin overview ───────────────────────────────────────────────
 CREATE OR REPLACE VIEW `v_admin_overview` AS
 SELECT

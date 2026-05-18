@@ -7,10 +7,15 @@ if (isLoggedIn()) {
 }
 
 $error = '';
+$success = '';
 $next = '/dashboard.php';
 $nextInput = filter_input(INPUT_GET, 'next', FILTER_SANITIZE_URL) ?: '';
 if (is_string($nextInput) && str_starts_with($nextInput, '/') && !str_starts_with($nextInput, '//')) {
     $next = $nextInput;
+}
+
+if (($_GET['reset'] ?? '') === 'success') {
+    $success = 'Password updated successfully. Please login with your new password.';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,6 +62,7 @@ label{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;c
 input[type=email],input[type=password]{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;outline:none;transition:border-color 0.15s;}
 input:focus{border-color:#d4a836;}
 .error{background:#3a1010;border:1px solid #7a2020;border-radius:3px;padding:10px 14px;font-size:0.82rem;color:#f87171;margin-bottom:1.2rem;}
+.success{background:#0e2f1a;border:1px solid #1f6f3c;border-radius:3px;padding:10px 14px;font-size:0.82rem;color:#86efac;margin-bottom:1.2rem;}
 .btn{width:100%;background:#d4a836;color:#000;font-family:'Courier New',monospace;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px;border:none;border-radius:3px;cursor:pointer;transition:background 0.15s;margin-top:0.5rem;}
 .btn:hover{background:#e8b93a;}
 .footer-link{text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#888;}
@@ -75,6 +81,9 @@ input:focus{border-color:#d4a836;}
   <?php if ($error): ?>
     <div class="error"><?= htmlspecialchars($error) ?></div>
   <?php endif; ?>
+  <?php if ($success): ?>
+    <div class="success"><?= htmlspecialchars($success) ?></div>
+  <?php endif; ?>
 
   <form method="POST" action="/login.php?next=<?= urlencode($next) ?>">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrfToken()) ?>">
@@ -92,6 +101,7 @@ input:focus{border-color:#d4a836;}
 
   <div class="help-links">
     <a href="/recover-access.php?from=login">Paid but didn't set password? Resend setup link</a>
+    <a href="/forgot-password.php">Forgot password? Reset it here</a>
   </div>
 
   <div class="footer-link">

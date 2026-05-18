@@ -4,7 +4,7 @@ require_once __DIR__ . '/auth.php';
 /**
  * Send transactional email via Brevo API.
  */
-function sendBrevoSetupEmail(string $recipientEmail, string $setupUrl): bool
+function sendBrevoEmail(string $recipientEmail, string $subject, string $body): bool
 {
     if (!function_exists('curl_init')) {
         error_log('Brevo send failed: cURL extension not enabled.');
@@ -27,8 +27,8 @@ function sendBrevoSetupEmail(string $recipientEmail, string $setupUrl): bool
         'to' => [
             ['email' => $recipientEmail],
         ],
-        'subject' => 'Your AI Prompt Books setup link',
-        'textContent' => "Hi,\n\nUse this secure link to complete your account setup:\n{$setupUrl}\n\nThis link expires after 24 hours.\n\n- AI Prompt Books",
+        'subject' => $subject,
+        'textContent' => $body,
     ];
 
     $ch = curl_init('https://api.brevo.com/v3/smtp/email');
@@ -62,6 +62,25 @@ function sendBrevoSetupEmail(string $recipientEmail, string $setupUrl): bool
     return true;
 }
 
+/**
+ * Ensure password reset table exists.
+ */
+function ensurePasswordResetTable(PDO $db): void
+{
+    $db->exec('
+        CREATE TABLE IF NOT EXISTS password_resets (
+            id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            email VARCHAR(255) NOT NULL,
+            token CHAR(64) NOT NULL,
+            used TINYINT(1) NOT NULL DEFAULT 0,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY idx_email (email),
+            KEY idx_token (token)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ');
+}
+
 $isSubmitted = false;
 $email = '';
 $showDevFallback = false;
@@ -78,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $statusMessage = 'Please enter a valid email address.';
     } else {
-        $statusMessage = 'If this email has a pending purchase, a fresh setup link has been sent.';
+        $statusMessage = 'If this email is linked to a purchase or account, a recovery email has been sent.';
 
         try {
             $db = getDB();
@@ -87,7 +106,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $existingUserStmt->execute([$email]);
             $existingUser = $existingUserStmt->fetch();
 
-            if (!$existingUser) {
+            if ($existingUser) {
+                ensurePasswordResetTable($db);
+                $resetToken = generateToken(32);
+                $insertResetStmt = $db->prepare('INSERT INTO password_resets (email, token, used) VALUES (?, ?, 0)');
+                $insertResetStmt->execute([$email, $resetToken]);
+
+                $resetUrl = rtrim(SITE_URL, '/') . '/reset-password.php?token=' . urlencode($resetToken);
+                $isMailSent = sendBrevoEmail(
+                    $email,
+                    'Reset your AI Prompt Books password',
+                    "Hi,\n\nUse this secure link to reset your password:\n{$resetUrl}\n\nThis link expires after 2 hours.\n\n- AI Prompt Books"
+                );
+
+                if (!$isMailSent) {
+                    error_log('Recover access reset email send failed for email: ' . $email);
+                    if ((getenv('APP_ENV') ?: '') !== 'production') {
+                        $showDevFallback = true;
+                        $devFallbackLink = $resetUrl;
+                    }
+                }
+            } else {
                 $paymentStmt = $db->prepare('
                     SELECT id
                     FROM payments
@@ -106,7 +145,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateStmt->execute([$newToken, $payment['id']]);
 
                     $setupUrl = rtrim(SITE_URL, '/') . '/setup-account.php?token=' . urlencode($newToken);
-                    $isMailSent = sendBrevoSetupEmail($email, $setupUrl);
+                    $isMailSent = sendBrevoEmail(
+                        $email,
+                        'Your AI Prompt Books setup link',
+                        "Hi,\n\nUse this secure link to complete your account setup:\n{$setupUrl}\n\nThis link expires after 24 hours.\n\n- AI Prompt Books"
+                    );
 
                     if (!$isMailSent) {
                         error_log('Recover access email send failed for email: ' . $email);
@@ -155,7 +198,7 @@ input:focus{border-color:#d4a836;}
 <div class="logo"><a href="/">AI Prompt Books</a></div>
 <div class="card">
   <h1>Recover Your Access</h1>
-  <p class="sub">Use the same email you used at checkout. If we find a pending completed payment, we'll send a fresh setup link.</p>
+  <p class="sub">Use the same email you used at checkout or login. We'll send a setup or password reset link based on your account state.</p>
 
   <?php if ($isSubmitted): ?>
     <div class="message <?= str_contains($statusMessage, 'Please') || str_contains($statusMessage, 'Session') ? 'error' : 'info' ?>">
