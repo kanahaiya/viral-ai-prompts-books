@@ -60,6 +60,7 @@ jobs:
             **/node_modules/**
             **/.env*
             **/local.db
+            **/db.sql
             **/setup-local.php
             **/.ftp-deploy-sync-state.json
             **/.ftp-deploy-sync-state*

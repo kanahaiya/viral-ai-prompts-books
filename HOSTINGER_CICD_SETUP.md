@@ -54,6 +54,7 @@ The workflow excludes:
 - `.env*` files
 - `.ftp-deploy-sync-state.json`
 - `local.db`
+- `db.sql`
 - `setup-local.php`
 - markdown docs
 - local machine artifacts
