@@ -177,3 +177,64 @@ src="https://www.facebook.com/tr?id={$pixelId}&ev=PageView&noscript=1"
 /></noscript>
 HTML;
 }
+
+// ── Payment setup email helper ────────────────────────────────────────────────
+function sendSetupLinkEmail(string $recipientEmail, string $recipientName, string $setupToken, string $plan): bool {
+    if (!function_exists('curl_init')) {
+        error_log('Setup email skipped: cURL not available.');
+        return false;
+    }
+    if (!defined('BREVO_API_KEY') || BREVO_API_KEY === '' || BREVO_API_KEY === 'brevo_api_key_placeholder') {
+        error_log('Setup email skipped: BREVO_API_KEY missing.');
+        return false;
+    }
+    if (!filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
+        error_log('Setup email skipped: invalid recipient email.');
+        return false;
+    }
+    if ($setupToken === '') {
+        error_log('Setup email skipped: empty setup token.');
+        return false;
+    }
+
+    $safeName = trim($recipientName) !== '' ? trim($recipientName) : 'there';
+    $setupUrl = rtrim(SITE_URL, '/') . '/setup-account.php?token=' . urlencode($setupToken);
+    $planText = $plan === 'bundle' ? 'full bundle' : 'selected book access';
+    $subject = 'Your AI Prompt Books access link';
+    $body = "Hi {$safeName},\n\n"
+        . "Your payment is confirmed. Use this link to create your account and unlock your {$planText}:\n"
+        . "{$setupUrl}\n\n"
+        . "If you cannot set up right now, no worries — you can use the same link later.\n\n"
+        . "- AI Prompt Books";
+
+    $payload = [
+        'sender' => ['name' => MAIL_FROM_NAME, 'email' => MAIL_FROM_EMAIL],
+        'to' => [['email' => $recipientEmail]],
+        'subject' => $subject,
+        'textContent' => $body,
+    ];
+
+    $ch = curl_init('https://api.brevo.com/v3/smtp/email');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => [
+            'accept: application/json',
+            'api-key: ' . BREVO_API_KEY,
+            'content-type: application/json',
+        ],
+        CURLOPT_TIMEOUT => 20,
+    ]);
+    $response = curl_exec($ch);
+    $curlError = curl_error($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($curlError || $httpCode < 200 || $httpCode >= 300) {
+        error_log('Setup email send failed: ' . ($curlError ?: ('HTTP ' . $httpCode . ' body=' . (string)$response)));
+        return false;
+    }
+
+    return true;
+}

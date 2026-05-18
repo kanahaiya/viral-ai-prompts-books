@@ -52,9 +52,19 @@ if ($stmt->rowCount() === 0) {
     jsonResponse(['error' => 'Order not found'], 404);
 }
 
-// Get the setup token
-$stmt = $db->prepare('SELECT setup_token FROM payments WHERE order_id = ?');
+// Get setup data and send account setup email.
+$stmt = $db->prepare('SELECT setup_token, email, name, plan FROM payments WHERE order_id = ?');
 $stmt->execute([$orderId]);
 $row = $stmt->fetch();
+
+if ($row && !empty($row['setup_token'])) {
+    // Email send failure should not block successful payment response.
+    sendSetupLinkEmail(
+        (string)$row['email'],
+        (string)($row['name'] ?? ''),
+        (string)$row['setup_token'],
+        (string)($row['plan'] ?? '')
+    );
+}
 
 jsonResponse(['token' => $row['setup_token']]);

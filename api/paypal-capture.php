@@ -75,14 +75,25 @@ $stmt = $db->prepare('
     WHERE order_id = ? AND status = "created"
 ');
 $stmt->execute([$captureId, $orderId]);
+$wasFreshlyCompleted = $stmt->rowCount() > 0;
 
-// Fetch the setup token
-$stmt = $db->prepare('SELECT setup_token FROM payments WHERE order_id = ?');
+// Fetch setup data.
+$stmt = $db->prepare('SELECT setup_token, email, name, plan FROM payments WHERE order_id = ?');
 $stmt->execute([$orderId]);
 $row = $stmt->fetch();
 
 if (!$row) {
     jsonResponse(['error' => 'Payment record not found. Please contact support.'], 404);
+}
+
+if ($wasFreshlyCompleted && !empty($row['setup_token'])) {
+    // Email send failure should not block successful payment response.
+    sendSetupLinkEmail(
+        (string)$row['email'],
+        (string)($row['name'] ?? ''),
+        (string)$row['setup_token'],
+        (string)($row['plan'] ?? '')
+    );
 }
 
 jsonResponse(['token' => $row['setup_token']]);
