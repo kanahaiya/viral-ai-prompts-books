@@ -27,7 +27,7 @@ if (!$error) {
     $stmt->execute([$token]);
     $payment = $stmt->fetch();
     if (!$payment) {
-        $error = 'This setup link is invalid, expired, or already used. Please <a href="/login.php">log in</a> if your account already exists.';
+        $error = 'This setup link is invalid, expired, or already used. Please <a href="/login.php">log in</a> if your account already exists, or <a href="/recover-access.php">resend setup link</a>.';
     }
 }
 

@@ -1,0 +1,185 @@
+<?php
+require_once __DIR__ . '/auth.php';
+
+/**
+ * Send transactional email via Brevo API.
+ */
+function sendBrevoSetupEmail(string $recipientEmail, string $setupUrl): bool
+{
+    if (!function_exists('curl_init')) {
+        error_log('Brevo send failed: cURL extension not enabled.');
+        return false;
+    }
+
+    if (!defined('BREVO_API_KEY') || BREVO_API_KEY === '' || BREVO_API_KEY === 'brevo_api_key_placeholder') {
+        error_log('Brevo send skipped: BREVO_API_KEY is missing.');
+        return false;
+    }
+
+    $fromEmail = defined('MAIL_FROM_EMAIL') ? MAIL_FROM_EMAIL : 'noreply@example.com';
+    $fromName = defined('MAIL_FROM_NAME') ? MAIL_FROM_NAME : 'AI Prompt Books';
+
+    $payload = [
+        'sender' => [
+            'name' => $fromName,
+            'email' => $fromEmail,
+        ],
+        'to' => [
+            ['email' => $recipientEmail],
+        ],
+        'subject' => 'Your AI Prompt Books setup link',
+        'textContent' => "Hi,\n\nUse this secure link to complete your account setup:\n{$setupUrl}\n\nThis link expires after 24 hours.\n\n- AI Prompt Books",
+    ];
+
+    $ch = curl_init('https://api.brevo.com/v3/smtp/email');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => [
+            'accept: application/json',
+            'api-key: ' . BREVO_API_KEY,
+            'content-type: application/json',
+        ],
+        CURLOPT_TIMEOUT => 20,
+    ]);
+
+    $response = curl_exec($ch);
+    $curlError = curl_error($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($curlError) {
+        error_log('Brevo send cURL error: ' . $curlError);
+        return false;
+    }
+
+    if ($httpCode < 200 || $httpCode >= 300) {
+        error_log('Brevo send API error: HTTP ' . $httpCode . ' body=' . (string)$response);
+        return false;
+    }
+
+    return true;
+}
+
+$isSubmitted = false;
+$email = '';
+$showDevFallback = false;
+$devFallbackLink = '';
+$statusMessage = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $isSubmitted = true;
+    $csrfToken = trim($_POST['csrf_token'] ?? '');
+    $email = strtolower(trim($_POST['email'] ?? ''));
+
+    if (!verifyCsrf($csrfToken)) {
+        $statusMessage = 'Session expired. Please refresh and try again.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $statusMessage = 'Please enter a valid email address.';
+    } else {
+        $statusMessage = 'If this email has a pending purchase, a fresh setup link has been sent.';
+
+        try {
+            $db = getDB();
+
+            $existingUserStmt = $db->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+            $existingUserStmt->execute([$email]);
+            $existingUser = $existingUserStmt->fetch();
+
+            if (!$existingUser) {
+                $paymentStmt = $db->prepare('
+                    SELECT id
+                    FROM payments
+                    WHERE email = ?
+                      AND status = "completed"
+                      AND setup_used = 0
+                    ORDER BY created_at DESC
+                    LIMIT 1
+                ');
+                $paymentStmt->execute([$email]);
+                $payment = $paymentStmt->fetch();
+
+                if ($payment) {
+                    $newToken = generateToken(32);
+                    $updateStmt = $db->prepare('UPDATE payments SET setup_token = ? WHERE id = ?');
+                    $updateStmt->execute([$newToken, $payment['id']]);
+
+                    $setupUrl = rtrim(SITE_URL, '/') . '/setup-account.php?token=' . urlencode($newToken);
+                    $isMailSent = sendBrevoSetupEmail($email, $setupUrl);
+
+                    if (!$isMailSent) {
+                        error_log('Recover access email send failed for email: ' . $email);
+                        if ((getenv('APP_ENV') ?: '') !== 'production') {
+                            $showDevFallback = true;
+                            $devFallbackLink = $setupUrl;
+                        }
+                    }
+                }
+            }
+        } catch (Throwable $exception) {
+            error_log('Recover access failed: ' . $exception->getMessage());
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recover Access — AI Prompt Books</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
+.logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:2.5rem;text-align:center;}
+.logo a{color:inherit;text-decoration:none;}
+.card{background:#141414;border:1px solid #2a2a2a;border-radius:6px;padding:2.2rem;width:100%;max-width:460px;}
+h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:0.4rem;}
+.sub{font-size:0.85rem;color:#888;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid #2a2a2a;line-height:1.6;}
+.field{margin-bottom:1.1rem;}
+label{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;}
+input[type=email]{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;outline:none;transition:border-color 0.15s;}
+input:focus{border-color:#d4a836;}
+.btn{width:100%;background:#d4a836;color:#000;font-family:'Courier New',monospace;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px;border:none;border-radius:3px;cursor:pointer;transition:background 0.15s;margin-top:0.5rem;}
+.btn:hover{background:#e8b93a;}
+.message{border-radius:3px;padding:10px 14px;font-size:0.82rem;margin-bottom:1rem;line-height:1.5;}
+.message.error{background:#3a1010;border:1px solid #7a2020;color:#f87171;}
+.message.info{background:#0e2f1a;border:1px solid #1f6f3c;color:#86efac;}
+.dev-link{font-size:0.78rem;color:#aaa;margin-top:0.8rem;line-height:1.6;word-break:break-all;}
+.footer-link{text-align:center;margin-top:1.4rem;font-size:0.8rem;color:#888;}
+.footer-link a{color:#d4a836;}
+</style>
+</head>
+<body>
+<div class="logo"><a href="/">AI Prompt Books</a></div>
+<div class="card">
+  <h1>Recover Your Access</h1>
+  <p class="sub">Use the same email you used at checkout. If we find a pending completed payment, we'll send a fresh setup link.</p>
+
+  <?php if ($isSubmitted): ?>
+    <div class="message <?= str_contains($statusMessage, 'Please') || str_contains($statusMessage, 'Session') ? 'error' : 'info' ?>">
+      <?= htmlspecialchars($statusMessage) ?>
+    </div>
+    <?php if ($showDevFallback && $devFallbackLink): ?>
+      <div class="dev-link">
+        Dev fallback (email unavailable): <a href="<?= htmlspecialchars($devFallbackLink) ?>" style="color:#d4a836;">Open setup link</a>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
+
+  <form method="POST" action="/recover-access.php">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrfToken()) ?>">
+    <div class="field">
+      <label for="email">Checkout Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required value="<?= htmlspecialchars($email) ?>">
+    </div>
+    <button type="submit" class="btn">Resend Setup Link →</button>
+  </form>
+
+  <div class="footer-link">
+    Remembered password? <a href="/login.php">Back to login</a>
+  </div>
+</div>
+</body>
+</html>

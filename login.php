@@ -61,6 +61,9 @@ input:focus{border-color:#d4a836;}
 .btn:hover{background:#e8b93a;}
 .footer-link{text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#888;}
 .footer-link a{color:#d4a836;}
+.help-links{margin-top:1rem;padding-top:1rem;border-top:1px solid #2a2a2a;display:flex;flex-direction:column;gap:0.5rem;}
+.help-links a{font-size:0.78rem;color:#c9a13b;text-decoration:none;}
+.help-links a:hover{text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -86,6 +89,10 @@ input:focus{border-color:#d4a836;}
     </div>
     <button type="submit" class="btn">Login →</button>
   </form>
+
+  <div class="help-links">
+    <a href="/recover-access.php?from=login">Paid but didn't set password? Resend setup link</a>
+  </div>
 
   <div class="footer-link">
     Don't have an account? <a href="/#pricing">Get access here</a>

@@ -31,6 +31,11 @@ define('PAYPAL_API_URL',       'https://api-m.sandbox.paypal.com');
 // ── WhatsApp ──────────────────────────────────────────────────────────────────
 define('WHATSAPP_INVITE_LINK', 'https://chat.whatsapp.com/test-link');
 
+// ── Email (Brevo) ─────────────────────────────────────────────────────────────
+define('BREVO_API_KEY', 'brevo_api_key_placeholder');
+define('MAIL_FROM_EMAIL', 'noreply@example.com');
+define('MAIL_FROM_NAME', 'AI Prompt Books');
+
 // ── Pricing ───────────────────────────────────────────────────────────────────
 define('PRICE_SINGLE_INR',  99);
 define('PRICE_BUNDLE_INR',  299);
