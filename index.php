@@ -396,6 +396,7 @@ section{padding:64px 2rem;}
 .modal-book-btn{position:relative;background:#1a1a1a;border:1.5px solid #252525;border-radius:8px;padding:1.1rem 0.9rem 0.9rem;text-align:left;cursor:pointer;transition:border-color 0.18s,box-shadow 0.18s,transform 0.15s;overflow:hidden;width:100%;outline:none;}
 .modal-book-btn:hover,.modal-book-btn:focus-visible{border-color:var(--gold);box-shadow:0 0 0 1px rgba(212,168,54,0.2),0 8px 22px rgba(0,0,0,0.5);transform:translateY(-2px);}
 .mbb-accent{position:absolute;top:0;left:0;right:0;height:3px;background:var(--mbb-color,var(--gold));}
+.mbb-cover{width:100%;aspect-ratio:2/3;border:1px solid rgba(255,255,255,0.08);border-radius:5px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0f0f0f;margin-bottom:0.6rem;}
 .mbb-emoji{font-size:1.5rem;margin-bottom:0.5rem;display:block;line-height:1;}
 .mbb-title{font-size:0.8rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.25rem;}
 .mbb-meta{font-family:'Courier New',monospace;font-size:0.57rem;letter-spacing:1.5px;text-transform:uppercase;color:#666;margin-bottom:0.35rem;}
@@ -963,20 +964,39 @@ section{padding:64px 2rem;}
 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;" id="modalBookGrid">
       <?php foreach ($books as $id => $book): if (!empty($book['bonus'])) continue; ?>
+      <?php
+        $modalCoverFile = sprintf('book-%02d.jpg', $id);
+        $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
+        $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
+        $hasModalCover = file_exists($modalCoverDiskPath);
+      ?>
       <button type="button" data-action="proceed-checkout" data-plan="single" data-book-id="<?= $id ?>"
               class="modal-book-btn"
               style="--mbb-color:<?= htmlspecialchars($book['accent']) ?>;">
         <div class="mbb-accent"></div>
-        <span class="mbb-emoji"><?= $book['emoji'] ?></span>
+        <?php if ($hasModalCover): ?>
+          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($modalCoverWebPath, ENT_QUOTES, 'UTF-8') ?>')"></div>
+        <?php else: ?>
+          <span class="mbb-emoji"><?= $book['emoji'] ?></span>
+        <?php endif; ?>
         <div class="mbb-title"><?= htmlspecialchars($book['title']) ?></div>
         <div class="mbb-meta">100 PROMPTS</div>
         <div class="mbb-price" id="modalPrice<?= $id ?>">₹99</div>
       </button>
       <?php endforeach; ?>
       <!-- Bonus card — included free with any purchase -->
+      <?php
+        $bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
+        $bonusCoverDiskPath = __DIR__ . '/assets/covers/book-bonus.jpg';
+        $hasBonusCover = file_exists($bonusCoverDiskPath);
+      ?>
       <div class="modal-bonus-card">
         <div class="mbb-accent" style="background:linear-gradient(90deg,#d4a836,#f59e0b);"></div>
-        <span class="mbb-emoji">🎯</span>
+        <?php if ($hasBonusCover): ?>
+          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($bonusCoverWebPath, ENT_QUOTES, 'UTF-8') ?>')"></div>
+        <?php else: ?>
+          <span class="mbb-emoji">🎯</span>
+        <?php endif; ?>
         <div class="mbb-title">The AI Image Cheat Code</div>
         <div class="mbb-meta">STYLE GUIDE</div>
         <div class="mbb-free-badge"><span>🎁 FREE BONUS</span></div>

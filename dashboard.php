@@ -22,7 +22,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .nav-inner{max-width:1100px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;}
 .nav-logo a{color:inherit;text-decoration:none;}
-.nav-user{display:flex;align-items:center;gap:1rem;}
+.nav-user{display:flex;align-items:center;gap:0.7rem;}
+.nav-home{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:all 0.15s;}
+.nav-home:hover{color:#ddd;border-color:#555;}
 .nav-name{font-size:0.82rem;color:#b0b0b0;}
 .nav-logout{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:all 0.15s;}
 .nav-logout:hover{color:#ddd;border-color:#555;}
@@ -52,21 +54,24 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .section-count{font-family:'Courier New',monospace;font-size:0.7rem;color:#8f8f8f;letter-spacing:1px;}
 
 /* BOOKS GRID */
-.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.2rem;}
-.book-card{background:#141414;border:1px solid #2a2a2a;border-radius:6px;overflow:hidden;position:relative;transition:transform 0.15s,border-color 0.15s;}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.05rem;}
+.book-card{background:#141414;border:1px solid #2a2a2a;border-radius:6px;overflow:hidden;position:relative;transition:transform 0.15s,border-color 0.15s;display:flex;flex-direction:column;}
 .book-card.accessible{cursor:pointer;}
 .book-card.accessible:hover{transform:translateY(-2px);border-color:var(--accent);}
-.book-card.locked{opacity:0.5;cursor:default;}
+.book-card.locked{opacity:0.8;cursor:default;}
+.book-card.bonus-card{border-color:#5a4510;background:linear-gradient(135deg,#17130a 0%,#141414 100%);box-shadow:0 0 0 1px rgba(212,168,54,0.22),0 12px 30px rgba(0,0,0,0.35);}
 .book-accent-bar{height:3px;background:var(--accent);}
-.book-body{padding:1.3rem 1.1rem;}
-.book-num{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:1.4px;color:#8f8f8f;margin-bottom:0.5rem;}
-.book-emoji{font-size:1.6rem;margin-bottom:0.6rem;}
-.book-title{font-size:0.9rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.8rem;}
-.book-status{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:0.8px;}
+.book-body{padding:1.1rem 0.95rem;display:flex;flex-direction:column;flex:1;}
+.book-cover{width:100%;aspect-ratio:2/3;border:1px solid rgba(255,255,255,0.08);border-radius:5px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0e0e0e;margin-bottom:0.75rem;position:relative;overflow:hidden;}
+.book-num{font-family:'Courier New',monospace;font-size:0.74rem;letter-spacing:1.2px;color:#d5d5d5;margin-bottom:0.7rem;text-shadow:0 0 1px rgba(0,0,0,0.5);font-weight:700;}
+.book-card.bonus-card .book-num{color:#e0bd62;}
+.book-emoji{font-size:1.7rem;margin-bottom:0.7rem;}
+.book-title{font-size:0.96rem;font-weight:800;color:#fff;line-height:1.3;margin-bottom:0.75rem;}
+.book-status{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:0.7px;font-weight:700;}
 .book-status.open{color:var(--accent);}
-.book-status.locked-lbl{color:#7a7a7a;}
-.book-actions{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-top:0.75rem;}
-.book-download-link{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:0.8px;color:#c2c2c2;text-decoration:none;border:1px solid #3a3a3a;border-radius:2px;padding:3px 8px;transition:all 0.15s;}
+.book-status.locked-lbl{color:#9a9a9a;}
+.book-actions{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-top:auto;padding-top:0.8rem;}
+.book-download-link{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:0.8px;color:#dfdfdf;text-decoration:none;border:1px solid #4a4a4a;border-radius:2px;padding:3px 9px;transition:all 0.15s;}
 .book-download-link:hover{color:#d4a836;border-color:#d4a836;}
 .book-lock-icon{position:absolute;top:12px;right:12px;font-size:0.9rem;color:#666;}
 .book-card.accessible .book-lock-icon{display:none;}
@@ -82,6 +87,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   .main{padding:1.5rem 1rem;}
   .welcome-banner{flex-direction:column;align-items:flex-start;}
   .community-box{flex-direction:column;}
+  .books-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:0.9rem;}
+  .book-body{padding:1.1rem 0.9rem;}
+  .book-title{font-size:0.92rem;}
+  .book-num{font-size:0.68rem;}
+  .book-status{font-size:0.68rem;}
+  .book-cover{aspect-ratio:3/4;}
 }
 </style>
 </head>
@@ -93,6 +104,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
     <div class="nav-logo"><a href="/dashboard.php">AI Prompt Books</a></div>
     <div class="nav-user">
       <span class="nav-name">👋 <?= htmlspecialchars($user['name'] ?? $user['email']) ?></span>
+      <a href="/" class="nav-home">Home</a>
       <a href="/logout.php" class="nav-logout">Logout</a>
     </div>
   </div>
@@ -144,17 +156,25 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
     <?php foreach ($allBooks as $id => $book):
       $hasAccess  = userHasBookAccess($user, $id);
       $isBonus    = !empty($book['bonus']);
+      $coverFile  = $isBonus ? 'book-bonus.jpg' : sprintf('book-%02d.jpg', $id);
+      $coverWebPath = '/assets/covers/' . $coverFile;
+      $coverDiskPath = __DIR__ . '/assets/covers/' . $coverFile;
+      $hasCover = file_exists($coverDiskPath);
       $statusText = $isBonus
         ? ($book['label'] ?? 'BONUS GUIDE') . ' → OPEN'
         : ($hasAccess ? '100 PROMPTS → OPEN' : '🔒 LOCKED');
     ?>
-    <div class="book-card <?= $hasAccess ? 'accessible' : 'locked' ?>"
+    <div class="book-card <?= $hasAccess ? 'accessible' : 'locked' ?><?= $isBonus ? ' bonus-card' : '' ?>"
          style="--accent:<?= htmlspecialchars($book['accent']) ?>"
          <?= $hasAccess ? "onclick=\"window.location='/book.php?id={$id}'\"" : '' ?>>
       <div class="book-accent-bar"></div>
       <div class="book-body">
         <div class="book-num"><?= $isBonus ? '🎁 FREE BONUS' : 'BOOK ' . str_pad($id, 2, '0', STR_PAD_LEFT) ?></div>
-        <div class="book-emoji"><?= $book['emoji'] ?></div>
+        <?php if ($hasCover): ?>
+          <div class="book-cover" style="background-image:url('<?= htmlspecialchars($coverWebPath, ENT_QUOTES, 'UTF-8') ?>')"></div>
+        <?php else: ?>
+          <div class="book-emoji"><?= $book['emoji'] ?></div>
+        <?php endif; ?>
         <div class="book-title"><?= htmlspecialchars($book['title']) ?></div>
         <div class="book-actions">
           <div class="book-status <?= $hasAccess ? 'open' : 'locked-lbl' ?>">
