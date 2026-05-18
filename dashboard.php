@@ -14,6 +14,7 @@ $isBundle = $user['plan'] === 'bundle';
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>My Books — AI Prompt Books</title>
+<?php renderMetaPixelHead(); ?>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;line-height:1.7;min-height:100vh;}
@@ -98,6 +99,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 </style>
 </head>
 <body>
+<?php renderMetaPixelNoScript(); ?>
 
 <!-- NAV -->
 <nav class="nav">
@@ -206,7 +208,13 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   </div>
 
 </main>
+<script src="/assets/js/pixel-tracking.js"></script>
 <script>
+pixelTrackCustom('DashboardViewed', { welcome: <?= $welcome ? 'true' : 'false' ?> });
+<?php if ($welcome): ?>
+pixelTrack('Login', { source: 'post-registration-redirect' });
+pixelTrackCustom('RegistrationCompletedRedirect', { destination: 'dashboard' });
+<?php endif; ?>
 document.querySelectorAll('.book-download-link').forEach((downloadLinkElement) => {
   downloadLinkElement.addEventListener('click', (event) => {
     // Prevent parent card click handler from opening the viewer page.

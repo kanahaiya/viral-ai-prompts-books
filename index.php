@@ -12,6 +12,7 @@ $books    = getBooks();
 <title>Viral AI Prompts System — 11 Books, 1,100 AI Image Templates</title>
 <meta name="description" content="The Viral AI Prompts System — 11 books, 1,100 fill-in-the-blank templates. Create better AI images faster with Midjourney, ChatGPT, Firefly and more.">
 <link rel="canonical" href="<?= htmlspecialchars(rtrim(SITE_URL, '/')) ?>/">
+<?php renderMetaPixelHead(); ?>
 <style>
 /* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -511,6 +512,7 @@ section{padding:64px 2rem;}
 </style>
 </head>
 <body>
+<?php renderMetaPixelNoScript(); ?>
 
 <!-- NAV -->
 <nav class="nav">
@@ -1244,8 +1246,51 @@ section{padding:64px 2rem;}
 </div>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="/assets/js/pixel-tracking.js"></script>
 <script>
 const currency = 'INR';
+const BUNDLE_PRICE_INR = 299;
+
+function trackEvent(eventName, params = {}) {
+  if (typeof window.pixelTrack === 'function') {
+    window.pixelTrack(eventName, params);
+    return;
+  }
+  if (typeof window.fbq !== 'function') return;
+  window.fbq('track', eventName, params);
+}
+
+function trackCustomEvent(eventName, params = {}) {
+  if (typeof window.pixelTrackCustom === 'function') {
+    window.pixelTrackCustom(eventName, params);
+    return;
+  }
+  if (typeof window.fbq !== 'function') return;
+  window.fbq('trackCustom', eventName, params);
+}
+
+function getCheckoutMetrics(plan, selectedCount = 0) {
+  if (plan === 'bundle') {
+    return { value: BUNDLE_PRICE_INR, numItems: 11, contentName: 'Full Bundle' };
+  }
+  const safeCount = selectedCount > 0 ? selectedCount : 1;
+  return {
+    value: safeCount * SINGLE_BOOK_PRICE_INR,
+    numItems: safeCount,
+    contentName: `Single Plan (${safeCount} book${safeCount > 1 ? 's' : ''})`
+  };
+}
+
+function trackCheckoutEvent(eventName, plan, selectedCount = 0, extras = {}) {
+  const metrics = getCheckoutMetrics(plan, selectedCount);
+  trackEvent(eventName, {
+    currency,
+    value: metrics.value,
+    num_items: metrics.numItems,
+    content_name: metrics.contentName,
+    ...extras
+  });
+}
 
 // ── Checkout flow ─────────────────────────────────────────────────────────────
 let currentPlan   = null;
@@ -1255,12 +1300,15 @@ let selectedBookIds = [];
 const SINGLE_BOOK_PRICE_INR = 99;
 
 function startCheckout(plan) {
+  trackCustomEvent('CheckoutStarted', { plan });
   if (plan === 'single') {
     selectedBookIds = [];
     updateSelectedBooksUi();
     document.getElementById('bookModal').style.display = 'block';
     document.body.style.overflow = 'hidden';
+    trackCustomEvent('BookModalOpened', { source: 'start-checkout' });
   } else {
+    trackCheckoutEvent('InitiateCheckout', 'bundle', 11, { source: 'bundle-cta' });
     proceedCheckout('bundle', null);
   }
 }
@@ -1268,6 +1316,7 @@ function startCheckout(plan) {
 function closeModal() {
   document.getElementById('bookModal').style.display = 'none';
   document.body.style.overflow = '';
+  trackCustomEvent('BookModalClosed', { selected_count: selectedBookIds.length });
 }
 
 function toggleBookSelection(bookId) {
@@ -1279,6 +1328,10 @@ function toggleBookSelection(bookId) {
   }
   selectedBookIds.sort((a, b) => a - b);
   updateSelectedBooksUi();
+  trackCustomEvent('BookSelectionUpdated', {
+    selected_count: selectedBookIds.length,
+    selected_books: selectedBookIds.join(',')
+  });
 }
 
 function updateSelectedBooksUi() {
@@ -1331,12 +1384,34 @@ function proceedCheckout(plan, bookId, bookIds = null) {
 
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
+
+  if (plan === 'single') {
+    trackCheckoutEvent('InitiateCheckout', 'single', selectedCount, {
+      selected_books: currentBookIds.join(','),
+      source: 'book-modal'
+    });
+  }
+  trackCustomEvent('CheckoutModalOpened', {
+    plan,
+    selected_count: selectedCount,
+    value: totalInr
+  });
+  trackCustomEvent('PaymentPageViewed', {
+    plan,
+    selected_count: selectedCount,
+    value: totalInr,
+    page_type: 'checkout-modal'
+  });
 }
 
 function closeCheckout() {
   document.getElementById('checkoutModal').style.display = 'none';
   document.body.style.overflow = '';
   document.getElementById('checkoutError').style.display = 'none';
+  trackCustomEvent('CheckoutModalClosed', {
+    plan: currentPlan || 'unknown',
+    selected_count: currentBookIds.length
+  });
 }
 
 function getCheckoutData() {
@@ -1351,12 +1426,24 @@ function showError(msg) {
   const el = document.getElementById('checkoutError');
   el.textContent = msg;
   el.style.display = 'block';
+  trackCustomEvent('CheckoutErrorShown', {
+    message: msg.slice(0, 120),
+    plan: currentPlan || 'unknown'
+  });
 }
 
 // ── Razorpay ──────────────────────────────────────────────────────────────────
 async function payWithRazorpay() {
   const data = getCheckoutData();
   if (!data) return;
+
+  trackCheckoutEvent('AddPaymentInfo', currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1), {
+    payment_gateway: 'razorpay'
+  });
+  trackCustomEvent('RazorpayOrderStarted', {
+    plan: currentPlan || 'unknown',
+    selected_count: currentBookIds.length
+  });
 
   document.getElementById('razorpayBtn').textContent = 'Creating order…';
   document.getElementById('razorpayBtn').disabled    = true;
@@ -1400,6 +1487,10 @@ async function payWithRazorpay() {
       },
       modal: {
         ondismiss: function() {
+          trackCustomEvent('PaymentPopupDismissed', {
+            plan: currentPlan || 'unknown',
+            selected_count: currentBookIds.length
+          });
           document.getElementById('razorpayBtn').textContent = 'Pay with UPI / Card (Razorpay)';
           document.getElementById('razorpayBtn').disabled    = false;
         }
@@ -1422,8 +1513,25 @@ async function verifyRazorpay(response, data) {
   });
   const result = await res.json();
   if (result.token) {
+    const metrics = getCheckoutMetrics(currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1));
+    trackEvent('Purchase', {
+      currency,
+      value: metrics.value,
+      content_name: metrics.contentName,
+      num_items: metrics.numItems,
+      payment_method: 'razorpay'
+    });
+    trackCustomEvent('PaymentVerified', {
+      plan: currentPlan || 'unknown',
+      selected_count: currentBookIds.length,
+      payment_id: response.razorpay_payment_id || ''
+    });
     window.location.href = '/setup-account.php?token=' + result.token;
   } else {
+    trackCustomEvent('PaymentVerificationFailed', {
+      plan: currentPlan || 'unknown',
+      selected_count: currentBookIds.length
+    });
     showError(result.error || 'Payment verification failed. Please contact support.');
   }
 }
@@ -1461,7 +1569,9 @@ document.addEventListener('click', (event) => {
   if (!actionElement) return;
 
   const action = actionElement.dataset.action;
+  const actionPlan = actionElement.dataset.plan || 'unknown';
   if (action === 'start-checkout') {
+    trackCustomEvent('CtaClicked', { action, plan: actionPlan });
     startCheckout(actionElement.dataset.plan || 'bundle');
     return;
   }
@@ -1470,6 +1580,7 @@ document.addEventListener('click', (event) => {
     return;
   }
   if (action === 'submit-exit-email') {
+    trackEvent('Lead', { source: 'exit-intent', content_name: 'Sample Prompt Lead' });
     submitExitEmail();
     return;
   }
@@ -1483,6 +1594,7 @@ document.addEventListener('click', (event) => {
     return;
   }
   if (action === 'continue-selected-books') {
+    trackCustomEvent('BookSelectionContinued', { selected_count: selectedBookIds.length });
     proceedCheckout('single', selectedBookIds[0] || null, [...selectedBookIds]);
     return;
   }
@@ -1491,9 +1603,43 @@ document.addEventListener('click', (event) => {
     return;
   }
   if (action === 'pay-razorpay') {
+    trackCustomEvent('PayButtonClicked', { plan: currentPlan || 'unknown' });
     payWithRazorpay();
   }
 });
+
+// ── Funnel analytics ───────────────────────────────────────────────────────────
+(function initFunnelTracking() {
+  trackEvent('ViewContent', {
+    content_name: 'Landing Page',
+    content_category: 'Sales Page'
+  });
+
+  const trackedSections = [
+    { id: 'pricing', event: 'PricingViewed', label: 'Pricing Section' },
+    { id: 'reviews', event: 'TestimonialsViewed', label: 'Testimonials Section' },
+    { id: 'faq', event: 'FaqViewed', label: 'FAQ Section' }
+  ];
+
+  if (!('IntersectionObserver' in window)) return;
+  const fired = new Set();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const targetId = entry.target.id;
+      if (!targetId || fired.has(targetId)) return;
+      const meta = trackedSections.find((section) => section.id === targetId);
+      if (!meta) return;
+      fired.add(targetId);
+      trackCustomEvent(meta.event, { section: meta.label });
+    });
+  }, { threshold: 0.35 });
+
+  trackedSections.forEach((section) => {
+    const sectionElement = document.getElementById(section.id);
+    if (sectionElement) observer.observe(sectionElement);
+  });
+})();
 
 // ── Countdown Timer ───────────────────────────────────────────────────────────
 (function initCountdown() {

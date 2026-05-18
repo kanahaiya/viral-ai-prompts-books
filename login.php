@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>Login — AI Prompt Books</title>
+<?php renderMetaPixelHead(); ?>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
@@ -74,6 +75,7 @@ input:focus{border-color:#d4a836;}
 </style>
 </head>
 <body>
+<?php renderMetaPixelNoScript(); ?>
 <div class="logo"><a href="/">AI Prompt Books</a></div>
 <div class="card">
   <h1>Welcome back</h1>
@@ -109,5 +111,22 @@ input:focus{border-color:#d4a836;}
     Don't have an account? <a href="/#pricing">Get access here</a>
   </div>
 </div>
+<script src="/assets/js/pixel-tracking.js"></script>
+<script>
+pixelTrackCustom('AuthPageView', { page: 'login' });
+<?php if ($error): ?>
+pixelTrackCustom('LoginFailed', { reason: 'invalid_credentials_or_validation' });
+<?php endif; ?>
+<?php if ($success): ?>
+pixelTrackCustom('PasswordResetSuccessMessageViewed', { page: 'login' });
+<?php endif; ?>
+const loginFormElement = document.querySelector('form[action^="/login.php"]');
+if (loginFormElement) {
+  loginFormElement.addEventListener('submit', () => {
+    pixelTrack('Login', { content_name: 'Login Form Submit' });
+    pixelTrackCustom('LoginSubmitted', { page: 'login' });
+  });
+}
+</script>
 </body>
 </html>

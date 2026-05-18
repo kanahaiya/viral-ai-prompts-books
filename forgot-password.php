@@ -95,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>Forgot Password — AI Prompt Books</title>
+<?php renderMetaPixelHead(); ?>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
@@ -117,6 +118,7 @@ input:focus{border-color:#d4a836;}
 </style>
 </head>
 <body>
+<?php renderMetaPixelNoScript(); ?>
 <div class="logo"><a href="/">AI Prompt Books</a></div>
 <div class="card">
   <h1>Forgot Password</h1>
@@ -139,5 +141,16 @@ input:focus{border-color:#d4a836;}
     Remembered password? <a href="/login.php">Back to login</a>
   </div>
 </div>
+<script src="/assets/js/pixel-tracking.js"></script>
+<script>
+pixelTrackCustom('AuthPageView', { page: 'forgot-password' });
+const forgotPasswordFormElement = document.querySelector('form[action="/forgot-password.php"]');
+if (forgotPasswordFormElement) {
+  forgotPasswordFormElement.addEventListener('submit', () => {
+    pixelTrack('Lead', { source: 'forgot-password', content_name: 'Password Reset Request' });
+    pixelTrackCustom('PasswordResetRequested', { page: 'forgot-password' });
+  });
+}
+</script>
 </body>
 </html>
