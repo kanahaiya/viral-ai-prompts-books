@@ -253,16 +253,17 @@ section{padding:64px 2rem;}
 .footer-copy{font-size:0.72rem;color:#555;}
 
 /* ── PAIN SECTION ── */
-.pain-section{background:var(--surface);padding-bottom:48px;text-align:center;}
-.pain-text{max-width:700px;margin:0 auto;text-align:left;}
-.pain-text .story{font-size:1.02rem;color:#aaa;line-height:1.95;margin-bottom:0.9rem;}
+.pain-section{background:linear-gradient(180deg,#131313 0%,#0e0e0e 100%);padding-bottom:56px;text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.pain-text{max-width:760px;margin:0 auto;text-align:left;padding:0.2rem 0;}
+.pain-text .story{font-size:1.01rem;color:#b5b5b5;line-height:1.85;margin-bottom:0.85rem;}
 .pain-text .story strong{color:#fff;}
-.pain-bullets{list-style:none;margin:1.8rem 0;}
-.pain-bullets li{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;font-size:0.92rem;color:#aaa;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.015);}
-.pain-bullets li:hover{background:rgba(255,255,255,0.03);}
-.pain-bullets li:last-child{border-bottom:none;}
-.pain-bullets li .x{color:#f87171;font-weight:900;flex-shrink:0;font-size:1.08rem;line-height:1.2;}
-.pain-punch{font-size:1rem;font-weight:700;color:#fff;margin-top:1.9rem;padding:1.35rem 1.6rem;background:#0a0a0a;border-left:3px solid var(--gold);border-radius:0 4px 4px 0;font-style:italic;box-shadow:0 0 0 1px rgba(212,168,54,0.12);}
+.pain-style-line{font-size:1.08rem;color:#dedede;font-weight:600;line-height:1.75;}
+.pain-transition-line{font-size:1.08rem;color:#f0ece6;font-weight:700;margin-top:0.4rem;}
+.pain-bullets{list-style:none;margin:1.35rem 0 1.45rem;display:grid;gap:0.55rem;}
+.pain-bullets li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;font-size:0.94rem;color:#c0c0c0;background:rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.06);border-radius:7px;transition:border-color 0.2s,transform 0.15s;}
+.pain-bullets li:hover{border-color:rgba(212,168,54,0.35);transform:translateX(2px);}
+.pain-bullets li .x{color:#f87171;font-weight:900;flex-shrink:0;font-size:1.02rem;line-height:1.3;}
+.pain-punch{font-size:1.03rem;font-weight:800;color:#fff;margin-top:1.25rem;padding:1.15rem 1.3rem;background:#0a0a0a;border-left:3px solid var(--gold);border-radius:0 6px 6px 0;font-style:italic;letter-spacing:0.2px;box-shadow:0 0 0 1px rgba(212,168,54,0.14);}
 
 /* ── SOLUTION BRIDGE ── */
 .solution-section{text-align:center;border-top:1px solid var(--border);padding-top:48px;}
@@ -533,16 +534,21 @@ section{padding:64px 2rem;}
 <section class="pain-section">
   <div class="container">
     <div class="section-badge">Problem Section</div>
-    <h2 class="section-title">You're Not Bad at AI.<br>You're Missing a Repeatable Prompt System.</h2>
+    <h2 class="section-title">Everywhere You Look, People Are Posting<br><span style="color:var(--gold);">Incredible AI Art…</span></h2>
     <div class="pain-text">
-      <p class="story">You open Midjourney, type a prompt, and hope it works.</p>
-      <p class="story">Sometimes it is <strong>fine</strong> — but rarely the result you actually wanted.</p>
+      <p class="story pain-style-line">Anime portraits. Cinematic posters. Action figure toy boxes. Dreamy edits. Viral Instagram visuals.</p>
+      <p class="story">And honestly? You want to create those too.</p>
+      <p class="story pain-transition-line">But the moment AI tools open, the frustration starts.</p>
       <ul class="pain-bullets">
-        <li><span class="x">✗</span>You spend too long tweaking prompts and still get average output</li>
-        <li><span class="x">✗</span>You see trending styles but cannot recreate them consistently</li>
-        <li><span class="x">✗</span>Copied prompts rarely work the same for your use case</li>
+        <li><span class="x">✗</span>Random prompts giving random results</li>
+        <li><span class="x">✗</span>No idea what to type</li>
+        <li><span class="x">✗</span>Hours wasted tweaking words</li>
+        <li><span class="x">✗</span>Saved AI art ideas never getting created</li>
+        <li><span class="x">✗</span>AI tools feeling technical and overwhelming</li>
+        <li><span class="x">✗</span>Final images looking average instead of impressive</li>
       </ul>
-      <p class="pain-punch">"The gap between random output and repeatable quality is structure — not luck."</p>
+      <p class="story">Instead of feeling creative, the whole process starts feeling confusing.</p>
+      <p class="pain-punch">Stop Struggling With Prompts</p>
     </div>
   </div>
 </section>
@@ -879,7 +885,7 @@ section{padding:64px 2rem;}
         ['How much time does it take to create an image?',
          'Most images can be created within a few minutes once the prompt is selected.'],
         ['Will I get instant access after payment?',
-         'Yes. Access details are delivered immediately after successful payment so you can start right away.'],
+         'Yes. Access details are delivered immediately after successful payment.'],
         ['Is this only for creators and designers?',
          'Not at all. It is made for ordinary people, beginners, students, parents, freelancers, and anyone who wants to create impressive AI visuals.'],
         ['What exactly will I receive inside?',
