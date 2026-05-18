@@ -1245,11 +1245,12 @@ section{padding:64px 2rem;}
   </div>
 </div>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="/assets/js/pixel-tracking.js"></script>
 <script>
 const currency = 'INR';
 const BUNDLE_PRICE_INR = 299;
+const RAZORPAY_CHECKOUT_SRC = 'https://checkout.razorpay.com/v1/checkout.js';
+let razorpayLoaderPromise = null;
 
 function trackEvent(eventName, params = {}) {
   if (typeof window.pixelTrack === 'function') {
@@ -1290,6 +1291,26 @@ function trackCheckoutEvent(eventName, plan, selectedCount = 0, extras = {}) {
     content_name: metrics.contentName,
     ...extras
   });
+}
+
+function ensureRazorpayLoaded() {
+  if (typeof window.Razorpay === 'function') {
+    return Promise.resolve();
+  }
+  if (razorpayLoaderPromise) {
+    return razorpayLoaderPromise;
+  }
+
+  razorpayLoaderPromise = new Promise((resolve, reject) => {
+    const scriptElement = document.createElement('script');
+    scriptElement.src = RAZORPAY_CHECKOUT_SRC;
+    scriptElement.async = true;
+    scriptElement.onload = () => resolve();
+    scriptElement.onerror = () => reject(new Error('Razorpay SDK failed to load.'));
+    document.head.appendChild(scriptElement);
+  });
+
+  return razorpayLoaderPromise;
 }
 
 // ── Checkout flow ─────────────────────────────────────────────────────────────
@@ -1449,6 +1470,12 @@ async function payWithRazorpay() {
   document.getElementById('razorpayBtn').disabled    = true;
 
   try {
+    await ensureRazorpayLoaded();
+    if (typeof window.Razorpay !== 'function') {
+      showError('Payment window could not be initialized. Please refresh and try again.');
+      return;
+    }
+
     const res = await fetch('/api/razorpay-order.php', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
