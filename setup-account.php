@@ -136,7 +136,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>Set Up Your Account — AI Prompt Books</title>
+<?php renderMetaPixelHead(); ?>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
@@ -162,6 +164,7 @@ input[readonly]{color:#888;cursor:default;}
 </style>
 </head>
 <body>
+<?php renderMetaPixelNoScript(); ?>
 <div class="logo">AI Prompt Books</div>
 <div class="card">
 
@@ -241,5 +244,23 @@ input[readonly]{color:#888;cursor:default;}
 
   <?php endif; ?>
 </div>
+<script src="/assets/js/pixel-tracking.js"></script>
+<script>
+pixelTrackCustom('AuthPageView', { page: 'setup-account' });
+<?php if ($payment): ?>
+pixelTrackCustom('SetupAccountLandingViewed', { plan: '<?= htmlspecialchars($payment['plan']) ?>' });
+pixelTrackCustom('PaymentPageViewed', {
+  plan: '<?= htmlspecialchars($payment['plan']) ?>',
+  page_type: 'post-payment-setup'
+});
+<?php endif; ?>
+const setupAccountFormElement = document.querySelector('form[method="POST"]');
+if (setupAccountFormElement) {
+  setupAccountFormElement.addEventListener('submit', () => {
+    pixelTrack('CompleteRegistration', { content_name: 'Account Setup Submit' });
+    pixelTrackCustom('SetupAccountSubmitted', { page: 'setup-account' });
+  });
+}
+</script>
 </body>
 </html>

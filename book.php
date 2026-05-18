@@ -19,7 +19,9 @@ function renderBookUnavailablePage(string $bookTitle): void {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>Book Temporarily Unavailable — AI Prompt Books</title>
+<?php renderMetaPixelHead(); ?>
 <style>
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .card{max-width:680px;width:100%;background:#141414;border:1px solid #2a2a2a;border-radius:10px;padding:28px}
@@ -34,6 +36,7 @@ p{color:#a7a7a7;line-height:1.7;margin:0 0 10px}
 </style>
 </head>
 <body>
+  <?php renderMetaPixelNoScript(); ?>
   <main class="card">
     <div class="badge">Content Sync Issue</div>
     <h1>This book is temporarily unavailable.</h1>
@@ -64,7 +67,9 @@ function renderPdfUnavailablePage(string $bookTitle): void {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>PDF Not Available — AI Prompt Books</title>
+<?php renderMetaPixelHead(); ?>
 <style>
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .card{max-width:680px;width:100%;background:#141414;border:1px solid #2a2a2a;border-radius:10px;padding:28px}
@@ -79,6 +84,7 @@ p{color:#a7a7a7;line-height:1.7;margin:0 0 10px}
 </style>
 </head>
 <body>
+  <?php renderMetaPixelNoScript(); ?>
   <main class="card">
     <div class="badge">PDF Export</div>
     <h1>PDF download is not available yet.</h1>
