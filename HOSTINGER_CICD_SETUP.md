@@ -52,6 +52,8 @@ The workflow excludes:
 - `.cursor/`
 - `.git/`
 - `.env*` files
+- `.htaccess` (managed directly on Hostinger for server-specific env/caching rules)
+- `config.production.php` (managed directly on Hostinger for runtime secrets)
 - `.ftp-deploy-sync-state.json`
 - `local.db`
 - `db.sql`
