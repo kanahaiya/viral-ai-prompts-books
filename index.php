@@ -49,7 +49,7 @@ img{max-width:100%;display:block;}
 .hero-headline{text-align:left;margin-bottom:1.6rem;}
 .hero h1{font-size:clamp(2.4rem,4.6vw,5.4rem);font-weight:900;line-height:1.07;letter-spacing:-3px;margin:0;color:#fff;}
 .hero h1 .gold{color:var(--gold);}
-.hero h1 span{color:var(--gold);}
+.hero-headline-line{display:block;white-space:nowrap;}
 
 /* Row 2 — columns stretch to match each other's height */
 .hero-split{display:flex;align-items:stretch;gap:4rem;border-top:none;padding-top:0;}
@@ -370,6 +370,7 @@ section{padding:64px 2rem;}
 @media(max-width:600px){
   .hero{padding:48px 1.25rem 0;}
   .hero h1{font-size:clamp(1.8rem,7vw,2.6rem);letter-spacing:-1.5px;}
+  .hero-headline-line{white-space:normal;}
   .hero-headline{margin-bottom:1.8rem;}
   .hero-eyebrow{font-size:0.62rem;letter-spacing:2px;}
   .hero-ctas{flex-direction:column;align-items:flex-start;}
@@ -459,7 +460,10 @@ section{padding:64px 2rem;}
 
     <!-- Row 1: eyebrow + full-width headline -->
     <div class="hero-headline">
-      <h1>Use the <span>Viral AI Prompts</span> <span class="gold">System</span><br>to Create Better AI Images Faster</h1>
+      <h1>
+        <span class="hero-headline-line"><span class="gold">Create Stunning</span> AI Images in Minutes,</span>
+        <span class="hero-headline-line">Even If You&rsquo;ve Never Used <span class="gold">AI Before</span></span>
+      </h1>
     </div>
 
     <!-- Row 2: two-column split -->
@@ -467,11 +471,15 @@ section{padding:64px 2rem;}
 
       <!-- Left: copy -->
       <div class="hero-copy">
-        <p class="hero-hook">Fill in the blank. Generate. Done.</p>
-        <p class="hero-sub">Not a random prompt pack. The Viral AI Prompts System is a full bundle of 11 books, 1,100 fill-in-the-blank templates — a structured framework for creating polished AI images on demand.</p>
+        <p class="hero-sub">Turn selfies, family photos, ideas, and simple concepts into scroll-stopping AI visuals using ready-made fill-in-the-blank templates.</p>
+        <p class="hero-sub" style="margin-top:-1rem;">
+          No design skills.<br>
+          No prompt writing.<br>
+          No technical knowledge needed.
+        </p>
         <div class="hero-ctas">
           <a href="#pricing" class="btn-primary btn-primary--priced">
-            <span class="btn-main-text">Get the System →</span>
+            <span class="btn-main-text">Create My AI Art</span>
             <span class="btn-price-line"><span class="btn-price-now">₹299</span> <span class="btn-price-orig">₹2,189</span></span>
           </a>
           <a href="#pricing" class="btn-secondary">See What's Inside</a>
@@ -485,7 +493,6 @@ section{padding:64px 2rem;}
           🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription<br>
           <span class="hero-trust-gold">⭐ Trusted by 200+ paying customers · 4.6★ average rating</span>
         </div>
-        <p class="hero-mini-testimonial"><strong>Never used AI before?</strong> Prashant (software engineer, Pune) had never opened Midjourney. He made his son's action figure toy box the same evening — posted it Saturday, three relatives asked where he bought it. If you can fill in a form, you can do this.</p>
       </div>
 
       <!-- Right: product mockup -->
@@ -863,24 +870,26 @@ section{padding:64px 2rem;}
     <div class="faq-list">
       <?php
       $faqs = [
-        ['I\'m new to AI. Will this still work for me?',
-         'Yes — and honestly, complete beginners get the best results because they haven\'t built up bad habits yet. Prashant had never used Midjourney before he bought this. He made his son\'s action figure toy box the same evening, posted it Saturday morning. Three relatives asked where he bought it — he made it himself in 10 minutes. You don\'t need to understand anything about AI. If you can fill in a form, you can do this.'],
+        ['I have never used AI tools before. Will this still work for me?',
+         'Yes. The entire system is designed for complete beginners. Just pick a style, fill in a few details, and generate.'],
+        ['Do I need to learn prompt engineering?',
+         'No. The prompts are already structured for you. No technical AI knowledge needed.'],
         ['Which AI tools does this work with?',
-         'All the major ones — Midjourney, ChatGPT (DALL·E 3), Ideogram, Stable Diffusion, Adobe Firefly, and more. Wherever you paste a text prompt, these templates work.'],
-        ['Is this a PDF I download? Do I install anything?',
-         'No download, no app, no installation. You get a secure login to a website you open in any browser — on your phone, tablet, or desktop. It\'s always there whenever you need it.'],
-        ['Can I use these prompts to create and sell art?',
-         'Yes. The AI images you generate using these prompts are 100% yours — use them for personal projects, Etsy prints, client content, social media, YouTube thumbnails, whatever you like.'],
-        ['What if I only want one specific book?',
-         'You can buy any single book for ₹99 (regular ₹199). But the full system is ₹299 — you get all 11 for less than the regular price of two, so most people choose full access.'],
-        ['Are new books added to the bundle automatically?',
-         'Yes. Bundle buyers automatically get every new book we publish — forever, at no extra charge. Your investment only grows.'],
-        ['How is payment processed? Is it safe?',
-         'Razorpay supports UPI, PhonePe, Paytm, and cards, and is used by major platforms across India. Checkout is secure and trusted.'],
-        ['What is your refund policy?',
-         'Because this is instant-access digital content, refunds are not available after successful access is delivered. If your access/login link fails, contact us within 24 hours — we will fix it quickly or refund you.'],
-        ['What\'s in the WhatsApp community?',
-         'It\'s where buyers get first access to new prompt drops, trending style alerts, tips, and direct support from the creator. Think of it as your AI creator inner circle.'],
+         'It works with ChatGPT, Midjourney, Firefly, DALL·E, Ideogram, and most AI image generators.'],
+        ['How much time does it take to create an image?',
+         'Most images can be created within a few minutes once the prompt is selected.'],
+        ['Will I get instant access after payment?',
+         'Yes. Access details are delivered immediately after successful payment so you can start right away.'],
+        ['Is this only for creators and designers?',
+         'Not at all. It is made for ordinary people, beginners, students, parents, freelancers, and anyone who wants to create impressive AI visuals.'],
+        ['What exactly will I receive inside?',
+         'You get all 11 AI prompt books, 1,100 prompt templates, bonuses, community access, and future updates.'],
+        ['Is the CustomGPT bonus included right now?',
+         'Yes. The AI Prompt Finder CustomGPT is currently included free with the bundle.'],
+        ['Do I get support if I get stuck?',
+         'Yes. Buyers also get access to the WhatsApp community for guidance, updates, and support.'],
+        ['Is there any refund policy?',
+         'Because this is a digital product with instant access, refunds are not available after access is delivered. However, if there is any technical issue with access, support will help resolve it quickly.'],
       ];
       foreach ($faqs as [$q, $a]):
       ?>
