@@ -395,6 +395,7 @@ section{padding:64px 2rem;}
 /* ── BOOK SELECTOR MODAL ────────────────────────────────── */
 .modal-book-btn{position:relative;background:#1a1a1a;border:1.5px solid #252525;border-radius:8px;padding:1.1rem 0.9rem 0.9rem;text-align:left;cursor:pointer;transition:border-color 0.18s,box-shadow 0.18s,transform 0.15s;overflow:hidden;width:100%;outline:none;}
 .modal-book-btn:hover,.modal-book-btn:focus-visible{border-color:var(--gold);box-shadow:0 0 0 1px rgba(212,168,54,0.2),0 8px 22px rgba(0,0,0,0.5);transform:translateY(-2px);}
+.modal-book-btn.is-selected{border-color:var(--gold);box-shadow:0 0 0 1px rgba(212,168,54,0.38),0 10px 24px rgba(0,0,0,0.55);}
 .mbb-accent{position:absolute;top:0;left:0;right:0;height:3px;background:var(--mbb-color,var(--gold));}
 .mbb-cover{width:100%;aspect-ratio:2/3;border:1px solid rgba(255,255,255,0.08);border-radius:5px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0f0f0f;margin-bottom:0.6rem;}
 .mbb-emoji{font-size:1.5rem;margin-bottom:0.5rem;display:block;line-height:1;}
@@ -404,6 +405,12 @@ section{padding:64px 2rem;}
 .modal-bonus-card{position:relative;background:rgba(212,168,54,0.04);border:1.5px solid rgba(212,168,54,0.2);border-radius:8px;padding:1.1rem 0.9rem 0.9rem;text-align:left;overflow:hidden;}
 .mbb-free-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(212,168,54,0.12);border:1px solid rgba(212,168,54,0.3);border-radius:20px;padding:3px 10px;margin-top:0.45rem;}
 .mbb-free-badge span{font-size:0.6rem;font-family:'Courier New',monospace;letter-spacing:1px;color:var(--gold);font-weight:700;}
+.modal-book-footer{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-top:1rem;padding-top:1rem;border-top:1px solid #1f1f1f;}
+.modal-selection-meta{font-family:'Courier New',monospace;font-size:0.68rem;letter-spacing:1px;color:#999;line-height:1.6;}
+.modal-selection-meta strong{color:var(--gold);}
+.modal-continue-btn{background:var(--gold);color:#000;font-family:'Courier New',monospace;font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;border:none;border-radius:3px;cursor:pointer;}
+.modal-continue-btn:disabled{opacity:0.45;cursor:not-allowed;}
+@media(max-width:900px){#modalBookGrid{grid-template-columns:repeat(3,1fr)!important;}}
 @media(max-width:520px){#modalBookGrid{grid-template-columns:repeat(2,1fr)!important;}}
 
 /* ── LIVE ACTIVITY TICKER ── */
@@ -955,14 +962,14 @@ section{padding:64px 2rem;}
     <!-- Modal header -->
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
       <div>
-        <div style="font-family:'Courier New',monospace;font-size:0.6rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:0.75;margin-bottom:0.3rem;">Step 1 of 2 · Select Style</div>
-        <div style="font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-0.3px;">Pick Your Prompt Book</div>
+        <div style="font-family:'Courier New',monospace;font-size:0.6rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:0.75;margin-bottom:0.3rem;">Step 1 of 2 · Select Books</div>
+        <div style="font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-0.3px;">Pick One or More Prompt Books</div>
       </div>
       <button type="button" class="modal-close-btn" data-action="close-modal">×</button>
     </div>
-    <p style="font-size:0.78rem;color:#555;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid #1e1e1e;">100 prompts per book · 6 variable slots · <span style="color:var(--gold);">🎁 Cheat Code guide free with every purchase</span></p>
+    <p style="font-size:0.78rem;color:#555;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid #1e1e1e;">Tap to select books · ₹99 each · <span style="color:var(--gold);">🎁 Cheat Code guide free with every purchase</span></p>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;" id="modalBookGrid">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;" id="modalBookGrid">
       <?php foreach ($books as $id => $book): if (!empty($book['bonus'])) continue; ?>
       <?php
         $modalCoverFile = sprintf('book-%02d.jpg', $id);
@@ -970,7 +977,7 @@ section{padding:64px 2rem;}
         $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
         $hasModalCover = file_exists($modalCoverDiskPath);
       ?>
-      <button type="button" data-action="proceed-checkout" data-plan="single" data-book-id="<?= $id ?>"
+      <button type="button" data-action="toggle-book-selection" data-book-id="<?= $id ?>"
               class="modal-book-btn"
               style="--mbb-color:<?= htmlspecialchars($book['accent']) ?>;">
         <div class="mbb-accent"></div>
@@ -1001,6 +1008,15 @@ section{padding:64px 2rem;}
         <div class="mbb-meta">STYLE GUIDE</div>
         <div class="mbb-free-badge"><span>🎁 FREE BONUS</span></div>
       </div>
+    </div>
+    <div class="modal-book-footer">
+      <div class="modal-selection-meta">
+        <div id="selectedBooksCount">0 BOOKS SELECTED</div>
+        <div id="selectedBooksAmount"><strong>₹0</strong></div>
+      </div>
+      <button type="button" class="modal-continue-btn" id="continueSelectedBooksBtn" data-action="continue-selected-books" disabled>
+        Continue to Checkout →
+      </button>
     </div>
   </div>
 </div>
@@ -1044,8 +1060,14 @@ const currency = 'INR';
 // ── Checkout flow ─────────────────────────────────────────────────────────────
 let currentPlan   = null;
 let currentBookId = null;
+let currentBookIds = [];
+let selectedBookIds = [];
+const SINGLE_BOOK_PRICE_INR = 99;
+
 function startCheckout(plan) {
   if (plan === 'single') {
+    selectedBookIds = [];
+    updateSelectedBooksUi();
     document.getElementById('bookModal').style.display = 'block';
     document.body.style.overflow = 'hidden';
   } else {
@@ -1058,19 +1080,62 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-function proceedCheckout(plan, bookId) {
+function toggleBookSelection(bookId) {
+  if (!bookId || bookId < 1 || bookId > 11) return;
+  if (selectedBookIds.includes(bookId)) {
+    selectedBookIds = selectedBookIds.filter((id) => id !== bookId);
+  } else {
+    selectedBookIds.push(bookId);
+  }
+  selectedBookIds.sort((a, b) => a - b);
+  updateSelectedBooksUi();
+}
+
+function updateSelectedBooksUi() {
+  const selectedSet = new Set(selectedBookIds);
+  document.querySelectorAll('[data-action="toggle-book-selection"][data-book-id]').forEach((buttonElement) => {
+    const bookId = parseInt(buttonElement.dataset.bookId || '0', 10);
+    const isSelected = selectedSet.has(bookId);
+    buttonElement.classList.toggle('is-selected', isSelected);
+  });
+
+  const countElement = document.getElementById('selectedBooksCount');
+  const amountElement = document.getElementById('selectedBooksAmount');
+  const continueButtonElement = document.getElementById('continueSelectedBooksBtn');
+  const selectedCount = selectedBookIds.length;
+  const totalAmount = selectedCount * SINGLE_BOOK_PRICE_INR;
+
+  if (countElement) {
+    countElement.textContent = `${selectedCount} BOOK${selectedCount === 1 ? '' : 'S'} SELECTED`;
+  }
+  if (amountElement) {
+    amountElement.innerHTML = `<strong>₹${totalAmount}</strong>`;
+  }
+  if (continueButtonElement) {
+    continueButtonElement.disabled = selectedCount === 0;
+  }
+}
+
+function proceedCheckout(plan, bookId, bookIds = null) {
   closeModal();
   currentPlan   = plan;
   currentBookId = bookId;
-
-  const price = plan === 'bundle' ? '₹299' : '₹99';
+  currentBookIds = Array.isArray(bookIds) ? bookIds : (bookId ? [bookId] : []);
+  const selectedCount = currentBookIds.length;
+  const totalInr = plan === 'bundle' ? 299 : (selectedCount * SINGLE_BOOK_PRICE_INR);
+  const price = `₹${totalInr}`;
 
   // Summary text
-  const bookName = bookId
-    ? <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>[bookId]
-    : 'All 11 Books + Bonus Guide (Full Bundle)';
+  const booksById = <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>;
+  const selectedBookNames = currentBookIds.map((id) => booksById[id]).filter(Boolean);
+  const bookName = plan === 'bundle'
+    ? 'All 11 Books + Bonus Guide (Full Bundle)'
+    : selectedBookNames.join(', ');
+  const planLabel = plan === 'bundle'
+    ? '📦 Full Bundle'
+    : `📚 Selected Books (${selectedCount})`;
   document.getElementById('checkoutSummary').innerHTML =
-    `<strong style="color:#fff">${plan === 'bundle' ? '📦 Full Bundle' : '📖 Single Book'}</strong><br>
+    `<strong style="color:#fff">${planLabel}</strong><br>
      <span style="color:#888">${bookName}</span><br>
      <span style="color:#d4a836;font-weight:700;font-size:1.1rem;font-family:'Courier New',monospace;">${price}</span>`;
 
@@ -1113,6 +1178,7 @@ async function payWithRazorpay() {
       body: JSON.stringify({
         plan:    currentPlan,
         book_id: currentBookId,
+        book_ids: currentBookIds,
         email:   data.email,
         name:    data.name
       })
@@ -1135,7 +1201,7 @@ async function payWithRazorpay() {
       amount:      order.amount,
       currency:    'INR',
       name:        '<?= SITE_NAME ?>',
-      description: currentPlan === 'bundle' ? 'Full Bundle — All 11 Books + Bonus Guide' : 'Single Book Access',
+      description: currentPlan === 'bundle' ? 'Full Bundle — All 11 Books + Bonus Guide' : `${currentBookIds.length} Book Access`,
       order_id:    order.id,
       prefill:     { name: data.name, email: data.email },
       theme:       { color: '#d4a836' },
@@ -1162,7 +1228,7 @@ async function verifyRazorpay(response, data) {
   const res = await fetch('/api/razorpay-verify.php', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ ...response, email: data.email, name: data.name, plan: currentPlan, book_id: currentBookId })
+    body: JSON.stringify({ ...response, email: data.email, name: data.name, plan: currentPlan, book_id: currentBookId, book_ids: currentBookIds })
   });
   const result = await res.json();
   if (result.token) {
@@ -1221,10 +1287,13 @@ document.addEventListener('click', (event) => {
     closeModal();
     return;
   }
-  if (action === 'proceed-checkout') {
-    const plan = actionElement.dataset.plan || 'single';
+  if (action === 'toggle-book-selection') {
     const bookId = parseInt(actionElement.dataset.bookId || '0', 10);
-    proceedCheckout(plan, Number.isNaN(bookId) ? null : bookId);
+    toggleBookSelection(Number.isNaN(bookId) ? 0 : bookId);
+    return;
+  }
+  if (action === 'continue-selected-books') {
+    proceedCheckout('single', selectedBookIds[0] || null, [...selectedBookIds]);
     return;
   }
   if (action === 'close-checkout') {

@@ -1,7 +1,7 @@
 <?php
 // ─────────────────────────────────────────────────────────────────────────────
 // api/razorpay-verify.php  —  Verify Razorpay payment signature
-// POST body: { razorpay_payment_id, razorpay_order_id, razorpay_signature, email, name, plan, book_id }
+// POST body: { razorpay_payment_id, razorpay_order_id, razorpay_signature, email, name, plan, book_id, book_ids }
 // Returns: { token } on success or { error }
 // ─────────────────────────────────────────────────────────────────────────────
 require_once dirname(__DIR__) . '/auth.php';

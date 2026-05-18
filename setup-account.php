@@ -46,48 +46,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
         try {
             $db = getDB();
 
-            // Determine books access
-            $booksAccess = null;
-            if ($payment['plan'] === 'single' && $payment['book_id']) {
-                $booksAccess = json_encode([$payment['book_id']]);
+            $selectedBookIds = [];
+            if ($payment['plan'] === 'single') {
+                if (!empty($payment['book_ids_json'])) {
+                    $decodedBookIds = json_decode((string)$payment['book_ids_json'], true);
+                    if (is_array($decodedBookIds)) {
+                        $selectedBookIds = array_values(array_unique(array_filter(array_map('intval', $decodedBookIds), static function ($bookId) {
+                            return $bookId >= 1 && $bookId <= 11;
+                        })));
+                    }
+                } elseif (!empty($payment['book_id'])) {
+                    $selectedBookIds = [intval($payment['book_id'])];
+                }
             }
 
-            // Create user
-            $stmt = $db->prepare('
-                INSERT INTO users (email, name, password_hash, plan, books_access, currency, payment_method, payment_id, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, "active")
-                ON DUPLICATE KEY UPDATE
-                  name = VALUES(name),
-                  password_hash = VALUES(password_hash),
-                  plan = IF(VALUES(plan) = "bundle", "bundle", IF(plan = "bundle", "bundle", VALUES(plan))),
-                  books_access = IF(VALUES(plan) = "bundle", NULL,
-                    JSON_ARRAY_APPEND(COALESCE(books_access, "[]"), "$", JSON_EXTRACT(VALUES(books_access), "$[0]"))),
-                  payment_id = VALUES(payment_id),
-                  status = "active"
-            ');
-            $stmt->execute([
-                strtolower($payment['email']),
-                $name,
-                password_hash($password, PASSWORD_DEFAULT),
-                $payment['plan'],
-                $booksAccess,
-                $payment['currency'],
-                $payment['payment_method'],
-                $payment['payment_id'],
-            ]);
+            $email = strtolower($payment['email']);
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+            $db->beginTransaction();
+
+            $existingUserStmt = $db->prepare('SELECT * FROM users WHERE email = ?');
+            $existingUserStmt->execute([$email]);
+            $existingUser = $existingUserStmt->fetch();
+
+            if ($existingUser) {
+                $isBundlePlan = $payment['plan'] === 'bundle' || $existingUser['plan'] === 'bundle';
+                $existingAccess = json_decode($existingUser['books_access'] ?? '[]', true);
+                if (!is_array($existingAccess)) {
+                    $existingAccess = [];
+                }
+                $mergedAccess = array_values(array_unique(array_map('intval', array_merge($existingAccess, $selectedBookIds))));
+                sort($mergedAccess);
+
+                $updateStmt = $db->prepare('
+                    UPDATE users
+                    SET name = ?, password_hash = ?, plan = ?, books_access = ?, currency = ?, payment_method = ?, payment_id = ?, status = "active"
+                    WHERE email = ?
+                ');
+                $updateStmt->execute([
+                    $name,
+                    $passwordHash,
+                    $isBundlePlan ? 'bundle' : 'single',
+                    $isBundlePlan ? null : json_encode($mergedAccess),
+                    $payment['currency'],
+                    $payment['payment_method'],
+                    $payment['payment_id'],
+                    $email,
+                ]);
+            } else {
+                $insertStmt = $db->prepare('
+                    INSERT INTO users (email, name, password_hash, plan, books_access, currency, payment_method, payment_id, status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, "active")
+                ');
+                $insertStmt->execute([
+                    $email,
+                    $name,
+                    $passwordHash,
+                    $payment['plan'],
+                    $payment['plan'] === 'bundle' ? null : json_encode($selectedBookIds),
+                    $payment['currency'],
+                    $payment['payment_method'],
+                    $payment['payment_id'],
+                ]);
+            }
 
             // Mark token as used
             $db->prepare('UPDATE payments SET setup_used = 1 WHERE setup_token = ?')->execute([$token]);
+            $db->commit();
 
             // Log the user in
             $stmt = $db->prepare('SELECT * FROM users WHERE email = ?');
-            $stmt->execute([strtolower($payment['email'])]);
+            $stmt->execute([$email]);
             $user = $stmt->fetch();
             if ($user) loginUser($user);
 
             header('Location: /dashboard.php?welcome=1');
             exit;
         } catch (\Exception $e) {
+            if (isset($db) && $db instanceof PDO && $db->inTransaction()) {
+                $db->rollBack();
+            }
             $error = 'Account creation failed. Please contact support.';
         }
     }
@@ -148,8 +186,21 @@ input[readonly]{color:#888;cursor:default;}
   <h1>
     Set Up Your Account
     <?php if ($payment): ?>
+      <?php
+        $selectedBookCount = 0;
+        if ($payment['plan'] === 'single') {
+          if (!empty($payment['book_ids_json'])) {
+            $decodedBookIds = json_decode((string)$payment['book_ids_json'], true);
+            if (is_array($decodedBookIds)) {
+              $selectedBookCount = count($decodedBookIds);
+            }
+          } elseif (!empty($payment['book_id'])) {
+            $selectedBookCount = 1;
+          }
+        }
+      ?>
       <span class="plan-tag <?= $payment['plan'] === 'bundle' ? 'plan-bundle' : 'plan-single' ?>">
-        <?= $payment['plan'] === 'bundle' ? 'Bundle' : 'Single Book' ?>
+        <?= $payment['plan'] === 'bundle' ? 'Bundle' : (($selectedBookCount > 1) ? ($selectedBookCount . ' Books') : 'Single Book') ?>
       </span>
     <?php endif; ?>
   </h1>
