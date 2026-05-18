@@ -293,6 +293,9 @@ section{padding:64px 2rem;}
 .benefit-icon{font-size:2rem;margin-bottom:0.8rem;display:block;}
 .benefit-title{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.4rem;}
 .benefit-desc{font-size:0.82rem;color:#aaa;line-height:1.6;}
+.create-outcomes-list{list-style:none;max-width:860px;margin:1.8rem auto 1.8rem;padding:0;display:grid;gap:0.65rem;text-align:left;}
+.create-outcomes-list li{font-size:0.95rem;color:#c0c0c0;line-height:1.7;padding:0.75rem 0.9rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:7px;display:flex;gap:10px;align-items:flex-start;}
+.create-outcomes-list li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0;margin-top:1px;}
 
 /* ── OFFER STACK ── */
 .offer-section{background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -606,34 +609,20 @@ section{padding:64px 2rem;}
 <section class="benefits-section">
   <div class="container" style="text-align:center;">
     <div class="section-badge">Benefits Section</div>
-    <h2 class="section-title">What Results You Get With This System</h2>
-    <p class="section-sub" style="margin:0 auto 0.5rem;">Outcome-focused benefits for college creators, freelancers, and small business owners.</p>
-    <div class="benefits-grid">
-      <div class="benefit-item">
-        <div class="benefit-title">Create Faster</div>
-        <div class="benefit-desc">Move from blank screen to usable output in minutes, not hours of trial-and-error.</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-title">Improve Quality Consistently</div>
-        <div class="benefit-desc">Use a repeatable structure that gives cleaner, more polished visuals across styles.</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-title">Post With Confidence</div>
-        <div class="benefit-desc">Generate visuals you can confidently publish on social without second-guessing results.</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-title">Deliver Client Work Faster</div>
-        <div class="benefit-desc">Freelancers can turn requests into output quickly and handle more projects per week.</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-title">Create Better Marketing Assets</div>
-        <div class="benefit-desc">Small businesses can produce product creatives and campaign visuals without a full design team.</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-title">Reuse Forever</div>
-        <div class="benefit-desc">One-time purchase, repeatable system: reuse the framework for ongoing content and launches.</div>
-      </div>
-    </div>
+    <h2 class="section-title">What You&rsquo;ll Be Able To Create</h2>
+    <ul class="create-outcomes-list">
+      <li>Create AI images that genuinely make friends and followers stop and react.</li>
+      <li>Turn ordinary photos and ideas into visuals that look creative, cinematic, and impressive.</li>
+      <li>Make viral-style AI art without spending weeks learning complicated prompting.</li>
+      <li>Finally create the kind of AI images usually seen only on trending Instagram pages.</li>
+      <li>Go from &ldquo;I have no idea what to type&rdquo; to creating stunning visuals in minutes.</li>
+      <li>Make emotional gifts, nostalgic edits, and fun creations people actually remember.</li>
+      <li>Create professional-looking visuals without hiring designers or expensive freelancers.</li>
+      <li>Feel confident using AI tools even as a complete beginner.</li>
+      <li>Save hours of frustration and start creating images that actually match the vision in your mind.</li>
+      <li>Post AI visuals proudly instead of feeling embarrassed by average-looking results.</li>
+    </ul>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;">Create Stunning AI Art</a>
   </div>
 </section>
 
@@ -641,7 +630,7 @@ section{padding:64px 2rem;}
 <section class="gallery-section">
   <div class="container" style="text-align:center;">
     <div class="section-badge">What You Can Create</div>
-    <h2 class="section-title">Real Outputs. Real Prompts. <span style="color:var(--gold);">From Your Books.</span></h2>
+    <h2 class="section-title">Real Outputs. Real Prompts. <span style="color:var(--gold);">From This System.</span></h2>
     <p class="section-sub" style="max-width:640px;margin:0 auto 0.5rem;">Action figures, Ghibli art, Mughal warriors, royal pet portraits, cinematic movie posters, professional portraits — all from the same system, all from the same ₹299.</p>
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
