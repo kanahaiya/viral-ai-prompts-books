@@ -62,6 +62,10 @@ if ($response === false || !empty($curlError)) {
 
 if ($httpCode !== 200 || empty($order['id'])) {
     error_log('Razorpay order API error: ' . $response);
+    $gatewayError = $order['error']['description'] ?? '';
+    if (!empty($gatewayError)) {
+        jsonResponse(['error' => $gatewayError], 500);
+    }
     jsonResponse(['error' => 'Failed to create payment order. Please try again.'], 500);
 }
 
