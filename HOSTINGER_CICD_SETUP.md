@@ -51,8 +51,10 @@ The workflow excludes:
 - `.github/`
 - `.cursor/`
 - `.git/`
+- `.env*` files
 - `.ftp-deploy-sync-state.json`
 - `local.db`
+- `db.sql`
 - `setup-local.php`
 - markdown docs
 - local machine artifacts

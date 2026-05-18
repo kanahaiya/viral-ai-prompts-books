@@ -6,6 +6,9 @@
 Options -Indexes -MultiViews
 ServerSignature Off
 
+# Force production runtime on hosting (ensures auth.php loads config.production.php)
+SetEnv APP_ENV production
+
 # -----------------------------------------------------------------------------
 # Rewrite engine
 # -----------------------------------------------------------------------------
