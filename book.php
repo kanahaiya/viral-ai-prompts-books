@@ -50,6 +50,51 @@ p{color:#a7a7a7;line-height:1.7;margin:0 0 10px}
     exit;
 }
 
+/**
+ * Render a clear message when a PDF download is requested but not available.
+ */
+function renderPdfUnavailablePage(string $bookTitle): void {
+    http_response_code(404);
+    header('Content-Type: text/html; charset=UTF-8');
+    header('X-Frame-Options: SAMEORIGIN');
+    header('Cache-Control: private, no-store');
+    ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Not Available — AI Prompt Books</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{max-width:680px;width:100%;background:#141414;border:1px solid #2a2a2a;border-radius:10px;padding:28px}
+.badge{font-family:'Courier New',monospace;font-size:12px;letter-spacing:2px;color:#d4a836;text-transform:uppercase;margin-bottom:10px}
+h1{font-size:30px;line-height:1.2;margin:0 0 10px}
+p{color:#a7a7a7;line-height:1.7;margin:0 0 10px}
+.book{color:#fff;font-weight:700}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-block;padding:11px 16px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px}
+.btn-primary{background:#d4a836;color:#111}
+.btn-secondary{border:1px solid #3a3a3a;color:#ddd}
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="badge">PDF Export</div>
+    <h1>PDF download is not available yet.</h1>
+    <p>A ready PDF file was not found for <span class="book"><?= htmlspecialchars($bookTitle, ENT_QUOTES, 'UTF-8') ?></span>.</p>
+    <p>You can still open this book online now from your dashboard.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/book.php?id=<?= (int)($_GET['id'] ?? 0) ?>">Open Book</a>
+      <a class="btn btn-secondary" href="/dashboard.php">Back to Dashboard</a>
+    </div>
+  </main>
+</body>
+</html>
+<?php
+    exit;
+}
+
 $bookId = intval($_GET['id'] ?? 0);
 $downloadRequested = isset($_GET['download']) && $_GET['download'] === '1';
 $books  = getBooks();
@@ -82,21 +127,22 @@ if (!file_exists($filePath)) {
 }
 
 if ($downloadRequested) {
-    // Prefer a sibling PDF when available; otherwise download the source file.
+    // Download must always be a PDF.
     $fileInfo = pathinfo($filePath);
     $pdfPath = $fileInfo['dirname'] . '/' . $fileInfo['filename'] . '.pdf';
-    $downloadPath = file_exists($pdfPath) ? $pdfPath : $filePath;
 
-    $downloadInfo = pathinfo($downloadPath);
+    if (!file_exists($pdfPath)) {
+        renderPdfUnavailablePage($books[$bookId]['title'] ?? 'Requested Book');
+    }
+
+    $downloadInfo = pathinfo($pdfPath);
     $downloadName = $downloadInfo['basename'];
-    $extension = strtolower($downloadInfo['extension'] ?? '');
-    $contentType = $extension === 'pdf' ? 'application/pdf' : 'text/html; charset=UTF-8';
 
-    header('Content-Type: ' . $contentType);
+    header('Content-Type: application/pdf');
     header('Content-Disposition: attachment; filename="' . $downloadName . '"');
     header('X-Frame-Options: SAMEORIGIN');
     header('Cache-Control: private, no-store');
-    readfile($downloadPath);
+    readfile($pdfPath);
     exit;
 }
 
