@@ -163,6 +163,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
       $coverWebPath = '/assets/covers/' . $coverFile;
       $coverDiskPath = __DIR__ . '/assets/covers/' . $coverFile;
       $hasCover = file_exists($coverDiskPath);
+      $coverVersion = $hasCover ? ('?v=' . filemtime($coverDiskPath)) : '';
       $statusText = $isBonus
         ? ($book['label'] ?? 'BONUS GUIDE') . ' → OPEN'
         : ($hasAccess ? '100 PROMPTS → OPEN' : '🔒 LOCKED');
@@ -174,7 +175,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
       <div class="book-body">
         <div class="book-num"><?= $isBonus ? '🎁 FREE BONUS' : 'BOOK ' . str_pad($id, 2, '0', STR_PAD_LEFT) ?></div>
         <?php if ($hasCover): ?>
-          <div class="book-cover" style="background-image:url('<?= htmlspecialchars($coverWebPath, ENT_QUOTES, 'UTF-8') ?>')"></div>
+          <div class="book-cover" style="background-image:url('<?= htmlspecialchars($coverWebPath . $coverVersion, ENT_QUOTES, 'UTF-8') ?>')"></div>
         <?php else: ?>
           <div class="book-emoji"><?= $book['emoji'] ?></div>
         <?php endif; ?>
