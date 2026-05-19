@@ -29,19 +29,36 @@ $books    = getBooks();
 <link rel="preload" as="image" href="/assets/hero-mockup.webp" type="image/webp" imagesrcset="/assets/hero-mockup-480w.webp 480w, /assets/hero-mockup-768w.webp 768w, /assets/hero-mockup.webp 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <link rel="preload" as="image" href="/assets/hero-mockup.jpg" type="image/jpeg" imagesrcset="/assets/hero-mockup-480w.jpg 480w, /assets/hero-mockup-768w.jpg 768w, /assets/hero-mockup.jpg 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <?php
-$landingCriticalCssPath = __DIR__ . '/assets/landing-critical.css';
-$landingCriticalCssVersion = file_exists($landingCriticalCssPath) ? ('?v=' . filemtime($landingCriticalCssPath)) : '';
-$landingCssPath = __DIR__ . '/assets/landing.css';
-$landingCssVersion = file_exists($landingCssPath) ? ('?v=' . filemtime($landingCssPath)) : '';
-$landingJsPath = __DIR__ . '/assets/landing.js';
-$landingJsVersion = file_exists($landingJsPath) ? ('?v=' . filemtime($landingJsPath)) : '';
+$landingCriticalCssWebPath = '/assets/landing-critical.min.css';
+$landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
+if (!file_exists($landingCriticalCssDiskPath)) {
+  $landingCriticalCssWebPath = '/assets/landing-critical.css';
+  $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
+}
+$landingCriticalCssVersion = file_exists($landingCriticalCssDiskPath) ? ('?v=' . filemtime($landingCriticalCssDiskPath)) : '';
+
+$landingCssWebPath = '/assets/landing.min.css';
+$landingCssDiskPath = __DIR__ . $landingCssWebPath;
+if (!file_exists($landingCssDiskPath)) {
+  $landingCssWebPath = '/assets/landing.css';
+  $landingCssDiskPath = __DIR__ . $landingCssWebPath;
+}
+$landingCssVersion = file_exists($landingCssDiskPath) ? ('?v=' . filemtime($landingCssDiskPath)) : '';
+
+$landingJsWebPath = '/assets/landing.min.js';
+$landingJsDiskPath = __DIR__ . $landingJsWebPath;
+if (!file_exists($landingJsDiskPath)) {
+  $landingJsWebPath = '/assets/landing.js';
+  $landingJsDiskPath = __DIR__ . $landingJsWebPath;
+}
+$landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landingJsDiskPath)) : '';
 ?>
-<link rel="preload" as="style" href="/assets/landing-critical.css<?= htmlspecialchars($landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
-<link rel="preload" as="style" href="/assets/landing.css<?= htmlspecialchars($landingCssVersion, ENT_QUOTES, 'UTF-8') ?>">
-<link rel="preload" as="script" href="/assets/landing.js<?= htmlspecialchars($landingJsVersion, ENT_QUOTES, 'UTF-8') ?>">
-<link rel="stylesheet" href="/assets/landing-critical.css<?= htmlspecialchars($landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
-<link rel="stylesheet" href="/assets/landing.css<?= htmlspecialchars($landingCssVersion, ENT_QUOTES, 'UTF-8') ?>" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="/assets/landing.css<?= htmlspecialchars($landingCssVersion, ENT_QUOTES, 'UTF-8') ?>"></noscript>
+<link rel="preload" as="style" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
+<link rel="preload" as="style" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>">
+<link rel="preload" as="script" href="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>">
+<link rel="stylesheet" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
+<link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>"></noscript>
 <?php renderMetaPixelHead(); ?>
 </head>
 <body>
@@ -795,6 +812,6 @@ window.__AIPB_CONFIG = {
   booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>
 };
 </script>
-<script src="/assets/landing.js<?= htmlspecialchars($landingJsVersion, ENT_QUOTES, 'UTF-8') ?>" defer></script>
+<script src="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>" defer></script>
 </body>
 </html>
