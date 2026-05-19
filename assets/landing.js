@@ -378,7 +378,7 @@ document.addEventListener('click', (event) => {
   }
 });
 
-(function initFunnelTracking() {
+function initFunnelTracking() {
   trackEvent('ViewContent', {
     content_name: 'Landing Page',
     content_category: 'Sales Page'
@@ -408,9 +408,9 @@ document.addEventListener('click', (event) => {
     const sectionElement = document.getElementById(section.id);
     if (sectionElement) observer.observe(sectionElement);
   });
-})();
+}
 
-(function initCountdown() {
+function initCountdown() {
   const KEY = 'aipb_cd_end';
   let end = parseInt(localStorage.getItem(KEY) || '0', 10);
   if (!end || end < Date.now()) {
@@ -432,9 +432,9 @@ document.addEventListener('click', (event) => {
   }
   tick();
   const timer = setInterval(tick, 1000);
-})();
+}
 
-(function initActivityTicker() {
+function initActivityTicker() {
   const feed = [
     'Meera from Bengaluru generated her first poster style result · 2 min ago',
     'Rajiv from Kolkata made his first action figure image · 4 min ago',
@@ -453,9 +453,9 @@ document.addEventListener('click', (event) => {
     el.style.opacity = '0';
     setTimeout(() => { el.textContent = feed[idx]; el.style.opacity = '1'; }, 300);
   }, 5000);
-})();
+}
 
-(function initStickyCta() {
+function initStickyCta() {
   const stickyCta = document.getElementById('stickyCta');
   if (!stickyCta) return;
   function updateStickyPrice() {
@@ -474,5 +474,18 @@ document.addEventListener('click', (event) => {
     }
   }, { threshold: 0 });
   obs.observe(hero);
-})();
+}
+
+function initNonCriticalFeatures() {
+  initFunnelTracking();
+  initCountdown();
+  initActivityTicker();
+  initStickyCta();
+}
+
+if ('requestIdleCallback' in window) {
+  window.requestIdleCallback(() => initNonCriticalFeatures(), { timeout: 2000 });
+} else {
+  window.setTimeout(() => initNonCriticalFeatures(), 600);
+}
 });
