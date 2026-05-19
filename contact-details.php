@@ -18,7 +18,6 @@ require_once __DIR__ . '/auth.php';
       <a class="nav-logo" href="/">AI Prompt Books</a>
       <nav class="nav-links" aria-label="Policy links">
         <a class="nav-link" href="/">Back to Home</a>
-        <a class="nav-link" href="/refund-and-cancellation-policy.php">Refund Policy</a>
       </nav>
     </div>
   </header>
