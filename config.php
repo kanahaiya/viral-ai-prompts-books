@@ -33,7 +33,7 @@ define('WHATSAPP_INVITE_LINK', 'https://chat.whatsapp.com/test-link');
 
 // ── Email (Brevo) ─────────────────────────────────────────────────────────────
 define('BREVO_API_KEY', 'brevo_api_key_placeholder');
-define('MAIL_FROM_EMAIL', 'noreply@example.com');
+define('MAIL_FROM_EMAIL', 'support@aipromptbooks.in');
 define('MAIL_FROM_NAME', 'AI Prompt Books');
 
 // ── Pricing ───────────────────────────────────────────────────────────────────
