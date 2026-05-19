@@ -23,18 +23,20 @@ $books    = getBooks();
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
-<link rel="preload" as="image" href="/assets/hero-mockup.jpg" imagesrcset="/assets/hero-mockup-480w.jpg 480w, /assets/hero-mockup-768w.jpg 768w, /assets/hero-mockup.jpg 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
+<link rel="dns-prefetch" href="//checkout.razorpay.com">
+<link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
+<link rel="preload" as="image" href="/assets/hero-mockup.webp" type="image/webp" imagesrcset="/assets/hero-mockup-480w.webp 480w, /assets/hero-mockup-768w.webp 768w, /assets/hero-mockup.webp 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
+<link rel="preload" as="image" href="/assets/hero-mockup.jpg" type="image/jpeg" imagesrcset="/assets/hero-mockup-480w.jpg 480w, /assets/hero-mockup-768w.jpg 768w, /assets/hero-mockup.jpg 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <?php
 $landingCssPath = __DIR__ . '/assets/landing.css';
 $landingCssVersion = file_exists($landingCssPath) ? ('?v=' . filemtime($landingCssPath)) : '';
+$landingJsPath = __DIR__ . '/assets/landing.js';
+$landingJsVersion = file_exists($landingJsPath) ? ('?v=' . filemtime($landingJsPath)) : '';
 ?>
+<link rel="preload" as="style" href="/assets/landing.css<?= htmlspecialchars($landingCssVersion, ENT_QUOTES, 'UTF-8') ?>">
+<link rel="preload" as="script" href="/assets/landing.js<?= htmlspecialchars($landingJsVersion, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="stylesheet" href="/assets/landing.css<?= htmlspecialchars($landingCssVersion, ENT_QUOTES, 'UTF-8') ?>">
 <?php renderMetaPixelHead(); ?>
-<style>
-/* moved to /assets/landing.css */
-
-/* moved to /assets/landing.css */
-</style>
 </head>
 <body>
 <?php renderMetaPixelNoScript(); ?>
@@ -99,7 +101,10 @@ $landingCssVersion = file_exists($landingCssPath) ? ('?v=' . filemtime($landingC
       <!-- Right: product mockup -->
       <div class="hero-visual">
         <a href="#pricing" class="hero-mockup-link" aria-label="Get the Viral AI Prompts System">
-          <img src="assets/hero-mockup.jpg" srcset="assets/hero-mockup-480w.jpg 480w, assets/hero-mockup-768w.jpg 768w, assets/hero-mockup.jpg 900w" sizes="(max-width: 960px) 92vw, 50vw" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529" loading="eager" fetchpriority="high" decoding="async">
+          <picture>
+            <source type="image/webp" srcset="assets/hero-mockup-480w.webp 480w, assets/hero-mockup-768w.webp 768w, assets/hero-mockup.webp 900w" sizes="(max-width: 960px) 92vw, 50vw">
+            <img src="assets/hero-mockup.jpg" srcset="assets/hero-mockup-480w.jpg 480w, assets/hero-mockup-768w.jpg 768w, assets/hero-mockup.jpg 900w" sizes="(max-width: 960px) 92vw, 50vw" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529" loading="eager" fetchpriority="high" decoding="async">
+          </picture>
         </a>
       </div>
 
@@ -215,7 +220,10 @@ $landingCssVersion = file_exists($landingCssPath) ? ('?v=' . filemtime($landingC
     <p class="section-sub section-sub--wide" style="margin:0 auto 0.5rem;">Action figures, Ghibli art, Mughal warriors, royal pet portraits, cinematic movie posters, and professional portraits — all from the same system, all for the same ₹299.</p>
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
-        <img src="assets/collage-1.jpg" srcset="assets/collage-1-360w.jpg 360w, assets/collage-1-520w.jpg 520w, assets/collage-1.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="699" height="1024" loading="lazy" decoding="async">
+        <picture>
+          <source type="image/webp" srcset="assets/collage-1-360w.webp 360w, assets/collage-1-520w.webp 520w, assets/collage-1.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
+          <img src="assets/collage-1.jpg" srcset="assets/collage-1-360w.jpg 360w, assets/collage-1-520w.jpg 520w, assets/collage-1.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
+        </picture>
       </div>
     </div>
     <p style="font-size:0.85rem;color:var(--muted);margin-top:1rem;">6 styles shown. 1,100+ prompt templates across 11 books — many more styles inside.</p>
@@ -227,7 +235,10 @@ $landingCssVersion = file_exists($landingCssPath) ? ('?v=' . filemtime($landingC
   <div class="container" style="text-align:center;">
     <h2 class="section-title">What&rsquo;s Included Inside The Bundle</h2>
     <div class="bundle-collection-visual">
-      <img src="assets/sections/bundle-collection.jpg" srcset="assets/sections/bundle-collection-640w.jpg 640w, assets/sections/bundle-collection-1024w.jpg 1024w, assets/sections/bundle-collection.jpg 1600w" sizes="(max-width: 900px) 95vw, 980px" alt="Complete Viral AI Prompts System collection showing all 11 books and the bonus guide" width="1800" height="900" loading="lazy" decoding="async">
+      <picture>
+        <source type="image/webp" srcset="assets/sections/bundle-collection-640w.webp 640w, assets/sections/bundle-collection-1024w.webp 1024w, assets/sections/bundle-collection.webp 1600w" sizes="(max-width: 900px) 95vw, 980px">
+        <img src="assets/sections/bundle-collection.jpg" srcset="assets/sections/bundle-collection-640w.jpg 640w, assets/sections/bundle-collection-1024w.jpg 1024w, assets/sections/bundle-collection.jpg 1600w" sizes="(max-width: 900px) 95vw, 980px" alt="Complete Viral AI Prompts System collection showing all 11 books and the bonus guide" width="1800" height="900" loading="lazy" fetchpriority="low" decoding="async">
+      </picture>
     </div>
     <div class="bundle-group-title">Core Books</div>
     <ul class="bundle-includes-list">
@@ -556,7 +567,10 @@ $landingCssVersion = file_exists($landingCssPath) ? ('?v=' . filemtime($landingC
     <p class="section-sub section-sub--wide" style="margin:0 auto 0.5rem;">Pixar-style portraits, luxury product shots, Barbiecore fashion, childhood nostalgia, festive scrapbooks, cyberpunk cities — all using prompts from this single ₹299 bundle.</p>
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
-        <img src="assets/collage-2.jpg" srcset="assets/collage-2-360w.jpg 360w, assets/collage-2-520w.jpg 520w, assets/collage-2.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="699" height="1024" loading="lazy" decoding="async">
+        <picture>
+          <source type="image/webp" srcset="assets/collage-2-360w.webp 360w, assets/collage-2-520w.webp 520w, assets/collage-2.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
+          <img src="assets/collage-2.jpg" srcset="assets/collage-2-360w.jpg 360w, assets/collage-2-520w.jpg 520w, assets/collage-2.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
+        </picture>
       </div>
     </div>
     <p style="font-size:0.85rem;color:var(--muted);margin-top:1rem;">Still only 6 of 1,100+ styles. Every prompt works the same way — fill in the blanks, generate, done.</p>
@@ -763,10 +777,6 @@ $landingCssVersion = file_exists($landingCssPath) ? ('?v=' . filemtime($landingC
   </div>
 </div>
 
-<?php
-$landingJsPath = __DIR__ . '/assets/landing.js';
-$landingJsVersion = file_exists($landingJsPath) ? ('?v=' . filemtime($landingJsPath)) : '';
-?>
 <script src="/assets/js/pixel-tracking.js" defer></script>
 <script>
 window.__AIPB_CONFIG = {
