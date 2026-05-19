@@ -207,7 +207,7 @@ input[readonly]{color:#888;cursor:default;}
       </span>
     <?php endif; ?>
   </h1>
-  <p class="sub">Create your password to access your AI Prompt Books and WhatsApp community.</p>
+  <p class="sub">Create your password to access your AI Prompt Books and Telegram community.</p>
 
   <?php if ($error): ?>
     <div class="error"><?= htmlspecialchars($error) ?></div>

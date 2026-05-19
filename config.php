@@ -28,8 +28,8 @@ define('PAYPAL_CLIENT_SECRET', 'sandbox_paypal_client_secret');
 define('PAYPAL_MODE',          'sandbox');
 define('PAYPAL_API_URL',       'https://api-m.sandbox.paypal.com');
 
-// ── WhatsApp ──────────────────────────────────────────────────────────────────
-define('WHATSAPP_INVITE_LINK', 'https://chat.whatsapp.com/test-link');
+// ── Community Link (Telegram) ────────────────────────────────────────────────
+define('TELEGRAM_INVITE_LINK', 'https://t.me/+48-IpU25IzI4Y2E1');
 
 // ── Email (Brevo) ─────────────────────────────────────────────────────────────
 define('BREVO_API_KEY', 'brevo_api_key_placeholder');
