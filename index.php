@@ -782,7 +782,7 @@ section{padding:64px 2rem;}
     </ul>
     <div class="bundle-group-title">Community + Support</div>
     <ul class="bundle-includes-list">
-      <li><strong>Private WhatsApp Community Access</strong><span>Get new ideas, trending styles, support, and inspiration regularly.</span></li>
+      <li><strong>Private Telegram Community Access</strong><span>Get new ideas, trending styles, support, and inspiration regularly.</span></li>
     </ul>
     <p class="bundle-bridge">Everything you need to go from beginner to confident creator.</p>
     <div class="bundle-pricing-line">
@@ -853,7 +853,7 @@ section{padding:64px 2rem;}
       </div>
       <div class="bonus-item">
         <div class="bonus-label">BONUS #3</div>
-        <div class="bonus-title">Private WhatsApp Community Access</div>
+        <div class="bonus-title">Private Telegram Community Access</div>
         <div class="bonus-desc">Get:</div>
         <ul class="bonus-points">
           <li>New prompt ideas</li>
@@ -903,7 +903,7 @@ section{padding:64px 2rem;}
           <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
           <li>Interactive online viewer — no downloads</li>
           <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
-          <li>WhatsApp community access</li>
+          <li>Telegram community access</li>
           <li>All future updates to your book</li>
         </ul>
         <button class="btn-buy-outline" data-action="start-checkout" data-plan="single">
@@ -926,7 +926,7 @@ section{padding:64px 2rem;}
           <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
           <li>Interactive online viewer — no downloads</li>
           <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
-          <li>🎁 Exclusive WhatsApp community access</li>
+          <li>🎁 Exclusive Telegram community access</li>
           <li>All future books automatically added</li>
         </ul>
         <button class="btn-buy" data-action="start-checkout" data-plan="bundle">
@@ -1079,7 +1079,7 @@ section{padding:64px 2rem;}
     </div>
     <div class="offer-bonus-callout offer-bonus-callout--secondary">
       <h3>Bonuses Available During This Offer</h3>
-      <p>The AI Prompt Finder CustomGPT, bonus ebook, and private WhatsApp community are currently included free with the full bundle.</p>
+      <p>The AI Prompt Finder CustomGPT, bonus ebook, and private Telegram community are currently included free with the full bundle.</p>
       <p>These bonuses may not stay included permanently as new updates and books are added later.</p>
       <a href="#pricing" class="btn-secondary" style="display:inline-block;">Claim My Bonuses</a>
     </div>
@@ -1135,7 +1135,7 @@ section{padding:64px 2rem;}
         ['Is the CustomGPT bonus included right now?',
          'Yes. The AI Prompt Finder CustomGPT is currently included free with the bundle.'],
         ['Do I get support if I get stuck?',
-         'Yes. Buyers also get access to the WhatsApp community for guidance, updates, and support.'],
+         'Yes. Buyers also get access to the Telegram community for guidance, updates, and support.'],
         ['Is there any refund policy?',
          'Because this is a digital product with instant access, refunds are not available after access is delivered. However, if there is any technical issue with access, support will help resolve it quickly.'],
       ];

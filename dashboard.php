@@ -38,8 +38,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .welcome-banner{background:linear-gradient(135deg,#1a1505 0%,#141414 100%);border:1px solid #3a2a05;border-radius:6px;padding:1.5rem 2rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
 .welcome-text h2{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:0.3rem;}
 .welcome-text p{font-size:0.85rem;color:#b0b0b0;}
-.wa-btn{background:#25d366;color:#fff;font-family:'Courier New',monospace;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border:none;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background 0.15s;white-space:nowrap;}
-.wa-btn:hover{background:#1eb857;}
+.tg-btn{background:#229ed9;color:#fff;font-family:'Courier New',monospace;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border:none;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background 0.15s;white-space:nowrap;}
+.tg-btn:hover{background:#1b86b5;}
 
 /* PLAN BADGE */
 .plan-bar{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;}
@@ -79,11 +79,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .book-card.accessible .book-lock-icon{display:none;}
 
 /* COMMUNITY BOX */
-.community-box{background:#0d1a0d;border:1px solid #1a3a1a;border-radius:6px;padding:1.8rem 2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:2.5rem;}
+.community-box{background:#0b1720;border:1px solid #1f4f66;border-radius:6px;padding:1.8rem 2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:2.5rem;}
 .community-icon{font-size:2.5rem;flex-shrink:0;}
 .community-content h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
 .community-content p{font-size:0.83rem;color:#b8b8b8;}
-.community-content a.wa-btn{margin-top:1rem;display:inline-flex;}
+.community-content a.tg-btn{margin-top:1rem;display:inline-flex;}
 
 @media(max-width:600px){
   .main{padding:1.5rem 1rem;}
@@ -120,10 +120,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   <div class="welcome-banner">
     <div class="welcome-text">
       <h2>🎉 Welcome! Your account is ready.</h2>
-      <p>Click any book below to start using your prompts. Join the WhatsApp community for tips and early releases.</p>
+      <p>Click any book below to start using your prompts. Join the Telegram community for tips and early releases.</p>
     </div>
-    <a href="<?= htmlspecialchars(WHATSAPP_INVITE_LINK) ?>" target="_blank" rel="noopener" class="wa-btn">
-      💬 Join WhatsApp Community
+    <a href="<?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>" target="_blank" rel="noopener" class="tg-btn">
+      💬 Join Telegram Community
     </a>
   </div>
   <?php endif; ?>
@@ -200,9 +200,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   <div class="community-box">
     <div class="community-icon">💬</div>
     <div class="community-content">
-      <h3>AI Prompt Creators — WhatsApp Community</h3>
+      <h3>AI Prompt Creators — Telegram Community</h3>
       <p>Share your AI images, get prompt tips, early access to new books, and exclusive free prompts.</p>
-      <a href="<?= htmlspecialchars(WHATSAPP_INVITE_LINK) ?>" target="_blank" rel="noopener" class="wa-btn">
+      <a href="<?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>" target="_blank" rel="noopener" class="tg-btn">
         Join the Community
       </a>
     </div>

@@ -10,7 +10,7 @@ Use this checklist before launching `AI Prompt Books` to production.
   - [ ] Razorpay live key + secret
   - [ ] PayPal live client ID + secret
   - [ ] Correct `SITE_URL`
-  - [ ] Real `WHATSAPP_INVITE_LINK`
+  - [ ] Real `TELEGRAM_INVITE_LINK`
 - [ ] Confirm `config.production.php` is not publicly accessible:
   - [ ] `.htaccess` rule is present and active
   - [ ] direct URL access to config files returns `403`
@@ -91,7 +91,7 @@ Use this checklist before launching `AI Prompt Books` to production.
 - [ ] Complete one USD test purchase.
 - [ ] Set password and login.
 - [ ] Open purchased book(s).
-- [ ] Verify WhatsApp invite path.
+- [ ] Verify Telegram invite path.
 - [ ] Verify logout/login cycle.
 - [ ] Verify `/admin/` auth + dashboard loads.
 

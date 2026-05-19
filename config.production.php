@@ -38,8 +38,8 @@ define('PAYPAL_CLIENT_SECRET', envOrDefault('PAYPAL_CLIENT_SECRET', 'XXXXXXXXXXX
 define('PAYPAL_MODE',          envOrDefault('PAYPAL_MODE', 'live')); // sandbox/live
 define('PAYPAL_API_URL',       envOrDefault('PAYPAL_API_URL', 'https://api-m.paypal.com'));
 
-// ── WhatsApp Community ────────────────────────────────────────────────────────
-define('WHATSAPP_INVITE_LINK', envOrDefault('WHATSAPP_INVITE_LINK', 'https://chat.whatsapp.com/XXXXXXXXXXXXXXXXXXXXXXXXX'));
+// ── Community Link (Telegram) ────────────────────────────────────────────────
+define('TELEGRAM_INVITE_LINK', envOrDefault('TELEGRAM_INVITE_LINK', 'https://t.me/+48-IpU25IzI4Y2E1'));
 
 // ── Email (Brevo transactional API) ───────────────────────────────────────────
 define('BREVO_API_KEY', envOrDefault('BREVO_API_KEY', 'brevo_api_key_placeholder'));

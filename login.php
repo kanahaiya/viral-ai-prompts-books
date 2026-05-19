@@ -79,7 +79,7 @@ input:focus{border-color:#d4a836;}
 <div class="logo"><a href="/">AI Prompt Books</a></div>
 <div class="card">
   <h1>Welcome back</h1>
-  <p class="sub">Log in to access your prompt books and WhatsApp community.</p>
+  <p class="sub">Log in to access your prompt books and Telegram community.</p>
 
   <?php if ($error): ?>
     <div class="error"><?= htmlspecialchars($error) ?></div>
