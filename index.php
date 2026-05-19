@@ -1182,13 +1182,14 @@ section{padding:64px 2rem;}
         $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
         $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
         $hasModalCover = file_exists($modalCoverDiskPath);
+        $modalCoverVersion = $hasModalCover ? ('?v=' . filemtime($modalCoverDiskPath)) : '';
       ?>
       <button type="button" data-action="toggle-book-selection" data-book-id="<?= $id ?>"
               class="modal-book-btn"
               style="--mbb-color:<?= htmlspecialchars($book['accent']) ?>;">
         <div class="mbb-accent"></div>
         <?php if ($hasModalCover): ?>
-          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($modalCoverWebPath, ENT_QUOTES, 'UTF-8') ?>')"></div>
+          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($modalCoverWebPath . $modalCoverVersion, ENT_QUOTES, 'UTF-8') ?>')"></div>
         <?php else: ?>
           <span class="mbb-emoji"><?= $book['emoji'] ?></span>
         <?php endif; ?>
@@ -1202,11 +1203,12 @@ section{padding:64px 2rem;}
         $bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
         $bonusCoverDiskPath = __DIR__ . '/assets/covers/book-bonus.jpg';
         $hasBonusCover = file_exists($bonusCoverDiskPath);
+        $bonusCoverVersion = $hasBonusCover ? ('?v=' . filemtime($bonusCoverDiskPath)) : '';
       ?>
       <div class="modal-bonus-card">
         <div class="mbb-accent" style="background:linear-gradient(90deg,#d4a836,#f59e0b);"></div>
         <?php if ($hasBonusCover): ?>
-          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($bonusCoverWebPath, ENT_QUOTES, 'UTF-8') ?>')"></div>
+          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($bonusCoverWebPath . $bonusCoverVersion, ENT_QUOTES, 'UTF-8') ?>')"></div>
         <?php else: ?>
           <span class="mbb-emoji">🎯</span>
         <?php endif; ?>
