@@ -23,6 +23,7 @@ $books    = getBooks();
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
+<link rel="preload" as="image" href="/assets/hero-mockup.jpg">
 <?php renderMetaPixelHead(); ?>
 <style>
 /* ── RESET ── */
@@ -634,7 +635,7 @@ section{padding:64px 2rem;}
       <!-- Right: product mockup -->
       <div class="hero-visual">
         <a href="#pricing" class="hero-mockup-link" aria-label="Get the Viral AI Prompts System">
-          <img src="assets/hero-mockup.jpg" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529">
+          <img src="assets/hero-mockup.jpg" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529" loading="eager" fetchpriority="high" decoding="async">
         </a>
       </div>
 
@@ -1298,8 +1299,9 @@ section{padding:64px 2rem;}
   </div>
 </div>
 
-<script src="/assets/js/pixel-tracking.js"></script>
+<script src="/assets/js/pixel-tracking.js" defer></script>
 <script>
+window.addEventListener('DOMContentLoaded', () => {
 const currency = 'INR';
 const BUNDLE_PRICE_INR = 299;
 const RAZORPAY_CHECKOUT_SRC = 'https://checkout.razorpay.com/v1/checkout.js';
@@ -1790,6 +1792,7 @@ document.addEventListener('click', (event) => {
   }, { threshold: 0 });
   obs.observe(hero);
 })();
+});
 </script>
 </body>
 </html>
