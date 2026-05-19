@@ -79,6 +79,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   </div>
 </nav>
 
+<main id="main">
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
@@ -663,6 +664,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     </div>
   </div>
 </section>
+</main>
 
 <!-- FOOTER -->
 <footer class="footer">

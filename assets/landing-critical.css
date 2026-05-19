@@ -38,6 +38,17 @@ img{max-width:100%;display:block;}
 .hero-visual{flex:1 1 0;display:flex;align-items:flex-start;justify-content:flex-end;}
 .hero-mockup-link{display:block;cursor:pointer;}
 .hero-mockup-img{width:100%;height:auto;display:block;filter:drop-shadow(0 32px 80px rgba(212,168,54,0.3));border-radius:10px;}
+
+/* Keep hero CTA dimensions stable before full CSS loads */
+.btn-primary{background:var(--gold);color:#000;font-weight:700;font-family:'Courier New',monospace;font-size:0.82rem;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:3px;border:none;cursor:pointer;display:inline-block;line-height:1.2;}
+.btn-secondary{background:transparent;color:#ccc;font-family:'Courier New',monospace;font-size:0.78rem;letter-spacing:1px;text-transform:uppercase;padding:13px 22px;border-radius:3px;border:1.5px solid rgba(255,255,255,0.2);cursor:pointer;white-space:nowrap;display:inline-block;line-height:1.2;}
+.btn-primary--priced{display:inline-flex;flex-direction:column;align-items:center;gap:3px;padding:15px 32px 12px;white-space:nowrap;}
+.btn-main-text{font-size:0.85rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;line-height:1;}
+.btn-price-line{display:flex;align-items:baseline;gap:5px;line-height:1;}
+.btn-price-now{font-size:1.15rem;font-weight:900;letter-spacing:-0.5px;}
+.btn-price-orig{font-size:0.72rem;text-decoration:line-through;opacity:0.5;letter-spacing:0;}
+.hero-proof-pill{font-size:0.86rem;color:#bbb;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:8px 15px;display:flex;align-items:center;gap:5px;}
+.hero-proof-pill::before{content:'✓';color:var(--gold);font-size:0.72rem;font-weight:700;}
 .hero-stats-wrap{padding:0 0 52px;}
 .hero-stats{display:flex;gap:3rem;flex-wrap:wrap;justify-content:space-between;padding:1.2rem 0 0.4rem;margin-top:2rem;border-top:1px solid rgba(212,168,54,0.15);}
 .hero-stat-num{font-family:'Courier New',monospace;font-size:1.5rem;font-weight:900;color:var(--gold);line-height:1;}
