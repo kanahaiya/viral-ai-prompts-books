@@ -25,6 +25,7 @@ $books    = getBooks();
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
+<link rel="preload" as="image" href="/assets/hero-mockup.avif" type="image/avif" imagesrcset="/assets/hero-mockup-480w.avif 480w, /assets/hero-mockup-768w.avif 768w, /assets/hero-mockup.avif 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <link rel="preload" as="image" href="/assets/hero-mockup.webp" type="image/webp" imagesrcset="/assets/hero-mockup-480w.webp 480w, /assets/hero-mockup-768w.webp 768w, /assets/hero-mockup.webp 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <link rel="preload" as="image" href="/assets/hero-mockup.jpg" type="image/jpeg" imagesrcset="/assets/hero-mockup-480w.jpg 480w, /assets/hero-mockup-768w.jpg 768w, /assets/hero-mockup.jpg 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <?php
@@ -107,6 +108,7 @@ $landingJsVersion = file_exists($landingJsPath) ? ('?v=' . filemtime($landingJsP
       <div class="hero-visual">
         <a href="#pricing" class="hero-mockup-link" aria-label="Get the Viral AI Prompts System">
           <picture>
+            <source type="image/avif" srcset="assets/hero-mockup-480w.avif 480w, assets/hero-mockup-768w.avif 768w, assets/hero-mockup.avif 900w" sizes="(max-width: 960px) 92vw, 50vw">
             <source type="image/webp" srcset="assets/hero-mockup-480w.webp 480w, assets/hero-mockup-768w.webp 768w, assets/hero-mockup.webp 900w" sizes="(max-width: 960px) 92vw, 50vw">
             <img src="assets/hero-mockup.jpg" srcset="assets/hero-mockup-480w.jpg 480w, assets/hero-mockup-768w.jpg 768w, assets/hero-mockup.jpg 900w" sizes="(max-width: 960px) 92vw, 50vw" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529" loading="eager" fetchpriority="high" decoding="async">
           </picture>
@@ -226,6 +228,7 @@ $landingJsVersion = file_exists($landingJsPath) ? ('?v=' . filemtime($landingJsP
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
         <picture>
+          <source type="image/avif" srcset="assets/collage-1-360w.avif 360w, assets/collage-1-520w.avif 520w, assets/collage-1.avif 682w" sizes="(max-width: 600px) 92vw, 520px">
           <source type="image/webp" srcset="assets/collage-1-360w.webp 360w, assets/collage-1-520w.webp 520w, assets/collage-1.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
           <img src="assets/collage-1.jpg" srcset="assets/collage-1-360w.jpg 360w, assets/collage-1-520w.jpg 520w, assets/collage-1.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
         </picture>
@@ -241,6 +244,7 @@ $landingJsVersion = file_exists($landingJsPath) ? ('?v=' . filemtime($landingJsP
     <h2 class="section-title">What&rsquo;s Included Inside The Bundle</h2>
     <div class="bundle-collection-visual">
       <picture>
+        <source type="image/avif" srcset="assets/sections/bundle-collection-640w.avif 640w, assets/sections/bundle-collection-1024w.avif 1024w, assets/sections/bundle-collection.avif 1600w" sizes="(max-width: 900px) 95vw, 980px">
         <source type="image/webp" srcset="assets/sections/bundle-collection-640w.webp 640w, assets/sections/bundle-collection-1024w.webp 1024w, assets/sections/bundle-collection.webp 1600w" sizes="(max-width: 900px) 95vw, 980px">
         <img src="assets/sections/bundle-collection.jpg" srcset="assets/sections/bundle-collection-640w.jpg 640w, assets/sections/bundle-collection-1024w.jpg 1024w, assets/sections/bundle-collection.jpg 1600w" sizes="(max-width: 900px) 95vw, 980px" alt="Complete Viral AI Prompts System collection showing all 11 books and the bonus guide" width="1800" height="900" loading="lazy" fetchpriority="low" decoding="async">
       </picture>
@@ -573,6 +577,7 @@ $landingJsVersion = file_exists($landingJsPath) ? ('?v=' . filemtime($landingJsP
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
         <picture>
+          <source type="image/avif" srcset="assets/collage-2-360w.avif 360w, assets/collage-2-520w.avif 520w, assets/collage-2.avif 682w" sizes="(max-width: 600px) 92vw, 520px">
           <source type="image/webp" srcset="assets/collage-2-360w.webp 360w, assets/collage-2-520w.webp 520w, assets/collage-2.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
           <img src="assets/collage-2.jpg" srcset="assets/collage-2-360w.jpg 360w, assets/collage-2-520w.jpg 520w, assets/collage-2.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
         </picture>

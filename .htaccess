@@ -106,6 +106,16 @@ RewriteRule ^(.*)/$ /$1 [L,R=301]
     AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css
+    AddOutputFilterByType BROTLI_COMPRESS application/json text/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/xml
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header append Vary "Accept-Encoding"
+</IfModule>
+
 # -----------------------------------------------------------------------------
 # Browser caching for static assets
 # -----------------------------------------------------------------------------
@@ -117,10 +127,20 @@ RewriteRule ^(.*)/$ /$1 [L,R=301]
     ExpiresByType image/png                 "access plus 1 year"
     ExpiresByType image/jpeg                "access plus 1 year"
     ExpiresByType image/webp                "access plus 1 year"
+    ExpiresByType image/avif                "access plus 1 year"
     ExpiresByType image/svg+xml             "access plus 1 year"
     ExpiresByType image/x-icon              "access plus 1 year"
     ExpiresByType application/pdf           "access plus 1 month"
     ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(?:css|js|mjs|png|jpe?g|webp|avif|svg|ico|woff2?)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(?:html)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
 </IfModule>
 
 # -----------------------------------------------------------------------------
