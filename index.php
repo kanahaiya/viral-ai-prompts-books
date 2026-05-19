@@ -12,6 +12,17 @@ $books    = getBooks();
 <title>Viral AI Prompts System — 11 Books, 1,100 AI Image Templates</title>
 <meta name="description" content="The Viral AI Prompts System — 11 books, 1,100 fill-in-the-blank templates. Create better AI images faster with Midjourney, ChatGPT, Firefly and more.">
 <link rel="canonical" href="<?= htmlspecialchars(rtrim(SITE_URL, '/')) ?>/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Prompt Books">
+<meta property="og:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
+<meta property="og:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
+<meta property="og:url" content="https://www.aipromptbooks.in/">
+<meta property="og:image" content="https://www.aipromptbooks.in/assets/og/og-image.png">
+<meta property="og:image:alt" content="AI Prompt Books bundle preview showing all 11 books and bonus guide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
+<meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
+<meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.png">
 <?php renderMetaPixelHead(); ?>
 <style>
 /* ── RESET ── */
