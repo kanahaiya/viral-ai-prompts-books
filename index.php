@@ -17,12 +17,12 @@ $books    = getBooks();
 <meta property="og:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta property="og:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta property="og:url" content="https://www.aipromptbooks.in/">
-<meta property="og:image" content="https://www.aipromptbooks.in/assets/og/og-image.png">
+<meta property="og:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <meta property="og:image:alt" content="AI Prompt Books bundle preview showing all 11 books and bonus guide">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
-<meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.png">
+<meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <?php renderMetaPixelHead(); ?>
 <style>
 /* ── RESET ── */
@@ -634,7 +634,7 @@ section{padding:64px 2rem;}
       <!-- Right: product mockup -->
       <div class="hero-visual">
         <a href="#pricing" class="hero-mockup-link" aria-label="Get the Viral AI Prompts System">
-          <img src="assets/hero-mockup.png" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529">
+          <img src="assets/hero-mockup.jpg" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529">
         </a>
       </div>
 
