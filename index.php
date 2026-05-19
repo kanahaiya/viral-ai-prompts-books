@@ -17,12 +17,12 @@ $books    = getBooks();
 <meta property="og:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta property="og:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta property="og:url" content="https://www.aipromptbooks.in/">
-<meta property="og:image" content="https://www.aipromptbooks.in/assets/og/og-image.png">
+<meta property="og:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <meta property="og:image:alt" content="AI Prompt Books bundle preview showing all 11 books and bonus guide">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
-<meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.png">
+<meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <?php renderMetaPixelHead(); ?>
 <style>
 /* ── RESET ── */
@@ -217,7 +217,6 @@ img{max-width:100%;display:block;}
 /* ── SECTION COMMON ── */
 section{padding:64px 2rem;}
 .container{max-width:var(--layout-max);margin:0 auto;}
-.section-badge{font-family:'Courier New',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;}
 .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-1px;color:#fff;margin-bottom:1rem;}
 .section-sub{font-size:1.05rem;color:#999;max-width:var(--content-text);line-height:1.8;}
 .section-sub--wide{max-width:var(--content-text);}
@@ -635,7 +634,7 @@ section{padding:64px 2rem;}
       <!-- Right: product mockup -->
       <div class="hero-visual">
         <a href="#pricing" class="hero-mockup-link" aria-label="Get the Viral AI Prompts System">
-          <img src="assets/hero-mockup.png" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529">
+          <img src="assets/hero-mockup.jpg" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529">
         </a>
       </div>
 
@@ -669,7 +668,6 @@ section{padding:64px 2rem;}
 <!-- PAIN AGITATION -->
 <section class="pain-section">
   <div class="container">
-    <div class="section-badge">Problem Section</div>
     <h2 class="section-title">Everywhere You Look, People Are Posting<br><span style="color:var(--gold);">Incredible AI Art…</span></h2>
     <div class="pain-text">
       <p class="story pain-style-line">Anime portraits. Cinematic posters. Action figure toy boxes. Dreamy edits. Viral Instagram visuals.</p>
@@ -692,7 +690,6 @@ section{padding:64px 2rem;}
 <!-- SOLUTION BRIDGE -->
 <section class="solution-section">
   <div class="container">
-    <div class="section-badge">Solution Section</div>
     <p class="big-intro">This Makes AI Image Creation Feel <span>Easy</span></p>
     <ul class="solution-no-list">
       <li>No prompt engineering.</li>
@@ -729,7 +726,6 @@ section{padding:64px 2rem;}
 <!-- BENEFITS -->
 <section class="benefits-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Benefits Section</div>
     <h2 class="section-title">What You&rsquo;ll Be Able To Create</h2>
     <ul class="create-outcomes-list">
       <li>Create AI images that genuinely make friends and followers stop and react.</li>
@@ -750,7 +746,6 @@ section{padding:64px 2rem;}
 <!-- COLLAGE: Visual Proof -->
 <section class="gallery-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">What You Can Create</div>
     <h2 class="section-title">Real Outputs. Real Prompts. <span style="color:var(--gold);">From This System.</span></h2>
     <p class="section-sub section-sub--wide" style="margin:0 auto 0.5rem;">Action figures, Ghibli art, Mughal warriors, royal pet portraits, cinematic movie posters, and professional portraits — all from the same system, all for the same ₹299.</p>
     <div class="gallery-collage-wrap">
@@ -765,7 +760,6 @@ section{padding:64px 2rem;}
 <!-- BUNDLE INCLUDES -->
 <section class="benefits-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Bundle Includes</div>
     <h2 class="section-title">What&rsquo;s Included Inside The Bundle</h2>
     <div class="bundle-collection-visual">
       <img src="assets/sections/bundle-collection.jpg" alt="Complete Viral AI Prompts System collection showing all 11 books and the bonus guide" width="1800" height="900" loading="lazy">
@@ -796,7 +790,6 @@ section{padding:64px 2rem;}
 <!-- PERFECT FOR -->
 <section class="benefits-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Audience Fit</div>
     <h2 class="section-title">This Is Perfect For</h2>
     <ul class="perfect-for-list">
       <li>People who see stunning AI art online and want to create similar visuals themselves.</li>
@@ -815,7 +808,6 @@ section{padding:64px 2rem;}
 <!-- OFFER STACK -->
 <section class="offer-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">System Delivery + Bonuses</div>
     <h2 class="section-title">Unlocks the Full Prompt System + Bonuses.</h2>
     <p class="section-sub" style="margin:0 auto;">You&rsquo;re getting a complete, proven system: every book, every bonus, and every future update.</p>
     <div class="offer-list">
@@ -869,7 +861,6 @@ section{padding:64px 2rem;}
 <!-- OFFER DETAILS (PRICING) -->
 <section id="pricing" class="pricing-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Offer Details</div>
     <h2 class="section-title">One Price. No Subscription.<br><span style="color:var(--gold);">Use It For Years.</span></h2>
     <p class="section-sub" style="margin:0 auto 1.5rem;">No subscription. No renewal. No price creep. Pay once — own it for life, including every new book added to the collection.</p>
     <div class="value-compare">
@@ -956,7 +947,6 @@ section{padding:64px 2rem;}
 <!-- TESTIMONIALS -->
 <section class="testimonials-section" id="reviews">
   <div class="container">
-    <div class="section-badge" style="text-align:center;">Real Buyers · Real Results</div>
     <h2 class="section-title" style="text-align:center;">What Buyers Are Saying</h2>
 
     <p class="testimonial-lead">Most of them were not "AI experts." They were creators, parents, freelancers, and side-hustlers trying to get better output without spending hours experimenting. <strong style="color:#ccc;">These are their practical outcomes.</strong></p>
@@ -1068,7 +1058,6 @@ section{padding:64px 2rem;}
 <!-- EARLY ACCESS PRICING -->
 <section class="benefits-section">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">Pricing Window</div>
     <h2 class="section-title">Early Access Pricing</h2>
     <div class="early-access-copy">
       <p class="early-access-lead">Right now, the complete 11-book bundle is available for just ₹299.</p>
@@ -1098,7 +1087,6 @@ section{padding:64px 2rem;}
 <!-- COLLAGE 2: More Styles -->
 <section class="gallery-section gallery-section--alt">
   <div class="container" style="text-align:center;">
-    <div class="section-badge">More Styles Inside</div>
     <h2 class="section-title">Still Not Sure? <span style="color:var(--gold);">See What Else Is Possible.</span></h2>
     <p class="section-sub section-sub--wide" style="margin:0 auto 0.5rem;">Pixar-style portraits, luxury product shots, Barbiecore fashion, childhood nostalgia, festive scrapbooks, cyberpunk cities — all using prompts from this single ₹299 bundle.</p>
     <div class="gallery-collage-wrap">
@@ -1113,7 +1101,6 @@ section{padding:64px 2rem;}
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <div class="section-badge" style="text-align:center;">FAQ</div>
     <h2 class="section-title" style="text-align:center;">Still on the Fence?<br><span style="color:var(--gold);">These Questions Are For You.</span></h2>
     <div class="faq-list">
       <?php
