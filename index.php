@@ -947,7 +947,7 @@ section{padding:64px 2rem;}
       </ul>
     </div>
 
-    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 At ₹299, that's about ₹27 per book — still lower than one cafe snack for a reusable creation system.</p>
+    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 Early-access bundle pricing is currently ₹299. Individual books are listed separately at ₹199 each.</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Razorpay (India)</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
   </div>
@@ -1058,8 +1058,8 @@ section{padding:64px 2rem;}
         <div class="spb-label">To First Result</div>
       </div>
       <div class="spb-item">
-        <div class="spb-num">₹27</div>
-        <div class="spb-label">Per Book · Lifetime</div>
+        <div class="spb-num">₹299</div>
+        <div class="spb-label">Early Access · Bundle</div>
       </div>
     </div>
   </div>
