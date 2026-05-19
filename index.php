@@ -80,7 +80,7 @@ img{max-width:100%;display:block;}
 .btn-price-now{font-size:1.15rem;font-weight:900;letter-spacing:-0.5px;}
 .btn-price-orig{font-size:0.72rem;text-decoration:line-through;opacity:0.5;letter-spacing:0;}
 .btn-price-label{font-size:0.7rem;opacity:0.7;letter-spacing:0;text-transform:none;font-weight:400;}
-.hero-proof-pill{font-size:0.8rem;color:#bbb;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:8px 15px;display:flex;align-items:center;gap:5px;}
+.hero-proof-pill{font-size:0.86rem;color:#bbb;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:8px 15px;display:flex;align-items:center;gap:5px;}
 .hero-proof-pill::before{content:'✓';color:var(--gold);font-size:0.72rem;font-weight:700;}
 .hero-mini-testimonial strong{color:#ddd;}
 
