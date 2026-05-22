@@ -44,6 +44,9 @@ require_once __DIR__ . '/auth.php';
       <h2>Support Hours</h2>
       <p>Monday to Saturday, 10:00 AM to 7:00 PM IST</p>
 
+      <h2>Support Channel</h2>
+      <p>Email-only support is currently available for all customer, billing, and access requests.</p>
+
       <h2>Help Us Support You Faster</h2>
       <p>Please include your payment email and purchase date when contacting support.</p>
     </article>
@@ -52,11 +55,11 @@ require_once __DIR__ . '/auth.php';
   <footer class="footer">
     <div class="footer-logo">AI Prompt Books</div>
     <div class="footer-links">
-      <a href="/#reviews">Proof</a>
       <a href="/#pricing">Pricing</a>
       <a href="/#faq">FAQ</a>
       <a href="/contact-details.php">Contact</a>
       <a href="/terms-and-conditions.php">Terms</a>
+      <a href="/privacy-policy.php">Privacy Policy</a>
       <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
       <a href="/login.php">Login</a>
     </div>
