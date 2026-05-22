@@ -133,7 +133,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
     $allBooks   = getBooks();
     $paidBooks  = array_filter($allBooks, fn($b) => empty($b['bonus']));
     $totalPaid  = count($paidBooks);
-    $ownedBooks = $isBundle ? array_keys($paidBooks) : json_decode($user['books_access'] ?? '[]', true);
+    $ownedBooks = $isBundle ? array_keys($paidBooks) : getResolvedBooksAccessIds($user);
     $ownedCount = count($ownedBooks);
   ?>
   <div class="plan-bar">
