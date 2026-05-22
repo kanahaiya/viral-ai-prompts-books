@@ -61,7 +61,6 @@ jobs:
             **/.cursor/**
             **/node_modules/**
             **/.env*
-            **/.htaccess
             **/config.production.php
             **/local.db
             **/db.sql

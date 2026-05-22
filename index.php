@@ -790,10 +790,15 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <label style="font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;">YOUR NAME</label>
       <input type="text" id="buyerName" placeholder="e.g. Raj Sharma" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
     </div>
-    <div style="margin-bottom:1.5rem;">
+    <div style="margin-bottom:1rem;">
       <label style="font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;">EMAIL ADDRESS</label>
       <input type="email" id="buyerEmail" placeholder="you@example.com" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
       <div style="font-size:0.75rem;color:#555;margin-top:4px;">Your login credentials will be sent to this email right after payment.</div>
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label style="font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;">PHONE NUMBER</label>
+      <input type="tel" id="buyerPhone" placeholder="e.g. 9876543210" inputmode="numeric" autocomplete="tel" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
+      <div style="font-size:0.75rem;color:#555;margin-top:4px;">Required by payment gateway to process UPI/Card payments.</div>
     </div>
     <div id="paymentButtons" style="display:flex;flex-direction:column;gap:0.8rem;">
       <!-- Razorpay paused for now -->

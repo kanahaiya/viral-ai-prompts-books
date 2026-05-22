@@ -1,7 +1,7 @@
 <?php
 // ─────────────────────────────────────────────────────────────────────────────
 // api/cashfree-order.php  —  Create a Cashfree order (INR)
-// POST body: { plan, book_id, book_ids, email, name }
+// POST body: { plan, book_id, book_ids, email, name, phone }
 // Returns: { order_id, payment_session_id, amount, currency } or { error }
 // ─────────────────────────────────────────────────────────────────────────────
 require_once dirname(__DIR__) . '/auth.php';
@@ -18,6 +18,15 @@ $bookId = intval($body['book_id'] ?? 0);
 $bookIdsRaw = is_array($body['book_ids'] ?? null) ? $body['book_ids'] : [];
 $email = strtolower(trim($body['email'] ?? ''));
 $name = trim($body['name'] ?? '');
+$rawPhone = trim((string)($body['phone'] ?? ''));
+$phoneDigits = preg_replace('/\D+/', '', $rawPhone);
+$phone = '';
+$phoneLength = strlen($phoneDigits);
+if ($phoneLength === 10) {
+    $phone = $phoneDigits;
+} elseif ($phoneLength === 12 && str_starts_with($phoneDigits, '91')) {
+    $phone = substr($phoneDigits, 2);
+}
 $bookIds = array_values(array_unique(array_filter(array_map('intval', $bookIdsRaw), static function ($id) {
     return $id >= 1 && $id <= 11;
 })));
@@ -34,6 +43,9 @@ if ($plan === 'single' && empty($bookIds)) {
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     jsonResponse(['error' => 'Invalid email'], 400);
+}
+if ($phone === '') {
+    jsonResponse(['error' => 'Please enter a valid 10-digit phone number'], 400);
 }
 
 $amountInr = $plan === 'bundle'
@@ -58,6 +70,7 @@ $payload = json_encode([
         'customer_id' => 'cust_' . substr(hash('sha256', $email), 0, 20),
         'customer_email' => $email,
         'customer_name' => $name !== '' ? $name : 'Customer',
+        'customer_phone' => $phone,
     ],
     'order_meta' => [
         'return_url' => rtrim(SITE_URL, '/') . '/setup-account.php',

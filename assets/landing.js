@@ -185,12 +185,21 @@ function closeCheckout() {
   });
 }
 
+function normalizeIndianPhoneNumber(rawPhoneNumber) {
+  const digitsOnly = String(rawPhoneNumber || '').replace(/\D/g, '');
+  if (digitsOnly.length === 10) return digitsOnly;
+  if (digitsOnly.length === 12 && digitsOnly.startsWith('91')) return digitsOnly.slice(2);
+  return '';
+}
+
 function getCheckoutData() {
   const name = document.getElementById('buyerName').value.trim();
   const email = document.getElementById('buyerEmail').value.trim();
+  const phone = normalizeIndianPhoneNumber(document.getElementById('buyerPhone').value.trim());
   if (!name) { showError('Please enter your name.'); return null; }
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return null; }
-  return { name, email };
+  if (!phone) { showError('Please enter a valid 10-digit phone number.'); return null; }
+  return { name, email, phone };
 }
 
 function showError(msg) {
@@ -233,7 +242,8 @@ async function payWithCashfree() {
         book_id: currentBookId,
         book_ids: currentBookIds,
         email: data.email,
-        name: data.name
+        name: data.name,
+        phone: data.phone
       })
     });
     const responseText = await res.text();
