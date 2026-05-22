@@ -28,9 +28,14 @@ define('SITE_NAME', envOrDefault('SITE_NAME', 'AI Prompt Books'));
 // ── Books path (relative to this file) ───────────────────────────────────────
 define('BOOKS_DIR', __DIR__ . '/books/');
 
-// ── Razorpay (live keys) ─────────────────────────────────────────────────────
-define('RAZORPAY_KEY_ID',     envOrDefault('RAZORPAY_KEY_ID', 'rzp_live_XXXXXXXXXXXX'));
-define('RAZORPAY_KEY_SECRET', envOrDefault('RAZORPAY_KEY_SECRET', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'));
+// ── Razorpay (paused for now) ─────────────────────────────────────────────────
+// define('RAZORPAY_KEY_ID',     envOrDefault('RAZORPAY_KEY_ID', 'rzp_live_XXXXXXXXXXXX'));
+// define('RAZORPAY_KEY_SECRET', envOrDefault('RAZORPAY_KEY_SECRET', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'));
+
+// ── Cashfree (live/test keys) ─────────────────────────────────────────────────
+define('CASHFREE_APP_ID',     envOrDefault('CASHFREE_APP_ID', 'replace_with_cashfree_app_id'));
+define('CASHFREE_SECRET_KEY', envOrDefault('CASHFREE_SECRET_KEY', 'replace_with_cashfree_secret_key'));
+define('CASHFREE_ENV',        envOrDefault('CASHFREE_ENV', 'live')); // sandbox/live
 
 // ── PayPal (live keys) ───────────────────────────────────────────────────────
 define('PAYPAL_CLIENT_ID',     envOrDefault('PAYPAL_CLIENT_ID', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'));

@@ -62,6 +62,7 @@ tr:hover td{background:#151515;}
 .badge-single{background:#2a2a2a;color:#d4a836;}
 .badge-active{background:#064e3b;color:#6ee7b7;}
 .badge-razorpay{background:#12324a;color:#60a5fa;}
+.badge-cashfree{background:#1f2937;color:#93c5fd;}
 .badge-paypal{background:#0c2454;color:#93c5fd;}
 .badge-inr{background:#1c1005;color:#d4a836;}
 .badge-usd{background:#05100a;color:#4ade80;}

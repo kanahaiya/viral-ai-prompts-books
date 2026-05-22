@@ -1,8 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
 const currency = 'INR';
 const BUNDLE_PRICE_INR = 299;
-const RAZORPAY_CHECKOUT_SRC = 'https://checkout.razorpay.com/v1/checkout.js';
-let razorpayLoaderPromise = null;
+const CASHFREE_CHECKOUT_SRC = 'https://sdk.cashfree.com/js/v3/cashfree.js';
+let cashfreeLoaderPromise = null;
 
 function trackEvent(eventName, params = {}) {
   if (typeof window.pixelTrack === 'function') {
@@ -45,24 +45,24 @@ function trackCheckoutEvent(eventName, plan, selectedCount = 0, extras = {}) {
   });
 }
 
-function ensureRazorpayLoaded() {
-  if (typeof window.Razorpay === 'function') {
+function ensureCashfreeLoaded() {
+  if (typeof window.Cashfree === 'function') {
     return Promise.resolve();
   }
-  if (razorpayLoaderPromise) {
-    return razorpayLoaderPromise;
+  if (cashfreeLoaderPromise) {
+    return cashfreeLoaderPromise;
   }
 
-  razorpayLoaderPromise = new Promise((resolve, reject) => {
+  cashfreeLoaderPromise = new Promise((resolve, reject) => {
     const scriptElement = document.createElement('script');
-    scriptElement.src = RAZORPAY_CHECKOUT_SRC;
+    scriptElement.src = CASHFREE_CHECKOUT_SRC;
     scriptElement.async = true;
     scriptElement.onload = () => resolve();
-    scriptElement.onerror = () => reject(new Error('Razorpay SDK failed to load.'));
+    scriptElement.onerror = () => reject(new Error('Cashfree SDK failed to load.'));
     document.head.appendChild(scriptElement);
   });
 
-  return razorpayLoaderPromise;
+  return cashfreeLoaderPromise;
 }
 
 let currentPlan = null;
@@ -203,29 +203,29 @@ function showError(msg) {
   });
 }
 
-async function payWithRazorpay() {
+async function payWithCashfree() {
   const data = getCheckoutData();
   if (!data) return;
 
   trackCheckoutEvent('AddPaymentInfo', currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1), {
-    payment_gateway: 'razorpay'
+    payment_gateway: 'cashfree'
   });
-  trackCustomEvent('RazorpayOrderStarted', {
+  trackCustomEvent('CashfreeOrderStarted', {
     plan: currentPlan || 'unknown',
     selected_count: currentBookIds.length
   });
 
-  document.getElementById('razorpayBtn').textContent = 'Creating order…';
-  document.getElementById('razorpayBtn').disabled = true;
+  document.getElementById('cashfreeBtn').textContent = 'Creating order…';
+  document.getElementById('cashfreeBtn').disabled = true;
 
   try {
-    await ensureRazorpayLoaded();
-    if (typeof window.Razorpay !== 'function') {
+    await ensureCashfreeLoaded();
+    if (typeof window.Cashfree !== 'function') {
       showError('Payment window could not be initialized. Please refresh and try again.');
       return;
     }
 
-    const res = await fetch('/api/razorpay-order.php', {
+    const res = await fetch('/api/cashfree-order.php', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
@@ -244,48 +244,38 @@ async function payWithRazorpay() {
       showError('Checkout setup failed on server. Please refresh and try again.');
       return;
     }
-    if (!res.ok || !order.id) {
+    if (!res.ok || !order.order_id || !order.payment_session_id) {
       showError(order.error || 'Failed to create order. Please try again.');
       return;
     }
 
-    const options = {
-      key: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.razorpayKeyId) || '',
-      amount: order.amount,
-      currency: 'INR',
-      name: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.siteName) || 'AI Prompt Books',
-      description: currentPlan === 'bundle' ? 'Full Bundle — All 11 Books + Bonus Guide' : `${currentBookIds.length} Book Access`,
-      order_id: order.id,
-      prefill: { name: data.name, email: data.email },
-      theme: { color: '#d4a836' },
-      handler: async function(response) {
-        await verifyRazorpay(response, data);
-      },
-      modal: {
-        ondismiss: function() {
-          trackCustomEvent('PaymentPopupDismissed', {
-            plan: currentPlan || 'unknown',
-            selected_count: currentBookIds.length
-          });
-          document.getElementById('razorpayBtn').textContent = 'Pay with UPI / Card (Razorpay)';
-          document.getElementById('razorpayBtn').disabled = false;
-        }
-      }
-    };
-    new Razorpay(options).open();
+    const cashfree = window.Cashfree({
+      mode: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.cashfreeEnv) || 'sandbox'
+    });
+    const checkoutResult = await cashfree.checkout({
+      paymentSessionId: order.payment_session_id,
+      redirectTarget: '_modal'
+    });
+
+    if (checkoutResult && checkoutResult.error) {
+      showError(checkoutResult.error.message || 'Payment was cancelled or failed.');
+      return;
+    }
+
+    await verifyCashfreeOrder(order.order_id);
   } catch (e) {
     showError('Could not reach payment service. Check internet and try again.');
   } finally {
-    document.getElementById('razorpayBtn').textContent = 'Pay with UPI / Card (Razorpay)';
-    document.getElementById('razorpayBtn').disabled = false;
+    document.getElementById('cashfreeBtn').textContent = 'Pay with UPI / Card (Cashfree)';
+    document.getElementById('cashfreeBtn').disabled = false;
   }
 }
 
-async function verifyRazorpay(response, data) {
-  const res = await fetch('/api/razorpay-verify.php', {
+async function verifyCashfreeOrder(orderId) {
+  const res = await fetch('/api/cashfree-verify.php', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ ...response, email: data.email, name: data.name, plan: currentPlan, book_id: currentBookId, book_ids: currentBookIds })
+    body: JSON.stringify({ order_id: orderId })
   });
   const result = await res.json();
   if (result.token) {
@@ -295,12 +285,12 @@ async function verifyRazorpay(response, data) {
       value: metrics.value,
       content_name: metrics.contentName,
       num_items: metrics.numItems,
-      payment_method: 'razorpay'
+      payment_method: 'cashfree'
     });
     trackCustomEvent('PaymentVerified', {
       plan: currentPlan || 'unknown',
       selected_count: currentBookIds.length,
-      payment_id: response.razorpay_payment_id || ''
+      order_id: orderId
     });
     window.location.href = '/setup-account.php?token=' + result.token;
   } else {
@@ -372,9 +362,9 @@ document.addEventListener('click', (event) => {
     closeCheckout();
     return;
   }
-  if (action === 'pay-razorpay') {
+  if (action === 'pay-cashfree') {
     trackCustomEvent('PayButtonClicked', { plan: currentPlan || 'unknown' });
-    payWithRazorpay();
+    payWithCashfree();
   }
 });
 

@@ -23,8 +23,11 @@ $books    = getBooks();
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
-<link rel="dns-prefetch" href="//checkout.razorpay.com">
-<link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
+<!-- Razorpay paused for now -->
+<!-- <link rel="dns-prefetch" href="//checkout.razorpay.com"> -->
+<!-- <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin> -->
+<link rel="dns-prefetch" href="//sdk.cashfree.com">
+<link rel="preconnect" href="https://sdk.cashfree.com" crossorigin>
 <link rel="preload" as="image" href="/assets/hero-mockup.avif" type="image/avif" imagesrcset="/assets/hero-mockup-480w.avif 480w, /assets/hero-mockup-768w.avif 768w, /assets/hero-mockup.avif 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <link rel="preload" as="image" href="/assets/hero-mockup.webp" type="image/webp" imagesrcset="/assets/hero-mockup-480w.webp 480w, /assets/hero-mockup-768w.webp 768w, /assets/hero-mockup.webp 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <link rel="preload" as="image" href="/assets/hero-mockup.jpg" type="image/jpeg" imagesrcset="/assets/hero-mockup-480w.jpg 480w, /assets/hero-mockup-768w.jpg 768w, /assets/hero-mockup.jpg 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
@@ -45,10 +48,10 @@ if (!file_exists($landingCssDiskPath)) {
 }
 $landingCssVersion = file_exists($landingCssDiskPath) ? ('?v=' . filemtime($landingCssDiskPath)) : '';
 
-$landingJsWebPath = '/assets/landing.min.js';
+$landingJsWebPath = '/assets/landing.js';
 $landingJsDiskPath = __DIR__ . $landingJsWebPath;
 if (!file_exists($landingJsDiskPath)) {
-  $landingJsWebPath = '/assets/landing.js';
+  $landingJsWebPath = '/assets/landing.min.js';
   $landingJsDiskPath = __DIR__ . $landingJsWebPath;
 }
 $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landingJsDiskPath)) : '';
@@ -442,7 +445,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     </div>
 
     <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 Early-access bundle pricing is currently ₹299. Individual books are listed separately at ₹199 each.</p>
-    <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Razorpay (India)</p>
+    <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Cashfree (India)</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
   </div>
 </section>
@@ -793,9 +796,12 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <div style="font-size:0.75rem;color:#555;margin-top:4px;">Your login credentials will be sent to this email right after payment.</div>
     </div>
     <div id="paymentButtons" style="display:flex;flex-direction:column;gap:0.8rem;">
-      <!-- Razorpay button (India) -->
-      <button id="razorpayBtn" type="button" class="pay-btn-razorpay" data-action="pay-razorpay">
+      <!-- Razorpay paused for now -->
+      <!-- <button id="razorpayBtn" type="button" class="pay-btn-razorpay" data-action="pay-razorpay">
         Pay with UPI / Card (Razorpay)
+      </button> -->
+      <button id="cashfreeBtn" type="button" class="pay-btn-razorpay" data-action="pay-cashfree">
+        Pay with UPI / Card (Cashfree)
       </button>
       <div style="text-align:center;font-size:0.72rem;color:#555;padding:4px 0;" id="paymentSecure">🔒 Secure · One-time payment · No subscription</div>
       <div style="text-align:center;font-size:0.7rem;color:#666;line-height:1.5;padding:2px 0 0;">
@@ -809,7 +815,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <script src="/assets/js/pixel-tracking.js" defer></script>
 <script>
 window.__AIPB_CONFIG = {
-  razorpayKeyId: <?= json_encode(RAZORPAY_KEY_ID) ?>,
+  cashfreeEnv: <?= json_encode(CASHFREE_ENV) ?>,
   siteName: <?= json_encode(SITE_NAME) ?>,
   booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>
 };

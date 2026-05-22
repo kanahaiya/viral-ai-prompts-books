@@ -20,7 +20,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS payments (
     book_id        INTEGER,
     amount         REAL NOT NULL DEFAULT 0,
     currency       TEXT NOT NULL DEFAULT 'INR',
-    payment_method TEXT NOT NULL DEFAULT 'razorpay',
+    payment_method TEXT NOT NULL DEFAULT 'cashfree',
     payment_id     TEXT,
     order_id       TEXT,
     status         TEXT NOT NULL DEFAULT 'created',
@@ -37,7 +37,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS users (
     plan           TEXT NOT NULL,
     books_access   TEXT,
     currency       TEXT NOT NULL DEFAULT 'INR',
-    payment_method TEXT NOT NULL DEFAULT 'razorpay',
+    payment_method TEXT NOT NULL DEFAULT 'cashfree',
     payment_id     TEXT,
     status         TEXT NOT NULL DEFAULT 'active',
     last_login     TEXT,
@@ -54,7 +54,7 @@ $users = [
 
 $stmt = $db->prepare(
     'INSERT OR IGNORE INTO users (email, name, password_hash, plan, books_access, currency, payment_method, payment_id)
-     VALUES (?, ?, ?, ?, ?, "INR", "razorpay", "local_test")'
+     VALUES (?, ?, ?, ?, ?, "INR", "cashfree", "local_test")'
 );
 
 foreach ($users as [$email, $name, $pass, $plan, $books]) {

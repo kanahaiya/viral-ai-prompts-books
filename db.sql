@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `book_ids_json`  JSON            DEFAULT NULL,    -- [1,3,5] for multi-book single checkout
   `amount`         DECIMAL(10,2)   NOT NULL,
   `currency`       ENUM('INR','USD') NOT NULL,
-  `payment_method` ENUM('razorpay','paypal') NOT NULL,
-  `payment_id`     VARCHAR(255)    DEFAULT NULL,    -- razorpay payment_id / paypal capture id
-  `order_id`       VARCHAR(255)    DEFAULT NULL,    -- razorpay order_id / paypal order id
+  `payment_method` ENUM('razorpay','cashfree','paypal') NOT NULL,
+  `payment_id`     VARCHAR(255)    DEFAULT NULL,    -- razorpay payment_id / cashfree cf_order_id / paypal capture id
+  `order_id`       VARCHAR(255)    DEFAULT NULL,    -- razorpay order_id / cashfree order_id / paypal order id
   `status`         ENUM('created','completed','failed') NOT NULL DEFAULT 'created',
   `setup_token`    CHAR(64)        DEFAULT NULL,    -- one-time token sent to setup-account.php
   `setup_used`     TINYINT(1)      NOT NULL DEFAULT 0,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `plan`           ENUM('single','bundle') NOT NULL,
   `books_access`   JSON            DEFAULT NULL,    -- [1,3,5] for single; NULL = all (bundle)
   `currency`       ENUM('INR','USD') NOT NULL,
-  `payment_method` ENUM('razorpay','paypal') NOT NULL,
+  `payment_method` ENUM('razorpay','cashfree','paypal') NOT NULL,
   `payment_id`     VARCHAR(255)    DEFAULT NULL,
   `status`         ENUM('active','suspended') NOT NULL DEFAULT 'active',
   `last_login`     TIMESTAMP       NULL DEFAULT NULL,
