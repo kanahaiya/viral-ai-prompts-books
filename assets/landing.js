@@ -193,9 +193,18 @@ function normalizeIndianPhoneNumber(rawPhoneNumber) {
 }
 
 function getCheckoutData() {
-  const name = document.getElementById('buyerName').value.trim();
-  const email = document.getElementById('buyerEmail').value.trim();
-  const phone = normalizeIndianPhoneNumber(document.getElementById('buyerPhone').value.trim());
+  const nameElement = document.getElementById('buyerName');
+  const emailElement = document.getElementById('buyerEmail');
+  const phoneElement = document.getElementById('buyerPhone');
+
+  if (!nameElement || !emailElement || !phoneElement) {
+    showError('Checkout form is updating. Please refresh and try again.');
+    return null;
+  }
+
+  const name = nameElement.value.trim();
+  const email = emailElement.value.trim();
+  const phone = normalizeIndianPhoneNumber(phoneElement.value.trim());
   if (!name) { showError('Please enter your name.'); return null; }
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return null; }
   if (!phone) { showError('Please enter a valid 10-digit phone number.'); return null; }
