@@ -18,9 +18,14 @@ define('SITE_NAME', 'AI Prompt Books');
 // ── Books path ────────────────────────────────────────────────────────────────
 define('BOOKS_DIR', __DIR__ . '/books/');
 
-// ── Razorpay (test keys) ───────────────────────────────────────────────────────
-define('RAZORPAY_KEY_ID',     'rzp_test_SqXAfiLToxWQLI');
-define('RAZORPAY_KEY_SECRET', 'zpFXxm3RaCUh568uiLC0PRlD');
+// ── Razorpay (paused for now) ──────────────────────────────────────────────────
+// define('RAZORPAY_KEY_ID',     'rzp_test_SqXAfiLToxWQLI');
+// define('RAZORPAY_KEY_SECRET', 'zpFXxm3RaCUh568uiLC0PRlD');
+
+// ── Cashfree (test keys) ───────────────────────────────────────────────────────
+define('CASHFREE_APP_ID',     'TEST110811490ab21522763ffa8f50eb94118011');
+define('CASHFREE_SECRET_KEY', 'cfsk_ma_test_92d6c2576fc97f4f501aa9f8513f895c_0ad79cec');
+define('CASHFREE_ENV',        'sandbox'); // sandbox/live
 
 // ── PayPal (sandbox — get real ones from developer.paypal.com) ────────────────
 define('PAYPAL_CLIENT_ID',     'sandbox_paypal_client_id');

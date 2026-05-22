@@ -35,6 +35,8 @@ jobs:
           php -l admin/index.php
           php -l api/razorpay-order.php
           php -l api/razorpay-verify.php
+          php -l api/cashfree-order.php
+          php -l api/cashfree-verify.php
           php -l api/paypal-order.php
           php -l api/paypal-capture.php
 
