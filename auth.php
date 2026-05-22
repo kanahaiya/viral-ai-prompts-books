@@ -84,13 +84,94 @@ function logoutUser(): void {
     session_regenerate_id(true);
 }
 
+/**
+ * Resolve single-plan book access with fallback recovery from payments history.
+ */
+function getResolvedBooksAccessIds(array $user): array {
+    if (($user['plan'] ?? '') === 'bundle') {
+        $allBooks = getBooks();
+        $paidBookIds = [];
+        foreach ($allBooks as $bookId => $bookMeta) {
+            if (empty($bookMeta['bonus'])) {
+                $paidBookIds[] = (int)$bookId;
+            }
+        }
+        return $paidBookIds;
+    }
+
+    $existingAccess = json_decode($user['books_access'] ?? '[]', true);
+    if (is_array($existingAccess)) {
+        $normalizedExistingAccess = array_values(array_unique(array_filter(array_map('intval', $existingAccess), static function ($bookId) {
+            return $bookId >= 1 && $bookId <= 11;
+        })));
+        sort($normalizedExistingAccess);
+        if (!empty($normalizedExistingAccess)) {
+            return $normalizedExistingAccess;
+        }
+    }
+
+    // Fallback for legacy rows where books_access is missing.
+    $email = strtolower(trim((string)($user['email'] ?? '')));
+    if ($email === '') {
+        return [];
+    }
+
+    try {
+        $db = getDB();
+        $stmt = $db->prepare('
+            SELECT book_id, book_ids_json
+            FROM payments
+            WHERE email = ?
+              AND status = "completed"
+              AND plan = "single"
+            ORDER BY id ASC
+        ');
+        $stmt->execute([$email]);
+        $paymentRows = $stmt->fetchAll();
+
+        $recoveredBookIds = [];
+        foreach ($paymentRows as $paymentRow) {
+            if (!empty($paymentRow['book_ids_json'])) {
+                $decodedBookIds = json_decode((string)$paymentRow['book_ids_json'], true);
+                if (is_array($decodedBookIds)) {
+                    foreach ($decodedBookIds as $bookId) {
+                        $normalizedBookId = (int)$bookId;
+                        if ($normalizedBookId >= 1 && $normalizedBookId <= 11) {
+                            $recoveredBookIds[] = $normalizedBookId;
+                        }
+                    }
+                }
+            } elseif (!empty($paymentRow['book_id'])) {
+                $normalizedBookId = (int)$paymentRow['book_id'];
+                if ($normalizedBookId >= 1 && $normalizedBookId <= 11) {
+                    $recoveredBookIds[] = $normalizedBookId;
+                }
+            }
+        }
+
+        $recoveredBookIds = array_values(array_unique($recoveredBookIds));
+        sort($recoveredBookIds);
+
+        // Self-heal user row so future reads don't need fallback.
+        if (!empty($recoveredBookIds) && !empty($user['id'])) {
+            $updateStmt = $db->prepare('UPDATE users SET books_access = ? WHERE id = ? AND plan = "single"');
+            $updateStmt->execute([json_encode($recoveredBookIds), (int)$user['id']]);
+        }
+
+        return $recoveredBookIds;
+    } catch (Throwable $exception) {
+        error_log('Book access recovery failed: ' . $exception->getMessage());
+        return [];
+    }
+}
+
 // ── Book access check ─────────────────────────────────────────────────────────
 function userHasBookAccess(array $user, int $bookId): bool {
     $books = getBooks();
     // Bonus books (free for ALL buyers) — no plan check needed
     if (!empty($books[$bookId]['bonus'])) return true;
     if ($user['plan'] === 'bundle') return true;
-    $access = json_decode($user['books_access'] ?? '[]', true);
+    $access = getResolvedBooksAccessIds($user);
     return in_array($bookId, (array)$access, true);
 }
 
