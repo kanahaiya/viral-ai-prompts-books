@@ -138,12 +138,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   ?>
   <div class="plan-bar">
     <?php if ($isBundle): ?>
-      <span class="plan-badge bundle">BUNDLE — ALL <?= $totalPaid ?> BOOKS + BONUS</span>
+      <span class="plan-badge bundle">SYSTEM — ALL <?= $totalPaid ?> BOOKS + BONUS</span>
       <span class="plan-label">Full access · All future books included</span>
     <?php else: ?>
       <span class="plan-badge single"><?= $ownedCount ?> BOOK<?= $ownedCount > 1 ? 'S' : '' ?></span>
       <span class="plan-label">Individual access · Bonus guide included free</span>
-      <a href="/#pricing" class="upgrade-link">Upgrade to Bundle →</a>
+      <a href="/#pricing" class="upgrade-link">Upgrade to Full System →</a>
     <?php endif; ?>
   </div>
 

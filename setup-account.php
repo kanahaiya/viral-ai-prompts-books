@@ -203,7 +203,7 @@ input[readonly]{color:#888;cursor:default;}
         }
       ?>
       <span class="plan-tag <?= $payment['plan'] === 'bundle' ? 'plan-bundle' : 'plan-single' ?>">
-        <?= $payment['plan'] === 'bundle' ? 'Bundle' : (($selectedBookCount > 1) ? ($selectedBookCount . ' Books') : 'Single Book') ?>
+        <?= $payment['plan'] === 'bundle' ? 'System' : (($selectedBookCount > 1) ? ($selectedBookCount . ' Books') : 'Single Book') ?>
       </span>
     <?php endif; ?>
   </h1>

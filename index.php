@@ -18,7 +18,7 @@ $books    = getBooks();
 <meta property="og:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta property="og:url" content="https://www.aipromptbooks.in/">
 <meta property="og:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
-<meta property="og:image:alt" content="AI Prompt Books bundle preview showing all 11 books and bonus guide">
+<meta property="og:image:alt" content="AI Prompt Books system preview showing all 11 books and bonus guide">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
@@ -259,10 +259,10 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   </div>
 </section>
 
-<!-- BUNDLE INCLUDES -->
+<!-- SYSTEM INCLUDES -->
 <section class="benefits-section">
   <div class="container" style="text-align:center;">
-    <h2 class="section-title">What&rsquo;s Included Inside The Bundle</h2>
+    <h2 class="section-title">What&rsquo;s Included Inside The System</h2>
     <div class="bundle-collection-visual">
       <picture>
         <source type="image/avif" srcset="assets/sections/bundle-collection-640w.avif 640w, assets/sections/bundle-collection-1024w.avif 1024w, assets/sections/bundle-collection.avif 1600w" sizes="(max-width: 900px) 95vw, 980px">
@@ -289,7 +289,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <div class="bundle-value">Total Value ₹2,189+</div>
       <div class="bundle-price">Today&rsquo;s Price: Just ₹299</div>
     </div>
-    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:0.45rem;">Unlock The Bundle</a>
+    <a href="#pricing" class="btn-primary" style="display:inline-block;margin-top:0.45rem;">Unlock The System</a>
   </div>
 </section>
 
@@ -409,7 +409,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <div class="price-risk-reversal">Good if you want to test one style first before committing.</div>
       </div>
 
-      <!-- Full Bundle -->
+      <!-- Full System -->
       <div class="price-card popular">
         <div class="price-badge">BEST VALUE</div>
         <div class="price-plan">Full System Access</div>
@@ -444,7 +444,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </ul>
     </div>
 
-    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 Early-access bundle pricing is currently ₹299. Individual books are listed separately at ₹199 each.</p>
+    <p style="margin-top:1.5rem;font-size:0.78rem;color:#555;" id="pricingAnchor">💡 Early-access system pricing is currently ₹299. Individual books are listed separately at ₹199 each.</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#444;">🔒 Secure checkout via Cashfree (India)</p>
     <p style="margin-top:0.5rem;font-size:0.75rem;color:#666;">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
   </div>
@@ -467,7 +467,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Riya M.</div>
             <div class="testimonial-sub">Digital creator · Mumbai</div>
-            <div class="testimonial-badge">VERIFIED BUYER · BUNDLE</div>
+            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
           </div>
         </div>
       </div>
@@ -480,7 +480,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Prashant K.</div>
             <div class="testimonial-sub">Software engineer · Pune</div>
-            <div class="testimonial-badge">VERIFIED BUYER · BUNDLE</div>
+            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
           </div>
         </div>
       </div>
@@ -493,20 +493,20 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Anika S.</div>
             <div class="testimonial-sub">Freelance designer · Bangalore</div>
-            <div class="testimonial-badge">VERIFIED BUYER · BUNDLE</div>
+            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
           </div>
         </div>
       </div>
 
       <div class="testimonial-card">
         <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">"Opened an Etsy store after buying Book 7. In the first two weeks, I made around ₹1,150 from AI movie poster prints. A few buyers asked for custom versions, and I could deliver quickly. I recovered the bundle cost in the first few orders."</p>
+        <p class="testimonial-text">"Opened an Etsy store after buying Book 7. In the first two weeks, I made around ₹1,150 from AI movie poster prints. A few buyers asked for custom versions, and I could deliver quickly. I recovered the system cost in the first few orders."</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar" style="background:#b45309;">VT</div>
           <div>
             <div class="testimonial-name">Vikram T.</div>
             <div class="testimonial-sub">Graphic designer · Chennai</div>
-            <div class="testimonial-badge">VERIFIED BUYER · BUNDLE</div>
+            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
           </div>
         </div>
       </div>
@@ -532,7 +532,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Suresh M.</div>
             <div class="testimonial-sub">Content creator · Delhi</div>
-            <div class="testimonial-badge">VERIFIED BUYER · BUNDLE</div>
+            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
           </div>
         </div>
       </div>
@@ -555,7 +555,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </div>
       <div class="spb-item">
         <div class="spb-num">₹299</div>
-        <div class="spb-label">Early Access · Bundle</div>
+        <div class="spb-label">Early Access · System</div>
       </div>
     </div>
   </div>
@@ -566,7 +566,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   <div class="container" style="text-align:center;">
     <h2 class="section-title">Early Access Pricing</h2>
     <div class="early-access-copy">
-      <p class="early-access-lead">Right now, the complete 11-book bundle is available for just ₹299.</p>
+      <p class="early-access-lead">Right now, the complete 11-book system is available for just ₹299.</p>
       <p>Each book individually costs ₹199.</p>
       <p>Once the launch offer ends, the price increases.</p>
       <p class="early-access-vision">If AI art trends are already everywhere on Instagram and Reels, imagine where they&rsquo;ll be 3 months from now.</p>
@@ -574,7 +574,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     </div>
     <div class="offer-bonus-callout offer-bonus-callout--secondary">
       <h3>Bonuses Available During This Offer</h3>
-      <p>The AI Prompt Finder CustomGPT, bonus ebook, and private Telegram community are currently included free with the full bundle.</p>
+      <p>The AI Prompt Finder CustomGPT, bonus ebook, and private Telegram community are currently included free with the full system.</p>
       <p>These bonuses may not stay included permanently as new updates and books are added later.</p>
       <a href="#pricing" class="btn-secondary" style="display:inline-block;">Claim My Bonuses</a>
     </div>
@@ -584,7 +584,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <p>Most are not designers.</p>
       <p>Most are not AI experts.</p>
       <p>They simply started.</p>
-      <p>A few minutes from now, the bundle could already be inside the inbox and the first AI image could already be created.</p>
+      <p>A few minutes from now, the system could already be inside the inbox and the first AI image could already be created.</p>
       <a href="#pricing" class="btn-primary" style="display:inline-block;">Make My First AI Image</a>
     </div>
   </div>
@@ -594,7 +594,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <section class="gallery-section gallery-section--alt">
   <div class="container" style="text-align:center;">
     <h2 class="section-title">Still Not Sure? <span style="color:var(--gold);">See What Else Is Possible.</span></h2>
-    <p class="section-sub section-sub--wide" style="margin:0 auto 0.5rem;">Pixar-style portraits, luxury product shots, Barbiecore fashion, childhood nostalgia, festive scrapbooks, cyberpunk cities — all using prompts from this single ₹299 bundle.</p>
+    <p class="section-sub section-sub--wide" style="margin:0 auto 0.5rem;">Pixar-style portraits, luxury product shots, Barbiecore fashion, childhood nostalgia, festive scrapbooks, cyberpunk cities — all using prompts from this single ₹299 system.</p>
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
         <picture>
@@ -630,7 +630,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         ['What exactly will I receive inside?',
          'You get all 11 AI prompt books, 1,100 prompt templates, bonuses, community access, and future updates.'],
         ['Is the CustomGPT bonus included right now?',
-         'Yes. The AI Prompt Finder CustomGPT is currently included free with the bundle.'],
+         'Yes. The AI Prompt Finder CustomGPT is currently included free with the system.'],
         ['Do I get support if I get stuck?',
          'Yes. Buyers also get access to the Telegram community for guidance, updates, and support.'],
         ['Is there any refund policy?',
