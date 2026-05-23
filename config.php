@@ -18,9 +18,13 @@ define('SITE_NAME', 'AI Prompt Books');
 // ── Books path ────────────────────────────────────────────────────────────────
 define('BOOKS_DIR', __DIR__ . '/books/');
 
-// ── Razorpay (paused for now) ──────────────────────────────────────────────────
-// define('RAZORPAY_KEY_ID',     'rzp_test_SqXAfiLToxWQLI');
-// define('RAZORPAY_KEY_SECRET', 'zpFXxm3RaCUh568uiLC0PRlD');
+// ── Payment provider switch ─────────────────────────────────────────────────────
+// Allowed values: razorpay | cashfree
+define('PAYMENT_PROVIDER', 'razorpay');
+
+// ── Razorpay (test keys for staging/local) ────────────────────────────────────
+define('RAZORPAY_KEY_ID',     'rzp_test_SqXAfiLToxWQLI');
+define('RAZORPAY_KEY_SECRET', 'zpFXxm3RaCUh568uiLC0PRlD');
 
 // ── Cashfree (test keys) ───────────────────────────────────────────────────────
 define('CASHFREE_APP_ID',     'TEST110811490ab21522763ffa8f50eb94118011');
