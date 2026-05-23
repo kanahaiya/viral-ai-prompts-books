@@ -176,7 +176,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php renderMetaPixelHead(); ?>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;}
+.site-header{position:sticky;top:0;z-index:20;background:#111;border-bottom:1px solid #1a1a1a;padding:0 2rem;}
+.site-header__inner{max-width:1100px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.site-header__logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;text-decoration:none;}
+.site-header__link{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;}
+.site-header__link:hover{color:#ddd;border-color:#555;}
+.page-wrap{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
 .logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:2.5rem;text-align:center;}
 .logo a{color:inherit;text-decoration:none;}
 .card{background:#141414;border:1px solid #2a2a2a;border-radius:6px;padding:2.2rem;width:100%;max-width:460px;}
@@ -194,10 +200,23 @@ input:focus{border-color:#d4a836;}
 .dev-link{font-size:0.78rem;color:#aaa;margin-top:0.8rem;line-height:1.6;word-break:break-all;}
 .footer-link{text-align:center;margin-top:1.4rem;font-size:0.8rem;color:#888;}
 .footer-link a{color:#d4a836;}
+.footer{border-top:1px solid #1a1a1a;padding:1.6rem 1rem;text-align:center;}
+.footer-logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:1rem;}
+.footer-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.9rem;}
+.footer-links a{font-size:0.75rem;color:#9a9a9a;text-decoration:none;}
+.footer-links a:hover{color:#d4a836;}
+.footer-copy{font-size:0.75rem;color:#777;}
 </style>
 </head>
 <body>
 <?php renderMetaPixelNoScript(); ?>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__logo">AI Prompt Books</a>
+    <a href="/#pricing" class="site-header__link">Get Access</a>
+  </div>
+</header>
+<main class="page-wrap">
 <div class="logo"><a href="/">AI Prompt Books</a></div>
 <div class="card">
   <h1>Recover Your Access</h1>
@@ -227,6 +246,17 @@ input:focus{border-color:#d4a836;}
     Remembered password? <a href="/login.php">Back to login</a>
   </div>
 </div>
+</main>
+<footer class="footer">
+  <div class="footer-logo">AI Prompt Books</div>
+  <div class="footer-links">
+    <a href="/contact-details.php">Contact</a>
+    <a href="/terms-and-conditions.php">Terms</a>
+    <a href="/privacy-policy.php">Privacy Policy</a>
+    <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
+  </div>
+  <div class="footer-copy">© <?= date('Y') ?> AI Prompt Books. All rights reserved.</div>
+</footer>
 <script src="/assets/js/pixel-tracking.js"></script>
 <script>
 pixelTrackCustom('AuthPageView', { page: 'recover-access' });

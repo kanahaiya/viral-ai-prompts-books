@@ -55,13 +55,10 @@ require_once __DIR__ . '/auth.php';
   <footer class="footer">
     <div class="footer-logo">AI Prompt Books</div>
     <div class="footer-links">
-      <a href="/#pricing">Pricing</a>
-      <a href="/#faq">FAQ</a>
       <a href="/contact-details.php">Contact</a>
       <a href="/terms-and-conditions.php">Terms</a>
       <a href="/privacy-policy.php">Privacy Policy</a>
       <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
-      <a href="/login.php">Login</a>
     </div>
     <div class="footer-copy">© <?= date('Y') ?> <?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?>. All rights reserved.</div>
   </footer>

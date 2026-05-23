@@ -667,13 +667,10 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <footer class="footer">
   <div class="footer-logo">AI Prompt Books</div>
   <div class="footer-links">
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
     <a href="/contact-details.php">Contact</a>
     <a href="/terms-and-conditions.php">Terms</a>
     <a href="/privacy-policy.php">Privacy Policy</a>
     <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
-    <a href="/login.php">Login</a>
   </div>
   <div class="footer-copy">© <?= date('Y') ?> AI Prompt Books. All rights reserved.</div>
 </footer>
@@ -804,6 +801,11 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
 <script src="/assets/js/pixel-tracking.js" defer></script>
 <script>
+if (window.location.hash === '#pricing') {
+  const cleanPath = window.location.pathname + window.location.search;
+  window.history.replaceState(null, '', cleanPath);
+  window.scrollTo(0, 0);
+}
 window.__AIPB_CONFIG = {
   paymentProvider: <?= json_encode(defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay') ?>,
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
