@@ -280,7 +280,7 @@ function sendSetupLinkEmail(string $recipientEmail, string $recipientName, strin
 
     $safeName = trim($recipientName) !== '' ? trim($recipientName) : 'there';
     $setupUrl = rtrim(SITE_URL, '/') . '/setup-account.php?token=' . urlencode($setupToken);
-    $planText = $plan === 'bundle' ? 'full bundle' : 'selected book access';
+    $planText = $plan === 'bundle' ? 'full system' : 'selected book access';
     $subject = 'Your AI Prompt Books access link';
     $body = "Hi {$safeName},\n\n"
         . "Your payment is confirmed. Use this link to create your account and unlock your {$planText}:\n"

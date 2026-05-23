@@ -24,7 +24,7 @@ function trackCustomEvent(eventName, params = {}) {
 
 function getCheckoutMetrics(plan, selectedCount = 0) {
   if (plan === 'bundle') {
-    return { value: BUNDLE_PRICE_INR, numItems: 11, contentName: 'Full Bundle' };
+    return { value: BUNDLE_PRICE_INR, numItems: 11, contentName: 'Full System' };
   }
   const safeCount = selectedCount > 0 ? selectedCount : 1;
   return {
@@ -143,10 +143,10 @@ function proceedCheckout(plan, bookId, bookIds = null) {
   const booksById = (window.__AIPB_CONFIG && window.__AIPB_CONFIG.booksById) || {};
   const selectedBookNames = currentBookIds.map((id) => booksById[id]).filter(Boolean);
   const bookName = plan === 'bundle'
-    ? 'All 11 Books + Bonus Guide (Full Bundle)'
+    ? 'All 11 Books + Bonus Guide (Full System)'
     : selectedBookNames.join(', ');
   const planLabel = plan === 'bundle'
-    ? '📦 Full Bundle'
+    ? '📦 Full System'
     : `📚 Selected Books (${selectedCount})`;
   document.getElementById('checkoutSummary').innerHTML =
     `<strong style="color:#fff">${planLabel}</strong><br>
