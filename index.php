@@ -23,11 +23,13 @@ $books    = getBooks();
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
-<!-- Razorpay paused for now -->
-<!-- <link rel="dns-prefetch" href="//checkout.razorpay.com"> -->
-<!-- <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin> -->
+<?php if (defined('PAYMENT_PROVIDER') && PAYMENT_PROVIDER === 'razorpay'): ?>
+<link rel="dns-prefetch" href="//checkout.razorpay.com">
+<link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
+<?php else: ?>
 <link rel="dns-prefetch" href="//sdk.cashfree.com">
 <link rel="preconnect" href="https://sdk.cashfree.com" crossorigin>
+<?php endif; ?>
 <link rel="preload" as="image" href="/assets/hero-mockup.avif" type="image/avif" imagesrcset="/assets/hero-mockup-480w.avif 480w, /assets/hero-mockup-768w.avif 768w, /assets/hero-mockup.avif 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <link rel="preload" as="image" href="/assets/hero-mockup.webp" type="image/webp" imagesrcset="/assets/hero-mockup-480w.webp 480w, /assets/hero-mockup-768w.webp 768w, /assets/hero-mockup.webp 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <link rel="preload" as="image" href="/assets/hero-mockup.jpg" type="image/jpeg" imagesrcset="/assets/hero-mockup-480w.jpg 480w, /assets/hero-mockup-768w.jpg 768w, /assets/hero-mockup.jpg 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
@@ -795,19 +797,23 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <input type="email" id="buyerEmail" placeholder="you@example.com" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
       <div style="font-size:0.75rem;color:#555;margin-top:4px;">Your login credentials will be sent to this email right after payment.</div>
     </div>
-    <div style="margin-bottom:1.5rem;">
-      <label style="font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;">PHONE NUMBER</label>
-      <input type="tel" id="buyerPhone" placeholder="e.g. 9876543210" inputmode="numeric" autocomplete="tel" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
-      <div style="font-size:0.75rem;color:#555;margin-top:4px;">Required by payment gateway to process UPI/Card payments.</div>
-    </div>
+    <?php if (defined('PAYMENT_PROVIDER') && PAYMENT_PROVIDER === 'cashfree'): ?>
+      <div style="margin-bottom:1.5rem;">
+        <label style="font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;">PHONE NUMBER</label>
+        <input type="tel" id="buyerPhone" placeholder="e.g. 9876543210" inputmode="numeric" autocomplete="tel" style="width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:10px 14px;border-radius:3px;font-size:0.88rem;outline:none;">
+        <div style="font-size:0.75rem;color:#555;margin-top:4px;">Required by payment gateway to process UPI/Card payments.</div>
+      </div>
+    <?php endif; ?>
     <div id="paymentButtons" style="display:flex;flex-direction:column;gap:0.8rem;">
-      <!-- Razorpay paused for now -->
-      <!-- <button id="razorpayBtn" type="button" class="pay-btn-razorpay" data-action="pay-razorpay">
-        Pay with UPI / Card (Razorpay)
-      </button> -->
-      <button id="cashfreeBtn" type="button" class="pay-btn-razorpay" data-action="pay-cashfree">
-        Pay with UPI / Card (Cashfree)
-      </button>
+      <?php if (defined('PAYMENT_PROVIDER') && PAYMENT_PROVIDER === 'razorpay'): ?>
+        <button id="razorpayBtn" type="button" class="pay-btn-razorpay" data-action="pay-razorpay">
+          Pay with UPI / Card (Razorpay)
+        </button>
+      <?php else: ?>
+        <button id="cashfreeBtn" type="button" class="pay-btn-razorpay" data-action="pay-cashfree">
+          Pay with UPI / Card (Cashfree)
+        </button>
+      <?php endif; ?>
       <div style="text-align:center;font-size:0.72rem;color:#555;padding:4px 0;" id="paymentSecure">🔒 Secure · One-time payment · No subscription</div>
       <div style="text-align:center;font-size:0.7rem;color:#666;line-height:1.5;padding:2px 0 0;">
         24-hour technical guarantee for failed access/login link. No refunds after successful access.
@@ -820,6 +826,8 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <script src="/assets/js/pixel-tracking.js" defer></script>
 <script>
 window.__AIPB_CONFIG = {
+  paymentProvider: <?= json_encode(PAYMENT_PROVIDER) ?>,
+  razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
   cashfreeEnv: <?= json_encode(CASHFREE_ENV) ?>,
   siteName: <?= json_encode(SITE_NAME) ?>,
   booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>

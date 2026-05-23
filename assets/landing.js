@@ -1,7 +1,9 @@
 window.addEventListener('DOMContentLoaded', () => {
 const currency = 'INR';
 const BUNDLE_PRICE_INR = 299;
+const RAZORPAY_CHECKOUT_SRC = 'https://checkout.razorpay.com/v1/checkout.js';
 const CASHFREE_CHECKOUT_SRC = 'https://sdk.cashfree.com/js/v3/cashfree.js';
+let razorpayLoaderPromise = null;
 let cashfreeLoaderPromise = null;
 
 function trackEvent(eventName, params = {}) {
@@ -43,6 +45,30 @@ function trackCheckoutEvent(eventName, plan, selectedCount = 0, extras = {}) {
     content_name: metrics.contentName,
     ...extras
   });
+}
+
+function getActivePaymentProvider() {
+  return (window.__AIPB_CONFIG && window.__AIPB_CONFIG.paymentProvider) || 'cashfree';
+}
+
+function ensureRazorpayLoaded() {
+  if (typeof window.Razorpay === 'function') {
+    return Promise.resolve();
+  }
+  if (razorpayLoaderPromise) {
+    return razorpayLoaderPromise;
+  }
+
+  razorpayLoaderPromise = new Promise((resolve, reject) => {
+    const scriptElement = document.createElement('script');
+    scriptElement.src = RAZORPAY_CHECKOUT_SRC;
+    scriptElement.async = true;
+    scriptElement.onload = () => resolve();
+    scriptElement.onerror = () => reject(new Error('Razorpay SDK failed to load.'));
+    document.head.appendChild(scriptElement);
+  });
+
+  return razorpayLoaderPromise;
 }
 
 function ensureCashfreeLoaded() {
@@ -197,18 +223,25 @@ function getCheckoutData() {
   const emailElement = document.getElementById('buyerEmail');
   const phoneElement = document.getElementById('buyerPhone');
 
-  if (!nameElement || !emailElement || !phoneElement) {
+  if (!nameElement || !emailElement) {
     showError('Checkout form is updating. Please refresh and try again.');
     return null;
   }
 
   const name = nameElement.value.trim();
   const email = emailElement.value.trim();
-  const phone = normalizeIndianPhoneNumber(phoneElement.value.trim());
   if (!name) { showError('Please enter your name.'); return null; }
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return null; }
-  if (!phone) { showError('Please enter a valid 10-digit phone number.'); return null; }
-  return { name, email, phone };
+  if (getActivePaymentProvider() === 'cashfree') {
+    if (!phoneElement) {
+      showError('Checkout form is updating. Please refresh and try again.');
+      return null;
+    }
+    const phone = normalizeIndianPhoneNumber(phoneElement.value.trim());
+    if (!phone) { showError('Please enter a valid 10-digit phone number.'); return null; }
+    return { name, email, phone };
+  }
+  return { name, email };
 }
 
 function showError(msg) {
@@ -287,6 +320,101 @@ async function payWithCashfree() {
   } finally {
     document.getElementById('cashfreeBtn').textContent = 'Pay with UPI / Card (Cashfree)';
     document.getElementById('cashfreeBtn').disabled = false;
+  }
+}
+
+async function payWithRazorpay() {
+  const data = getCheckoutData();
+  if (!data) return;
+
+  trackCheckoutEvent('AddPaymentInfo', currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1), {
+    payment_gateway: 'razorpay'
+  });
+  trackCustomEvent('RazorpayOrderStarted', {
+    plan: currentPlan || 'unknown',
+    selected_count: currentBookIds.length
+  });
+
+  document.getElementById('razorpayBtn').textContent = 'Creating order…';
+  document.getElementById('razorpayBtn').disabled = true;
+
+  try {
+    await ensureRazorpayLoaded();
+    if (typeof window.Razorpay !== 'function') {
+      showError('Payment window could not be initialized. Please refresh and try again.');
+      return;
+    }
+
+    const res = await fetch('/api/razorpay-order.php', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        plan: currentPlan,
+        book_id: currentBookId,
+        book_ids: currentBookIds,
+        email: data.email,
+        name: data.name
+      })
+    });
+    const responseText = await res.text();
+    let order = null;
+    try {
+      order = JSON.parse(responseText);
+    } catch (parseError) {
+      showError('Checkout setup failed on server. Please refresh and try again.');
+      return;
+    }
+    if (!res.ok || !order.id) {
+      showError(order.error || 'Failed to create order. Please try again.');
+      return;
+    }
+
+    const options = {
+      key: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.razorpayKeyId) || '',
+      amount: order.amount,
+      currency: 'INR',
+      name: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.siteName) || 'AI Prompt Books',
+      description: currentPlan === 'bundle' ? 'Full System Access' : `${currentBookIds.length} Book Access`,
+      order_id: order.id,
+      prefill: { name: data.name, email: data.email },
+      theme: { color: '#d4a836' },
+      handler: async function(response) {
+        await verifyRazorpayOrder(response);
+      }
+    };
+
+    const razorpayInstance = new window.Razorpay(options);
+    razorpayInstance.on('payment.failed', function() {
+      showError('Payment was cancelled or failed.');
+    });
+    razorpayInstance.open();
+  } catch (e) {
+    showError('Could not reach payment service. Check internet and try again.');
+  } finally {
+    document.getElementById('razorpayBtn').textContent = 'Pay with UPI / Card (Razorpay)';
+    document.getElementById('razorpayBtn').disabled = false;
+  }
+}
+
+async function verifyRazorpayOrder(paymentResponse) {
+  const res = await fetch('/api/razorpay-verify.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(paymentResponse)
+  });
+  const result = await res.json();
+  if (result.token) {
+    const metrics = getCheckoutMetrics(currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1));
+    trackEvent('Purchase', {
+      currency,
+      value: metrics.value,
+      content_name: metrics.contentName,
+      num_items: metrics.numItems,
+      payment_method: 'razorpay'
+    });
+    window.location.href = '/setup-account.php?token=' + result.token;
+  } else {
+    showError(result.error || 'Payment verification failed. Please contact support.');
   }
 }
 
@@ -384,6 +512,11 @@ document.addEventListener('click', (event) => {
   if (action === 'pay-cashfree') {
     trackCustomEvent('PayButtonClicked', { plan: currentPlan || 'unknown' });
     payWithCashfree();
+    return;
+  }
+  if (action === 'pay-razorpay') {
+    trackCustomEvent('PayButtonClicked', { plan: currentPlan || 'unknown' });
+    payWithRazorpay();
   }
 });
 
