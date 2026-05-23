@@ -48,7 +48,7 @@ function trackCheckoutEvent(eventName, plan, selectedCount = 0, extras = {}) {
 }
 
 function getActivePaymentProvider() {
-  return (window.__AIPB_CONFIG && window.__AIPB_CONFIG.paymentProvider) || 'cashfree';
+  return (window.__AIPB_CONFIG && window.__AIPB_CONFIG.paymentProvider) || 'razorpay';
 }
 
 function ensureRazorpayLoaded() {
@@ -221,7 +221,6 @@ function normalizeIndianPhoneNumber(rawPhoneNumber) {
 function getCheckoutData() {
   const nameElement = document.getElementById('buyerName');
   const emailElement = document.getElementById('buyerEmail');
-  const phoneElement = document.getElementById('buyerPhone');
 
   if (!nameElement || !emailElement) {
     showError('Checkout form is updating. Please refresh and try again.');
@@ -232,15 +231,6 @@ function getCheckoutData() {
   const email = emailElement.value.trim();
   if (!name) { showError('Please enter your name.'); return null; }
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return null; }
-  if (getActivePaymentProvider() === 'cashfree') {
-    if (!phoneElement) {
-      showError('Checkout form is updating. Please refresh and try again.');
-      return null;
-    }
-    const phone = normalizeIndianPhoneNumber(phoneElement.value.trim());
-    if (!phone) { showError('Please enter a valid 10-digit phone number.'); return null; }
-    return { name, email, phone };
-  }
   return { name, email };
 }
 
@@ -509,11 +499,7 @@ document.addEventListener('click', (event) => {
     closeCheckout();
     return;
   }
-  if (action === 'pay-cashfree') {
-    trackCustomEvent('PayButtonClicked', { plan: currentPlan || 'unknown' });
-    payWithCashfree();
-    return;
-  }
+  // Cashfree path intentionally disabled for now.
   if (action === 'pay-razorpay') {
     trackCustomEvent('PayButtonClicked', { plan: currentPlan || 'unknown' });
     payWithRazorpay();
