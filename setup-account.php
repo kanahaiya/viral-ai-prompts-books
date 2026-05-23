@@ -114,13 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
             $db->prepare('UPDATE payments SET setup_used = 1 WHERE setup_token = ?')->execute([$token]);
             $db->commit();
 
-            // Log the user in
-            $stmt = $db->prepare('SELECT * FROM users WHERE email = ?');
-            $stmt->execute([$email]);
-            $user = $stmt->fetch();
-            if ($user) loginUser($user);
-
-            header('Location: /dashboard.php?welcome=1');
+            header('Location: /login.php?setup=success');
             exit;
         } catch (\Exception $e) {
             if (isset($db) && $db instanceof PDO && $db->inTransaction()) {
