@@ -804,6 +804,11 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
 <script src="/assets/js/pixel-tracking.js" defer></script>
 <script>
+if (window.location.hash === '#pricing') {
+  const cleanPath = window.location.pathname + window.location.search;
+  window.history.replaceState(null, '', cleanPath);
+  window.scrollTo(0, 0);
+}
 window.__AIPB_CONFIG = {
   paymentProvider: <?= json_encode(defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay') ?>,
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,

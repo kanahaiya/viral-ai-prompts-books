@@ -23,12 +23,12 @@ define('BOOKS_DIR', __DIR__ . '/books/');
 define('PAYMENT_PROVIDER', 'razorpay');
 
 // ── Razorpay (test keys for staging/local) ────────────────────────────────────
-define('RAZORPAY_KEY_ID',     'rzp_test_SqXAfiLToxWQLI');
-define('RAZORPAY_KEY_SECRET', 'zpFXxm3RaCUh568uiLC0PRlD');
+define('RAZORPAY_KEY_ID',     'replace_with_razorpay_test_key_id');
+define('RAZORPAY_KEY_SECRET', 'replace_with_razorpay_test_key_secret');
 
 // ── Cashfree (test keys) ───────────────────────────────────────────────────────
-define('CASHFREE_APP_ID',     'TEST110811490ab21522763ffa8f50eb94118011');
-define('CASHFREE_SECRET_KEY', 'cfsk_ma_test_92d6c2576fc97f4f501aa9f8513f895c_0ad79cec');
+define('CASHFREE_APP_ID',     'replace_with_cashfree_test_app_id');
+define('CASHFREE_SECRET_KEY', 'replace_with_cashfree_test_secret_key');
 define('CASHFREE_ENV',        'sandbox'); // sandbox/live
 
 // ── PayPal (sandbox — get real ones from developer.paypal.com) ────────────────
