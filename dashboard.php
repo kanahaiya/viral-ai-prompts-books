@@ -3,6 +3,12 @@ require_once __DIR__ . '/auth.php';
 requireLogin();
 
 $user    = getCurrentUser();
+$isValidUser = is_array($user) && !empty($user['id']);
+if (!$isValidUser) {
+    logoutUser();
+    header('Location: /login.php?next=' . urlencode('/dashboard.php'));
+    exit;
+}
 $books   = getBooks();
 $welcome = isset($_GET['welcome']);
 $isBundle = $user['plan'] === 'bundle';

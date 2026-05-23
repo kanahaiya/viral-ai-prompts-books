@@ -25,9 +25,6 @@ $books    = getBooks();
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
-<link rel="preload" as="image" href="/assets/hero-mockup.avif" type="image/avif" imagesrcset="/assets/hero-mockup-480w.avif 480w, /assets/hero-mockup-768w.avif 768w, /assets/hero-mockup.avif 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
-<link rel="preload" as="image" href="/assets/hero-mockup.webp" type="image/webp" imagesrcset="/assets/hero-mockup-480w.webp 480w, /assets/hero-mockup-768w.webp 768w, /assets/hero-mockup.webp 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
-<link rel="preload" as="image" href="/assets/hero-mockup.jpg" type="image/jpeg" imagesrcset="/assets/hero-mockup-480w.jpg 480w, /assets/hero-mockup-768w.jpg 768w, /assets/hero-mockup.jpg 900w" imagesizes="(max-width: 768px) 92vw, 50vw">
 <?php
 $landingCriticalCssWebPath = '/assets/landing-critical.min.css';
 $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
