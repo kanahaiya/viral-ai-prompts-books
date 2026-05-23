@@ -89,6 +89,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .community-icon{font-size:2.5rem;flex-shrink:0;}
 .community-content h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
 .community-content p{font-size:0.83rem;color:#b8b8b8;}
+.community-link{display:inline-block;margin-top:0.6rem;font-size:0.82rem;color:#6ecbff;text-decoration:underline;text-underline-offset:2px;}
+.community-link:hover{color:#9ddcff;}
 .community-content a.tg-btn{margin-top:1rem;display:inline-flex;}
 
 @media(max-width:600px){
@@ -144,8 +146,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   ?>
   <div class="plan-bar">
     <?php if ($isBundle): ?>
-      <span class="plan-badge bundle">SYSTEM — ALL <?= $totalPaid ?> BOOKS + BONUS</span>
-      <span class="plan-label">Full access · All future books included</span>
+      <span class="plan-badge bundle">SYSTEM — <?= $totalPaid ?> BOOKS + BONUS</span>
+      <span class="plan-label">Lifetime access · Future books included</span>
     <?php else: ?>
       <span class="plan-badge single"><?= $ownedCount ?> BOOK<?= $ownedCount > 1 ? 'S' : '' ?></span>
       <span class="plan-label">Individual access · Bonus guide included free</span>
@@ -208,6 +210,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
     <div class="community-content">
       <h3>AI Prompt Creators — Telegram Community</h3>
       <p>Share your AI images, get prompt tips, early access to new books, and exclusive free prompts.</p>
+      <a href="<?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>" target="_blank" rel="noopener" class="community-link">
+        Join here: <?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>
+      </a>
       <a href="<?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>" target="_blank" rel="noopener" class="tg-btn">
         Join the Community
       </a>
