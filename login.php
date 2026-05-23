@@ -17,6 +17,9 @@ if (is_string($nextInput) && str_starts_with($nextInput, '/') && !str_starts_wit
 if (($_GET['reset'] ?? '') === 'success') {
     $success = 'Password updated successfully. Please login with your new password.';
 }
+if (($_GET['setup'] ?? '') === 'success') {
+    $success = 'Password set successfully. Please login to access your books.';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfToken = trim($_POST['csrf_token'] ?? '');
