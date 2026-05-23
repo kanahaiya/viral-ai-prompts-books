@@ -13,6 +13,7 @@ concurrency:
 jobs:
   validate-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,6 +54,9 @@ jobs:
           # This FTP user is chrooted to Hostinger web root already.
           # Using /public_html/ here creates public_html/public_html.
           server-dir: /
+          # Hostinger can be slow to respond on control socket from GitHub runners.
+          # Increase timeout to reduce intermittent "Timeout (control socket)" failures.
+          timeout: 120000
           dangerous-clean-slate: false
           exclude: |
             **/.git*
