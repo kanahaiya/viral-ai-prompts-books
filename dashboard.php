@@ -103,6 +103,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   .book-status{font-size:0.68rem;}
   .book-cover{aspect-ratio:3/4;}
 }
+.footer{border-top:1px solid #1a1a1a;padding:1.6rem 1rem;text-align:center;margin-top:2rem;}
+.footer-logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:1rem;}
+.footer-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.9rem;}
+.footer-links a{font-size:0.75rem;color:#9a9a9a;text-decoration:none;}
+.footer-links a:hover{color:#d4a836;}
+.footer-copy{font-size:0.75rem;color:#777;}
 </style>
 </head>
 <body>
@@ -216,6 +222,16 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   </div>
 
 </main>
+<footer class="footer">
+  <div class="footer-logo">AI Prompt Books</div>
+  <div class="footer-links">
+    <a href="/contact-details.php">Contact</a>
+    <a href="/terms-and-conditions.php">Terms</a>
+    <a href="/privacy-policy.php">Privacy Policy</a>
+    <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
+  </div>
+  <div class="footer-copy">© <?= date('Y') ?> AI Prompt Books. All rights reserved.</div>
+</footer>
 <script src="/assets/js/pixel-tracking.js"></script>
 <script>
 pixelTrackCustom('DashboardViewed', { welcome: <?= $welcome ? 'true' : 'false' ?> });

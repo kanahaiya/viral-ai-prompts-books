@@ -135,7 +135,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
 <?php renderMetaPixelHead(); ?>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;}
+.site-header{position:sticky;top:0;z-index:20;background:#111;border-bottom:1px solid #1a1a1a;padding:0 2rem;}
+.site-header__inner{max-width:1100px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.site-header__logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;text-decoration:none;}
+.site-header__link{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;}
+.site-header__link:hover{color:#ddd;border-color:#555;}
+.page-wrap{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
+.page-wrap--invalid{justify-content:flex-start;padding-top:4rem;}
 .logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:2.5rem;text-align:center;}
 .card{background:#141414;border:1px solid #2a2a2a;border-radius:6px;padding:2.5rem;width:100%;max-width:440px;}
 .success-badge{background:#0d3a1a;border:1px solid #1a6b30;border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;gap:0.8rem;align-items:flex-start;}
@@ -155,18 +162,35 @@ input[readonly]{color:#888;cursor:default;}
 .plan-tag{display:inline-block;font-family:'Courier New',monospace;font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:2px;margin-left:8px;vertical-align:middle;}
 .plan-bundle{background:#d4a836;color:#000;}
 .plan-single{background:#2a2a2a;color:#aaa;}
+.invalid-card{text-align:center;border:1px solid #3a2a2a;background:linear-gradient(135deg,#1a1212 0%,#141414 100%);}
+.invalid-text{color:#d6d6d6;margin-top:0.8rem;font-size:0.92rem;line-height:1.6;}
+.invalid-text a{color:#d4a836;text-decoration:underline;text-underline-offset:2px;}
+.invalid-text a:hover{color:#e8b93a;}
+.footer{border-top:1px solid #1a1a1a;padding:1.6rem 1rem;text-align:center;}
+.footer-logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:1rem;}
+.footer-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.9rem;}
+.footer-links a{font-size:0.75rem;color:#9a9a9a;text-decoration:none;}
+.footer-links a:hover{color:#d4a836;}
+.footer-copy{font-size:0.75rem;color:#777;}
 </style>
 </head>
 <body>
 <?php renderMetaPixelNoScript(); ?>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__logo">AI Prompt Books</a>
+    <a href="/#pricing" class="site-header__link">Get Access</a>
+  </div>
+</header>
+<main class="page-wrap <?= ($error && !$payment) ? 'page-wrap--invalid' : '' ?>">
 <div class="logo">AI Prompt Books</div>
-<div class="card">
+<div class="card <?= ($error && !$payment) ? 'invalid-card' : '' ?>">
 
   <?php if ($error && !$payment): ?>
-    <div style="text-align:center;">
+    <div>
       <div style="font-size:2rem;margin-bottom:1rem;">⚠️</div>
       <h1>Invalid Link</h1>
-      <p style="color:#888;margin-top:0.8rem;font-size:0.85rem;"><?= $error ?></p>
+      <p class="invalid-text"><?= $error ?></p>
     </div>
 
   <?php else: ?>
@@ -238,6 +262,17 @@ input[readonly]{color:#888;cursor:default;}
 
   <?php endif; ?>
 </div>
+</main>
+<footer class="footer">
+  <div class="footer-logo">AI Prompt Books</div>
+  <div class="footer-links">
+    <a href="/contact-details.php">Contact</a>
+    <a href="/terms-and-conditions.php">Terms</a>
+    <a href="/privacy-policy.php">Privacy Policy</a>
+    <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
+  </div>
+  <div class="footer-copy">© <?= date('Y') ?> AI Prompt Books. All rights reserved.</div>
+</footer>
 <script src="/assets/js/pixel-tracking.js"></script>
 <script>
 pixelTrackCustom('AuthPageView', { page: 'setup-account' });
