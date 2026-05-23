@@ -85,13 +85,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .book-card.accessible .book-lock-icon{display:none;}
 
 /* COMMUNITY BOX */
-.community-box{background:#0b1720;border:1px solid #1f4f66;border-radius:6px;padding:1.8rem 2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:2.5rem;}
+.community-box{background:linear-gradient(135deg,#0b1720 0%,#0f2230 100%);border:1px solid #2b6f8d;border-radius:6px;padding:1.8rem 2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:2.5rem;box-shadow:0 0 0 1px rgba(34,158,217,0.18),0 10px 24px rgba(0,0,0,0.35);}
 .community-icon{font-size:2.5rem;flex-shrink:0;}
-.community-content h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
-.community-content p{font-size:0.83rem;color:#b8b8b8;}
-.community-link{display:inline-block;margin-top:0.6rem;font-size:0.82rem;color:#6ecbff;text-decoration:underline;text-underline-offset:2px;}
-.community-link:hover{color:#9ddcff;}
-.community-content a.tg-btn{margin-top:1rem;display:inline-flex;}
+.community-content h3{font-size:1rem;font-weight:700;color:#e8f7ff;margin-bottom:0.3rem;}
+.community-content p{font-size:0.83rem;color:#b9d6e5;}
+.community-content a.tg-btn{margin-top:1rem;display:inline-flex;background:#22a9ea;border:1px solid #3dc0ff;box-shadow:0 6px 16px rgba(9,67,95,0.4);}
+.community-content a.tg-btn:hover{background:#35b8f5;}
 
 @media(max-width:600px){
   .main{padding:1.5rem 1rem;}
@@ -210,9 +209,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
     <div class="community-content">
       <h3>AI Prompt Creators — Telegram Community</h3>
       <p>Share your AI images, get prompt tips, early access to new books, and exclusive free prompts.</p>
-      <a href="<?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>" target="_blank" rel="noopener" class="community-link">
-        Join here: <?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>
-      </a>
       <a href="<?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>" target="_blank" rel="noopener" class="tg-btn">
         Join the Community
       </a>
