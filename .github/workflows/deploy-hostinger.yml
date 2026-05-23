@@ -75,11 +75,3 @@ jobs:
             **/*.plan.md
             **/.DS_Store
 
-      - name: Remove FTP deploy metadata from server
-        env:
-          FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-        run: |
-          curl --silent --show-error --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER/" -Q "DELE /.ftp-deploy-sync-state.json" || true
-          curl --silent --show-error --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER/" -Q "DELE /.ftp-deploy-sync-state.json.lock" || true
