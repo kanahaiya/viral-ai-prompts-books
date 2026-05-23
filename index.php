@@ -826,10 +826,10 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <script src="/assets/js/pixel-tracking.js" defer></script>
 <script>
 window.__AIPB_CONFIG = {
-  paymentProvider: <?= json_encode(PAYMENT_PROVIDER) ?>,
+  paymentProvider: <?= json_encode(defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'cashfree') ?>,
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
-  cashfreeEnv: <?= json_encode(CASHFREE_ENV) ?>,
-  siteName: <?= json_encode(SITE_NAME) ?>,
+  cashfreeEnv: <?= json_encode(defined('CASHFREE_ENV') ? CASHFREE_ENV : 'sandbox') ?>,
+  siteName: <?= json_encode(defined('SITE_NAME') ? SITE_NAME : 'AI Prompt Books') ?>,
   booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>
 };
 </script>
