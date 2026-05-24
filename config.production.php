@@ -30,7 +30,7 @@ define('BOOKS_DIR', __DIR__ . '/books/');
 
 // ── Payment provider switch ─────────────────────────────────────────────────────
 // Allowed values: razorpay | cashfree
-define('PAYMENT_PROVIDER', envOrDefault('PAYMENT_PROVIDER', 'cashfree'));
+define('PAYMENT_PROVIDER', envOrDefault('PAYMENT_PROVIDER', 'razorpay'));
 
 // ── Razorpay (live/test keys) ─────────────────────────────────────────────────
 define('RAZORPAY_KEY_ID',     envOrDefault('RAZORPAY_KEY_ID', 'rzp_live_XXXXXXXXXXXX'));

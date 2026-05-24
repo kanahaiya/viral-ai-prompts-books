@@ -225,6 +225,87 @@ function verifyCsrf(string $token): bool {
     return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
 
+/**
+ * Basic session-backed rate limiting for auth-sensitive actions.
+ * This is intentionally lightweight and avoids extra DB tables.
+ */
+function getClientIpAddress(): string {
+    $remoteAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+    return is_string($remoteAddress) && $remoteAddress !== '' ? $remoteAddress : 'unknown';
+}
+
+function rateLimitStatus(string $actionKey, string $identifier, int $maxAttempts, int $windowSeconds): array {
+    $normalizedAction = trim($actionKey) !== '' ? trim($actionKey) : 'default';
+    $normalizedIdentifier = trim($identifier) !== '' ? trim($identifier) : 'global';
+    $bucketKey = hash('sha256', $normalizedAction . '|' . $normalizedIdentifier);
+    $now = time();
+
+    if (!isset($_SESSION['rate_limits']) || !is_array($_SESSION['rate_limits'])) {
+        $_SESSION['rate_limits'] = [];
+    }
+
+    $bucket = $_SESSION['rate_limits'][$bucketKey] ?? null;
+    if (!is_array($bucket)) {
+        return ['allowed' => true, 'retry_after_seconds' => 0];
+    }
+
+    $windowStart = (int)($bucket['window_start'] ?? 0);
+    $attemptCount = (int)($bucket['count'] ?? 0);
+    if ($windowStart <= 0 || ($now - $windowStart) >= $windowSeconds) {
+        return ['allowed' => true, 'retry_after_seconds' => 0];
+    }
+
+    if ($attemptCount >= $maxAttempts) {
+        $retryAfterSeconds = max(1, $windowSeconds - ($now - $windowStart));
+        return ['allowed' => false, 'retry_after_seconds' => $retryAfterSeconds];
+    }
+
+    return ['allowed' => true, 'retry_after_seconds' => 0];
+}
+
+function rateLimitHit(string $actionKey, string $identifier, int $windowSeconds): void {
+    $normalizedAction = trim($actionKey) !== '' ? trim($actionKey) : 'default';
+    $normalizedIdentifier = trim($identifier) !== '' ? trim($identifier) : 'global';
+    $bucketKey = hash('sha256', $normalizedAction . '|' . $normalizedIdentifier);
+    $now = time();
+
+    if (!isset($_SESSION['rate_limits']) || !is_array($_SESSION['rate_limits'])) {
+        $_SESSION['rate_limits'] = [];
+    }
+
+    $bucket = $_SESSION['rate_limits'][$bucketKey] ?? null;
+    if (!is_array($bucket)) {
+        $_SESSION['rate_limits'][$bucketKey] = [
+            'count' => 1,
+            'window_start' => $now,
+        ];
+        return;
+    }
+
+    $windowStart = (int)($bucket['window_start'] ?? 0);
+    if ($windowStart <= 0 || ($now - $windowStart) >= $windowSeconds) {
+        $_SESSION['rate_limits'][$bucketKey] = [
+            'count' => 1,
+            'window_start' => $now,
+        ];
+        return;
+    }
+
+    $_SESSION['rate_limits'][$bucketKey] = [
+        'count' => ((int)($bucket['count'] ?? 0)) + 1,
+        'window_start' => $windowStart,
+    ];
+}
+
+function rateLimitClear(string $actionKey, string $identifier): void {
+    $normalizedAction = trim($actionKey) !== '' ? trim($actionKey) : 'default';
+    $normalizedIdentifier = trim($identifier) !== '' ? trim($identifier) : 'global';
+    $bucketKey = hash('sha256', $normalizedAction . '|' . $normalizedIdentifier);
+    if (isset($_SESSION['rate_limits']) && is_array($_SESSION['rate_limits'])) {
+        unset($_SESSION['rate_limits'][$bucketKey]);
+    }
+}
+
 // ── Meta Pixel helpers ────────────────────────────────────────────────────────
 function getMetaPixelId(): string {
     return '1543072290570018';
