@@ -3,6 +3,9 @@ const currency = 'INR';
 const BUNDLE_PRICE_INR = 299;
 const CASHFREE_CHECKOUT_SRC = 'https://sdk.cashfree.com/js/v3/cashfree.js';
 let cashfreeLoaderPromise = null;
+const SCROLL_DEPTH_MILESTONES = [25, 50, 75, 90];
+const ENGAGEMENT_TIME_CHECKPOINTS_SECONDS = [15, 30, 60, 120];
+let hasTrackedCheckoutFormStart = false;
 
 function trackEvent(eventName, params = {}) {
   if (typeof window.pixelTrack === 'function') {
@@ -20,6 +23,71 @@ function trackCustomEvent(eventName, params = {}) {
   }
   if (typeof window.fbq !== 'function') return;
   window.fbq('trackCustom', eventName, params);
+}
+
+function getSessionAttributionParams() {
+  const queryParams = new URLSearchParams(window.location.search);
+  const readParam = (key) => queryParams.get(key) || '';
+  return {
+    landing_path: window.location.pathname,
+    landing_referrer: document.referrer || 'direct',
+    utm_source: readParam('utm_source'),
+    utm_medium: readParam('utm_medium'),
+    utm_campaign: readParam('utm_campaign'),
+    utm_term: readParam('utm_term'),
+    utm_content: readParam('utm_content')
+  };
+}
+
+function initSessionAttributionTracking() {
+  trackCustomEvent('LandingSessionStarted', getSessionAttributionParams());
+}
+
+function initScrollDepthTracking() {
+  const firedMilestones = new Set();
+
+  function evaluateScrollDepth() {
+    const doc = document.documentElement;
+    const maxScrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const percent = Math.min(100, Math.round((window.scrollY / maxScrollable) * 100));
+
+    SCROLL_DEPTH_MILESTONES.forEach((milestone) => {
+      if (percent >= milestone && !firedMilestones.has(milestone)) {
+        firedMilestones.add(milestone);
+        trackCustomEvent('ScrollDepthReached', { depth_percent: milestone });
+      }
+    });
+  }
+
+  window.addEventListener('scroll', evaluateScrollDepth, { passive: true });
+  evaluateScrollDepth();
+}
+
+function initTimeOnPageTracking() {
+  ENGAGEMENT_TIME_CHECKPOINTS_SECONDS.forEach((seconds) => {
+    window.setTimeout(() => {
+      trackCustomEvent('TimeOnPageCheckpoint', { seconds });
+    }, seconds * 1000);
+  });
+}
+
+function initCheckoutFormIntentTracking() {
+  const nameElement = document.getElementById('buyerName');
+  const emailElement = document.getElementById('buyerEmail');
+  if (!nameElement && !emailElement) return;
+
+  function trackFormStart(fieldName) {
+    if (hasTrackedCheckoutFormStart) return;
+    hasTrackedCheckoutFormStart = true;
+    trackCustomEvent('CheckoutFormStarted', { first_field: fieldName });
+  }
+
+  if (nameElement) {
+    nameElement.addEventListener('focus', () => trackFormStart('name'), { once: true });
+  }
+  if (emailElement) {
+    emailElement.addEventListener('focus', () => trackFormStart('email'), { once: true });
+  }
 }
 
 function getCheckoutMetrics(plan, selectedCount = 0) {
@@ -80,7 +148,6 @@ function startCheckout(plan) {
     document.body.style.overflow = 'hidden';
     trackCustomEvent('BookModalOpened', { source: 'start-checkout' });
   } else {
-    trackCheckoutEvent('InitiateCheckout', 'bundle', 11, { source: 'bundle-cta' });
     proceedCheckout('bundle', null);
   }
 }
@@ -156,12 +223,17 @@ function proceedCheckout(plan, bookId, bookIds = null) {
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
 
-  if (plan === 'single') {
-    trackCheckoutEvent('InitiateCheckout', 'single', selectedCount, {
-      selected_books: currentBookIds.join(','),
-      source: 'book-modal'
-    });
-  }
+  trackCheckoutEvent('InitiateCheckout', plan, plan === 'bundle' ? 11 : selectedCount, {
+    selected_books: plan === 'single' ? currentBookIds.join(',') : '',
+    source: plan === 'bundle' ? 'bundle-cta' : 'book-modal'
+  });
+  trackEvent('AddToCart', {
+    currency,
+    value: totalInr,
+    num_items: plan === 'bundle' ? 11 : selectedCount,
+    content_name: plan === 'bundle' ? 'Full System' : `Selected Books (${selectedCount})`,
+    content_type: 'product_group'
+  });
   trackCustomEvent('CheckoutModalOpened', {
     plan,
     selected_count: selectedCount,
@@ -290,6 +362,113 @@ async function payWithCashfree() {
   }
 }
 
+async function payWithRazorpay() {
+  const data = getCheckoutData();
+  if (!data) return;
+
+  trackCheckoutEvent('AddPaymentInfo', currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1), {
+    payment_gateway: 'razorpay'
+  });
+  trackCustomEvent('RazorpayOrderStarted', {
+    plan: currentPlan || 'unknown',
+    selected_count: currentBookIds.length
+  });
+
+  document.getElementById('razorpayBtn').textContent = 'Creating order…';
+  document.getElementById('razorpayBtn').disabled = true;
+
+  try {
+    await ensureRazorpayLoaded();
+    if (typeof window.Razorpay !== 'function') {
+      showError('Payment window could not be initialized. Please refresh and try again.');
+      return;
+    }
+
+    const res = await fetch('/api/razorpay-order.php', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        plan: currentPlan,
+        book_id: currentBookId,
+        book_ids: currentBookIds,
+        email: data.email,
+        name: data.name
+      })
+    });
+    const responseText = await res.text();
+    let order = null;
+    try {
+      order = JSON.parse(responseText);
+    } catch (parseError) {
+      showError('Checkout setup failed on server. Please refresh and try again.');
+      return;
+    }
+    if (!res.ok || !order.id) {
+      showError(order.error || 'Failed to create order. Please try again.');
+      return;
+    }
+
+    const options = {
+      key: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.razorpayKeyId) || '',
+      amount: order.amount,
+      currency: 'INR',
+      name: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.siteName) || 'AI Prompt Books',
+      description: currentPlan === 'bundle' ? 'Full System Access' : `${currentBookIds.length} Book Access`,
+      order_id: order.id,
+      prefill: { name: data.name, email: data.email },
+      theme: { color: '#d4a836' },
+      handler: async function(response) {
+        await verifyRazorpayOrder(response);
+      },
+      modal: {
+        ondismiss: function() {
+          trackCustomEvent('PaymentPopupDismissed', {
+            plan: currentPlan || 'unknown',
+            selected_count: currentBookIds.length
+          });
+        }
+      }
+    };
+
+    const razorpayInstance = new window.Razorpay(options);
+    trackCustomEvent('PaymentPopupOpened', {
+      payment_gateway: 'razorpay',
+      plan: currentPlan || 'unknown',
+      selected_count: currentBookIds.length
+    });
+    razorpayInstance.on('payment.failed', function() {
+      showError('Payment was cancelled or failed.');
+    });
+    razorpayInstance.open();
+  } catch (e) {
+    showError('Could not reach payment service. Check internet and try again.');
+  } finally {
+    document.getElementById('razorpayBtn').textContent = 'Pay with UPI / Card (Razorpay)';
+    document.getElementById('razorpayBtn').disabled = false;
+  }
+}
+
+async function verifyRazorpayOrder(paymentResponse) {
+  const res = await fetch('/api/razorpay-verify.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(paymentResponse)
+  });
+  const result = await res.json();
+  if (result.token) {
+    const metrics = getCheckoutMetrics(currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1));
+    trackEvent('Purchase', {
+      currency,
+      value: metrics.value,
+      content_name: metrics.contentName,
+      num_items: metrics.numItems,
+      payment_method: 'razorpay'
+    });
+    window.location.href = '/setup-account.php?token=' + result.token;
+  } else {
+    showError(result.error || 'Payment verification failed. Please contact support.');
+  }
+}
 async function verifyCashfreeOrder(orderId) {
   const res = await fetch('/api/cashfree-verify.php', {
     method: 'POST',
@@ -324,6 +503,9 @@ async function verifyCashfreeOrder(orderId) {
 document.querySelectorAll('.faq-q').forEach((q) => {
   q.addEventListener('click', () => {
     q.closest('.faq-item').classList.toggle('open');
+    trackCustomEvent('FaqToggled', {
+      question: (q.textContent || '').trim().slice(0, 80)
+    });
   });
 });
 
@@ -486,7 +668,11 @@ function initStickyCta() {
 }
 
 function initNonCriticalFeatures() {
+  initSessionAttributionTracking();
   initFunnelTracking();
+  initScrollDepthTracking();
+  initTimeOnPageTracking();
+  initCheckoutFormIntentTracking();
   initCountdown();
   initActivityTicker();
   initStickyCta();
