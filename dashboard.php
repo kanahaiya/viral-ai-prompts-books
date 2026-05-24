@@ -84,7 +84,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .community-content h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
 .community-content p{font-size:0.83rem;color:#b8b8b8;}
 .community-content a.tg-btn{margin-top:1rem;display:inline-flex;}
-
 @media(max-width:600px){
   .main{padding:1.5rem 1rem;}
   .welcome-banner{flex-direction:column;align-items:flex-start;}
@@ -201,7 +200,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
     <div class="community-icon">💬</div>
     <div class="community-content">
       <h3>AI Prompt Creators — Telegram Community</h3>
-      <p>Share your AI images, get prompt tips, early access to new books, and exclusive free prompts.</p>
+      <p>To claim your AI Prompt Finder CustomGPT access link, prompt tips, and receive early access to new books and exclusive bonus prompts.</p>
       <a href="<?= htmlspecialchars(TELEGRAM_INVITE_LINK) ?>" target="_blank" rel="noopener" class="tg-btn">
         Join the Community
       </a>
