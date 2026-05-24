@@ -278,7 +278,7 @@ input[readonly]{color:#888;cursor:default;}
 pixelTrackCustom('AuthPageView', { page: 'setup-account' });
 <?php if ($payment): ?>
 pixelTrackCustom('SetupAccountLandingViewed', { plan: '<?= htmlspecialchars($payment['plan']) ?>' });
-pixelTrackCustom('PaymentPageViewed', {
+pixelTrackCustom('PostPaymentSetupViewed', {
   plan: '<?= htmlspecialchars($payment['plan']) ?>',
   page_type: 'post-payment-setup'
 });
