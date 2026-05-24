@@ -75,14 +75,28 @@ jobs:
           HOSTINGER_REMOTE_DIR: ${{ secrets.HOSTINGER_SFTP_REMOTE_DIR }}
         run: |
           REMOTE_DIR="${HOSTINGER_REMOTE_DIR:-domains/aipromptbooks.in/public_html}"
-          lftp -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
+          echo "Deploying to remote dir: ${REMOTE_DIR}"
+          lftp -d -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
             set cmd:fail-exit true;
             set sftp:auto-confirm yes;
             set net:max-retries 1;
             set net:timeout 20;
             mkdir -p ${REMOTE_DIR};
             mirror --reverse --only-newer --verbose --no-perms \
-              -x '(^|/)\.git(/|$)|(^|/)\.github(/|$)|(^|/)\.cursor(/|$)|(^|/)node_modules(/|$)|(^|/)\.env[^/]*$|(^|/)config\.production\.php$|(^|/)local\.db$|(^|/)db\.sql$|(^|/)setup-local\.php$|(^|/)\.ftp-deploy-sync-state[^/]*$|(^|/)[^/]*\.md$|(^|/)[^/]*\.plan\.md$|(^|/)\.DS_Store$' \
+              -X .git\* \
+              -X .github/\* \
+              -X .cursor/\* \
+              -X node_modules/\* \
+              -X .env\* \
+              -X config.production.php \
+              -X local.db \
+              -X db.sql \
+              -X setup-local.php \
+              -X .ftp-deploy-sync-state.json \
+              -X .ftp-deploy-sync-state\* \
+              -X \*.md \
+              -X \*.plan.md \
+              -X .DS_Store \
               . ${REMOTE_DIR};
             quit
           "
