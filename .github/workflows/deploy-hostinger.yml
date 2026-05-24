@@ -41,36 +41,36 @@ jobs:
           php -l api/paypal-order.php
           php -l api/paypal-capture.php
 
+      - name: Install lftp for SFTP deploy
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
       - name: Deploy to Hostinger via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # Switch to SFTP for encrypted transport and better deploy stability.
-          protocol: sftp
-          port: ${{ secrets.HOSTINGER_FTP_PORT }}
-          # This FTP user is chrooted to Hostinger web root already.
-          # Using /public_html/ here creates public_html/public_html.
-          server-dir: /
-          # Hostinger can be slow to respond on control socket from GitHub runners.
-          # Increase timeout to reduce intermittent "Timeout (control socket)" failures.
-          timeout: 120000
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git/**
-            **/.github/**
-            **/.cursor/**
-            **/node_modules/**
-            **/.env*
-            **/config.production.php
-            **/local.db
-            **/db.sql
-            **/setup-local.php
-            **/.ftp-deploy-sync-state.json
-            **/.ftp-deploy-sync-state*
-            **/*.md
-            **/*.plan.md
-            **/.DS_Store
+        env:
+          HOSTINGER_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
+        run: |
+          lftp -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
+            set sftp:auto-confirm yes;
+            set net:max-retries 2;
+            set net:timeout 20;
+            mirror --reverse --only-newer --verbose \
+              --exclude-glob .git\* \
+              --exclude-glob .github/\* \
+              --exclude-glob .cursor/\* \
+              --exclude-glob node_modules/\* \
+              --exclude-glob .env\* \
+              --exclude-glob config.production.php \
+              --exclude-glob local.db \
+              --exclude-glob db.sql \
+              --exclude-glob setup-local.php \
+              --exclude-glob .ftp-deploy-sync-state.json \
+              --exclude-glob .ftp-deploy-sync-state\* \
+              --exclude-glob \*.md \
+              --exclude-glob \*.plan.md \
+              --exclude-glob .DS_Store \
+              . /;
+            quit
+          "
 
