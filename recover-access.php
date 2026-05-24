@@ -91,12 +91,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isSubmitted = true;
     $csrfToken = trim($_POST['csrf_token'] ?? '');
     $email = strtolower(trim($_POST['email'] ?? ''));
+    $rateIdentifier = ($email !== '' ? $email : 'empty-email') . '|' . getClientIpAddress();
+    $rateLimit = rateLimitStatus('recover-access', $rateIdentifier, 5, 900);
 
     if (!verifyCsrf($csrfToken)) {
         $statusMessage = 'Session expired. Please refresh and try again.';
+    } elseif (!$rateLimit['allowed']) {
+        $waitMinutes = max(1, (int)ceil(((int)$rateLimit['retry_after_seconds']) / 60));
+        $statusMessage = 'Too many recovery requests. Please wait about ' . $waitMinutes . ' minute(s) and try again.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $statusMessage = 'Please enter a valid email address.';
     } else {
+        rateLimitHit('recover-access', $rateIdentifier, 900);
         $statusMessage = 'If this email is linked to a purchase or account, a recovery email has been sent.';
 
         try {

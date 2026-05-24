@@ -62,14 +62,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isError && $resetRow) {
     $csrfToken = trim($_POST['csrf_token'] ?? '');
     $password = trim($_POST['password'] ?? '');
     $confirm = trim($_POST['confirm'] ?? '');
+    $rateIdentifier = strtolower(trim((string)$resetRow['email'])) . '|' . getClientIpAddress();
+    $rateLimit = rateLimitStatus('reset-password', $rateIdentifier, 6, 900);
 
     if (!verifyCsrf($csrfToken)) {
         $statusMessage = 'Session expired. Please refresh and try again.';
         $isError = true;
+    } elseif (!$rateLimit['allowed']) {
+        $waitMinutes = max(1, (int)ceil(((int)$rateLimit['retry_after_seconds']) / 60));
+        $statusMessage = 'Too many password reset attempts. Please wait about ' . $waitMinutes . ' minute(s) and try again.';
+        $isError = true;
     } elseif (strlen($password) < 8) {
+        rateLimitHit('reset-password', $rateIdentifier, 900);
         $statusMessage = 'Password must be at least 8 characters.';
         $isError = true;
     } elseif ($password !== $confirm) {
+        rateLimitHit('reset-password', $rateIdentifier, 900);
         $statusMessage = 'Passwords do not match.';
         $isError = true;
     } else {
@@ -81,12 +89,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isError && $resetRow) {
             $markUsedStmt = $db->prepare('UPDATE password_resets SET used = 1 WHERE email = ?');
             $markUsedStmt->execute([$resetRow['email']]);
             $db->commit();
+            rateLimitClear('reset-password', $rateIdentifier);
             header('Location: /login.php?reset=success');
             exit;
         } catch (Throwable $exception) {
             if (isset($db) && $db instanceof PDO && $db->inTransaction()) {
                 $db->rollBack();
             }
+            rateLimitHit('reset-password', $rateIdentifier, 900);
             error_log('Reset password save failed: ' . $exception->getMessage());
             $statusMessage = 'Could not reset password right now. Please try again.';
             $isError = true;

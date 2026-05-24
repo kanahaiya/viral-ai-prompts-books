@@ -60,14 +60,21 @@ $isError = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfToken = trim($_POST['csrf_token'] ?? '');
     $email = strtolower(trim($_POST['email'] ?? ''));
+    $rateIdentifier = ($email !== '' ? $email : 'empty-email') . '|' . getClientIpAddress();
+    $rateLimit = rateLimitStatus('forgot-password', $rateIdentifier, 5, 900);
 
     if (!verifyCsrf($csrfToken)) {
         $statusMessage = 'Session expired. Please refresh and try again.';
+        $isError = true;
+    } elseif (!$rateLimit['allowed']) {
+        $waitMinutes = max(1, (int)ceil(((int)$rateLimit['retry_after_seconds']) / 60));
+        $statusMessage = 'Too many reset requests. Please wait about ' . $waitMinutes . ' minute(s) and try again.';
         $isError = true;
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $statusMessage = 'Please enter a valid email address.';
         $isError = true;
     } else {
+        rateLimitHit('forgot-password', $rateIdentifier, 900);
         $statusMessage = 'If an account exists for this email, a password reset link has been sent.';
         try {
             $db = getDB();

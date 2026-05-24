@@ -25,22 +25,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfToken = trim($_POST['csrf_token'] ?? '');
     $email    = trim($_POST['email']    ?? '');
     $password = trim($_POST['password'] ?? '');
+    $normalizedEmail = strtolower($email);
+    $rateIdentifier = ($normalizedEmail !== '' ? $normalizedEmail : 'empty-email') . '|' . getClientIpAddress();
+    $rateLimit = rateLimitStatus('login-attempt', $rateIdentifier, 8, 900);
 
     if (!verifyCsrf($csrfToken)) {
         $error = 'Session expired. Please refresh and try again.';
+    } elseif (!$rateLimit['allowed']) {
+        $waitMinutes = max(1, (int)ceil(((int)$rateLimit['retry_after_seconds']) / 60));
+        $error = 'Too many login attempts. Please wait about ' . $waitMinutes . ' minute(s) and try again.';
     } elseif (!$email || !$password) {
         $error = 'Please enter your email and password.';
     } else {
         $db   = getDB();
         $stmt = $db->prepare('SELECT * FROM users WHERE email = ? AND status = "active"');
-        $stmt->execute([strtolower($email)]);
+        $stmt->execute([$normalizedEmail]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password_hash'])) {
+            rateLimitClear('login-attempt', $rateIdentifier);
             loginUser($user);
             header('Location: ' . $next);
             exit;
         } else {
+            rateLimitHit('login-attempt', $rateIdentifier, 900);
             $error = 'Invalid email or password. Please try again.';
         }
     }

@@ -41,15 +41,14 @@ jobs:
           php -l api/paypal-order.php
           php -l api/paypal-capture.php
 
-      - name: Deploy to Hostinger via FTP
+      - name: Deploy to Hostinger via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # Hostinger shared hosting often times out on FTPS control channel from GitHub runners.
-          # Use FTP on port 21 behind strong unique credentials.
-          protocol: ftp
+          # Switch to SFTP for encrypted transport and better deploy stability.
+          protocol: sftp
           port: ${{ secrets.HOSTINGER_FTP_PORT }}
           # This FTP user is chrooted to Hostinger web root already.
           # Using /public_html/ here creates public_html/public_html.
