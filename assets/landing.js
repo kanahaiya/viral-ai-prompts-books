@@ -221,6 +221,7 @@ function normalizeIndianPhoneNumber(rawPhoneNumber) {
 function getCheckoutData() {
   const nameElement = document.getElementById('buyerName');
   const emailElement = document.getElementById('buyerEmail');
+  const phoneElement = document.getElementById('buyerPhone');
 
   if (!nameElement || !emailElement) {
     showError('Checkout form is updating. Please refresh and try again.');
@@ -229,9 +230,10 @@ function getCheckoutData() {
 
   const name = nameElement.value.trim();
   const email = emailElement.value.trim();
+  const phone = normalizeIndianPhoneNumber(phoneElement ? phoneElement.value.trim() : '');
   if (!name) { showError('Please enter your name.'); return null; }
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return null; }
-  return { name, email };
+  return { name, email, phone };
 }
 
 function showError(msg) {
@@ -247,6 +249,10 @@ function showError(msg) {
 async function payWithCashfree() {
   const data = getCheckoutData();
   if (!data) return;
+  if (!data.phone) {
+    showError('Please enter a valid 10-digit phone number to use Cashfree.');
+    return;
+  }
 
   trackCheckoutEvent('AddPaymentInfo', currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1), {
     payment_gateway: 'cashfree'
@@ -393,7 +399,7 @@ async function verifyRazorpayOrder(paymentResponse) {
     body: JSON.stringify(paymentResponse)
   });
   const result = await res.json();
-  if (result.token) {
+  if (result.setup_url) {
     const metrics = getCheckoutMetrics(currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1));
     trackEvent('Purchase', {
       currency,
@@ -402,7 +408,7 @@ async function verifyRazorpayOrder(paymentResponse) {
       num_items: metrics.numItems,
       payment_method: 'razorpay'
     });
-    window.location.href = '/setup-account.php?token=' + result.token;
+    window.location.href = result.setup_url;
   } else {
     showError(result.error || 'Payment verification failed. Please contact support.');
   }
@@ -415,7 +421,7 @@ async function verifyCashfreeOrder(orderId) {
     body: JSON.stringify({ order_id: orderId })
   });
   const result = await res.json();
-  if (result.token) {
+  if (result.setup_url) {
     const metrics = getCheckoutMetrics(currentPlan || 'bundle', currentBookIds.length || (currentPlan === 'bundle' ? 11 : 1));
     trackEvent('Purchase', {
       currency,
@@ -429,7 +435,7 @@ async function verifyCashfreeOrder(orderId) {
       selected_count: currentBookIds.length,
       order_id: orderId
     });
-    window.location.href = '/setup-account.php?token=' + result.token;
+    window.location.href = result.setup_url;
   } else {
     trackCustomEvent('PaymentVerificationFailed', {
       plan: currentPlan || 'unknown',

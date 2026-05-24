@@ -15,11 +15,42 @@ function envOrDefault(string $name, string $default): string {
     return trim((string)$value);
 }
 
+/**
+ * Validate required production configuration values.
+ */
+function assertValidProductionValue(string $constantName, array $blockedValues = []): void {
+    if (!defined($constantName)) {
+        throw new RuntimeException('Missing required config constant: ' . $constantName);
+    }
+    $value = trim((string)constant($constantName));
+    if ($value === '') {
+        throw new RuntimeException('Empty required config constant: ' . $constantName);
+    }
+    foreach ($blockedValues as $blockedValue) {
+        if ($value === $blockedValue) {
+            throw new RuntimeException('Placeholder value detected for: ' . $constantName);
+        }
+    }
+}
+
+function assertDbNamePrefix(string $dbName, array $allowedPrefixes): void {
+    $normalizedDbName = trim($dbName);
+    foreach ($allowedPrefixes as $allowedPrefix) {
+        if (str_starts_with($normalizedDbName, $allowedPrefix)) {
+            return;
+        }
+    }
+    throw new RuntimeException('DB_NAME must start with one of: ' . implode(', ', $allowedPrefixes));
+}
+
 // ── Database (set in hosting env whenever possible) ──────────────────────────
 define('DB_HOST', envOrDefault('DB_HOST', 'localhost'));
 define('DB_NAME', envOrDefault('DB_NAME', 'your_db_name'));
 define('DB_USER', envOrDefault('DB_USER', 'your_db_user'));
 define('DB_PASS', envOrDefault('DB_PASS', 'your_db_password'));
+define('DB_NAMESPACE_PREFIX', 'u589539001_');
+define('DB_PRODUCTION_PREFIX', DB_NAMESPACE_PREFIX . 'prod_');
+define('DB_PRODUCTION_USER_PREFIX', DB_NAMESPACE_PREFIX . 'usr_prod_');
 
 // ── Site ──────────────────────────────────────────────────────────────────────
 define('SITE_URL',  envOrDefault('SITE_URL', 'https://www.aipromptbooks.in'));
@@ -72,3 +103,24 @@ define('COOKIE_LIFETIME', 60 * 60 * 24 * 30); // 30 days
 // ── Error reporting (production-safe defaults) ───────────────────────────────
 error_reporting(E_ALL);
 ini_set('display_errors', '0');
+
+try {
+    assertValidProductionValue('DB_HOST');
+    assertValidProductionValue('DB_NAME', ['your_db_name']);
+    assertDbNamePrefix(DB_NAME, [DB_PRODUCTION_PREFIX]);
+    assertValidProductionValue('DB_USER', ['your_db_user']);
+    assertDbNamePrefix(DB_USER, [DB_PRODUCTION_USER_PREFIX]);
+    assertValidProductionValue('DB_PASS', ['your_db_password']);
+    assertValidProductionValue('SITE_URL');
+    assertValidProductionValue('RAZORPAY_KEY_ID', ['rzp_live_XXXXXXXXXXXX', 'replace_with_razorpay_test_key_id']);
+    assertValidProductionValue('RAZORPAY_KEY_SECRET', ['XXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'replace_with_razorpay_test_key_secret']);
+    assertValidProductionValue('PAYPAL_CLIENT_ID', ['XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'sandbox_paypal_client_id']);
+    assertValidProductionValue('PAYPAL_CLIENT_SECRET', ['XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'sandbox_paypal_client_secret']);
+    assertValidProductionValue('BREVO_API_KEY', ['brevo_api_key_placeholder']);
+    assertValidProductionValue('ADMIN_USER', ['admin']);
+    assertValidProductionValue('ADMIN_PASS', ['change_this_password_now']);
+    define('PRODUCTION_CONFIG_VALID', true);
+} catch (Throwable $configValidationError) {
+    error_log('Production config validation failed: ' . $configValidationError->getMessage());
+    define('PRODUCTION_CONFIG_VALID', false);
+}

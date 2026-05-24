@@ -5,6 +5,7 @@ Use this checklist before launching `AI Prompt Books` to production.
 ## 1) Pre-Deploy Security
 
 - [ ] Set `APP_ENV=production` on the server (vhost/env config).
+- [ ] Confirm production startup fails fast when required secrets are missing (expected 500 guard).
 - [ ] Confirm `config.production.php` contains real production values:
   - [ ] MySQL DB credentials
   - [ ] Razorpay live key + secret
@@ -37,6 +38,7 @@ Use this checklist before launching `AI Prompt Books` to production.
 - [ ] Confirm tables exist: `users`, `payments`.
 - [ ] Confirm charset/collation is `utf8mb4`.
 - [ ] Confirm DB user has only required privileges.
+- [ ] Confirm `auth_rate_limits` table exists.
 
 ## 5) Payment Integration Checks
 
@@ -81,7 +83,9 @@ Use this checklist before launching `AI Prompt Books` to production.
 - [ ] Enable server-side error logging (file or centralized logs).
 - [ ] Disable verbose debug output in production.
 - [ ] Set up daily DB backups.
+- [ ] Run and document monthly backup restore drill.
 - [ ] Document rollback plan (last known-good deploy).
+- [ ] Verify rollback procedure by redeploying last-known-good commit in a dry run.
 - [ ] Keep a payment incident contact process (email/support).
 
 ## 9) Final Smoke Test (Live Domain)

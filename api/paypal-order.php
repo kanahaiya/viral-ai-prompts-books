@@ -21,6 +21,13 @@ $name   = trim($body['name']  ?? '');
 if (!in_array($plan, ['single', 'bundle'], true)) jsonResponse(['error' => 'Invalid plan'], 400);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))    jsonResponse(['error' => 'Invalid email'], 400);
 
+enforcePaymentRateLimit(
+    'payment_order_paypal',
+    getPaymentRateLimitIdentifier($email),
+    10,
+    300
+);
+
 $amount = ($plan === 'bundle') ? number_format(PRICE_BUNDLE_USD, 2, '.', '') : number_format(PRICE_SINGLE_USD, 2, '.', '');
 $desc   = ($plan === 'bundle') ? 'AI Prompt Books — Full Bundle (All 11 Books)' : 'AI Prompt Books — Single Book Access';
 
@@ -83,7 +90,7 @@ if ($httpCode !== 201 || empty($order['id'])) {
 
 // Store pending payment
 $db    = getDB();
-$token = generateToken(32);
+$tokenHash = hashSecurityToken(generateToken(32));
 $db->prepare('
     INSERT INTO payments (email, name, plan, book_id, amount, currency, payment_method, order_id, status, setup_token)
     VALUES (?, ?, ?, ?, ?, "USD", "paypal", ?, "created", ?)
@@ -92,7 +99,7 @@ $db->prepare('
     $plan === 'single' ? $bookId : null,
     $plan === 'bundle' ? PRICE_BUNDLE_USD : PRICE_SINGLE_USD,
     $order['id'],
-    $token,
+    $tokenHash,
 ]);
 
 jsonResponse(['id' => $order['id']]);

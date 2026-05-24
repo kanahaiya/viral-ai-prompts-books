@@ -3,13 +3,25 @@
 // auth.php  —  Shared helpers: DB, session, auth checks
 // ─────────────────────────────────────────────────────────────────────────────
 $appEnv = getenv('APP_ENV') ?: ($_SERVER['APP_ENV'] ?? '');
-$isProductionEnv = strtolower((string)$appEnv) === 'production';
+$normalizedEnv = strtolower(trim((string)$appEnv));
+$isProductionEnv = $normalizedEnv === 'production';
 $productionConfigPath = __DIR__ . '/config.production.php';
+$localConfigPath = __DIR__ . '/config.php';
 
-if ($isProductionEnv && file_exists($productionConfigPath)) {
+if ($isProductionEnv) {
+    if (!file_exists($productionConfigPath)) {
+        error_log('Production bootstrap failed: config.production.php missing.');
+        http_response_code(500);
+        exit('Server configuration error.');
+    }
     require_once $productionConfigPath;
+    if (!defined('PRODUCTION_CONFIG_VALID') || PRODUCTION_CONFIG_VALID !== true) {
+        error_log('Production bootstrap failed: production config validation did not pass.');
+        http_response_code(500);
+        exit('Server configuration error.');
+    }
 } else {
-    require_once __DIR__ . '/config.php';
+    require_once $localConfigPath;
 }
 
 // ── Start session once ────────────────────────────────────────────────────────
@@ -44,6 +56,8 @@ function getDB(): PDO {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
         ]);
+        // Keep all runtime DB timestamps consistent in UTC.
+        $pdo->exec("SET time_zone = '+00:00'");
     }
     return $pdo;
 }
@@ -66,12 +80,26 @@ function getCurrentUser(): ?array {
     $stmt = $db->prepare('SELECT * FROM users WHERE id = ? AND status = "active"');
     $stmt->execute([$_SESSION['user_id']]);
     $user = $stmt->fetch();
-    return $user ?: null;
+    if (!$user) {
+        return null;
+    }
+    if (array_key_exists('session_version', $user)) {
+        $currentSessionVersion = (int)$user['session_version'];
+        $storedSessionVersion = isset($_SESSION['user_session_version']) ? (int)$_SESSION['user_session_version'] : null;
+        if ($storedSessionVersion !== null && $storedSessionVersion !== $currentSessionVersion) {
+            return null;
+        }
+        if ($storedSessionVersion === null) {
+            $_SESSION['user_session_version'] = $currentSessionVersion;
+        }
+    }
+    return $user;
 }
 
 function loginUser(array $user): void {
     session_regenerate_id(true);
     $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_session_version'] = isset($user['session_version']) ? (int)$user['session_version'] : 1;
     // update last_login
     getDB()->prepare('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?')
            ->execute([$user['id']]);
@@ -82,6 +110,95 @@ function logoutUser(): void {
     session_destroy();
     session_start();
     session_regenerate_id(true);
+}
+
+function usersTableHasColumn(PDO $db, string $columnName): bool {
+    static $columnCache = [];
+    if (isset($columnCache[$columnName])) {
+        return $columnCache[$columnName];
+    }
+    try {
+        $stmt = $db->query("SHOW COLUMNS FROM users LIKE " . $db->quote($columnName));
+        $columnCache[$columnName] = $stmt !== false && (bool)$stmt->fetch();
+    } catch (Throwable $exception) {
+        $columnCache[$columnName] = false;
+    }
+    return $columnCache[$columnName];
+}
+
+function paymentsTableHasColumn(PDO $db, string $columnName): bool {
+    static $columnCache = [];
+    if (isset($columnCache[$columnName])) {
+        return $columnCache[$columnName];
+    }
+    try {
+        $stmt = $db->query("SHOW COLUMNS FROM payments LIKE " . $db->quote($columnName));
+        $columnCache[$columnName] = $stmt !== false && (bool)$stmt->fetch();
+    } catch (Throwable $exception) {
+        $columnCache[$columnName] = false;
+    }
+    return $columnCache[$columnName];
+}
+
+/**
+ * Record payment failure details for support/debug visibility.
+ */
+function recordPaymentFailure(string $paymentMethod, string $orderId, string $failureReason, string $gatewayStatus = ''): void {
+    $normalizedPaymentMethod = trim($paymentMethod);
+    $normalizedOrderId = trim($orderId);
+    if ($normalizedPaymentMethod === '' || $normalizedOrderId === '') {
+        return;
+    }
+    try {
+        $db = getDB();
+        if (!paymentsTableHasColumn($db, 'failed_at') || !paymentsTableHasColumn($db, 'failure_reason')) {
+            return;
+        }
+        $safeFailureReason = substr(trim($failureReason), 0, 255);
+        $safeGatewayStatus = paymentsTableHasColumn($db, 'gateway_status')
+            ? substr(trim($gatewayStatus), 0, 64)
+            : '';
+        $sql = '
+            UPDATE payments
+            SET status = "failed",
+                failed_at = CURRENT_TIMESTAMP,
+                failure_reason = ?
+        ';
+        $params = [$safeFailureReason];
+        if (paymentsTableHasColumn($db, 'gateway_status')) {
+            $sql .= ', gateway_status = ?';
+            $params[] = $safeGatewayStatus;
+        }
+        $sql .= '
+            WHERE payment_method = ?
+              AND order_id = ?
+              AND status = "created"
+        ';
+        $params[] = $normalizedPaymentMethod;
+        $params[] = $normalizedOrderId;
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
+    } catch (Throwable $exception) {
+        error_log('recordPaymentFailure skipped: ' . $exception->getMessage());
+    }
+}
+
+/**
+ * Convert a UTC datetime string to India time for UI/admin display.
+ */
+function formatUtcToIst(?string $utcDateTime, string $format = 'Y-m-d H:i:s'): string {
+    if (!is_string($utcDateTime) || trim($utcDateTime) === '') {
+        return '';
+    }
+    try {
+        $utc = new DateTimeZone('UTC');
+        $ist = new DateTimeZone('Asia/Kolkata');
+        $dateTime = new DateTime(trim($utcDateTime), $utc);
+        $dateTime->setTimezone($ist);
+        return $dateTime->format($format);
+    } catch (Throwable $exception) {
+        return '';
+    }
 }
 
 /**
@@ -226,12 +343,61 @@ function verifyCsrf(string $token): bool {
 }
 
 /**
- * Basic session-backed rate limiting for auth-sensitive actions.
- * This is intentionally lightweight and avoids extra DB tables.
+ * Resolve token hash for storage/lookup.
+ */
+function hashSecurityToken(string $rawToken): string {
+    return hash('sha256', $rawToken);
+}
+
+/**
+ * Create a short-lived setup claim in the current session.
+ */
+function setSetupClaimToken(string $setupToken): void {
+    $_SESSION['setup_claim_token'] = $setupToken;
+    $_SESSION['setup_claim_created_at'] = time();
+}
+
+function consumeSetupClaimToken(): ?string {
+    $token = $_SESSION['setup_claim_token'] ?? null;
+    $createdAt = (int)($_SESSION['setup_claim_created_at'] ?? 0);
+    unset($_SESSION['setup_claim_token'], $_SESSION['setup_claim_created_at']);
+    if (!is_string($token) || $token === '') {
+        return null;
+    }
+    if ($createdAt <= 0 || (time() - $createdAt) > 600) {
+        return null;
+    }
+    return $token;
+}
+
+/**
+ * DB-backed rate limiting for auth-sensitive actions.
  */
 function getClientIpAddress(): string {
     $remoteAddress = $_SERVER['REMOTE_ADDR'] ?? '';
     return is_string($remoteAddress) && $remoteAddress !== '' ? $remoteAddress : 'unknown';
+}
+
+function ensureRateLimitTable(PDO $db): void {
+    static $tableReady = false;
+    if ($tableReady) {
+        return;
+    }
+    $db->exec('
+        CREATE TABLE IF NOT EXISTS auth_rate_limits (
+            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+            bucket_key CHAR(64) NOT NULL,
+            action_key VARCHAR(64) NOT NULL,
+            identifier_hash CHAR(64) NOT NULL,
+            attempt_count INT UNSIGNED NOT NULL DEFAULT 0,
+            window_start INT UNSIGNED NOT NULL,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY uq_bucket_key (bucket_key),
+            KEY idx_updated_at (updated_at)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ');
+    $tableReady = true;
 }
 
 function rateLimitStatus(string $actionKey, string $identifier, int $maxAttempts, int $windowSeconds): array {
@@ -239,27 +405,28 @@ function rateLimitStatus(string $actionKey, string $identifier, int $maxAttempts
     $normalizedIdentifier = trim($identifier) !== '' ? trim($identifier) : 'global';
     $bucketKey = hash('sha256', $normalizedAction . '|' . $normalizedIdentifier);
     $now = time();
-
-    if (!isset($_SESSION['rate_limits']) || !is_array($_SESSION['rate_limits'])) {
-        $_SESSION['rate_limits'] = [];
-    }
-
-    $bucket = $_SESSION['rate_limits'][$bucketKey] ?? null;
-    if (!is_array($bucket)) {
+    try {
+        $db = getDB();
+        ensureRateLimitTable($db);
+        $stmt = $db->prepare('SELECT attempt_count, window_start FROM auth_rate_limits WHERE bucket_key = ? LIMIT 1');
+        $stmt->execute([$bucketKey]);
+        $bucket = $stmt->fetch();
+        if (!$bucket) {
+            return ['allowed' => true, 'retry_after_seconds' => 0];
+        }
+        $windowStart = (int)($bucket['window_start'] ?? 0);
+        $attemptCount = (int)($bucket['attempt_count'] ?? 0);
+        if ($windowStart <= 0 || ($now - $windowStart) >= $windowSeconds) {
+            return ['allowed' => true, 'retry_after_seconds' => 0];
+        }
+        if ($attemptCount >= $maxAttempts) {
+            $retryAfterSeconds = max(1, $windowSeconds - ($now - $windowStart));
+            return ['allowed' => false, 'retry_after_seconds' => $retryAfterSeconds];
+        }
+    } catch (Throwable $rateLimitError) {
+        error_log('rateLimitStatus fallback due to DB error: ' . $rateLimitError->getMessage());
         return ['allowed' => true, 'retry_after_seconds' => 0];
     }
-
-    $windowStart = (int)($bucket['window_start'] ?? 0);
-    $attemptCount = (int)($bucket['count'] ?? 0);
-    if ($windowStart <= 0 || ($now - $windowStart) >= $windowSeconds) {
-        return ['allowed' => true, 'retry_after_seconds' => 0];
-    }
-
-    if ($attemptCount >= $maxAttempts) {
-        $retryAfterSeconds = max(1, $windowSeconds - ($now - $windowStart));
-        return ['allowed' => false, 'retry_after_seconds' => $retryAfterSeconds];
-    }
-
     return ['allowed' => true, 'retry_after_seconds' => 0];
 }
 
@@ -268,42 +435,79 @@ function rateLimitHit(string $actionKey, string $identifier, int $windowSeconds)
     $normalizedIdentifier = trim($identifier) !== '' ? trim($identifier) : 'global';
     $bucketKey = hash('sha256', $normalizedAction . '|' . $normalizedIdentifier);
     $now = time();
-
-    if (!isset($_SESSION['rate_limits']) || !is_array($_SESSION['rate_limits'])) {
-        $_SESSION['rate_limits'] = [];
+    try {
+        $db = getDB();
+        ensureRateLimitTable($db);
+        $stmt = $db->prepare('SELECT attempt_count, window_start FROM auth_rate_limits WHERE bucket_key = ? LIMIT 1');
+        $stmt->execute([$bucketKey]);
+        $bucket = $stmt->fetch();
+        $identifierHash = hash('sha256', $normalizedIdentifier);
+        if (!$bucket) {
+            $insertStmt = $db->prepare('
+                INSERT INTO auth_rate_limits (bucket_key, action_key, identifier_hash, attempt_count, window_start)
+                VALUES (?, ?, ?, 1, ?)
+            ');
+            $insertStmt->execute([$bucketKey, $normalizedAction, $identifierHash, $now]);
+            return;
+        }
+        $windowStart = (int)($bucket['window_start'] ?? 0);
+        $attemptCount = (int)($bucket['attempt_count'] ?? 0);
+        if ($windowStart <= 0 || ($now - $windowStart) >= $windowSeconds) {
+            $resetStmt = $db->prepare('UPDATE auth_rate_limits SET attempt_count = 1, window_start = ? WHERE bucket_key = ?');
+            $resetStmt->execute([$now, $bucketKey]);
+            return;
+        }
+        $updateStmt = $db->prepare('UPDATE auth_rate_limits SET attempt_count = ? WHERE bucket_key = ?');
+        $updateStmt->execute([$attemptCount + 1, $bucketKey]);
+    } catch (Throwable $rateLimitError) {
+        error_log('rateLimitHit ignored due to DB error: ' . $rateLimitError->getMessage());
     }
-
-    $bucket = $_SESSION['rate_limits'][$bucketKey] ?? null;
-    if (!is_array($bucket)) {
-        $_SESSION['rate_limits'][$bucketKey] = [
-            'count' => 1,
-            'window_start' => $now,
-        ];
-        return;
-    }
-
-    $windowStart = (int)($bucket['window_start'] ?? 0);
-    if ($windowStart <= 0 || ($now - $windowStart) >= $windowSeconds) {
-        $_SESSION['rate_limits'][$bucketKey] = [
-            'count' => 1,
-            'window_start' => $now,
-        ];
-        return;
-    }
-
-    $_SESSION['rate_limits'][$bucketKey] = [
-        'count' => ((int)($bucket['count'] ?? 0)) + 1,
-        'window_start' => $windowStart,
-    ];
 }
 
 function rateLimitClear(string $actionKey, string $identifier): void {
     $normalizedAction = trim($actionKey) !== '' ? trim($actionKey) : 'default';
     $normalizedIdentifier = trim($identifier) !== '' ? trim($identifier) : 'global';
     $bucketKey = hash('sha256', $normalizedAction . '|' . $normalizedIdentifier);
-    if (isset($_SESSION['rate_limits']) && is_array($_SESSION['rate_limits'])) {
-        unset($_SESSION['rate_limits'][$bucketKey]);
+    try {
+        $db = getDB();
+        ensureRateLimitTable($db);
+        $deleteStmt = $db->prepare('DELETE FROM auth_rate_limits WHERE bucket_key = ?');
+        $deleteStmt->execute([$bucketKey]);
+    } catch (Throwable $rateLimitError) {
+        error_log('rateLimitClear ignored due to DB error: ' . $rateLimitError->getMessage());
     }
+}
+
+/**
+ * Build payment abuse-protection identifier from client and user context.
+ */
+function getPaymentRateLimitIdentifier(string $email = '', string $orderId = ''): string {
+    $parts = ['ip:' . getClientIpAddress()];
+    $normalizedEmail = strtolower(trim($email));
+    if ($normalizedEmail !== '') {
+        $parts[] = 'email:' . $normalizedEmail;
+    }
+    $normalizedOrderId = trim($orderId);
+    if ($normalizedOrderId !== '') {
+        $parts[] = 'order:' . $normalizedOrderId;
+    }
+    return implode('|', $parts);
+}
+
+/**
+ * Enforce payment endpoint rate limit and return JSON response on abuse.
+ */
+function enforcePaymentRateLimit(string $actionKey, string $identifier, int $maxAttempts, int $windowSeconds): void {
+    $status = rateLimitStatus($actionKey, $identifier, $maxAttempts, $windowSeconds);
+    if (!($status['allowed'] ?? true)) {
+        $retryAfterSeconds = (int)($status['retry_after_seconds'] ?? 60);
+        header('Retry-After: ' . $retryAfterSeconds);
+        jsonResponse([
+            'error' => 'Too many payment attempts. Please wait a moment and try again.',
+            'retry_after_seconds' => $retryAfterSeconds,
+        ], 429);
+    }
+    rateLimitHit($actionKey, $identifier, $windowSeconds);
 }
 
 // ── Meta Pixel helpers ────────────────────────────────────────────────────────

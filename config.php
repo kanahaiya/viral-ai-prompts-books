@@ -7,9 +7,23 @@
 // ── Database — SQLite for local dev (no MySQL needed) ─────────────────────────
 define('DB_DSN',  'sqlite:' . __DIR__ . '/local.db');
 define('DB_HOST', 'localhost');   // unused with SQLite
-define('DB_NAME', 'local');
-define('DB_USER', '');
+define('DB_NAME', 'u589539001_stage_aipromptbooks');
+define('DB_USER', 'u589539001_usr_stage_aipromptbooks');
 define('DB_PASS', '');
+define('DB_NAMESPACE_PREFIX', 'u589539001_');
+define('DB_STAGE_PREFIX', DB_NAMESPACE_PREFIX . 'stage_');
+define('DB_STAGE_USER_PREFIX', DB_NAMESPACE_PREFIX . 'usr_stage_');
+
+if (!defined('DB_DSN') || stripos((string)DB_DSN, 'sqlite:') !== 0) {
+    $isAllowedNonProductionDb = str_starts_with(DB_NAME, DB_STAGE_PREFIX);
+    if (!$isAllowedNonProductionDb) {
+        throw new RuntimeException('Non-production DB_NAME must start with ' . DB_STAGE_PREFIX);
+    }
+    $isAllowedNonProductionDbUser = str_starts_with(DB_USER, DB_STAGE_USER_PREFIX);
+    if (!$isAllowedNonProductionDbUser) {
+        throw new RuntimeException('Non-production DB_USER must start with ' . DB_STAGE_USER_PREFIX);
+    }
+}
 
 // ── Site ──────────────────────────────────────────────────────────────────────
 define('SITE_URL',  'http://localhost:8080');

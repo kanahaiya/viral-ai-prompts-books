@@ -48,6 +48,13 @@ if ($phone === '') {
     jsonResponse(['error' => 'Please enter a valid 10-digit phone number'], 400);
 }
 
+enforcePaymentRateLimit(
+    'payment_order_cashfree',
+    getPaymentRateLimitIdentifier($email),
+    10,
+    300
+);
+
 $amountInr = $plan === 'bundle'
     ? PRICE_BUNDLE_INR
     : (count($bookIds) * PRICE_SINGLE_INR);
@@ -108,7 +115,7 @@ if (($httpCode !== 200 && $httpCode !== 201) || empty($order['payment_session_id
 
 try {
     $db = getDB();
-    $token = generateToken(32);
+    $tokenHash = hashSecurityToken(generateToken(32));
     $bookIdsJson = $plan === 'single' ? json_encode($bookIds) : null;
 
     $paymentMethod = 'cashfree';
@@ -149,7 +156,7 @@ try {
             $amountInr,
             $paymentMethod,
             $order['order_id'],
-            $token,
+            $tokenHash,
         ]);
     } else {
         $stmt = $db->prepare('
@@ -164,7 +171,7 @@ try {
             $amountInr,
             $paymentMethod,
             $order['order_id'],
-            $token,
+            $tokenHash,
         ]);
     }
 } catch (Throwable $databaseError) {

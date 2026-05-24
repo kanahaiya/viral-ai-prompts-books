@@ -4,11 +4,13 @@
 // ─────────────────────────────────────────────────────────────────────────────
 require_once __DIR__ . '/auth.php';
 
-$token   = trim($_GET['token'] ?? $_POST['token'] ?? '');
+$sessionClaimToken = consumeSetupClaimToken();
+$token   = trim($_GET['token'] ?? $_POST['token'] ?? ($sessionClaimToken ?? ''));
+$tokenHash = $token !== '' ? hashSecurityToken($token) : '';
 $error   = '';
 $success = false;
 
-if (!$token || strlen($token) < 32) {
+if (!$token || strlen($token) < 32 || strlen($tokenHash) !== 64) {
     http_response_code(400);
     $error = 'Invalid or missing setup token.';
 }
@@ -22,9 +24,10 @@ if (!$error) {
         WHERE setup_token = ?
           AND setup_used = 0
           AND status = "completed"
-          AND created_at >= (NOW() - INTERVAL 24 HOUR)
+          AND completed_at IS NOT NULL
+          AND completed_at >= (NOW() - INTERVAL 24 HOUR)
     ');
-    $stmt->execute([$token]);
+    $stmt->execute([$tokenHash]);
     $payment = $stmt->fetch();
     if (!$payment) {
         $error = 'This setup link is invalid, expired, or already used. Please <a href="/login.php">log in</a> if your account already exists, or <a href="/recover-access.php">resend setup link</a>.';
@@ -78,11 +81,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
                 $mergedAccess = array_values(array_unique(array_map('intval', array_merge($existingAccess, $selectedBookIds))));
                 sort($mergedAccess);
 
-                $updateStmt = $db->prepare('
+                $userUpdateSql = '
                     UPDATE users
                     SET name = ?, password_hash = ?, plan = ?, books_access = ?, currency = ?, payment_method = ?, payment_id = ?, status = "active"
-                    WHERE email = ?
-                ');
+                ';
+                if (usersTableHasColumn($db, 'password_changed_at')) {
+                    $userUpdateSql .= ', password_changed_at = CURRENT_TIMESTAMP';
+                }
+                if (usersTableHasColumn($db, 'session_version')) {
+                    $userUpdateSql .= ', session_version = COALESCE(session_version, 1) + 1';
+                }
+                $userUpdateSql .= ' WHERE email = ?';
+                $updateStmt = $db->prepare($userUpdateSql);
                 $updateStmt->execute([
                     $name,
                     $passwordHash,
@@ -94,11 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
                     $email,
                 ]);
             } else {
-                $insertStmt = $db->prepare('
-                    INSERT INTO users (email, name, password_hash, plan, books_access, currency, payment_method, payment_id, status)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, "active")
-                ');
-                $insertStmt->execute([
+                $insertColumns = ['email', 'name', 'password_hash', 'plan', 'books_access', 'currency', 'payment_method', 'payment_id', 'status'];
+                $insertValues = ['?', '?', '?', '?', '?', '?', '?', '?', '"active"'];
+                $insertParams = [
                     $email,
                     $name,
                     $passwordHash,
@@ -107,11 +115,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
                     $payment['currency'],
                     $payment['payment_method'],
                     $payment['payment_id'],
-                ]);
+                ];
+                if (usersTableHasColumn($db, 'session_version')) {
+                    $insertColumns[] = 'session_version';
+                    $insertValues[] = '1';
+                }
+                if (usersTableHasColumn($db, 'password_changed_at')) {
+                    $insertColumns[] = 'password_changed_at';
+                    $insertValues[] = 'CURRENT_TIMESTAMP';
+                }
+                $insertStmt = $db->prepare(
+                    'INSERT INTO users (' . implode(', ', $insertColumns) . ') VALUES (' . implode(', ', $insertValues) . ')'
+                );
+                $insertStmt->execute($insertParams);
             }
 
             // Mark token as used
-            $db->prepare('UPDATE payments SET setup_used = 1 WHERE setup_token = ?')->execute([$token]);
+            $db->prepare('UPDATE payments SET setup_used = 1 WHERE setup_token = ?')->execute([$tokenHash]);
             $db->commit();
 
             header('Location: /login.php?setup=success');

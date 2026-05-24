@@ -35,6 +35,13 @@ if ($plan === 'single') {
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))            jsonResponse(['error' => 'Invalid email'], 400);
 
+enforcePaymentRateLimit(
+    'payment_order_razorpay',
+    getPaymentRateLimitIdentifier($email),
+    10,
+    300
+);
+
 $amountPaise = ($plan === 'bundle')
     ? PRICE_BUNDLE_INR * 100
     : (count($bookIds) * PRICE_SINGLE_INR * 100);
@@ -90,7 +97,7 @@ if ($httpCode !== 200 || empty($order['id'])) {
 // Store pending payment in DB
 try {
     $db   = getDB();
-    $token = generateToken(32);
+    $tokenHash = hashSecurityToken(generateToken(32));
     $bookIdsJson = $plan === 'single' ? json_encode($bookIds) : null;
 
     $hasBookIdsJsonColumn = false;
@@ -116,7 +123,7 @@ try {
             $bookIdsJson,
             $plan === 'bundle' ? PRICE_BUNDLE_INR : (count($bookIds) * PRICE_SINGLE_INR),
             $order['id'],
-            $token,
+            $tokenHash,
         ]);
     } else {
         $stmt = $db->prepare('
@@ -130,7 +137,7 @@ try {
             $plan === 'single' && count($bookIds) === 1 ? $bookIds[0] : null,
             $plan === 'bundle' ? PRICE_BUNDLE_INR : PRICE_SINGLE_INR,
             $order['id'],
-            $token,
+            $tokenHash,
         ]);
     }
 } catch (Throwable $databaseError) {

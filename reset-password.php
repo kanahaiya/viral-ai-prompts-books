@@ -23,10 +23,11 @@ function ensurePasswordResetTable(PDO $db): void
 }
 
 $token = trim($_GET['token'] ?? $_POST['token'] ?? '');
+$tokenHash = $token !== '' ? hashSecurityToken($token) : '';
 $statusMessage = '';
 $isError = false;
 
-if (!$token || strlen($token) < 32) {
+if (!$token || strlen($token) < 32 || strlen($tokenHash) !== 64) {
     $statusMessage = 'Invalid or missing reset token.';
     $isError = true;
 }
@@ -45,7 +46,7 @@ if (!$isError) {
             ORDER BY id DESC
             LIMIT 1
         ');
-        $stmt->execute([$token]);
+        $stmt->execute([$tokenHash]);
         $resetRow = $stmt->fetch();
         if (!$resetRow) {
             $statusMessage = 'This reset link is invalid or expired. Please request a new one.';
@@ -84,7 +85,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isError && $resetRow) {
         try {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             $db->beginTransaction();
-            $updateUserStmt = $db->prepare('UPDATE users SET password_hash = ? WHERE email = ?');
+            $passwordUpdateSql = 'UPDATE users SET password_hash = ?';
+            if (usersTableHasColumn($db, 'password_changed_at')) {
+                $passwordUpdateSql .= ', password_changed_at = CURRENT_TIMESTAMP';
+            }
+            if (usersTableHasColumn($db, 'session_version')) {
+                $passwordUpdateSql .= ', session_version = session_version + 1';
+            }
+            $passwordUpdateSql .= ' WHERE email = ?';
+            $updateUserStmt = $db->prepare($passwordUpdateSql);
             $updateUserStmt->execute([$passwordHash, $resetRow['email']]);
             $markUsedStmt = $db->prepare('UPDATE password_resets SET used = 1 WHERE email = ?');
             $markUsedStmt->execute([$resetRow['email']]);

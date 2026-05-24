@@ -19,14 +19,22 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `payment_id`     VARCHAR(255)    DEFAULT NULL,    -- razorpay payment_id / cashfree cf_order_id / paypal capture id
   `order_id`       VARCHAR(255)    DEFAULT NULL,    -- razorpay order_id / cashfree order_id / paypal order id
   `status`         ENUM('created','completed','failed') NOT NULL DEFAULT 'created',
-  `setup_token`    CHAR(64)        DEFAULT NULL,    -- one-time token sent to setup-account.php
+  `setup_token`    CHAR(64)        DEFAULT NULL,    -- sha256(one-time setup token)
   `setup_used`     TINYINT(1)      NOT NULL DEFAULT 0,
+  `completed_at`   TIMESTAMP       NULL DEFAULT NULL,
+  `failed_at`      TIMESTAMP       NULL DEFAULT NULL,
+  `failure_reason` VARCHAR(255)    DEFAULT NULL,
+  `gateway_status` VARCHAR(64)     DEFAULT NULL,
+  `updated_at`     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at`     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_email`       (`email`),
-  KEY `idx_order_id`    (`order_id`),
-  KEY `idx_payment_id`  (`payment_id`),
-  KEY `idx_setup_token` (`setup_token`)
+  KEY `idx_email_created` (`email`, `created_at`),
+  KEY `idx_status_created` (`status`, `created_at`),
+  KEY `idx_payment_lookup` (`setup_token`, `setup_used`, `status`, `completed_at`),
+  UNIQUE KEY `uq_provider_order` (`payment_method`, `order_id`),
+  UNIQUE KEY `uq_provider_payment` (`payment_method`, `payment_id`),
+  UNIQUE KEY `uq_setup_token` (`setup_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ── Users table ───────────────────────────────────────────────────────────────
@@ -40,23 +48,43 @@ CREATE TABLE IF NOT EXISTS `users` (
   `currency`       ENUM('INR','USD') NOT NULL,
   `payment_method` ENUM('razorpay','cashfree','paypal') NOT NULL,
   `payment_id`     VARCHAR(255)    DEFAULT NULL,
+  `session_version` INT UNSIGNED   NOT NULL DEFAULT 1,
+  `password_changed_at` TIMESTAMP  NULL DEFAULT NULL,
   `status`         ENUM('active','suspended') NOT NULL DEFAULT 'active',
   `last_login`     TIMESTAMP       NULL DEFAULT NULL,
+  `updated_at`     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_at`     TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_email` (`email`)
+  UNIQUE KEY `uq_email` (`email`),
+  KEY `idx_status_created` (`status`, `created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ── Password reset tokens ─────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `email`      VARCHAR(255) NOT NULL,
-  `token`      CHAR(64)     NOT NULL,
+  `token`      CHAR(64)     NOT NULL,               -- sha256(reset token)
   `used`       TINYINT(1)   NOT NULL DEFAULT 0,
   `created_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_email` (`email`),
-  KEY `idx_token` (`token`)
+  KEY `idx_token` (`token`),
+  KEY `idx_email_used_created` (`email`, `used`, `created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ── Auth rate limits (DB-backed anti-abuse) ──────────────────────────────────
+CREATE TABLE IF NOT EXISTS `auth_rate_limits` (
+  `id`              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `bucket_key`      CHAR(64)        NOT NULL,
+  `action_key`      VARCHAR(64)     NOT NULL,
+  `identifier_hash` CHAR(64)        NOT NULL,
+  `attempt_count`   INT UNSIGNED    NOT NULL DEFAULT 0,
+  `window_start`    INT UNSIGNED    NOT NULL,
+  `updated_at`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_bucket_key` (`bucket_key`),
+  KEY `idx_updated_at` (`updated_at`),
+  KEY `idx_action_updated` (`action_key`, `updated_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ── Sample view: admin overview ───────────────────────────────────────────────

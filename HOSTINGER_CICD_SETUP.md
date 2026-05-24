@@ -1,6 +1,6 @@
 # Hostinger CI/CD Setup (GitHub Actions)
 
-This project deploys automatically to Hostinger whenever commits are pushed to `main`.
+This project deploys automatically to Hostinger over SFTP whenever commits are pushed to `main`.
 
 ## 1) Workflow location
 
@@ -18,31 +18,38 @@ In GitHub:
 1. Open repository -> Settings -> Secrets and variables -> Actions.
 2. Add these secrets:
 
-- `HOSTINGER_FTP_SERVER` (for example: `ftp.yourdomain.com`)
-- `HOSTINGER_FTP_USERNAME`
-- `HOSTINGER_FTP_PASSWORD`
-- `HOSTINGER_FTP_PORT` (usually `21` for FTPS on Hostinger shared hosting)
+- `HOSTINGER_SFTP_SERVER` (for example: `147.93.17.220`)
+- `HOSTINGER_SFTP_USERNAME`
+- `HOSTINGER_SFTP_PASSWORD`
+- `HOSTINGER_SFTP_PORT` (from hPanel SSH Access, often a custom port like `65002`)
+- `HOSTINGER_SFTP_REMOTE_DIR` (for example: `domains/aipromptbooks.in/public_html`)
+- Optional: `SITE_SMOKE_URL` (defaults to `https://www.aipromptbooks.in`)
 
-## 3) Hostinger FTP values source
+Backward compatibility:
+- Existing `HOSTINGER_FTP_*` secrets still work as fallback, but new setup should use `HOSTINGER_SFTP_*`.
+
+## 3) Hostinger SFTP values source
 
 In Hostinger hPanel:
 
 1. Websites -> Manage (`aipromptbooks.in`)
-2. Files -> FTP Accounts
-3. Copy server host, username, password, and port
-
-Current workflow uses FTP on port 21 for compatibility with Hostinger shared hosting.
-If your Hostinger account supports stable FTPS from GitHub runners, you can switch protocol later.
+2. Advanced -> SSH Access
+3. Copy host/IP, username, password, and SSH port
+4. Set `HOSTINGER_SFTP_REMOTE_DIR` to your writable web root (usually `domains/aipromptbooks.in/public_html`)
 
 ## 4) Branch strategy
 
 - Work in feature/stage branches.
 - Merge to `main` only when production-ready.
-- Every push to `main` deploys automatically to FTP root `/` (this Hostinger FTP user is already chrooted to web root).
+- Every push to `main` deploys automatically to `HOSTINGER_SFTP_REMOTE_DIR`.
 
 ## 5) Safety checks included
 
-Before deploy, the workflow runs PHP syntax checks for core app files and API handlers.
+Before deploy, the workflow runs:
+- repository-wide PHP syntax lint
+- SFTP connectivity preflight
+- deploy to configured remote dir
+- post-deploy smoke checks (`/`, `/login.php`, API non-500, canonical redirect)
 
 ## 6) What is intentionally excluded from deployment
 

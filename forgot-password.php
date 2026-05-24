@@ -84,8 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user) {
                 ensurePasswordResetTable($db);
                 $token = generateToken(32);
+                $tokenHash = hashSecurityToken($token);
                 $insertStmt = $db->prepare('INSERT INTO password_resets (email, token, used) VALUES (?, ?, 0)');
-                $insertStmt->execute([$email, $token]);
+                $insertStmt->execute([$email, $tokenHash]);
                 $resetUrl = rtrim(SITE_URL, '/') . '/reset-password.php?token=' . urlencode($token);
                 sendBrevoEmail($email, 'Reset your AI Prompt Books password', "Hi,\n\nUse this link to reset your password:\n{$resetUrl}\n\nThis link expires after 2 hours.\n\n- AI Prompt Books");
             }

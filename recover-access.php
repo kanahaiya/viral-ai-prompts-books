@@ -115,8 +115,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($existingUser) {
                 ensurePasswordResetTable($db);
                 $resetToken = generateToken(32);
+                $resetTokenHash = hashSecurityToken($resetToken);
                 $insertResetStmt = $db->prepare('INSERT INTO password_resets (email, token, used) VALUES (?, ?, 0)');
-                $insertResetStmt->execute([$email, $resetToken]);
+                $insertResetStmt->execute([$email, $resetTokenHash]);
 
                 $resetUrl = rtrim(SITE_URL, '/') . '/reset-password.php?token=' . urlencode($resetToken);
                 $isMailSent = sendBrevoEmail(
@@ -147,8 +148,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($payment) {
                     $newToken = generateToken(32);
+                    $newTokenHash = hashSecurityToken($newToken);
                     $updateStmt = $db->prepare('UPDATE payments SET setup_token = ? WHERE id = ?');
-                    $updateStmt->execute([$newToken, $payment['id']]);
+                    $updateStmt->execute([$newTokenHash, $payment['id']]);
 
                     $setupUrl = rtrim(SITE_URL, '/') . '/setup-account.php?token=' . urlencode($newToken);
                     $isMailSent = sendBrevoEmail(

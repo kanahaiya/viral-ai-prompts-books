@@ -13,7 +13,7 @@ Run these in order:
 3. Start checkout from landing page and confirm:
    - order create succeeds
    - Razorpay checkout opens
-   - verification returns setup token
+   - verification redirects to setup page
 4. Complete account setup and confirm:
    - password set succeeds
    - login works
@@ -48,6 +48,23 @@ Run these in order:
    - Cloudflare
    - Razorpay
    - PayPal
+
+## E) Backup and restore drill
+
+1. Verify automated daily database backup is enabled.
+2. Create an on-demand database export before any major deploy.
+3. Run a restore drill at least once per month:
+   - restore latest backup into a staging/test database
+   - confirm login + payment tables are readable
+4. Record drill date and outcome in ops notes.
+
+## F) Rollback procedure (deployment incident)
+
+1. Identify last known good release commit/tag.
+2. Re-run deployment workflow for that commit.
+3. Verify smoke checks pass (`/`, `/login.php`, payment API non-500).
+4. If data issue is involved, restore DB snapshot taken before bad deploy.
+5. Confirm app access and payment verification path before closing incident.
 
 ## D) Go/No-Go gate
 

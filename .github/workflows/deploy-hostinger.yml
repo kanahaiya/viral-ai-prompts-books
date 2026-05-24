@@ -25,41 +25,60 @@ jobs:
 
       - name: Lint PHP files
         run: |
-          php -l auth.php
-          php -l index.php
-          php -l config.php
-          php -l config.production.php
-          php -l login.php
-          php -l setup-account.php
-          php -l dashboard.php
-          php -l book.php
-          php -l admin/index.php
-          php -l api/razorpay-order.php
-          php -l api/razorpay-verify.php
-          php -l api/cashfree-order.php
-          php -l api/cashfree-verify.php
-          php -l api/paypal-order.php
-          php -l api/paypal-capture.php
+          set -e
+          while IFS= read -r php_file; do
+            php -l "$php_file"
+          done < <(git ls-files '*.php')
 
       - name: Install lftp for SFTP deploy
         run: sudo apt-get update && sudo apt-get install -y lftp openssh-client
 
+      - name: Validate deploy secrets
+        env:
+          HOSTINGER_SFTP_SERVER: ${{ secrets.HOSTINGER_SFTP_SERVER }}
+          HOSTINGER_SFTP_USERNAME: ${{ secrets.HOSTINGER_SFTP_USERNAME }}
+          HOSTINGER_SFTP_PASSWORD: ${{ secrets.HOSTINGER_SFTP_PASSWORD }}
+          HOSTINGER_SFTP_PORT: ${{ secrets.HOSTINGER_SFTP_PORT }}
+          HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
+        run: |
+          SERVER="${HOSTINGER_SFTP_SERVER:-$HOSTINGER_FTP_SERVER}"
+          USERNAME="${HOSTINGER_SFTP_USERNAME:-$HOSTINGER_FTP_USERNAME}"
+          PASSWORD="${HOSTINGER_SFTP_PASSWORD:-$HOSTINGER_FTP_PASSWORD}"
+          PORT="${HOSTINGER_SFTP_PORT:-$HOSTINGER_FTP_PORT}"
+          test -n "$SERVER"
+          test -n "$USERNAME"
+          test -n "$PASSWORD"
+          test -n "$PORT"
+
       - name: Validate SFTP connectivity
         env:
-          HOSTINGER_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          HOSTINGER_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
+          HOSTINGER_SERVER: ${{ secrets.HOSTINGER_SFTP_SERVER }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_SFTP_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_SFTP_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_SFTP_PORT }}
+          HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
           HOSTINGER_REMOTE_DIR: ${{ secrets.HOSTINGER_SFTP_REMOTE_DIR }}
         run: |
+          HOSTINGER_SERVER="${HOSTINGER_SERVER:-$HOSTINGER_FTP_SERVER}"
+          HOSTINGER_USERNAME="${HOSTINGER_USERNAME:-$HOSTINGER_FTP_USERNAME}"
+          HOSTINGER_PASSWORD="${HOSTINGER_PASSWORD:-$HOSTINGER_FTP_PASSWORD}"
+          HOSTINGER_PORT="${HOSTINGER_PORT:-$HOSTINGER_FTP_PORT}"
           REMOTE_DIR="${HOSTINGER_REMOTE_DIR:-domains/aipromptbooks.in/public_html}"
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "$HOSTINGER_PORT" -H "$HOSTINGER_SERVER" >> ~/.ssh/known_hosts 2>/dev/null
           echo "Checking SFTP TCP connectivity to ${HOSTINGER_SERVER}:${HOSTINGER_PORT}"
           if ! nc -zvw10 "$HOSTINGER_SERVER" "$HOSTINGER_PORT"; then
             echo "TCP probe timed out/blocked; continuing to lftp auth check."
           fi
           lftp -d -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
             set cmd:fail-exit true;
-            set sftp:auto-confirm yes;
+            set sftp:auto-confirm no;
             set net:max-retries 1;
             set net:timeout 20;
             pwd;
@@ -70,17 +89,27 @@ jobs:
 
       - name: Deploy to Hostinger via SFTP
         env:
-          HOSTINGER_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          HOSTINGER_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
+          HOSTINGER_SERVER: ${{ secrets.HOSTINGER_SFTP_SERVER }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_SFTP_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_SFTP_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_SFTP_PORT }}
+          HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
           HOSTINGER_REMOTE_DIR: ${{ secrets.HOSTINGER_SFTP_REMOTE_DIR }}
         run: |
+          HOSTINGER_SERVER="${HOSTINGER_SERVER:-$HOSTINGER_FTP_SERVER}"
+          HOSTINGER_USERNAME="${HOSTINGER_USERNAME:-$HOSTINGER_FTP_USERNAME}"
+          HOSTINGER_PASSWORD="${HOSTINGER_PASSWORD:-$HOSTINGER_FTP_PASSWORD}"
+          HOSTINGER_PORT="${HOSTINGER_PORT:-$HOSTINGER_FTP_PORT}"
           REMOTE_DIR="${HOSTINGER_REMOTE_DIR:-domains/aipromptbooks.in/public_html}"
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "$HOSTINGER_PORT" -H "$HOSTINGER_SERVER" >> ~/.ssh/known_hosts 2>/dev/null
           echo "Deploying to remote dir: ${REMOTE_DIR}"
           lftp -d -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
             set cmd:fail-exit true;
-            set sftp:auto-confirm yes;
+            set sftp:auto-confirm no;
             set net:max-retries 1;
             set net:timeout 20;
             cd ${REMOTE_DIR};
@@ -103,4 +132,17 @@ jobs:
               . .;
             quit
           "
+
+      - name: Post-deploy smoke checks
+        env:
+          SITE_SMOKE_URL: ${{ secrets.SITE_SMOKE_URL }}
+        run: |
+          set -e
+          BASE_URL="${SITE_SMOKE_URL:-https://www.aipromptbooks.in}"
+          echo "Running smoke checks against ${BASE_URL}"
+          curl -fsSL --max-time 20 "${BASE_URL}/" > /dev/null
+          curl -fsSL --max-time 20 "${BASE_URL}/login.php" > /dev/null
+          curl -fsSL --max-time 20 "${BASE_URL}/health-live.php" > /dev/null
+          curl -fsSL --max-time 20 "${BASE_URL}/health-ready.php" > /dev/null
+          curl -fsSLI --max-time 20 "http://aipromptbooks.in" | grep -Eiq 'location: https://www\.aipromptbooks\.in'
 
