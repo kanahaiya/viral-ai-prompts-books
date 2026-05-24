@@ -83,20 +83,19 @@ jobs:
             set net:timeout 20;
             cd ${REMOTE_DIR};
             mirror --reverse --only-newer --verbose --no-perms \
-              -X .git\* \
-              -X .github/\* \
-              -X .cursor/\* \
-              -X node_modules/\* \
-              -X .env\* \
-              -X config.production.php \
-              -X local.db \
-              -X db.sql \
-              -X setup-local.php \
-              -X .ftp-deploy-sync-state.json \
-              -X .ftp-deploy-sync-state\* \
-              -X \*.md \
-              -X \*.plan.md \
-              -X .DS_Store \
+              -x '(^|/)\.git(/|$)' \
+              -x '(^|/)\.github(/|$)' \
+              -x '(^|/)\.cursor(/|$)' \
+              -x '(^|/)node_modules(/|$)' \
+              -x '(^|/)\.env[^/]*$' \
+              -x '(^|/)config\.production\.php$' \
+              -x '(^|/)local\.db$' \
+              -x '(^|/)db\.sql$' \
+              -x '(^|/)setup-local\.php$' \
+              -x '(^|/)\.ftp-deploy-sync-state[^/]*$' \
+              -x '(^|/)[^/]*\.md$' \
+              -x '(^|/)[^/]*\.plan\.md$' \
+              -x '(^|/)\.DS_Store$' \
               . .;
             quit
           "
