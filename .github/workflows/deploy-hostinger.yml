@@ -54,7 +54,9 @@ jobs:
         run: |
           REMOTE_DIR="${HOSTINGER_REMOTE_DIR:-domains/aipromptbooks.in/public_html}"
           echo "Checking SFTP TCP connectivity to ${HOSTINGER_SERVER}:${HOSTINGER_PORT}"
-          nc -zvw10 "$HOSTINGER_SERVER" "$HOSTINGER_PORT"
+          if ! nc -zvw10 "$HOSTINGER_SERVER" "$HOSTINGER_PORT"; then
+            echo "TCP probe timed out/blocked; continuing to lftp auth check."
+          fi
           lftp -d -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
             set cmd:fail-exit true;
             set sftp:auto-confirm yes;
