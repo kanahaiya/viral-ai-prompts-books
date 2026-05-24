@@ -5,6 +5,9 @@ const RAZORPAY_CHECKOUT_SRC = 'https://checkout.razorpay.com/v1/checkout.js';
 const CASHFREE_CHECKOUT_SRC = 'https://sdk.cashfree.com/js/v3/cashfree.js';
 let razorpayLoaderPromise = null;
 let cashfreeLoaderPromise = null;
+const SCROLL_DEPTH_MILESTONES = [25, 50, 75, 90];
+const ENGAGEMENT_TIME_CHECKPOINTS_SECONDS = [15, 30, 60, 120];
+let hasTrackedCheckoutFormStart = false;
 
 function trackEvent(eventName, params = {}) {
   if (typeof window.pixelTrack === 'function') {
@@ -22,6 +25,71 @@ function trackCustomEvent(eventName, params = {}) {
   }
   if (typeof window.fbq !== 'function') return;
   window.fbq('trackCustom', eventName, params);
+}
+
+function getSessionAttributionParams() {
+  const queryParams = new URLSearchParams(window.location.search);
+  const readParam = (key) => queryParams.get(key) || '';
+  return {
+    landing_path: window.location.pathname,
+    landing_referrer: document.referrer || 'direct',
+    utm_source: readParam('utm_source'),
+    utm_medium: readParam('utm_medium'),
+    utm_campaign: readParam('utm_campaign'),
+    utm_term: readParam('utm_term'),
+    utm_content: readParam('utm_content')
+  };
+}
+
+function initSessionAttributionTracking() {
+  trackCustomEvent('LandingSessionStarted', getSessionAttributionParams());
+}
+
+function initScrollDepthTracking() {
+  const firedMilestones = new Set();
+
+  function evaluateScrollDepth() {
+    const doc = document.documentElement;
+    const maxScrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const percent = Math.min(100, Math.round((window.scrollY / maxScrollable) * 100));
+
+    SCROLL_DEPTH_MILESTONES.forEach((milestone) => {
+      if (percent >= milestone && !firedMilestones.has(milestone)) {
+        firedMilestones.add(milestone);
+        trackCustomEvent('ScrollDepthReached', { depth_percent: milestone });
+      }
+    });
+  }
+
+  window.addEventListener('scroll', evaluateScrollDepth, { passive: true });
+  evaluateScrollDepth();
+}
+
+function initTimeOnPageTracking() {
+  ENGAGEMENT_TIME_CHECKPOINTS_SECONDS.forEach((seconds) => {
+    window.setTimeout(() => {
+      trackCustomEvent('TimeOnPageCheckpoint', { seconds });
+    }, seconds * 1000);
+  });
+}
+
+function initCheckoutFormIntentTracking() {
+  const nameElement = document.getElementById('buyerName');
+  const emailElement = document.getElementById('buyerEmail');
+  if (!nameElement && !emailElement) return;
+
+  function trackFormStart(fieldName) {
+    if (hasTrackedCheckoutFormStart) return;
+    hasTrackedCheckoutFormStart = true;
+    trackCustomEvent('CheckoutFormStarted', { first_field: fieldName });
+  }
+
+  if (nameElement) {
+    nameElement.addEventListener('focus', () => trackFormStart('name'), { once: true });
+  }
+  if (emailElement) {
+    emailElement.addEventListener('focus', () => trackFormStart('email'), { once: true });
+  }
 }
 
 function getCheckoutMetrics(plan, selectedCount = 0) {
@@ -106,7 +174,6 @@ function startCheckout(plan) {
     document.body.style.overflow = 'hidden';
     trackCustomEvent('BookModalOpened', { source: 'start-checkout' });
   } else {
-    trackCheckoutEvent('InitiateCheckout', 'bundle', 11, { source: 'bundle-cta' });
     proceedCheckout('bundle', null);
   }
 }
@@ -182,12 +249,17 @@ function proceedCheckout(plan, bookId, bookIds = null) {
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
 
-  if (plan === 'single') {
-    trackCheckoutEvent('InitiateCheckout', 'single', selectedCount, {
-      selected_books: currentBookIds.join(','),
-      source: 'book-modal'
-    });
-  }
+  trackCheckoutEvent('InitiateCheckout', plan, plan === 'bundle' ? 11 : selectedCount, {
+    selected_books: plan === 'single' ? currentBookIds.join(',') : '',
+    source: plan === 'bundle' ? 'bundle-cta' : 'book-modal'
+  });
+  trackEvent('AddToCart', {
+    currency,
+    value: totalInr,
+    num_items: plan === 'bundle' ? 11 : selectedCount,
+    content_name: plan === 'bundle' ? 'Full System' : `Selected Books (${selectedCount})`,
+    content_type: 'product_group'
+  });
   trackCustomEvent('CheckoutModalOpened', {
     plan,
     selected_count: selectedCount,
@@ -370,10 +442,23 @@ async function payWithRazorpay() {
       theme: { color: '#d4a836' },
       handler: async function(response) {
         await verifyRazorpayOrder(response);
+      },
+      modal: {
+        ondismiss: function() {
+          trackCustomEvent('PaymentPopupDismissed', {
+            plan: currentPlan || 'unknown',
+            selected_count: currentBookIds.length
+          });
+        }
       }
     };
 
     const razorpayInstance = new window.Razorpay(options);
+    trackCustomEvent('PaymentPopupOpened', {
+      payment_gateway: 'razorpay',
+      plan: currentPlan || 'unknown',
+      selected_count: currentBookIds.length
+    });
     razorpayInstance.on('payment.failed', function() {
       showError('Payment was cancelled or failed.');
     });
@@ -442,6 +527,9 @@ async function verifyCashfreeOrder(orderId) {
 document.querySelectorAll('.faq-q').forEach((q) => {
   q.addEventListener('click', () => {
     q.closest('.faq-item').classList.toggle('open');
+    trackCustomEvent('FaqToggled', {
+      question: (q.textContent || '').trim().slice(0, 80)
+    });
   });
 });
 
@@ -605,7 +693,11 @@ function initStickyCta() {
 }
 
 function initNonCriticalFeatures() {
+  initSessionAttributionTracking();
   initFunnelTracking();
+  initScrollDepthTracking();
+  initTimeOnPageTracking();
+  initCheckoutFormIntentTracking();
   initCountdown();
   initActivityTicker();
   initStickyCta();
