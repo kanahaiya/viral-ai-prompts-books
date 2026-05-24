@@ -50,7 +50,9 @@ jobs:
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
+          HOSTINGER_REMOTE_DIR: ${{ secrets.HOSTINGER_SFTP_REMOTE_DIR }}
         run: |
+          REMOTE_DIR="${HOSTINGER_REMOTE_DIR:-domains/aipromptbooks.in/public_html}"
           echo "Checking SFTP TCP connectivity to ${HOSTINGER_SERVER}:${HOSTINGER_PORT}"
           nc -zvw10 "$HOSTINGER_SERVER" "$HOSTINGER_PORT"
           lftp -d -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
@@ -58,7 +60,9 @@ jobs:
             set sftp:auto-confirm yes;
             set net:max-retries 1;
             set net:timeout 20;
+            pwd;
             ls;
+            cls -1 ${REMOTE_DIR};
             quit
           "
 
@@ -68,28 +72,18 @@ jobs:
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
+          HOSTINGER_REMOTE_DIR: ${{ secrets.HOSTINGER_SFTP_REMOTE_DIR }}
         run: |
+          REMOTE_DIR="${HOSTINGER_REMOTE_DIR:-domains/aipromptbooks.in/public_html}"
           lftp -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
             set cmd:fail-exit true;
             set sftp:auto-confirm yes;
             set net:max-retries 1;
             set net:timeout 20;
-            mirror --reverse --only-newer --verbose \
-              --exclude-glob .git\* \
-              --exclude-glob .github/\* \
-              --exclude-glob .cursor/\* \
-              --exclude-glob node_modules/\* \
-              --exclude-glob .env\* \
-              --exclude-glob config.production.php \
-              --exclude-glob local.db \
-              --exclude-glob db.sql \
-              --exclude-glob setup-local.php \
-              --exclude-glob .ftp-deploy-sync-state.json \
-              --exclude-glob .ftp-deploy-sync-state\* \
-              --exclude-glob \*.md \
-              --exclude-glob \*.plan.md \
-              --exclude-glob .DS_Store \
-              . /;
+            mkdir -p ${REMOTE_DIR};
+            mirror --reverse --only-newer --verbose --no-perms \
+              -x '(^|/)\.git(/|$)|(^|/)\.github(/|$)|(^|/)\.cursor(/|$)|(^|/)node_modules(/|$)|(^|/)\.env[^/]*$|(^|/)config\.production\.php$|(^|/)local\.db$|(^|/)db\.sql$|(^|/)setup-local\.php$|(^|/)\.ftp-deploy-sync-state[^/]*$|(^|/)[^/]*\.md$|(^|/)[^/]*\.plan\.md$|(^|/)\.DS_Store$' \
+              . ${REMOTE_DIR};
             quit
           "
 
