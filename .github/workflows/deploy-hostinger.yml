@@ -42,7 +42,25 @@ jobs:
           php -l api/paypal-capture.php
 
       - name: Install lftp for SFTP deploy
-        run: sudo apt-get update && sudo apt-get install -y lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp openssh-client
+
+      - name: Validate SFTP connectivity
+        env:
+          HOSTINGER_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
+        run: |
+          echo "Checking SFTP TCP connectivity to ${HOSTINGER_SERVER}:${HOSTINGER_PORT}"
+          nc -zvw10 "$HOSTINGER_SERVER" "$HOSTINGER_PORT"
+          lftp -d -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
+            set cmd:fail-exit true;
+            set sftp:auto-confirm yes;
+            set net:max-retries 1;
+            set net:timeout 20;
+            ls;
+            quit
+          "
 
       - name: Deploy to Hostinger via SFTP
         env:
@@ -52,8 +70,9 @@ jobs:
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_FTP_PORT }}
         run: |
           lftp -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" "sftp://$HOSTINGER_SERVER:$HOSTINGER_PORT" -e "
+            set cmd:fail-exit true;
             set sftp:auto-confirm yes;
-            set net:max-retries 2;
+            set net:max-retries 1;
             set net:timeout 20;
             mirror --reverse --only-newer --verbose \
               --exclude-glob .git\* \
