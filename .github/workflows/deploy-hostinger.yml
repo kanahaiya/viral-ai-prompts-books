@@ -81,7 +81,7 @@ jobs:
             set sftp:auto-confirm yes;
             set net:max-retries 1;
             set net:timeout 20;
-            mkdir -p ${REMOTE_DIR};
+            cd ${REMOTE_DIR};
             mirror --reverse --only-newer --verbose --no-perms \
               -X .git\* \
               -X .github/\* \
@@ -97,7 +97,7 @@ jobs:
               -X \*.md \
               -X \*.plan.md \
               -X .DS_Store \
-              . ${REMOTE_DIR};
+              . .;
             quit
           "
 
