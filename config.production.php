@@ -50,6 +50,10 @@ define('PAYPAL_API_URL',       envOrDefault('PAYPAL_API_URL', 'https://api-m.pay
 // ── Community Link (Telegram) ────────────────────────────────────────────────
 define('TELEGRAM_INVITE_LINK', envOrDefault('TELEGRAM_INVITE_LINK', 'https://t.me/+48-IpU25IzI4Y2E1'));
 
+// ── Meta Pixel ────────────────────────────────────────────────────────────────
+define('META_PIXEL_ID', envOrDefault('META_PIXEL_ID', ''));
+define('ENABLE_META_PIXEL', envOrDefault('ENABLE_META_PIXEL', '1') === '1');
+
 // ── Email (Brevo transactional API) ───────────────────────────────────────────
 define('BREVO_API_KEY', envOrDefault('BREVO_API_KEY', 'brevo_api_key_placeholder'));
 define('MAIL_FROM_EMAIL', envOrDefault('MAIL_FROM_EMAIL', 'support@aipromptbooks.in'));
