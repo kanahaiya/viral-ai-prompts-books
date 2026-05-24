@@ -212,8 +212,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 <script>
 pixelTrackCustom('DashboardViewed', { welcome: <?= $welcome ? 'true' : 'false' ?> });
 <?php if ($welcome): ?>
-pixelTrack('Login', { source: 'post-registration-redirect' });
-pixelTrackCustom('RegistrationCompletedRedirect', { destination: 'dashboard' });
+pixelTrackCustom('PostRegistrationRedirectViewed', { destination: 'dashboard' });
 <?php endif; ?>
 document.querySelectorAll('.book-download-link').forEach((downloadLinkElement) => {
   downloadLinkElement.addEventListener('click', (event) => {
