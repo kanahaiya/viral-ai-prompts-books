@@ -54,6 +54,10 @@ define('PAYPAL_API_URL',       'https://api-m.sandbox.paypal.com');
 // ── Community Link (Telegram) ────────────────────────────────────────────────
 define('TELEGRAM_INVITE_LINK', 'https://t.me/+48-IpU25IzI4Y2E1');
 
+// ── Meta Pixel ────────────────────────────────────────────────────────────────
+define('META_PIXEL_ID', '');
+define('ENABLE_META_PIXEL', false);
+
 // ── Email (Brevo) ─────────────────────────────────────────────────────────────
 define('BREVO_API_KEY', 'brevo_api_key_placeholder');
 define('MAIL_FROM_EMAIL', 'support@aipromptbooks.in');

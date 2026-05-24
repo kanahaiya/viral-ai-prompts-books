@@ -511,11 +511,28 @@ function enforcePaymentRateLimit(string $actionKey, string $identifier, int $max
 }
 
 // ── Meta Pixel helpers ────────────────────────────────────────────────────────
+function isMetaPixelEnabled(): bool {
+    if (!defined('ENABLE_META_PIXEL') || ENABLE_META_PIXEL !== true) {
+        return false;
+    }
+    if (!defined('META_PIXEL_ID')) {
+        return false;
+    }
+    $pixelId = trim((string)META_PIXEL_ID);
+    return $pixelId !== '';
+}
+
 function getMetaPixelId(): string {
-    return '1543072290570018';
+    if (!defined('META_PIXEL_ID')) {
+        return '';
+    }
+    return trim((string)META_PIXEL_ID);
 }
 
 function renderMetaPixelHead(): void {
+    if (!isMetaPixelEnabled()) {
+        return;
+    }
     $pixelId = htmlspecialchars(getMetaPixelId(), ENT_QUOTES, 'UTF-8');
     echo <<<HTML
 <!-- Meta Pixel Code -->
@@ -536,6 +553,9 @@ HTML;
 }
 
 function renderMetaPixelNoScript(): void {
+    if (!isMetaPixelEnabled()) {
+        return;
+    }
     $pixelId = htmlspecialchars(getMetaPixelId(), ENT_QUOTES, 'UTF-8');
     echo <<<HTML
 <noscript><img height="1" width="1" style="display:none"
