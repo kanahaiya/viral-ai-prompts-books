@@ -82,12 +82,14 @@ jobs:
             set net:max-retries 1;
             set net:timeout 20;
             cd ${REMOTE_DIR};
-            mirror --reverse --only-newer --verbose --no-perms \
+            mirror --reverse --verbose --no-perms --ignore-time --checksum \
               -x '(^|/)\.git(/|$)' \
               -x '(^|/)\.github(/|$)' \
               -x '(^|/)\.cursor(/|$)' \
               -x '(^|/)node_modules(/|$)' \
               -x '(^|/)\.env[^/]*$' \
+              -x '(^|/)\.gitignore$' \
+              -x '(^|/)\.htaccess$' \
               -x '(^|/)config\.production\.php$' \
               -x '(^|/)local\.db$' \
               -x '(^|/)db\.sql$' \
