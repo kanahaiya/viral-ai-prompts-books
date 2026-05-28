@@ -62,6 +62,18 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <link rel="stylesheet" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>"></noscript>
+<style>
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #2a2a2a;padding:0 2rem;height:60px !important;}
+.nav-inner{max-width:1280px;margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.hero{position:relative;padding:90px 2rem 0 !important;}
+@media(max-width:768px){
+  .nav{padding:0 1rem;}
+  .hero{padding:85px 1.5rem 50px !important;}
+}
+@media(max-width:600px){
+  .hero{padding:80px 1.25rem 0 !important;}
+}
+</style>
 <?php renderMetaPixelHead(); ?>
 </head>
 <body>
