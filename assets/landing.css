@@ -27,7 +27,7 @@ img{max-width:100%;display:block;}
 }
 
 /* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;}
 .nav-inner{max-width:var(--layout-max);margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{font-family:'Courier New',monospace;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
 .nav-links{display:flex;align-items:center;gap:1.2rem;}
@@ -37,7 +37,7 @@ img{max-width:100%;display:block;}
 .nav-cta:hover{background:#e8b93a;}
 
 /* ── HERO ── */
-.hero{position:relative;padding:64px 2rem 0;}
+.hero{position:relative;padding:120px 2rem 0;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 90% 55% at 50% -10%, rgba(212,168,54,0.13) 0%, transparent 65%);pointer-events:none;}
 .hero-container{max-width:var(--layout-max);margin:0 auto;position:relative;}
 
