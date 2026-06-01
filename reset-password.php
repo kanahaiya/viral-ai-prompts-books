@@ -128,8 +128,9 @@ h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:0.4rem;}
 .sub{font-size:0.85rem;color:#888;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid #2a2a2a;line-height:1.6;}
 .field{margin-bottom:1.1rem;}
 label{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;}
-input[type=password]{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;outline:none;transition:border-color 0.15s;}
+input[type=password]{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;transition:border-color 0.15s,box-shadow 0.15s;}
 input:focus{border-color:#d4a836;}
+input:focus-visible{outline:2px solid rgba(212,168,54,0.55);outline-offset:1px;}
 .btn{width:100%;background:#d4a836;color:#000;font-family:'Courier New',monospace;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px;border:none;border-radius:3px;cursor:pointer;transition:background 0.15s;margin-top:0.5rem;}
 .btn:hover{background:#e8b93a;}
 .message{border-radius:3px;padding:10px 14px;font-size:0.82rem;margin-bottom:1rem;line-height:1.5;}
@@ -142,6 +143,18 @@ input:focus{border-color:#d4a836;}
 .footer-links a{font-size:0.75rem;color:#9a9a9a;text-decoration:none;}
 .footer-links a:hover{color:#d4a836;}
 .footer-copy{font-size:0.75rem;color:#777;}
+
+
+/* Responsive safety layer */
+html, body { overflow-x: hidden; }
+img, video, canvas, svg { max-width: 100%; height: auto; }
+table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 768px) {
+  .page-wrap, .main { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .card, .policy-card, .prompt-card, .content-card, .intro-card, .setup-card { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+
 </style>
 </head>
 <body>

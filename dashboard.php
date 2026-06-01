@@ -31,10 +31,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .nav-logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;}
 .nav-logo a{color:inherit;text-decoration:none;}
 .nav-user{display:flex;align-items:center;gap:0.7rem;}
-.nav-home{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:all 0.15s;}
+.nav-home{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
 .nav-home:hover{color:#ddd;border-color:#555;}
 .nav-name{font-size:0.82rem;color:#b0b0b0;}
-.nav-logout{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:all 0.15s;}
+.nav-logout{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
 .nav-logout:hover{color:#ddd;border-color:#555;}
 
 /* MAIN */
@@ -53,7 +53,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .plan-badge.bundle{background:#d4a836;color:#000;}
 .plan-badge.single{background:#2a2a2a;color:#d4a836;border:1px solid #3a3a2a;}
 .plan-label{font-size:0.82rem;color:#b0b0b0;}
-.upgrade-link{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;color:#d4a836;text-decoration:none;border:1px solid rgba(212,168,54,0.3);padding:5px 12px;border-radius:2px;transition:all 0.15s;margin-left:auto;}
+.upgrade-link{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;color:#d4a836;text-decoration:none;border:1px solid rgba(212,168,54,0.3);padding:5px 12px;border-radius:2px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;margin-left:auto;}
 .upgrade-link:hover{background:rgba(212,168,54,0.08);}
 
 /* SECTION HEADER */
@@ -79,8 +79,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .book-status.open{color:var(--accent);}
 .book-status.locked-lbl{color:#9a9a9a;}
 .book-actions{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-top:auto;padding-top:0.8rem;}
-.book-download-link{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:0.8px;color:#dfdfdf;text-decoration:none;border:1px solid #4a4a4a;border-radius:2px;padding:3px 9px;transition:all 0.15s;}
+.book-download-link{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:0.8px;color:#dfdfdf;text-decoration:none;border:1px solid #4a4a4a;border-radius:2px;padding:3px 9px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
 .book-download-link:hover{color:#d4a836;border-color:#d4a836;}
+.book-open-link{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:0.8px;color:#d4a836;text-decoration:none;border:1px solid rgba(212,168,54,0.45);border-radius:2px;padding:3px 9px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
+.book-open-link:hover{color:#f0d48c;border-color:#f0d48c;background:rgba(212,168,54,0.08);}
 .book-lock-icon{position:absolute;top:12px;right:12px;font-size:0.9rem;color:#666;}
 .book-card.accessible .book-lock-icon{display:none;}
 
@@ -108,6 +110,18 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .footer-links a{font-size:0.75rem;color:#9a9a9a;text-decoration:none;}
 .footer-links a:hover{color:#d4a836;}
 .footer-copy{font-size:0.75rem;color:#777;}
+
+
+/* Responsive safety layer */
+html, body { overflow-x: hidden; }
+img, video, canvas, svg { max-width: 100%; height: auto; }
+table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 768px) {
+  .page-wrap, .main { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .card, .policy-card, .prompt-card, .content-card, .intro-card, .setup-card { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+
 </style>
 </head>
 <body>
@@ -181,8 +195,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
         : ($hasAccess ? '100 PROMPTS → OPEN' : '🔒 LOCKED');
     ?>
     <div class="book-card <?= $hasAccess ? 'accessible' : 'locked' ?><?= $isBonus ? ' bonus-card' : '' ?>"
-         style="--accent:<?= htmlspecialchars($book['accent']) ?>"
-         <?= $hasAccess ? "onclick=\"window.location='/book.php?id={$id}'\"" : '' ?>>
+         style="--accent:<?= htmlspecialchars($book['accent']) ?>">
       <div class="book-accent-bar"></div>
       <div class="book-body">
         <div class="book-num"><?= $isBonus ? '🎁 FREE BONUS' : 'BOOK ' . str_pad($id, 2, '0', STR_PAD_LEFT) ?></div>
@@ -197,6 +210,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
             <?= $statusText ?>
           </div>
           <?php if ($hasAccess): ?>
+            <a class="book-open-link" href="/book.php?id=<?= $id ?>">Open</a>
             <a class="book-download-link" href="/book.php?id=<?= $id ?>&download=1">Download</a>
           <?php endif; ?>
         </div>
