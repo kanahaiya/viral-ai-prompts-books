@@ -23,6 +23,7 @@ $books    = getBooks();
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
+<meta name="facebook-domain-verification" content="80mehcxtq5lqugdfns9r4t854kzmeh">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
