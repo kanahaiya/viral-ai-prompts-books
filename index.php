@@ -26,18 +26,18 @@ $books    = getBooks();
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
 <?php
-$landingCriticalCssWebPath = '/assets/landing-critical.min.css';
+$landingCriticalCssWebPath = '/assets/landing-critical.css';
 $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
 if (!file_exists($landingCriticalCssDiskPath)) {
-  $landingCriticalCssWebPath = '/assets/landing-critical.css';
+  $landingCriticalCssWebPath = '/assets/landing-critical.min.css';
   $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
 }
 $landingCriticalCssVersion = file_exists($landingCriticalCssDiskPath) ? ('?v=' . filemtime($landingCriticalCssDiskPath)) : '';
 
-$landingCssWebPath = '/assets/landing.min.css';
+$landingCssWebPath = '/assets/landing.css';
 $landingCssDiskPath = __DIR__ . $landingCssWebPath;
 if (!file_exists($landingCssDiskPath)) {
-  $landingCssWebPath = '/assets/landing.css';
+  $landingCssWebPath = '/assets/landing.min.css';
   $landingCssDiskPath = __DIR__ . $landingCssWebPath;
 }
 $landingCssVersion = file_exists($landingCssDiskPath) ? ('?v=' . filemtime($landingCssDiskPath)) : '';
@@ -56,18 +56,6 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <link rel="stylesheet" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>"></noscript>
-<style>
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #2a2a2a;padding:0 2rem;height:60px !important;}
-.nav-inner{max-width:1280px;margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;}
-.hero{position:relative;padding:90px 2rem 0 !important;}
-@media(max-width:768px){
-  .nav{padding:0 1rem;}
-  .hero{padding:85px 1.5rem 50px !important;}
-}
-@media(max-width:600px){
-  .hero{padding:80px 1.25rem 0 !important;}
-}
-</style>
 <?php renderMetaPixelHead(); ?>
 </head>
 <body>
@@ -118,7 +106,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
             <span class="btn-main-text">Create My AI Art</span>
             <span class="btn-price-line"><span class="btn-price-now">₹299</span> <span class="btn-price-orig">₹2,189</span></span>
           </a>
-          <a href="#pricing" class="btn-secondary">See What's Inside</a>
+          <a href="#offer-stack" class="btn-secondary">See What's Inside</a>
         </div>
         <div class="hero-proof-strip">
           <span class="hero-proof-pill">No prompt-writing required</span>
@@ -228,7 +216,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </section>
 
 <!-- BENEFITS -->
-<section class="benefits-section">
+<section id="inside" class="benefits-section">
   <div class="container" style="text-align:center;">
     <h2 class="section-title">What You&rsquo;ll Be Able To Create</h2>
     <ul class="create-outcomes-list">
@@ -318,22 +306,55 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </section>
 
 <!-- OFFER STACK -->
-<section class="offer-section">
+<section id="offer-stack" class="offer-section">
   <div class="container" style="text-align:center;">
     <h2 class="section-title">Unlocks the Full Prompt System + Bonuses.</h2>
     <p class="section-sub" style="margin:0 auto;">You&rsquo;re getting a complete, proven system: every book, every bonus, and every future update.</p>
-    <div class="offer-list">
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🧸 Book 1 — Action Figure &amp; Toy Box (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🌸 Book 2 — Ghibli &amp; Anime Style (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📷 Book 3 — Childhood Nostalgia (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🎨 Book 4 — Caricature &amp; Chibi (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">💼 Book 5 — Professional Headshots (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📦 Book 6 — Product Photography (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🎬 Book 7 — Cinematic Movie Poster (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">📜 Book 8 — Vintage Scrapbook (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🐾 Book 9 — Pet Transformation (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">🕰️ Book 10 — Historical Time Travel (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
-      <div class="offer-item"><span class="chk">✦</span><span class="name">✨ Book 11 — Bonus Trending Styles (100 prompts)</span><span class="val"><span class="val-now">₹99</span><span class="val-old">₹199</span></span></div>
+    <div class="offer-list offer-list--redesign">
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 1 — Action Figure &amp; Toy Box</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 2 — Ghibli &amp; Anime Style</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 3 — Childhood Nostalgia</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 4 — Caricature &amp; Chibi</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 5 — Professional Headshots</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 6 — Product Photography</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 7 — Cinematic Movie Poster</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 8 — Vintage Scrapbook</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 9 — Pet Transformation</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 10 — Historical Time Travel</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 11 — Bonus Trending Styles</span><span class="offer-row-meta">100 prompts</span></div></div>
+        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+      </div>
       <div class="offer-total-row">
         <span class="offer-total-label">Value if bought separately</span>
         <div class="offer-total-price">
