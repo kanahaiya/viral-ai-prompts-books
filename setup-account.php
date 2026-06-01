@@ -174,6 +174,18 @@ input[readonly]{color:#888;cursor:default;}
 .footer-links a{font-size:0.75rem;color:#9a9a9a;text-decoration:none;}
 .footer-links a:hover{color:#d4a836;}
 .footer-copy{font-size:0.75rem;color:#777;}
+
+
+/* Responsive safety layer */
+html, body { overflow-x: hidden; }
+img, video, canvas, svg { max-width: 100%; height: auto; }
+table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 768px) {
+  .page-wrap, .main { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .card, .policy-card, .prompt-card, .content-card, .intro-card, .setup-card { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+
 </style>
 </head>
 <body>

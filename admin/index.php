@@ -73,6 +73,18 @@ tr:hover td{background:#151515;}
 .status-completed{color:#4ade80;}
 .status-failed{color:#f87171;}
 .status-other{color:#888;}
+
+
+/* Responsive safety layer */
+html, body { overflow-x: hidden; }
+img, video, canvas, svg { max-width: 100%; height: auto; }
+table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 768px) {
+  .page-wrap, .main { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .card, .policy-card, .prompt-card, .content-card, .intro-card, .setup-card { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+
 </style>
 </head>
 <body>

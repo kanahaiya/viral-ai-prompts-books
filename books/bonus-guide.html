@@ -38,6 +38,11 @@ body {
 
 /* ── ACCENT ── */
 :root { --A: #06b6d4; --A2: #0891b2; --A3: #cffafe; --Adim: rgba(6,182,212,0.12); }
+.mt-1{margin-top:1rem;}
+.mt-1-2{margin-top:1.2rem;}
+.mt-2-5{margin-top:2.5rem;}
+.teal-highlight{font-family:'Courier New',monospace;color:var(--A);font-weight:700;}
+.result-highlight{color:#fff;font-weight:700;letter-spacing:1px;}
 
 /* ── COVER ── */
 .cover {
@@ -578,6 +583,18 @@ body {
   .cover-title { font-size: 2.8rem; }
   .cover-stats { gap: 1.5rem; }
 }
+
+
+/* Responsive safety layer */
+html, body { overflow-x: hidden; }
+img, video, canvas, svg { max-width: 100%; height: auto; }
+table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 768px) {
+  .page-wrap, .main { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .card, .policy-card, .prompt-card, .content-card, .intro-card, .setup-card { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+
 </style>
 </head>
 <body>
@@ -754,7 +771,7 @@ body {
     </tbody>
   </table>
 
-  <div class="callout" style="margin-top:1.2rem;">
+  <div class="callout mt-1-2">
     <strong>Quick Rule:</strong> For portraits and art — Midjourney. For fast iteration and beginners — ChatGPT. For commercial/product work — Firefly. For text in images — Ideogram. For complete creative control — Stable Diffusion.
   </div>
 </div>
@@ -821,7 +838,7 @@ body {
     <span class="formula-plus">+</span>
     <span class="formula-part">Quality</span>
     <span class="formula-plus">=</span>
-    <span style="color:#fff;font-weight:700;letter-spacing:1px;">STUNNING IMAGE</span>
+    <span class="result-highlight">STUNNING IMAGE</span>
   </div>
 
   <div class="callout">
@@ -915,7 +932,7 @@ body {
 </div>
 
 <div class="content-card card-accent-top">
-  <p>These are the exact words professionals use to elevate AI image quality. Bookmark this page. The <span style="font-family:'Courier New',monospace;color:var(--A);font-weight:700;">teal highlighted</span> ones are the highest-impact single words you can add to any prompt.</p>
+  <p>These are the exact words professionals use to elevate AI image quality. Bookmark this page. The <span class="teal-highlight">teal highlighted</span> ones are the highest-impact single words you can add to any prompt.</p>
 
   <div class="keyword-grid">
     <div class="keyword-cat">
@@ -1088,7 +1105,7 @@ body {
   <div class="pro-tip">
     <strong>🎯 Pro Tip:</strong> The <em>setup variables</em> are just starting points. After you fill them in, manually tweak individual prompts — add specific details like "with freckles", "under cherry blossoms", "wearing vintage sunglasses." The more specific the detail, the more unique your image.
   </div>
-  <div class="pro-tip" style="margin-top:0.7rem;">
+  <div class="pro-tip mt-1">
     <strong>🔁 Unlimited Combinations:</strong> With 6 variables per prompt and 100 prompts per book, each book technically produces millions of unique image variations. You will never run out of fresh content.
   </div>
 </div>
@@ -1316,7 +1333,7 @@ body {
   </div>
 </div>
 
-<div class="content-card" style="margin-top:1rem;">
+<div class="content-card mt-1">
   <div class="callout">
     <strong>🔄 The Professional Workflow:</strong> Generate 4–6 variations with Midjourney or ChatGPT → Pick the best one → Upscale it → Import into Adobe Photoshop with Firefly for final touch-ups (background removal, object editing, generative fill). This 3-step pipeline produces commercial-grade results every time.
   </div>
@@ -1420,7 +1437,7 @@ body {
 </div>
 
 <!-- ══════════════════════ CLOSING ══════════════════════ -->
-<div class="intro-card" style="margin-top:2.5rem;">
+<div class="intro-card mt-2-5">
   <h2>You Now Have the Cheat Code</h2>
   <p>You know which tool to use for which job. You understand all 6 building blocks of a perfect prompt. You've seen the before/after transformations. You have 50+ professional style keywords. And you have 10 practice prompts to apply everything immediately.</p>
   <p><strong>Now go open your prompt books.</strong> Fill in your variables. Copy a prompt. Paste it. And watch what happens when you actually know what you're doing.</p>

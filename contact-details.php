@@ -39,7 +39,7 @@ require_once __DIR__ . '/auth.php';
       <p><a class="policy-email" href="mailto:<?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?></a></p>
 
       <h2>Website</h2>
-      <p><a class="policy-email" href="https://www.aipromptbooks.in/">https://www.aipromptbooks.in/</a></p>
+      <p><a class="policy-email" href="https://www.aipromptbooks.in">https://www.aipromptbooks.in</a></p>
 
       <h2>Support Hours</h2>
       <p>Monday to Saturday, 10:00 AM to 7:00 PM IST</p>

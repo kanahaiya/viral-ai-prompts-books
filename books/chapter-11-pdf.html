@@ -622,6 +622,18 @@ body {
   .headline { font-size: 8pt; }
   @page { margin: 1cm 1.2cm; size: A4; }
 }
+
+
+/* Responsive safety layer */
+html, body { overflow-x: hidden; }
+img, video, canvas, svg { max-width: 100%; height: auto; }
+table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 768px) {
+  .page-wrap, .main { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .card, .policy-card, .prompt-card, .content-card, .intro-card, .setup-card { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
+
 </style>
 </head>
 <body>
@@ -774,10 +786,10 @@ body {
           <div class="guide-var-row"><span class="guide-var-token">[PLATFORM]</span><span class="guide-var-desc">Target social platform</span></div>
           <div class="guide-var-row"><span class="guide-var-token">[PALETTE]</span><span class="guide-var-desc">Colour palette</span></div>
         </div>
-        <div class="guide-tip" style="margin-top:1rem;">
+        <div class="guide-tip">
           <strong>No photo needed for some tools.</strong> Midjourney and Firefly generate images from text alone. For ChatGPT, upload your photo alongside the prompt for best results.
         </div>
-        <div class="guide-tip" style="margin-top:0.5rem;">
+        <div class="guide-tip">
           <strong>Tip:</strong> The preamble at the start of each prompt (the variable definitions) helps the AI understand your values before reading the creative prompt — always keep it when copying.
         </div>
       </div>
