@@ -391,7 +391,7 @@ body {
   padding: 7px 10px; background: #fafafa;
   transition: border-color 0.15s; width: 100%;
 }
-.var-input:focus { outline: none; border-color: var(--A); background: #fff; }
+.var-input:focus-visible { outline: 2px solid var(--A); outline-offset: 1px; border-color: var(--A); background: #fff; }
 .action-row {
   margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee;
   display: flex; align-items: center; gap: 1rem;
@@ -433,7 +433,7 @@ body {
   margin-left: auto; font-family: 'Courier New', monospace; font-size: 0.65rem;
   letter-spacing: 1px; text-transform: uppercase;
   background: transparent; border: 1px solid #ccc; color: #888;
-  padding: 3px 10px; cursor: pointer; border-radius: 2px; transition: all 0.15s;
+  padding: 3px 10px; cursor: pointer; border-radius: 2px; transition: color 0.15s, border-color 0.15s, background-color 0.15s;
   flex-shrink: 0;
 }
 .copy-btn:hover { border-color: var(--A); color: var(--A); }

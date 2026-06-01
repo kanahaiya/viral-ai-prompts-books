@@ -152,8 +152,9 @@ h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:0.4rem;}
 .sub{font-size:0.85rem;color:#888;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #2a2a2a;}
 .field{margin-bottom:1.2rem;}
 label{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;}
-input{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;outline:none;transition:border-color 0.15s;}
+input{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;transition:border-color 0.15s,box-shadow 0.15s;}
 input:focus{border-color:#d4a836;}
+input:focus-visible{outline:2px solid rgba(212,168,54,0.55);outline-offset:1px;}
 input[readonly]{color:#888;cursor:default;}
 .hint{font-size:0.72rem;color:#555;margin-top:4px;}
 .error{background:#3a1010;border:1px solid #7a2020;border-radius:3px;padding:10px 14px;font-size:0.82rem;color:#f87171;margin-bottom:1.2rem;}
@@ -163,6 +164,7 @@ input[readonly]{color:#888;cursor:default;}
 .plan-bundle{background:#d4a836;color:#000;}
 .plan-single{background:#2a2a2a;color:#aaa;}
 .invalid-card{text-align:center;border:1px solid #3a2a2a;background:linear-gradient(135deg,#1a1212 0%,#141414 100%);}
+.invalid-icon{font-size:2rem;margin-bottom:1rem;}
 .invalid-text{color:#d6d6d6;margin-top:0.8rem;font-size:0.92rem;line-height:1.6;}
 .invalid-text a{color:#d4a836;text-decoration:underline;text-underline-offset:2px;}
 .invalid-text a:hover{color:#e8b93a;}
@@ -188,7 +190,7 @@ input[readonly]{color:#888;cursor:default;}
 
   <?php if ($error && !$payment): ?>
     <div>
-      <div style="font-size:2rem;margin-bottom:1rem;">⚠️</div>
+      <div class="invalid-icon" aria-hidden="true">⚠️</div>
       <h1>Invalid Link</h1>
       <p class="invalid-text"><?= $error ?></p>
     </div>
@@ -236,8 +238,8 @@ input[readonly]{color:#888;cursor:default;}
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrfToken()) ?>">
 
     <div class="field">
-      <label>Email Address</label>
-      <input type="email" value="<?= htmlspecialchars($payment['email'] ?? '') ?>" readonly>
+      <label for="setupEmail">Email Address</label>
+      <input type="email" id="setupEmail" value="<?= htmlspecialchars($payment['email'] ?? '') ?>" readonly>
     </div>
 
     <div class="field">

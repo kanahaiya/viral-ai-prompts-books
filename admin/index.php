@@ -67,11 +67,17 @@ tr:hover td{background:#151515;}
 .badge-inr{background:#1c1005;color:#d4a836;}
 .badge-usd{background:#05100a;color:#4ade80;}
 .text-dim{color:#555;}
+.link-refresh{color:#d4a836;}
+.row-empty{text-align:center;color:#555;padding:2rem;}
+.amount-cell{color:#d4a836;font-family:'Courier New',monospace;}
+.status-completed{color:#4ade80;}
+.status-failed{color:#f87171;}
+.status-other{color:#888;}
 </style>
 </head>
 <body>
 <h1>Admin Dashboard</h1>
-<div class="sub">Last refreshed: <?= date('d M Y H:i:s') ?> — <a href="" style="color:#d4a836;">Refresh</a></div>
+<div class="sub">Last refreshed: <?= date('d M Y H:i:s') ?> — <a href="" class="link-refresh">Refresh</a></div>
 
 <!-- STATS -->
 <div class="stats-grid">
@@ -120,7 +126,7 @@ tr:hover td{background:#151515;}
     </tr>
     <?php endforeach; ?>
     <?php if (!$recentUsers): ?>
-    <tr><td colspan="8" style="text-align:center;color:#555;padding:2rem;">No users yet.</td></tr>
+    <tr><td colspan="8" class="row-empty">No users yet.</td></tr>
     <?php endif; ?>
   </tbody>
 </table>
@@ -141,18 +147,18 @@ tr:hover td{background:#151515;}
       <td><?= htmlspecialchars($p['email']) ?></td>
       <td><span class="badge badge-<?= $p['plan'] ?>"><?= strtoupper($p['plan']) ?></span></td>
       <td><?= $p['book_id'] ? 'Book ' . $p['book_id'] : '—' ?></td>
-      <td style="color:#d4a836;font-family:'Courier New',monospace;">
+      <td class="amount-cell">
         <?= $p['currency'] === 'INR' ? '₹' : '$' ?><?= number_format(floatval($p['amount']), 2) ?>
       </td>
       <td><span class="badge badge-<?= $p['payment_method'] ?>"><?= ucfirst($p['payment_method']) ?></span></td>
-      <td style="color:<?= $p['status'] === 'completed' ? '#4ade80' : ($p['status'] === 'failed' ? '#f87171' : '#888') ?>">
+      <td class="<?= $p['status'] === 'completed' ? 'status-completed' : ($p['status'] === 'failed' ? 'status-failed' : 'status-other') ?>">
         <?= $p['status'] ?>
       </td>
       <td class="text-dim"><?= date('d M y H:i', strtotime($p['created_at'])) ?></td>
     </tr>
     <?php endforeach; ?>
     <?php if (!$recentPayments): ?>
-    <tr><td colspan="8" style="text-align:center;color:#555;padding:2rem;">No payments yet.</td></tr>
+    <tr><td colspan="8" class="row-empty">No payments yet.</td></tr>
     <?php endif; ?>
   </tbody>
 </table>

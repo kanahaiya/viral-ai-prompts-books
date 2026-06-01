@@ -526,9 +526,13 @@ async function verifyCashfreeOrder(orderId) {
 
 document.querySelectorAll('.faq-q').forEach((q) => {
   q.addEventListener('click', () => {
-    q.closest('.faq-item').classList.toggle('open');
+    const itemElement = q.closest('.faq-item');
+    if (!itemElement) return;
+    const isOpen = itemElement.classList.toggle('open');
+    q.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     trackCustomEvent('FaqToggled', {
-      question: (q.textContent || '').trim().slice(0, 80)
+      question: (q.textContent || '').trim().slice(0, 80),
+      expanded: isOpen
     });
   });
 });

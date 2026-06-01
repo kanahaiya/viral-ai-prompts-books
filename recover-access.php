@@ -196,14 +196,16 @@ h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:0.4rem;}
 .sub{font-size:0.85rem;color:#888;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid #2a2a2a;line-height:1.6;}
 .field{margin-bottom:1.1rem;}
 label{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:1px;color:#888;display:block;margin-bottom:6px;}
-input[type=email]{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;outline:none;transition:border-color 0.15s;}
+input[type=email]{width:100%;background:#0a0a0a;border:1.5px solid #333;color:#fff;padding:11px 14px;border-radius:3px;font-size:0.9rem;transition:border-color 0.15s,box-shadow 0.15s;}
 input:focus{border-color:#d4a836;}
+input:focus-visible{outline:2px solid rgba(212,168,54,0.55);outline-offset:1px;}
 .btn{width:100%;background:#d4a836;color:#000;font-family:'Courier New',monospace;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px;border:none;border-radius:3px;cursor:pointer;transition:background 0.15s;margin-top:0.5rem;}
 .btn:hover{background:#e8b93a;}
 .message{border-radius:3px;padding:10px 14px;font-size:0.82rem;margin-bottom:1rem;line-height:1.5;}
 .message.error{background:#3a1010;border:1px solid #7a2020;color:#f87171;}
 .message.info{background:#0e2f1a;border:1px solid #1f6f3c;color:#86efac;}
 .dev-link{font-size:0.78rem;color:#aaa;margin-top:0.8rem;line-height:1.6;word-break:break-all;}
+.dev-link a{color:#d4a836;}
 .footer-link{text-align:center;margin-top:1.4rem;font-size:0.8rem;color:#888;}
 .footer-link a{color:#d4a836;}
 .footer{border-top:1px solid #1a1a1a;padding:1.6rem 1rem;text-align:center;}
@@ -234,7 +236,7 @@ input:focus{border-color:#d4a836;}
     </div>
     <?php if ($showDevFallback && $devFallbackLink): ?>
       <div class="dev-link">
-        Dev fallback (email unavailable): <a href="<?= htmlspecialchars($devFallbackLink) ?>" style="color:#d4a836;">Open setup link</a>
+        Dev fallback (email unavailable): <a href="<?= htmlspecialchars($devFallbackLink) ?>">Open setup link</a>
       </div>
     <?php endif; ?>
   <?php endif; ?>
