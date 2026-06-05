@@ -7,6 +7,20 @@ let razorpayLoaderPromise = null;
 let cashfreeLoaderPromise = null;
 const SCROLL_DEPTH_MILESTONES = [25, 50, 75, 90];
 const ENGAGEMENT_TIME_CHECKPOINTS_SECONDS = [15, 30, 60, 120];
+const HERO_VARIANTS = {
+  a: {
+    headlineFirstLine: 'Never Guess What To Type In ChatGPT Again.',
+    headlineSecondLine: '<span class="gold">Fill a few details and get live personalized prompts</span> in seconds.',
+    subheadline: "Pick a style, fill a few details, and instantly generate personalized AI prompts in real time, even if you've never used AI before.",
+    primaryCta: 'Unlock Full AI Prompt System — ₹299'
+  },
+  b: {
+    headlineFirstLine: 'Create Stunning AI Images Without Learning Prompting.',
+    headlineSecondLine: '<span class="gold">Choose a style, fill a few details, and generate instantly.</span>',
+    subheadline: 'Choose a style, fill a few details, and instantly generate personalized AI prompts.',
+    primaryCta: 'Get Instant Access — ₹299'
+  }
+};
 let hasTrackedCheckoutFormStart = false;
 
 function trackEvent(eventName, params = {}) {
@@ -43,6 +57,33 @@ function getSessionAttributionParams() {
 
 function initSessionAttributionTracking() {
   trackCustomEvent('LandingSessionStarted', getSessionAttributionParams());
+}
+
+function initHeroVariant() {
+  const heroElement = document.querySelector('.hero[data-hero-variant]');
+  if (!heroElement) return;
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const requestedVariant = (queryParams.get('hero_variant') || '').toLowerCase();
+  const defaultVariant = (heroElement.getAttribute('data-hero-variant') || 'b').toLowerCase();
+  const assignmentSource = heroElement.getAttribute('data-hero-assignment-source') || 'unknown';
+  const activeVariant = HERO_VARIANTS[requestedVariant] ? requestedVariant : defaultVariant;
+  const heroVariant = HERO_VARIANTS[activeVariant] || HERO_VARIANTS.b;
+
+  const headlineLines = heroElement.querySelectorAll('.hero-headline-line');
+  const subheadlineElement = heroElement.querySelector('.hero-sub');
+  const primaryCtaElement = heroElement.querySelector('[data-cta-role="hero-primary"] .btn-main-text');
+
+  if (headlineLines[0]) headlineLines[0].textContent = heroVariant.headlineFirstLine;
+  if (headlineLines[1]) headlineLines[1].innerHTML = heroVariant.headlineSecondLine;
+  if (subheadlineElement) subheadlineElement.textContent = heroVariant.subheadline;
+  if (primaryCtaElement) primaryCtaElement.textContent = heroVariant.primaryCta;
+
+  heroElement.setAttribute('data-hero-variant', activeVariant);
+  trackCustomEvent('HeroVariantViewed', {
+    hero_variant: activeVariant,
+    hero_assignment_source: requestedVariant ? 'query' : assignmentSource
+  });
 }
 
 function initScrollDepthTracking() {
@@ -561,7 +602,12 @@ document.addEventListener('click', (event) => {
   const action = actionElement.dataset.action;
   const actionPlan = actionElement.dataset.plan || 'unknown';
   if (action === 'start-checkout') {
-    trackCustomEvent('CtaClicked', { action, plan: actionPlan });
+    const heroElement = document.querySelector('.hero[data-hero-variant]');
+    trackCustomEvent('CtaClicked', {
+      action,
+      plan: actionPlan,
+      hero_variant: heroElement ? heroElement.getAttribute('data-hero-variant') : 'unknown'
+    });
     startCheckout(actionElement.dataset.plan || 'bundle');
     return;
   }
@@ -606,6 +652,7 @@ function initFunnelTracking() {
   });
 
   const trackedSections = [
+    { id: 'how-it-works', event: 'HowItWorksViewed', label: 'How It Works Section' },
     { id: 'pricing', event: 'PricingViewed', label: 'Pricing Section' },
     { id: 'reviews', event: 'TestimonialsViewed', label: 'Testimonials Section' },
     { id: 'faq', event: 'FaqViewed', label: 'FAQ Section' }
@@ -681,7 +728,7 @@ function initStickyCta() {
   if (!stickyCta) return;
   function updateStickyPrice() {
     const sp = document.getElementById('stickyPrice');
-    if (sp) sp.textContent = '₹299 · Instant access after payment';
+    if (sp) sp.textContent = '₹299 one-time · Instant access';
   }
   updateStickyPrice();
 
@@ -713,4 +760,6 @@ if ('requestIdleCallback' in window) {
 } else {
   window.setTimeout(() => initNonCriticalFeatures(), 600);
 }
+
+initHeroVariant();
 });

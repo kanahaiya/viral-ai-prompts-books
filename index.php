@@ -2,6 +2,45 @@
 require_once __DIR__ . '/auth.php';
 $loggedIn = isLoggedIn();
 $books    = getBooks();
+
+/**
+ * Stable 50/50 hero assignment for landing experiments.
+ * Priority:
+ * 1) Explicit URL override (?hero_variant=a|b) for QA/ad-level testing.
+ * 2) Existing cookie value for consistency across sessions.
+ * 3) New random assignment with cookie persistence.
+ */
+$allowedHeroVariants = ['a', 'b'];
+$requestedHeroVariant = isset($_GET['hero_variant']) ? strtolower((string) $_GET['hero_variant']) : '';
+$cookieHeroVariant = isset($_COOKIE['aipb_hero_variant']) ? strtolower((string) $_COOKIE['aipb_hero_variant']) : '';
+$heroVariant = 'a';
+$heroAssignmentSource = 'random';
+
+if (in_array($requestedHeroVariant, $allowedHeroVariants, true)) {
+  $heroVariant = $requestedHeroVariant;
+  $heroAssignmentSource = 'query';
+} elseif (in_array($cookieHeroVariant, $allowedHeroVariants, true)) {
+  $heroVariant = $cookieHeroVariant;
+  $heroAssignmentSource = 'cookie';
+} else {
+  $heroVariant = random_int(0, 1) === 0 ? 'a' : 'b';
+  $heroAssignmentSource = 'random';
+}
+
+$setHeroVariantCookie = !in_array($cookieHeroVariant, $allowedHeroVariants, true) || $cookieHeroVariant !== $heroVariant;
+if ($setHeroVariantCookie) {
+  setcookie(
+    'aipb_hero_variant',
+    $heroVariant,
+    [
+      'expires' => time() + (60 * 60 * 24 * 30),
+      'path' => '/',
+      'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+      'httponly' => false,
+      'samesite' => 'Lax'
+    ]
+  );
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,16 +120,16 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
 <main id="main">
 <!-- HERO -->
-<section class="hero">
+<section class="hero" data-hero-variant="<?= htmlspecialchars($heroVariant, ENT_QUOTES, 'UTF-8') ?>" data-hero-assignment-source="<?= htmlspecialchars($heroAssignmentSource, ENT_QUOTES, 'UTF-8') ?>">
   <div class="hero-bg"></div>
   <div class="hero-container">
 
     <!-- Row 1: eyebrow + full-width headline -->
     <div class="hero-headline">
-      <p class="hero-hook">For beginners who want viral-quality AI images without prompt writing</p>
+      <p class="hero-hook">Interactive AI Prompt System for complete beginners</p>
       <h1>
-        <span class="hero-headline-line">Stop Guessing Prompts.</span>
-        <span class="hero-headline-line"><span class="gold">Start Creating Scroll-Stopping</span> AI Images in Minutes.</span>
+        <span class="hero-headline-line">Never Guess What To Type In ChatGPT Again.</span>
+        <span class="hero-headline-line"><span class="gold">Fill a few details and get live personalized prompts</span> in seconds.</span>
       </h1>
     </div>
 
@@ -99,27 +138,27 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
       <!-- Left: copy -->
       <div class="hero-copy">
-        <p class="hero-sub">Get instant access to 11 ready-to-use prompt systems (1,100+ templates) that help you create cinematic posters, Ghibli edits, product shots, headshots, and viral social visuals.</p>
+        <p class="hero-sub">Pick a style, fill a few details, and instantly generate personalized AI prompts in real time, even if you have never used AI before.</p>
         <p class="hero-sub hero-sub--tight">
-          No blank-screen confusion.<br>
-          No random low-quality outputs.<br>
-          No technical prompt engineering.
+          No prompt engineering.<br>
+          No guessing. No technical skills.<br>
+          Copy with one click or save your personalized prompt book PDF.
         </p>
         <div class="hero-ctas">
-          <a href="#pricing" class="btn-primary btn-primary--priced">
-            <span class="btn-main-text">Get Instant Access</span>
+          <a href="#pricing" class="btn-primary btn-primary--priced" data-cta-role="hero-primary">
+            <span class="btn-main-text">Unlock Full AI Prompt System — ₹299</span>
             <span class="btn-price-line"><span class="btn-price-now">₹299</span> <span class="btn-price-orig">₹2,189+</span></span>
           </a>
-          <a href="#what-you-get" class="btn-secondary btn-secondary--soft">Preview What You Get</a>
+          <a href="#how-it-works" class="btn-secondary btn-secondary--soft">See Exactly How It Works</a>
         </div>
         <div class="hero-proof-strip">
-          <span class="hero-proof-pill">One-time payment</span>
-          <span class="hero-proof-pill">Instant delivery</span>
-          <span class="hero-proof-pill">Works with ChatGPT, Midjourney, Firefly, DALL&middot;E</span>
+          <span class="hero-proof-pill">12 Interactive AI Prompt Systems</span>
+          <span class="hero-proof-pill">Prompts Update Live As You Type</span>
+          <span class="hero-proof-pill">Works with ChatGPT, Midjourney, Firefly, Ideogram</span>
         </div>
         <div class="hero-trust">
-          200+ paying buyers &nbsp;·&nbsp; 4.6★ rated &nbsp;·&nbsp; Most users create a result in first session<br>
-          <span class="hero-trust-gold">Pay once &nbsp;·&nbsp; Get access instantly &nbsp;·&nbsp; No subscription</span>
+          Beginner-safe system used by creators, freelancers, and business owners across India<br>
+          <span class="hero-trust-gold">One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription</span>
         </div>
       </div>
 
@@ -164,15 +203,15 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <!-- WHAT YOU GET -->
 <section id="what-you-get" class="benefits-section">
   <div class="container container-center">
-    <h2 class="section-title">Exactly What You Get Today</h2>
-    <p class="section-sub section-sub--compact">This is not a PDF of random prompts. It is a complete beginner-friendly creation system.</p>
+    <h2 class="section-title">What You Get Inside The Interactive AI Prompt System</h2>
+    <p class="section-sub section-sub--compact">You are not buying static PDFs. You get a fill-in-the-blank AI image creation system designed for fast first results.</p>
     <ul class="create-outcomes-list">
-      <li><strong>11 Prompt Systems:</strong> Each system targets a specific visual style so you never start from scratch.</li>
-      <li><strong>1,100 Fill-in Templates:</strong> Replace a few details, paste, and generate cleaner outputs faster.</li>
-      <li><strong>3 Practical Bonuses:</strong> Prompt Finder assistant, Cheat Code guide, and private Telegram support.</li>
-      <li><strong>Instant Access:</strong> Pay once and start creating in the next 5 minutes.</li>
+      <li><strong>Style-by-style interactive books:</strong> Open any style, fill simple fields, and your prompt updates instantly in real time.</li>
+      <li><strong>Done-for-you prompt structure:</strong> Stop guessing words and get personalized prompts automatically while you type.</li>
+      <li><strong>One-click execution flow:</strong> Copy prompt instantly or save a personalized PDF book customized to your inputs.</li>
+      <li><strong>Beginner-first certainty:</strong> Built to get your first strong AI image quickly without prompt engineering.</li>
     </ul>
-    <a href="#pricing" class="btn-primary btn-inline">Get Instant Access - ₹299</a>
+    <a href="#pricing" class="btn-primary btn-inline">Unlock Full AI Prompt System — ₹299</a>
   </div>
 </section>
 
@@ -180,7 +219,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <section class="gallery-section">
   <div class="container container-center">
     <h2 class="section-title">What You Can Create With This <span class="text-gold">(Even As a Beginner)</span></h2>
-    <p class="section-sub section-sub--wide section-sub--compact">Input: selfie + idea. Template used: style prompt. Output: social-ready visual. Same system, different styles, predictable quality.</p>
+    <p class="section-sub section-sub--wide section-sub--compact">You do not need to guess what to type. Pick a style, fill a few blanks, and generate high-quality results in minutes.</p>
     <div class="gallery-collage-wrap">
       <div class="gallery-img">
         <picture>
@@ -191,55 +230,51 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </div>
     </div>
     <ul class="proof-caption-list">
-      <li><strong>Action Figure:</strong> selfie + role details -> toy-box prompt -> collectible-style result</li>
-      <li><strong>Ghibli Portrait:</strong> photo + mood -> anime prompt -> cinematic nostalgic output</li>
-      <li><strong>Movie Poster:</strong> concept + title -> poster prompt -> social-ready visual</li>
+      <li><strong>Action Figure:</strong> selfie + role details → toy-box prompt → collectible-style result</li>
+      <li><strong>Ghibli Portrait:</strong> photo + mood → anime prompt → cinematic nostalgic output</li>
+      <li><strong>Movie Poster:</strong> concept + title → poster prompt → social-ready visual</li>
     </ul>
-    <p class="section-footnote">6 styles shown. 1,100+ prompt templates across 11 books and many more outcomes inside.</p>
+    <p class="section-footnote">6 styles shown. Same system for all styles. Works even if you're completely new.</p>
   </div>
 </section>
 
-<!-- OBJECTION HANDLING -->
-<section class="benefits-section">
+<!-- SEE EXACTLY HOW IT WORKS -->
+<section class="benefits-section ease-section" id="how-it-works">
   <div class="container container-center">
-    <h2 class="section-title">&ldquo;Can&rsquo;t I Just Use Free ChatGPT?&rdquo;</h2>
-    <div class="solution-grid">
-      <div class="solution-card">
-        <div class="solution-card-title">Free prompting path</div>
-        <ul class="solution-card-list">
-          <li>Random prompt guesses</li>
-          <li>Inconsistent output quality</li>
-          <li>Hours lost in trial-and-error</li>
-          <li>No style-specific structure</li>
-        </ul>
-      </div>
-      <div class="solution-card">
-        <div class="solution-card-title">This paid system</div>
-        <ul class="solution-card-list">
-          <li>Proven style-wise frameworks</li>
-          <li>Predictable cleaner outputs faster</li>
-          <li>Beginner shortcuts remove confusion</li>
-          <li>Ready templates for immediate execution</li>
-        </ul>
-      </div>
+    <h2 class="section-title">See Exactly How It Works</h2>
+    <p class="section-sub section-sub--compact">No Prompt Engineering. No Guessing. No Technical Skills.</p>
+    <div class="ease-steps-grid">
+      <article class="ease-step-card">
+        <div class="ease-step-label">STEP 1</div>
+        <h3 class="ease-step-title">Choose Your Style</h3>
+        <img src="assets/hero-mockup-768w.jpg" alt="Members area showing all interactive AI prompt books" width="768" height="699" loading="lazy" decoding="async">
+        <p class="ease-step-copy">Choose from Ghibli, Cinematic Posters, Product Photography, Headshots, Nostalgia, Pet Transformations and more.</p>
+      </article>
+      <article class="ease-step-card">
+        <div class="ease-step-label">STEP 2</div>
+        <h3 class="ease-step-title">Fill A Few Details</h3>
+        <img src="assets/collage-1-520w.jpg" alt="Input form fields for character, outfit, world, setting, mood and companion" width="520" height="761" loading="lazy" decoding="async">
+        <p class="ease-step-copy">Just fill simple fields like character, outfit, world, setting, mood and companion. No prompt writing required.</p>
+      </article>
+      <article class="ease-step-card">
+        <div class="ease-step-label">STEP 3</div>
+        <h3 class="ease-step-title">Watch Prompts Update LIVE</h3>
+        <img src="assets/collage-1-520w.jpg" alt="Screenshot showing prompt pasted into ChatGPT" width="520" height="761" loading="lazy" decoding="async">
+        <p class="ease-step-copy">Your prompts update automatically in real time while you type. No guessing, no trial and error, no technical skills.</p>
+      </article>
+      <article class="ease-step-card">
+        <div class="ease-step-label">STEP 4</div>
+        <h3 class="ease-step-title">Copy Or Save Your Personalized Book</h3>
+        <img src="assets/collage-1-520w.jpg" alt="Screenshot showing final generated AI image output" width="520" height="761" loading="lazy" decoding="async">
+        <p class="ease-step-copy">Copy prompts instantly with one click or export a personalized prompt book PDF customized to your details.</p>
+      </article>
+      <article class="ease-step-card">
+        <div class="ease-step-label">STEP 5</div>
+        <h3 class="ease-step-title">Generate Stunning Images</h3>
+        <img src="assets/collage-1-520w.jpg" alt="AI image outputs generated after using personalized prompts" width="520" height="761" loading="lazy" decoding="async">
+        <p class="ease-step-copy">Paste into ChatGPT, Midjourney, Firefly, Ideogram or your favorite image generator and create stunning visuals in minutes.</p>
+      </article>
     </div>
-    <p class="solution-note">If your time is worth anything, a tested system beats random prompting every time.</p>
-  </div>
-</section>
-
-<!-- PERFECT FOR -->
-<section class="benefits-section">
-  <div class="container container-center">
-    <h2 class="section-title">Built For People Who Want Results, Not Prompt Theory</h2>
-    <ul class="perfect-for-list">
-      <li>Beginners confused by AI tools and blank prompt screens.</li>
-      <li>Instagram creators who need scroll-stopping visual content.</li>
-      <li>Freelancers who want client-ready visuals without delays.</li>
-      <li>Small business owners improving product and ad creatives.</li>
-      <li>Anyone who wants fast, high-quality AI image results.</li>
-    </ul>
-    <p class="fit-exclusion-line">Not ideal for users looking for free, random trial-and-error prompting with inconsistent output quality.</p>
-    <a href="#pricing" class="btn-primary btn-inline">Unlock All 11 Books - ₹299</a>
   </div>
 </section>
 
@@ -247,7 +282,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <section class="testimonials-section" id="reviews">
   <div class="container">
     <h2 class="section-title section-title--center">Real Buyer Outcomes</h2>
-    <p class="testimonial-lead">These buyers were not AI experts. They used the system to get practical results quickly.</p>
+    <p class="testimonial-lead">These buyers started as beginners. They used the same system to get practical results quickly.</p>
     <div class="testimonial-grid">
       <div class="testimonial-card">
         <div class="testimonial-stars">★★★★★</div>
@@ -289,11 +324,57 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   </div>
 </section>
 
+<!-- OBJECTION HANDLING -->
+<section class="benefits-section">
+  <div class="container container-center">
+    <h2 class="section-title">Why This Beats Random Free Prompting</h2>
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="solution-card-title">Without a system</div>
+        <ul class="solution-card-list">
+          <li>Random prompt guessing</li>
+          <li>Inconsistent AI results</li>
+          <li>Hours wasted in trial-and-error</li>
+          <li>Watching random tutorials without a repeatable workflow</li>
+          <li>Bad outputs that feel hit-or-miss</li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-card-title">With this interactive system</div>
+        <ul class="solution-card-list">
+          <li>Personalized prompts generated instantly</li>
+          <li>Prompts update live as you type</li>
+          <li>One-click copy and personalized PDF export</li>
+          <li>Beginner-friendly flow with consistent quality</li>
+          <li>Faster path from idea to usable AI image</li>
+        </ul>
+      </div>
+    </div>
+    <p class="solution-note">If your goal is faster first results and better output consistency, a guided interactive system beats random prompting every time.</p>
+  </div>
+</section>
+
+<!-- PERFECT FOR -->
+<section class="benefits-section">
+  <div class="container container-center">
+    <h2 class="section-title">Built For People Who Want Results, Not Prompt Theory</h2>
+    <ul class="perfect-for-list">
+      <li>Beginners confused by AI tools and blank prompt screens.</li>
+      <li>Creators who want better visuals without guessing prompts.</li>
+      <li>Freelancers who want client-ready visuals without delays.</li>
+      <li>Small business owners improving product and ad creatives.</li>
+      <li>Anyone who wants fast, high-quality AI image results.</li>
+    </ul>
+    <p class="fit-exclusion-line">Not ideal for users looking for free, random trial-and-error prompting with inconsistent output quality.</p>
+    <a href="#pricing" class="btn-primary btn-inline">Start Creating Better AI Images</a>
+  </div>
+</section>
+
 <!-- OFFER STACK -->
 <section id="offer-stack" class="offer-section">
   <div class="container container-center">
-    <h2 class="section-title">Everything Included In Full System Access</h2>
-    <p class="section-sub section-sub--compact">Every book, every bonus, and every future update in one purchase.</p>
+    <h2 class="section-title">Everything Included In Full AI Prompt System Access</h2>
+    <p class="section-sub section-sub--compact">This bundle is built to remove guesswork and help beginners create quality AI visuals faster and more consistently.</p>
     <div class="offer-list offer-list--redesign">
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 1 — Action Figure &amp; Toy Box</span><span class="offer-row-meta">100 prompts</span></div></div>
@@ -339,7 +420,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 11 — Trending Styles</span><span class="offer-row-meta">100 prompts</span></div></div>
         <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
       </div>
-      <p class="offer-compressed-note">+ 7 more complete style books included instantly in the full system.</p>
+      <p class="offer-compressed-note">+ 7 more complete interactive style systems included instantly in the full access bundle.</p>
       <div class="offer-total-row">
         <span class="offer-total-label">Value if bought separately</span>
         <div class="offer-total-price">
@@ -348,8 +429,8 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
       </div>
     </div>
-    <p class="offer-saving-line" id="offerSavingLine">Total standalone value: ₹2,189+ · Today: ₹299 one-time. Bonuses are included in this current launch window.</p>
-    <a href="#pricing" class="btn-primary btn-inline btn-inline--lg-top">Get Instant Access - ₹299</a>
+    <p class="offer-saving-line" id="offerSavingLine">Founder launch price: ₹299 one-time for full system access. Price increases after the next update cycle.</p>
+    <a href="#pricing" class="btn-primary btn-inline btn-inline--lg-top">Unlock Full AI Prompt System — ₹299</a>
     <div class="bonus-block">
       <div class="bonus-item">
         <div class="bonus-label">BONUS #1</div>
@@ -376,11 +457,23 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   </div>
 </section>
 
+<!-- MOBILE TRUST TEASER -->
+<section class="mobile-trust-teaser" aria-label="Mobile buyer proof">
+  <div class="container container-center">
+    <div class="mobile-trust-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="mobile-trust-quote">"Recovered my ₹299 in first few client orders. It made delivery much faster for me."</p>
+      <p class="mobile-trust-meta">Vikram T. · Graphic designer · Chennai</p>
+      <a href="#pricing" class="btn-primary btn-inline">Get Instant Access — ₹299</a>
+    </div>
+  </div>
+</section>
+
 <!-- OFFER DETAILS (PRICING) -->
 <section id="pricing" class="pricing-section">
   <div class="container container-center">
-    <h2 class="section-title">Choose Your Access</h2>
-    <p class="section-sub section-sub--spaced">Most buyers choose the complete system for full style coverage and faster ROI.</p>
+    <h2 class="section-title">Choose Your Access Path</h2>
+    <p class="section-sub section-sub--spaced">Most buyers choose full access because it removes guessing across every major style and gets faster first wins.</p>
     <div class="access-steps">
       <div class="access-step"><span class="access-step-num">1</span><span>Pay securely</span></div>
       <div class="access-step"><span class="access-step-num">2</span><span>Get instant email access</span></div>
@@ -406,32 +499,32 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
     <div class="pricing-grid">
       <!-- Single Book -->
-      <div class="price-card">
-        <div class="price-plan">Starter (1 Book)</div>
+      <div class="price-card price-card--starter">
+        <div class="price-plan">Starter (1 System)</div>
         <div class="price-amount"><span class="currency">₹</span>99 <span class="original">₹199</span></div>
-        <div class="price-billing">One book · 100 prompts · Lifetime access</div>
+        <div class="price-billing">One interactive system · 100 prompts · Lifetime access</div>
         <ul class="price-features">
-          <li>Pick 1 style book of your choice</li>
+          <li>Pick any 1 interactive style system</li>
           <li>100 fill-in-the-blank prompt templates</li>
           <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
           <li>Free bonus: AI Image Cheat Code guide</li>
-          <li>Best for testing one style first</li>
+          <li>Best for testing one style before full access</li>
         </ul>
         <button class="btn-buy-outline" data-action="start-checkout" data-plan="single">
-          Start with 1 Book - ₹99
+          Start with 1 System - ₹99
         </button>
-        <div class="price-risk-reversal">Good for testing one style first.</div>
+        <div class="price-risk-reversal">Starter option. Most buyers upgrade to full access for speed and consistency across all styles.</div>
       </div>
 
       <!-- Full System -->
       <div class="price-card popular">
         <div class="price-badge">BEST VALUE</div>
-        <div class="price-plan">Complete System (11 Books)</div>
+        <div class="price-plan">Complete Interactive System (11 Books)</div>
         <div class="price-amount"><span class="currency">₹</span>299 <span class="original">₹2,189</span></div>
         <div class="price-billing">Save ₹1,890 · All 11 books + bonus resources · Lifetime access</div>
         <div class="price-card-social">Chosen by <strong>200+ creators</strong> — from beginners to freelancers</div>
         <ul class="price-features">
-          <li>All 11 books — 1,100 prompt templates</li>
+          <li>All 11 interactive style systems + live prompt personalization</li>
           <li>Every trending style covered (Ghibli, posters, pets, fashion…)</li>
           <li>6 personal variable slots per prompt</li>
           <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
@@ -441,9 +534,9 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <li>All future books automatically added</li>
         </ul>
         <button class="btn-buy" data-action="start-checkout" data-plan="bundle">
-          Unlock All 11 Books - ₹299
+          Unlock Full AI Prompt System — ₹299
         </button>
-        <div class="price-risk-reversal">Best for serious use: all styles now, plus future books included.</div>
+        <div class="price-risk-reversal">Best value path for beginners: all styles now, faster results, and future books included.</div>
       </div>
     </div>
     <div class="support-access">
@@ -458,7 +551,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </ul>
     </div>
 
-    <p class="pricing-note pricing-note--top" id="pricingAnchor">Launch pricing: full system at ₹299. Price increases in a future update cycle.</p>
+    <p class="pricing-note pricing-note--top" id="pricingAnchor">Founder launch pricing: full system at ₹299. Price increases after upcoming system updates.</p>
     <p class="pricing-note">Secure checkout via Razorpay (India)</p>
     <p class="pricing-note pricing-note--muted">24-hour technical guarantee for failed access/login link issues.</p>
   </div>
@@ -499,25 +592,23 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <!-- FINAL CTA -->
 <section class="final-cta-section">
   <div class="container">
-    <h2>Your First Better AI Image Can Be Ready In <span>Minutes</span></h2>
+    <h2>Your First High-Quality AI Image Can Be Ready In <span>Minutes</span></h2>
     <div class="final-cta-inner">
       <ul class="final-cta-list">
-        <li>11 systems</li>
-        <li>1,100 templates</li>
-        <li>₹299 once</li>
-        <li>Instant access</li>
+        <li>No prompt engineering needed</li>
+        <li>Prompts update live as you type</li>
+        <li>Copy in one click or save personalized PDF books</li>
+        <li>Instant full system access for ₹299 one-time</li>
       </ul>
-      <div class="final-cta-value">Total Value: ₹2,189+</div>
-      <div class="final-cta-price">Launch Price: ₹299</div>
-      <a href="#pricing" class="btn-primary btn-inline btn-inline--final">
-        Get Instant Access Now - ₹299
-      </a>
+      <div class="final-cta-value">Founder launch access is active now</div>
+      <div class="final-cta-price">Unlock Full AI Prompt System — ₹299</div>
+      <a href="#pricing" class="btn-primary btn-inline btn-inline--final">Unlock Full AI Prompt System — ₹299</a>
       <div class="final-assurance-row">
         <span>Secure checkout</span>
         <span>Instant access</span>
         <span>No subscription</span>
       </div>
-      <div class="final-cta-micro">Launch pricing and bonus bundle increase in a future update cycle.</div>
+      <div class="final-cta-micro">Founder pricing and current bonus bundle change after the next update cycle.</div>
     </div>
   </div>
 </section>
@@ -554,10 +645,10 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <div class="sticky-cta" id="stickyCta">
   <div class="sticky-cta-inner">
     <div class="sticky-cta-text">
-      <strong>Prompt System — All 11 Books</strong>
+      <strong>Full AI Prompt System + Bonuses</strong>
       <span id="stickyPrice">₹299 · Instant access after payment</span>
     </div>
-    <button class="sticky-cta-btn" data-action="start-checkout" data-plan="bundle">Get Full System - ₹299</button>
+    <button class="sticky-cta-btn" data-action="start-checkout" data-plan="bundle">Get Instant Access — ₹299</button>
   </div>
 </div>
 

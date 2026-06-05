@@ -53,6 +53,71 @@ function isLoggedIn(): bool {
     return !empty($_SESSION['user_id']);
 }
 
+function isProductionEnvironment(): bool {
+    $appEnv = getenv('APP_ENV') ?: ($_SERVER['APP_ENV'] ?? '');
+    return strtolower((string)$appEnv) === 'production';
+}
+
+function isLocalhostRequest(): bool {
+    $hostHeader = strtolower(trim((string)($_SERVER['HTTP_HOST'] ?? '')));
+    $hostOnly = explode(':', $hostHeader)[0] ?? '';
+    return in_array($hostOnly, ['localhost', '127.0.0.1', '::1'], true);
+}
+
+function isLocalDemoModeEnabled(): bool {
+    return isLocalhostRequest() && !isProductionEnvironment();
+}
+
+function getLocalDemoUsers(): array {
+    if (!isLocalDemoModeEnabled()) {
+        return [];
+    }
+
+    return [
+        'demo-full@localhost' => [
+            'id' => 'demo_full_localhost',
+            'email' => 'demo-full@localhost',
+            'name' => 'Demo Full Access',
+            'plan' => 'bundle',
+            'books_access' => null,
+            'currency' => 'INR',
+            'payment_method' => 'razorpay',
+            'status' => 'active',
+            'is_demo' => true,
+        ],
+        'demo-onebook@localhost' => [
+            'id' => 'demo_onebook_localhost',
+            'email' => 'demo-onebook@localhost',
+            'name' => 'Demo One Book Access',
+            'plan' => 'single',
+            'books_access' => json_encode([2]),
+            'currency' => 'INR',
+            'payment_method' => 'razorpay',
+            'status' => 'active',
+            'is_demo' => true,
+        ],
+    ];
+}
+
+function getLocalDemoUserByEmail(string $email): ?array {
+    $demoUsers = getLocalDemoUsers();
+    $normalizedEmail = strtolower(trim($email));
+    if ($normalizedEmail === '' || !isset($demoUsers[$normalizedEmail])) {
+        return null;
+    }
+    return $demoUsers[$normalizedEmail];
+}
+
+function verifyLocalDemoPassword(string $email, string $password): bool {
+    if (!isLocalDemoModeEnabled()) {
+        return false;
+    }
+    $normalizedEmail = strtolower(trim($email));
+    $normalizedPassword = trim($password);
+    return ($normalizedEmail === 'demo-full@localhost' && $normalizedPassword === 'demo12345')
+        || ($normalizedEmail === 'demo-onebook@localhost' && $normalizedPassword === 'demo12345');
+}
+
 function requireLogin(): void {
     if (!isLoggedIn()) {
         header('Location: ' . SITE_URL . '/login.php?next=' . urlencode($_SERVER['REQUEST_URI']));
@@ -62,6 +127,15 @@ function requireLogin(): void {
 
 function getCurrentUser(): ?array {
     if (!isLoggedIn()) return null;
+
+    if (!empty($_SESSION['is_demo_user']) && isLocalDemoModeEnabled()) {
+        $demoEmail = strtolower(trim((string)($_SESSION['demo_email'] ?? '')));
+        $demoUser = getLocalDemoUserByEmail($demoEmail);
+        if ($demoUser !== null) {
+            return $demoUser;
+        }
+    }
+
     $db   = getDB();
     $stmt = $db->prepare('SELECT * FROM users WHERE id = ? AND status = "active"');
     $stmt->execute([$_SESSION['user_id']]);
@@ -72,6 +146,14 @@ function getCurrentUser(): ?array {
 function loginUser(array $user): void {
     session_regenerate_id(true);
     $_SESSION['user_id'] = $user['id'];
+
+    if (!empty($user['is_demo']) && isLocalDemoModeEnabled()) {
+        $_SESSION['is_demo_user'] = true;
+        $_SESSION['demo_email'] = strtolower(trim((string)($user['email'] ?? '')));
+        return;
+    }
+
+    unset($_SESSION['is_demo_user'], $_SESSION['demo_email']);
     // update last_login
     getDB()->prepare('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?')
            ->execute([$user['id']]);
