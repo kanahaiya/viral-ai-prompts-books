@@ -1783,19 +1783,25 @@ const vars = {
   tagline:        () => document.getElementById('v-tagline').value.trim() || '[TAGLINE]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[ROLE\]/g, vars.role())
-    .replace(/\[OUTFIT\]/g, vars.outfit())
-    .replace(/\[GENRE\]/g, vars.genre())
-    .replace(/\[PALETTE\]/g, vars.palette())
-    .replace(/\[TAGLINE\]/g, vars.tagline());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|ROLE|OUTFIT|GENRE|PALETTE|TAGLINE)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), ro = vars.role(), ou = vars.outfit(), ge = vars.genre(), pa = vars.palette(), ta = vars.tagline();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    ROLE: vars.role(),
+    OUTFIT: vars.outfit(),
+    GENRE: vars.genre(),
+    PALETTE: vars.palette(),
+    TAGLINE: vars.tagline(),
+  };
+  const na = values.NAME, ro = values.ROLE, ou = values.OUTFIT, ge = values.GENRE, pa = values.PALETTE, ta = values.TAGLINE;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.

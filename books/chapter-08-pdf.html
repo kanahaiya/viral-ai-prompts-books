@@ -1783,19 +1783,25 @@ const vars = {
   occasion:        () => document.getElementById('v-occasion').value.trim() || '[OCCASION]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[STYLE\]/g, vars.style())
-    .replace(/\[ERA\]/g, vars.era())
-    .replace(/\[OUTFIT\]/g, vars.outfit())
-    .replace(/\[SETTING\]/g, vars.setting())
-    .replace(/\[OCCASION\]/g, vars.occasion());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|STYLE|ERA|OUTFIT|SETTING|OCCASION)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), st = vars.style(), er = vars.era(), ou = vars.outfit(), se = vars.setting(), oc = vars.occasion();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    STYLE: vars.style(),
+    ERA: vars.era(),
+    OUTFIT: vars.outfit(),
+    SETTING: vars.setting(),
+    OCCASION: vars.occasion(),
+  };
+  const na = values.NAME, st = values.STYLE, er = values.ERA, ou = values.OUTFIT, se = values.SETTING, oc = values.OCCASION;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.

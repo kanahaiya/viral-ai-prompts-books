@@ -1783,19 +1783,25 @@ const vars = {
   outfit:        () => document.getElementById('v-outfit').value.trim() || '[OUTFIT]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[PERSONALITY\]/g, vars.personality())
-    .replace(/\[ROLE\]/g, vars.role())
-    .replace(/\[PROP\]/g, vars.prop())
-    .replace(/\[STYLE\]/g, vars.style())
-    .replace(/\[OUTFIT\]/g, vars.outfit());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|PERSONALITY|ROLE|PROP|STYLE|OUTFIT)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), pe = vars.personality(), ro = vars.role(), pr = vars.prop(), st = vars.style(), ou = vars.outfit();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    PERSONALITY: vars.personality(),
+    ROLE: vars.role(),
+    PROP: vars.prop(),
+    STYLE: vars.style(),
+    OUTFIT: vars.outfit(),
+  };
+  const na = values.NAME, pe = values.PERSONALITY, ro = values.ROLE, pr = values.PROP, st = values.STYLE, ou = values.OUTFIT;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.

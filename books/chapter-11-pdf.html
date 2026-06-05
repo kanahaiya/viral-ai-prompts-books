@@ -1783,19 +1783,25 @@ const vars = {
   palette:        () => document.getElementById('v-palette').value.trim() || '[PALETTE]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[NICHE\]/g, vars.niche())
-    .replace(/\[SUBJECT\]/g, vars.subject())
-    .replace(/\[AESTHETIC\]/g, vars.aesthetic())
-    .replace(/\[PLATFORM\]/g, vars.platform())
-    .replace(/\[PALETTE\]/g, vars.palette());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|NICHE|SUBJECT|AESTHETIC|PLATFORM|PALETTE)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), ni = vars.niche(), su = vars.subject(), ae = vars.aesthetic(), pl = vars.platform(), pa = vars.palette();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    NICHE: vars.niche(),
+    SUBJECT: vars.subject(),
+    AESTHETIC: vars.aesthetic(),
+    PLATFORM: vars.platform(),
+    PALETTE: vars.palette(),
+  };
+  const na = values.NAME, ni = values.NICHE, su = values.SUBJECT, ae = values.AESTHETIC, pl = values.PLATFORM, pa = values.PALETTE;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.

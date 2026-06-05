@@ -1537,15 +1537,18 @@ const H = {
 };
 
 function fill() {
-  const su = document.getElementById('v-subject').value.trim() || T.subject.placeholder;
-  const st = document.getElementById('v-style').value.trim()   || T.style.placeholder;
-  const mo = document.getElementById('v-mood').value.trim()    || T.mood.placeholder;
+  const values = {
+    SUBJECT: document.getElementById('v-subject').value.trim() || T.subject.placeholder,
+    STYLE: document.getElementById('v-style').value.trim() || T.style.placeholder,
+    MOOD: document.getElementById('v-mood').value.trim() || T.mood.placeholder,
+  };
 
   function filled(html) {
-    return html
-      .replace(/<span class="tok">\[SUBJECT\]<\/span>/g, `<span class="filled-val">${escHtml(su)}</span>`)
-      .replace(/<span class="tok">\[STYLE\]<\/span>/g,   `<span class="filled-val">${escHtml(st)}</span>`)
-      .replace(/<span class="tok">\[MOOD\]<\/span>/g,    `<span class="filled-val">${escHtml(mo)}</span>`);
+    const tokenPattern = /<span class="tok">\[\s*(SUBJECT|STYLE|MOOD)\s*\]<\/span>/gi;
+    return html.replace(tokenPattern, (_, tokenName) => {
+      const normalizedTokenName = tokenName.toUpperCase();
+      return `<span class="filled-val">${escHtml(values[normalizedTokenName] || `[${normalizedTokenName}]`)}</span>`;
+    });
   }
 
   const hasInput = document.getElementById('v-subject').value.trim() ||

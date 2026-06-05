@@ -1815,20 +1815,26 @@ const vars = {
   boxcolor:    () => document.getElementById('v-boxcolor').value.trim()    || '{BOX_COLOR}',
 };
 
-function fill(str) {
-  return str
-    .replace(/\{NAME\}/g,        vars.name())
-    .replace(/\{ROLE\}/g,        vars.role())
-    .replace(/\{DESCRIPTION\}/g, vars.description())
-    .replace(/\{OUTFIT\}/g,      vars.outfit())
-    .replace(/\{ACCESSORIES\}/g, vars.accessories())
-    .replace(/\{BOX_COLOR\}/g,   vars.boxcolor());
+function fill(str, values) {
+  const tokenPattern = /\{\s*(NAME|ROLE|DESCRIPTION|OUTFIT|ACCESSORIES|BOX_COLOR)\s*\}/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `{${normalizedTokenName}}`;
+  });
 }
 
 function buildBlock(n) {
-  const nm = vars.name(), ro = vars.role(), de = vars.description();
-  const ou = vars.outfit(), ac = vars.accessories(), bc = vars.boxcolor();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    ROLE: vars.role(),
+    DESCRIPTION: vars.description(),
+    OUTFIT: vars.outfit(),
+    ACCESSORIES: vars.accessories(),
+    BOX_COLOR: vars.boxcolor(),
+  };
+  const nm = values.NAME, ro = values.ROLE, de = values.DESCRIPTION;
+  const ou = values.OUTFIT, ac = values.ACCESSORIES, bc = values.BOX_COLOR;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI action figure image prompt for your photo.
 First, let's define some variables.

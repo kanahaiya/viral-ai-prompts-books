@@ -1594,20 +1594,28 @@ const vars = {
   time:      () => document.getElementById('v-time').value.trim()      || '[TIME]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g,      vars.name())
-    .replace(/\[WORLD\]/g,     vars.world())
-    .replace(/\[OUTFIT\]/g,    vars.outfit())
-    .replace(/\[COMPANION\]/g, vars.companion())
-    .replace(/\[SETTING\]/g,   vars.setting())
-    .replace(/\[TIME\]/g,      vars.time());
+function getVariableValues() {
+  return {
+    NAME: vars.name(),
+    WORLD: vars.world(),
+    OUTFIT: vars.outfit(),
+    COMPANION: vars.companion(),
+    SETTING: vars.setting(),
+    TIME: vars.time(),
+  };
+}
+
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|WORLD|OUTFIT|COMPANION|SETTING|TIME)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const nm = vars.name(), wo = vars.world(), ou = vars.outfit();
-  const co = vars.companion(), se = vars.setting(), ti = vars.time();
-  const prompt = fill(T[n]);
+  const values = getVariableValues();
+  const prompt = fill(T[n], values);
 
   return `We'll be creating a Ghibli & anime style image prompt for your photo.
 First, let's define some variables.
@@ -1620,12 +1628,12 @@ First, let's define some variables.
 "[TIME]" is the time of day or atmospheric mood of the scene.
 
 Now let's give these variables our values.
-[NAME] = "${nm}"
-[WORLD] = "${wo}"
-[OUTFIT] = "${ou}"
-[COMPANION] = "${co}"
-[SETTING] = "${se}"
-[TIME] = "${ti}"
+[NAME] = "${values.NAME}"
+[WORLD] = "${values.WORLD}"
+[OUTFIT] = "${values.OUTFIT}"
+[COMPANION] = "${values.COMPANION}"
+[SETTING] = "${values.SETTING}"
+[TIME] = "${values.TIME}"
 
 ─────────────────────────────────────────
 ${prompt}`;

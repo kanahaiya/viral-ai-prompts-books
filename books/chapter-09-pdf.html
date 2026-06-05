@@ -1783,19 +1783,25 @@ const vars = {
   setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[PET\sNAME\]/g, vars.petname())
-    .replace(/\[BREED\]/g, vars.breed())
-    .replace(/\[COAT\]/g, vars.coat())
-    .replace(/\[THEME\]/g, vars.theme())
-    .replace(/\[PROP\]/g, vars.prop())
-    .replace(/\[SETTING\]/g, vars.setting());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(PET\s+NAME|BREED|COAT|THEME|PROP|SETTING)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase().replace(/\s+/g, ' ');
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const pe = vars.petname(), br = vars.breed(), co = vars.coat(), th = vars.theme(), pr = vars.prop(), se = vars.setting();
-  const prompt = fill(T[n]);
+  const values = {
+    'PET NAME': vars.petname(),
+    BREED: vars.breed(),
+    COAT: vars.coat(),
+    THEME: vars.theme(),
+    PROP: vars.prop(),
+    SETTING: vars.setting(),
+  };
+  const pe = values['PET NAME'], br = values.BREED, co = values.COAT, th = values.THEME, pr = values.PROP, se = values.SETTING;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
