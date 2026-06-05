@@ -244,7 +244,8 @@ function proceedCheckout(plan, bookId, bookIds = null) {
   document.getElementById('checkoutSummary').innerHTML =
     `<strong style="color:#fff">${planLabel}</strong><br>
      <span style="color:#888">${bookName}</span><br>
-     <span style="color:#d4a836;font-weight:700;font-size:1.1rem;font-family:'Courier New',monospace;">${price}</span>`;
+     <span style="color:#d4a836;font-weight:700;font-size:1.1rem;font-family:'Courier New',monospace;">${price}</span><br>
+     <span style="color:#666;font-size:0.78rem;">Instant access is delivered to your email right after payment.</span>`;
 
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
@@ -680,7 +681,7 @@ function initStickyCta() {
   if (!stickyCta) return;
   function updateStickyPrice() {
     const sp = document.getElementById('stickyPrice');
-    if (sp) sp.textContent = '₹299 · One-time payment';
+    if (sp) sp.textContent = '₹299 · Instant access after payment';
   }
   updateStickyPrice();
 
