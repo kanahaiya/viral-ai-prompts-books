@@ -4,6 +4,7 @@
 .wibey-tasks/
 .wibey/
 .cursor/
+.playwright-mcp/
 
 # Local runtime/dev artifacts
 local.db
