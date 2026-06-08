@@ -66,6 +66,7 @@ curl_setopt_array($ch, [
     CURLOPT_USERPWD        => RAZORPAY_KEY_ID . ':' . RAZORPAY_KEY_SECRET,
     CURLOPT_TIMEOUT        => 30,
 ]);
+
 $response = curl_exec($ch);
 $curlError = curl_error($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -94,13 +95,31 @@ try {
     $bookIdsJson = $plan === 'single' ? json_encode($bookIds) : null;
 
     $hasBookIdsJsonColumn = false;
-    $columnCheckStmt = $db->query("SHOW COLUMNS FROM payments LIKE 'book_ids_json'");
-    if ($columnCheckStmt !== false && $columnCheckStmt->fetch()) {
-        $hasBookIdsJsonColumn = true;
+    $driver = $db->getAttribute(PDO::ATTR_DRIVER_NAME);
+    if ($driver === 'sqlite') {
+        $columnCheckStmt = $db->query("PRAGMA table_info(payments)");
+        if ($columnCheckStmt !== false) {
+            foreach ($columnCheckStmt->fetchAll(PDO::FETCH_ASSOC) as $columnInfo) {
+                if (($columnInfo['name'] ?? '') === 'book_ids_json') {
+                    $hasBookIdsJsonColumn = true;
+                    break;
+                }
+            }
+        }
+    } else {
+        $columnCheckStmt = $db->query("SHOW COLUMNS FROM payments LIKE 'book_ids_json'");
+        if ($columnCheckStmt !== false && $columnCheckStmt->fetch()) {
+            $hasBookIdsJsonColumn = true;
+        }
     }
 
     if (!$hasBookIdsJsonColumn && $plan === 'single' && count($bookIds) > 1) {
-        jsonResponse(['error' => 'Multi-book checkout requires DB update. Add payments.book_ids_json column and retry.'], 500);
+        if ($driver === 'sqlite') {
+            $db->exec("ALTER TABLE payments ADD COLUMN book_ids_json TEXT");
+            $hasBookIdsJsonColumn = true;
+        } else {
+            jsonResponse(['error' => 'Multi-book checkout requires DB update. Add payments.book_ids_json column and retry.'], 500);
+        }
     }
 
     if ($hasBookIdsJsonColumn) {

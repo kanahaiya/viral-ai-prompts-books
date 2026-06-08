@@ -18,6 +18,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS payments (
     name           TEXT,
     plan           TEXT NOT NULL,
     book_id        INTEGER,
+    book_ids_json  TEXT,
     amount         REAL NOT NULL DEFAULT 0,
     currency       TEXT NOT NULL DEFAULT 'INR',
     payment_method TEXT NOT NULL DEFAULT 'cashfree',
@@ -28,6 +29,19 @@ $db->exec("CREATE TABLE IF NOT EXISTS payments (
     setup_used     INTEGER NOT NULL DEFAULT 0,
     created_at     TEXT NOT NULL DEFAULT (datetime('now'))
 )");
+
+// Backfill old local DBs that were created before book_ids_json existed.
+$paymentsColumns = $db->query("PRAGMA table_info(payments)")->fetchAll(PDO::FETCH_ASSOC);
+$hasBookIdsJsonColumn = false;
+foreach ($paymentsColumns as $columnInfo) {
+    if (($columnInfo['name'] ?? '') === 'book_ids_json') {
+        $hasBookIdsJsonColumn = true;
+        break;
+    }
+}
+if (!$hasBookIdsJsonColumn) {
+    $db->exec("ALTER TABLE payments ADD COLUMN book_ids_json TEXT");
+}
 
 $db->exec("CREATE TABLE IF NOT EXISTS users (
     id             INTEGER PRIMARY KEY AUTOINCREMENT,
