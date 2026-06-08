@@ -164,6 +164,13 @@ let currentBookId = null;
 let currentBookIds = [];
 let selectedBookIds = [];
 const SINGLE_BOOK_PRICE_INR = 99;
+let currentCheckoutAmountInr = BUNDLE_PRICE_INR;
+
+function updateCheckoutCtaLabel(amountInr) {
+  const razorpayButtonElement = document.getElementById('razorpayBtn');
+  if (!razorpayButtonElement) return;
+  razorpayButtonElement.textContent = `Unlock Instant Access — ₹${amountInr}`;
+}
 
 function startCheckout(plan) {
   trackCustomEvent('CheckoutStarted', { plan });
@@ -238,16 +245,21 @@ function proceedCheckout(plan, bookId, bookIds = null) {
   const bookName = plan === 'bundle'
     ? 'All 11 Books + Bonus Guide (Full System)'
     : selectedBookNames.join(', ');
-  const planLabel = plan === 'bundle'
-    ? '📦 Full System'
-    : `📚 Selected Books (${selectedCount})`;
-  document.getElementById('checkoutSummary').innerHTML =
-    `<strong style="color:#fff">${planLabel}</strong><br>
-     <span style="color:#888">${bookName}</span><br>
-     <span style="color:#d4a836;font-weight:700;font-size:1.1rem;font-family:'Courier New',monospace;">${price}</span>`;
+  const planLabel = plan === 'bundle' ? 'Full System Access' : `Selected Books (${selectedCount})`;
+  const selectedBooksText = plan === 'bundle'
+    ? 'Includes all books + bonus guide'
+    : `Selected books (${selectedCount}): ${bookName}`;
+  const summaryPlanElement = document.getElementById('checkoutSummaryPlan');
+  const summarySelectionElement = document.getElementById('checkoutSummarySelection');
+  const summaryPriceElement = document.getElementById('checkoutSummaryPrice');
+  if (summaryPlanElement) summaryPlanElement.textContent = planLabel;
+  if (summarySelectionElement) summarySelectionElement.textContent = selectedBooksText;
+  if (summaryPriceElement) summaryPriceElement.textContent = price;
 
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
+  currentCheckoutAmountInr = totalInr;
+  updateCheckoutCtaLabel(totalInr);
 
   trackCheckoutEvent('InitiateCheckout', plan, plan === 'bundle' ? 11 : selectedCount, {
     selected_books: plan === 'single' ? currentBookIds.join(',') : '',
@@ -466,7 +478,7 @@ async function payWithRazorpay() {
   } catch (e) {
     showError('Could not reach payment service. Check internet and try again.');
   } finally {
-    document.getElementById('razorpayBtn').textContent = 'Pay with UPI / Card (Razorpay)';
+    updateCheckoutCtaLabel(currentCheckoutAmountInr);
     document.getElementById('razorpayBtn').disabled = false;
   }
 }
