@@ -66,12 +66,11 @@ curl_setopt_array($ch, [
     CURLOPT_USERPWD        => RAZORPAY_KEY_ID . ':' . RAZORPAY_KEY_SECRET,
     CURLOPT_TIMEOUT        => 30,
 ]);
+
 $response = curl_exec($ch);
 $curlError = curl_error($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-if (PHP_VERSION_ID < 80500 && function_exists('curl_close')) {
-    curl_close($ch);
-}
+curl_close($ch);
 
 $order = json_decode($response, true);
 
