@@ -8,17 +8,17 @@ $books    = getBooks();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/assets/icons/favicon.png">
+<link rel="icon" type="image/png" href="/assets/icons/logo-gold-quill-32.png">
 <title>Viral AI Prompts System — 11 Books, 1,100 AI Image Templates</title>
 <meta name="description" content="The Viral AI Prompts System — 11 books, 1,100 fill-in-the-blank templates. Create better AI images faster with Midjourney, ChatGPT, Firefly and more.">
 <link rel="canonical" href="<?= htmlspecialchars(rtrim(SITE_URL, '/')) ?>/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="AI Prompt Books">
+<meta property="og:site_name" content="AI Prompt System">
 <meta property="og:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta property="og:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
 <meta property="og:url" content="https://www.aipromptbooks.in/">
 <meta property="og:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
-<meta property="og:image:alt" content="AI Prompt Books system preview showing all 11 books and bonus resources">
+<meta property="og:image:alt" content="AI Prompt System preview showing all 11 books and bonus resources">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Viral AI Prompts System — 11 Books, 1,100 AI Image Templates">
 <meta name="twitter:description" content="Create stunning AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates.">
@@ -74,7 +74,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-logo">AI Prompt Books</div>
+    <div class="nav-logo">AI Prompt System</div>
     <div class="nav-links">
       <?php if ($loggedIn): ?>
         <a href="/dashboard.php" class="nav-cta">My Books →</a>
@@ -691,7 +691,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     <h2>Create Stunning AI Images Without Learning <span>Prompting</span></h2>
     <div class="final-cta-inner">
       <ul class="final-cta-list">
-        <li>11 Premium AI Prompt Books</li>
+        <li>11 Premium AI Prompt System Books</li>
         <li>1,100 Fill-in-the-Blank Templates</li>
         <li>Bonuses Included</li>
         <li>Lifetime Access</li>
@@ -709,14 +709,14 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-logo">AI Prompt Books</div>
+  <div class="footer-logo">AI Prompt System</div>
   <div class="footer-links">
     <a href="/contact-details.php">Contact</a>
     <a href="/terms-and-conditions.php">Terms</a>
     <a href="/privacy-policy.php">Privacy Policy</a>
     <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
   </div>
-  <div class="footer-copy">© <?= date('Y') ?> AI Prompt Books. All rights reserved.</div>
+  <div class="footer-copy">© <?= date('Y') ?> AI Prompt System. All rights reserved.</div>
 </footer>
 
 <!-- EXIT INTENT POPUP -->
@@ -766,6 +766,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
         $hasModalCover = file_exists($modalCoverDiskPath);
         $modalCoverVersion = $hasModalCover ? ('?v=' . filemtime($modalCoverDiskPath)) : '';
+        $modalDisplayTitle = preg_replace('/^Bonus\s+/i', '', $book['title']);
       ?>
       <button type="button" data-action="toggle-book-selection" data-book-id="<?= $id ?>"
               class="modal-book-btn"
@@ -776,7 +777,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <?php else: ?>
           <span class="mbb-emoji"><?= $book['emoji'] ?></span>
         <?php endif; ?>
-        <div class="mbb-title"><?= htmlspecialchars($book['title']) ?></div>
+        <div class="mbb-title"><?= htmlspecialchars($modalDisplayTitle) ?></div>
         <div class="mbb-meta">100 PROMPTS</div>
         <div class="mbb-price" id="modalPrice<?= $id ?>"><span class="mbb-price-now">₹99</span><span class="mbb-price-old">₹199</span></div>
       </button>
@@ -816,28 +817,105 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <div id="checkoutModal" class="app-modal app-modal--checkout">
   <div class="app-modal-card app-modal-card--checkout">
     <div class="app-modal-head app-modal-head--checkout">
-      <div id="checkoutTitle" class="checkout-title">CHECKOUT</div>
+      <div class="checkout-head-main">
+        <div class="checkout-brand-icon" aria-hidden="true">
+          <img src="/assets/icons/logo-gold-quill.webp" alt="" width="28" height="28" loading="lazy" decoding="async">
+        </div>
+        <div class="checkout-head-copy">
+          <div id="checkoutTitle" class="checkout-title">Unlock Your Full<br><span class="checkout-title-accent">AI Prompt System</span></div>
+          <div id="checkoutSubtitle" class="checkout-subtitle">Get instant access to all 11 interactive prompt books + bonus AI guide.</div>
+        </div>
+      </div>
       <button type="button" class="checkout-close-btn" data-action="close-checkout" aria-label="Close checkout modal">×</button>
     </div>
-    <div id="checkoutSummary" class="checkout-summary"></div>
 
-    <div class="checkout-field">
-      <label for="buyerName" class="checkout-label">YOUR NAME</label>
-      <input type="text" id="buyerName" class="checkout-input" name="buyer_name" autocomplete="name" placeholder="e.g. Raj Sharma…">
-    </div>
-    <div class="checkout-field">
-      <label for="buyerEmail" class="checkout-label">EMAIL ADDRESS</label>
-      <input type="email" id="buyerEmail" class="checkout-input" name="buyer_email" autocomplete="email" spellcheck="false" placeholder="you@example.com…">
-      <div class="checkout-help">Your login credentials will be sent to this email right after payment.</div>
-    </div>
-    <div id="paymentButtons" class="checkout-payments">
-      <button id="razorpayBtn" type="button" class="pay-btn-razorpay" data-action="pay-razorpay">
-        Pay with UPI / Card (Razorpay)
-      </button>
-      <div id="paymentSecure" class="checkout-security">🔒 Secure · One-time payment · No subscription</div>
-      <div class="checkout-terms">
-        24-hour technical guarantee for failed access/login link. No refunds after successful access.
+    <div class="checkout-layout">
+      <div class="checkout-left">
+        <div id="checkoutSummary" class="checkout-summary">
+          <div class="checkout-summary-head">
+            <strong id="checkoutSummaryPlan">Full System Access</strong>
+            <span id="checkoutSummaryPrice" class="checkout-summary-price">₹299</span>
+          </div>
+          <span id="checkoutSummarySelection">Includes:</span>
+          <div id="checkoutSummaryHighlights" class="checkout-summary-highlights">
+            <ul id="checkoutSummaryBooksList" class="checkout-summary-books-list">
+              <li>Ghibli &amp; Anime Style</li>
+              <li>Professional Headshots</li>
+              <li>Product Photography</li>
+            </ul>
+            <div id="checkoutSummaryOverflow" class="checkout-summary-overflow" hidden>+0 more selected books</div>
+            <div id="checkoutSummaryBonus" class="checkout-summary-bonus"><span class="checkout-summary-bonus-kicker">🎁 BONUS INCLUDED</span><span class="checkout-summary-bonus-title">AI Cheat Guide</span></div>
+          </div>
+          <div class="checkout-summary-chips" aria-label="System benefits">
+            <span class="checkout-summary-chip">⚡ Real-Time Updates</span>
+            <span class="checkout-summary-chip">📋 One-Click Copy</span>
+            <span class="checkout-summary-chip">📄 PDF Export</span>
+            <span class="checkout-summary-chip">♾ Lifetime Access</span>
+          </div>
+        </div>
+
+        <div class="checkout-proof">
+          <div id="checkoutProofTitle" class="checkout-proof-title">✨ Selected Styles Preview ✨</div>
+          <div class="checkout-proof-strip" aria-label="Example outputs">
+            <figure class="checkout-proof-item" id="checkoutProofItem1">
+              <img id="checkoutProofImage1" src="/assets/checkout/ghibli-art-thumb.webp" alt="Ghibli style image example" width="88" height="88" loading="lazy" decoding="async">
+              <figcaption id="checkoutProofCaption1">Ghibli Art</figcaption>
+            </figure>
+            <figure class="checkout-proof-item" id="checkoutProofItem2">
+              <img id="checkoutProofImage2" src="/assets/checkout/action-figures-thumb.webp" alt="Action figure style image example" width="88" height="88" loading="lazy" decoding="async">
+              <figcaption id="checkoutProofCaption2">Action Figures</figcaption>
+            </figure>
+            <figure class="checkout-proof-item" id="checkoutProofItem3">
+              <img id="checkoutProofImage3" src="/assets/checkout/professional-headshots-thumb.webp" alt="Professional headshot image example" width="88" height="88" loading="lazy" decoding="async">
+              <figcaption id="checkoutProofCaption3">Professional Headshots</figcaption>
+            </figure>
+            <span id="checkoutProofMoreBadge" class="checkout-proof-more-badge" hidden>+0 More Styles</span>
+          </div>
+        </div>
+
+        <div class="checkout-social-proof">
+          <strong>⭐ Trusted by 200+ creators</strong>
+        </div>
       </div>
+
+      <div class="checkout-right">
+        <div class="checkout-field">
+          <label for="buyerName" class="checkout-label">Your Name</label>
+          <input type="text" id="buyerName" class="checkout-input" name="buyer_name" autocomplete="name" placeholder="Enter your name">
+        </div>
+        <div class="checkout-field">
+          <label for="buyerEmail" class="checkout-label">Email Address</label>
+          <input type="email" id="buyerEmail" class="checkout-input" name="buyer_email" autocomplete="email" spellcheck="false" placeholder="Enter your email for instant access">
+          <div class="checkout-help">Your login + access details are delivered instantly after payment.</div>
+        </div>
+        <div id="paymentButtons" class="checkout-payments">
+          <button id="razorpayBtn" type="button" class="pay-btn-razorpay" data-action="pay-razorpay">
+            <span class="pay-btn-razorpay__icon" aria-hidden="true">🔒</span>
+            <span class="pay-btn-razorpay__text">Unlock Instant Access — ₹299</span>
+          </button>
+          <div id="checkoutCtaMicrocopy" class="checkout-cta-microcopy">Instant access to your full AI prompt system after payment.</div>
+          <div id="paymentSecure" class="checkout-security">Secure Razorpay Payment</div>
+          <div class="checkout-security checkout-security--methods">UPI • GPay • PhonePe • Cards Accepted</div>
+          <div class="checkout-logos" aria-label="Payment methods">
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="86" height="32" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="86" height="32" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="86" height="32" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="86" height="32" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="86" height="32" loading="lazy" decoding="async"></span>
+          </div>
+
+          <div class="checkout-trust-row" aria-label="Checkout trust assurances">
+            <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--bolt"></span><span>Instant Access<br>after payment</span></div>
+            <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--shield"></span><span>One-time payment<br>No subscription</span></div>
+            <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--mail"></span><span>Login delivered<br>instantly</span></div>
+            <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--headset"></span><span>Support available<br>if login issue</span></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="checkout-terms">
+      Secure payment powered by Razorpay · 256-bit SSL Encrypted · 100% Safe &amp; Secure
     </div>
     <div id="checkoutError" class="checkout-error" role="alert" aria-live="polite"></div>
   </div>
@@ -854,7 +932,7 @@ window.__AIPB_CONFIG = {
   paymentProvider: <?= json_encode(defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay') ?>,
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
   cashfreeEnv: <?= json_encode(defined('CASHFREE_ENV') ? CASHFREE_ENV : 'sandbox') ?>,
-  siteName: <?= json_encode(defined('SITE_NAME') ? SITE_NAME : 'AI Prompt Books') ?>,
+  siteName: <?= json_encode(defined('SITE_NAME') ? SITE_NAME : 'AI Prompt System') ?>,
   booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>
 };
 </script>
