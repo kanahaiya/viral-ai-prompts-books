@@ -69,7 +69,9 @@ curl_setopt_array($ch, [
 $response = curl_exec($ch);
 $curlError = curl_error($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
+if (PHP_VERSION_ID < 80500 && function_exists('curl_close')) {
+    curl_close($ch);
+}
 
 $order = json_decode($response, true);
 
