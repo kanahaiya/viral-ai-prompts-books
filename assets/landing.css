@@ -863,7 +863,7 @@ section{padding:64px 2rem;}
 }
 .checkout-right{
   padding-top:0.02rem;
-  margin-top:-2.2rem;
+  margin-top:-1.5rem;
 }
 .checkout-brand-icon{
   width:56px;
@@ -911,19 +911,126 @@ section{padding:64px 2rem;}
   margin:0.56rem 0 0;
   padding:0;
 }
-.checkout-summary-list li{
-  font-size:0.74rem;
-  color:#beb8aa;
+.checkout-summary-highlights{
+  display:grid;
+  gap:0.3rem;
+  margin-top:0.38rem;
+  padding:0.58rem 0.64rem;
+  border:1px solid rgba(212,168,54,0.16);
+  border-radius:7px;
+  background:rgba(212,168,54,0.04);
+}
+.checkout-summary-books-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:0.26rem;
+}
+.checkout-summary-books-list li{
+  font-size:0.68rem;
+  color:#d0cabd;
   line-height:1.34;
   display:flex;
-  gap:6px;
   align-items:flex-start;
+  gap:6px;
 }
-.checkout-summary-list li::before{
+.checkout-summary-books-list li::before{
+  content:'✅';
+  flex-shrink:0;
+  font-size:0.64rem;
+  margin-top:0.03rem;
+}
+.checkout-summary-overflow{
+  font-size:0.67rem;
+  color:#e8c86a;
+  font-weight:700;
+}
+.checkout-summary-bonus{
+  display:grid;
+  gap:0.12rem;
+  margin-top:0.08rem;
+}
+.checkout-summary-bonus-kicker{
+  display:inline-block;
+  width:max-content;
+  font-size:0.56rem;
+  letter-spacing:0.8px;
+  color:#f2c76a;
+  border:1px solid rgba(212,168,54,0.32);
+  border-radius:999px;
+  padding:0.14rem 0.42rem;
+  background:rgba(212,168,54,0.08);
+  font-weight:700;
+}
+.checkout-summary-bonus-title{
+  font-size:0.68rem;
+  color:#d9c28a;
+  font-weight:700;
+}
+.checkout-selected-books-toggle{
+  margin-top:0.48rem;
+  width:100%;
+  background:transparent;
+  border:1px solid rgba(212,168,54,0.26);
+  color:#e8c86a;
+  font-size:0.68rem;
+  font-weight:700;
+  border-radius:7px;
+  padding:0.44rem 0.6rem;
+  cursor:pointer;
+  text-align:left;
+}
+.checkout-selected-books-toggle::after{
+  content:' ▼';
+  font-size:0.62rem;
+}
+.checkout-selected-books-toggle[aria-expanded="true"]::after{
+  content:' ▲';
+}
+.checkout-selected-books-list{
+  list-style:none;
+  margin:0.42rem 0 0;
+  padding:0.5rem 0.58rem;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:7px;
+  background:rgba(255,255,255,0.02);
+  max-height:132px;
+  overflow-y:auto;
+}
+.checkout-selected-books-list li{
+  font-size:0.68rem;
+  color:#d5d0c4;
+  line-height:1.35;
+  padding:0.28rem 0;
+  display:flex;
+  align-items:flex-start;
+  gap:6px;
+}
+.checkout-selected-books-list li::before{
   content:'✓';
   color:var(--gold-soft);
-  font-weight:800;
+  font-weight:700;
   flex-shrink:0;
+}
+.checkout-summary-chips{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:0.36rem;
+  margin-top:0.54rem;
+}
+.checkout-summary-chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:0.62rem;
+  color:#d4cdbf;
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:16px;
+  background:rgba(255,255,255,0.02);
+  padding:0.28rem 0.36rem;
+  line-height:1.2;
 }
 .checkout-summary-price{
   display:inline-block;
@@ -934,9 +1041,10 @@ section{padding:64px 2rem;}
 }
 #checkoutSummarySelection{
   display:block;
-  font-size:0.68rem;
+  font-size:0.67rem;
   margin-top:0.2rem;
-  color:#9f9888;
+  color:#c9be9f;
+  font-weight:700;
 }
 .checkout-field{margin-bottom:1.24rem;}
 .checkout-right .checkout-field{margin-bottom:1.52rem;}
@@ -1051,11 +1159,11 @@ section{padding:64px 2rem;}
   border:none;
   border-radius:0;
   padding:0;
-  margin-bottom:1.16rem;
+  margin-bottom:0.92rem;
   text-align:center;
 }
 .checkout-social-proof{
-  margin-top:0.26rem;
+  margin-top:0.12rem;
 }
 .checkout-proof-title{
   font-size:0.83rem;
@@ -1068,6 +1176,24 @@ section{padding:64px 2rem;}
   grid-template-columns:repeat(3, minmax(0, 1fr));
   gap:0.5rem;
   width:100%;
+  position:relative;
+  justify-content:center;
+}
+.checkout-proof-strip[data-preview-count="1"]{
+  grid-template-columns:minmax(0, 270px);
+  max-width:270px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.checkout-proof-strip[data-preview-count="1"] .checkout-proof-item img{
+  aspect-ratio:4 / 5;
+}
+.checkout-proof-strip[data-preview-count="2"]{
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:0.68rem;
+  max-width:540px;
+  margin-left:auto;
+  margin-right:auto;
 }
 .checkout-proof-item{
   margin:0;
@@ -1080,13 +1206,34 @@ section{padding:64px 2rem;}
   aspect-ratio:1 / 1;
   border-radius:6px;
   border:1px solid rgba(212,168,54,0.24);
-  object-fit:cover;
+  object-fit:contain;
+  object-position:center;
+  background:#0c0c0c;
 }
 .checkout-proof-item figcaption{
   font-size:0.61rem;
   color:#cfc8bb;
   text-align:center;
   line-height:1.1;
+}
+.checkout-proof-more-badge{
+  position:absolute;
+  right:0.26rem;
+  top:0.26rem;
+  background:rgba(10,10,10,0.86);
+  border:1px solid rgba(212,168,54,0.4);
+  color:#f2c76a;
+  font-size:0.58rem;
+  letter-spacing:0.2px;
+  border-radius:16px;
+  padding:0.18rem 0.44rem;
+}
+.checkout-cta-microcopy{
+  text-align:center;
+  font-size:0.72rem;
+  color:#cbbd98;
+  margin-top:-0.3rem;
+  line-height:1.35;
 }
 .checkout-social-proof{
   border:1px solid rgba(212,168,54,0.2);
@@ -1232,7 +1379,7 @@ section{padding:64px 2rem;}
   }
   .checkout-right{
     padding-top:0;
-    margin-top:-1.1rem;
+    margin-top:-0.62rem;
   }
   .checkout-right .checkout-field{
     margin-bottom:1.14rem;
@@ -1259,8 +1406,38 @@ section{padding:64px 2rem;}
   .checkout-proof-item{
     flex:1;
   }
+  .checkout-proof-strip[data-preview-count="1"]{
+    max-width:280px;
+  }
+  .checkout-proof-strip[data-preview-count="2"]{
+    max-width:100%;
+    gap:0.52rem;
+  }
   .checkout-proof-item figcaption{
     font-size:0.58rem;
+  }
+  .checkout-proof-more-badge{
+    right:0.18rem;
+    top:0.18rem;
+    font-size:0.54rem;
+    padding:0.15rem 0.36rem;
+  }
+  .checkout-summary-books-list li,
+  .checkout-summary-overflow,
+  .checkout-summary-bonus,
+  .checkout-selected-books-list li{
+    font-size:0.66rem;
+  }
+  .checkout-selected-books-list{
+    max-height:108px;
+  }
+  .checkout-cta-microcopy{
+    font-size:0.68rem;
+    margin-top:-0.24rem;
+  }
+  .checkout-summary-chip{
+    font-size:0.6rem;
+    padding:0.26rem 0.32rem;
   }
   .checkout-bottom-pillars{
     gap:0.5rem;

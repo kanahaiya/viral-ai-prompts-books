@@ -164,12 +164,222 @@ let currentBookId = null;
 let currentBookIds = [];
 let selectedBookIds = [];
 const SINGLE_BOOK_PRICE_INR = 99;
+const FULL_SYSTEM_BOOK_COUNT = 11;
+const MAX_CHECKOUT_PREVIEW_THUMBNAILS = 3;
+const CHECKOUT_PREVIEW_BOOK_IDS_FOR_BUNDLE = [2, 5, 6];
 let currentCheckoutAmountInr = BUNDLE_PRICE_INR;
+const CHECKOUT_BOOK_PREVIEW_MAP = {
+  1: { image: '/assets/checkout/action-figures-thumb.webp', alt: 'Action figure style image example', label: 'Action Figure' },
+  2: { image: '/assets/checkout/ghibli-art-thumb.webp', alt: 'Ghibli anime style image example', label: 'Ghibli & Anime Style' },
+  3: { image: '/assets/checkout/childhood-nostalgia-thumb.webp', alt: 'Childhood nostalgia style image example', label: 'Childhood Nostalgia' },
+  4: { image: '/assets/checkout/caricature-chibi-thumb.webp', alt: 'Caricature and chibi style image example', label: 'Caricature & Chibi' },
+  5: { image: '/assets/checkout/professional-headshots-thumb.webp', alt: 'Professional headshot style image example', label: 'Professional Headshots' },
+  6: { image: '/assets/checkout/product-photography-thumb.webp', alt: 'Product photography style image example', label: 'Product Photography' },
+  7: { image: '/assets/checkout/cinematic-movie-poster-thumb.webp', alt: 'Cinematic movie poster style image example', label: 'Cinematic Movie Poster' },
+  8: { image: '/assets/checkout/vintage-scrapbook-thumb.webp', alt: 'Vintage scrapbook style image example', label: 'Vintage Scrapbook' },
+  9: { image: '/assets/checkout/pet-transformation-thumb.webp', alt: 'Pet transformation style image example', label: 'Pet Transformation' },
+  10: { image: '/assets/checkout/historical-time-travel-thumb.webp', alt: 'Historical portrait style image example', label: 'Historical Time Travel' },
+  11: { image: '/assets/checkout/trending-styles-thumb.webp', alt: 'Trending styles image example', label: 'Trending Styles' }
+};
 
 function updateCheckoutCtaLabel(amountInr) {
   const razorpayButtonElement = document.getElementById('razorpayBtn');
   if (!razorpayButtonElement) return;
   razorpayButtonElement.textContent = `Unlock Instant Access — ₹${amountInr}`;
+}
+
+function getBookTitleById(bookId) {
+  const booksById = (window.__AIPB_CONFIG && window.__AIPB_CONFIG.booksById) || {};
+  const rawTitle = booksById[bookId] || '';
+  return rawTitle.replace(/^Bonus\s+/i, '');
+}
+
+function getBookPreviewById(bookId) {
+  if (CHECKOUT_BOOK_PREVIEW_MAP[bookId]) {
+    return CHECKOUT_BOOK_PREVIEW_MAP[bookId];
+  }
+  return {
+    image: '/assets/checkout/ghibli-art-thumb.webp',
+    alt: 'AI style image example',
+    label: getBookTitleById(bookId) || 'AI Prompt Book'
+  };
+}
+
+function updateCheckoutTitleAndSubtitle(plan, selectedCount) {
+  const titleElement = document.getElementById('checkoutTitle');
+  const subtitleElement = document.getElementById('checkoutSubtitle');
+  if (!titleElement || !subtitleElement) return;
+
+  if (plan === 'bundle') {
+    titleElement.innerHTML = 'Unlock Your Full<br><span class="checkout-title-accent">AI Prompt System</span>';
+    subtitleElement.textContent = 'Get instant access to all 11 interactive prompt books + bonus AI guide.';
+    return;
+  }
+
+  titleElement.innerHTML = 'Unlock Your Custom<br><span class="checkout-title-accent">AI Prompt System</span>';
+  subtitleElement.textContent = `Get instant access to your ${selectedCount} selected interactive prompt book${selectedCount > 1 ? 's' : ''} + bonus AI guide.`;
+}
+
+function renderSelectedBooksPreviewLines(selectedBookNames, overflowLabelTemplate = '+{count} more selected {bookWord}') {
+  const booksListElement = document.getElementById('checkoutSummaryBooksList');
+  const overflowElement = document.getElementById('checkoutSummaryOverflow');
+  if (!booksListElement || !overflowElement) return;
+
+  const selectedCount = selectedBookNames.length;
+  const visibleBookNames = selectedCount <= 3 ? selectedBookNames : selectedBookNames.slice(0, 3);
+  booksListElement.innerHTML = '';
+
+  visibleBookNames.forEach((bookName) => {
+    const listItemElement = document.createElement('li');
+    listItemElement.textContent = bookName;
+    booksListElement.appendChild(listItemElement);
+  });
+
+  if (selectedCount > visibleBookNames.length) {
+    const hiddenCount = selectedCount - visibleBookNames.length;
+    const bookWord = hiddenCount === 1 ? 'book' : 'books';
+    overflowElement.textContent = overflowLabelTemplate
+      .replace('{count}', String(hiddenCount))
+      .replace('{bookWord}', bookWord);
+    overflowElement.hidden = false;
+  } else {
+    overflowElement.hidden = true;
+  }
+
+  if (selectedCount === 0) {
+    const fallbackItemElement = document.createElement('li');
+    fallbackItemElement.textContent = 'Please select at least one book.';
+    booksListElement.appendChild(fallbackItemElement);
+    overflowElement.hidden = true;
+  }
+}
+
+function renderBundlePreviewLines() {
+  const booksById = (window.__AIPB_CONFIG && window.__AIPB_CONFIG.booksById) || {};
+  const allBookNames = Object.keys(booksById)
+    .map((bookId) => parseInt(bookId, 10))
+    .filter((bookId) => !Number.isNaN(bookId) && bookId > 0 && bookId <= FULL_SYSTEM_BOOK_COUNT)
+    .sort((leftId, rightId) => leftId - rightId)
+    .map((bookId) => getBookTitleById(bookId))
+    .filter(Boolean);
+
+  renderSelectedBooksPreviewLines(allBookNames, '+{count} More Prompt {bookWord}');
+}
+
+function updateCheckoutPreviewTitle(plan) {
+  const proofTitleElement = document.getElementById('checkoutProofTitle');
+  if (!proofTitleElement) return;
+  proofTitleElement.textContent = plan === 'bundle' ? '✨ What You Can Create ✨' : '✨ Selected Styles Preview ✨';
+}
+
+function renderSelectedBooksAccordion(selectedBookNames) {
+  const toggleElement = document.getElementById('checkoutSelectedBooksToggle');
+  const listElement = document.getElementById('checkoutSelectedBooksList');
+  if (!toggleElement || !listElement) return;
+
+  listElement.innerHTML = '';
+  selectedBookNames.forEach((bookName) => {
+    const listItemElement = document.createElement('li');
+    listItemElement.textContent = bookName;
+    listElement.appendChild(listItemElement);
+  });
+
+  if (selectedBookNames.length >= 4) {
+    const defaultLabel = selectedBookNames.length <= 6 ? 'View All Selected Books' : 'View Selected Books';
+    toggleElement.dataset.openLabel = defaultLabel;
+    toggleElement.textContent = defaultLabel;
+    toggleElement.hidden = false;
+    toggleElement.setAttribute('aria-expanded', 'false');
+    listElement.hidden = true;
+    listElement.classList.remove('is-open');
+    return;
+  }
+
+  toggleElement.hidden = true;
+  toggleElement.setAttribute('aria-expanded', 'false');
+  listElement.hidden = selectedBookNames.length === 0;
+  listElement.classList.remove('is-open');
+}
+
+function renderCheckoutProofStrip(bookIds, totalSelectedCount = null) {
+  const safeBookIds = Array.isArray(bookIds) ? bookIds : [];
+  const uniqueBookIds = [...new Set(
+    safeBookIds
+      .map((bookId) => parseInt(String(bookId), 10))
+      .filter((bookId) => !Number.isNaN(bookId) && bookId > 0)
+  )];
+  const validPreviewItems = uniqueBookIds
+    .map((bookId) => ({ bookId, previewData: CHECKOUT_BOOK_PREVIEW_MAP[bookId] || null }))
+    .filter((item) => item.previewData !== null && item.previewData.image)
+    .filter((item) => typeof item.previewData.image === 'string' && item.previewData.image.trim().length > 0);
+  const previewItems = validPreviewItems
+    .slice(0, MAX_CHECKOUT_PREVIEW_THUMBNAILS);
+  const effectiveTotalCount = Number.isInteger(totalSelectedCount) && totalSelectedCount > 0
+    ? totalSelectedCount
+    : validPreviewItems.length;
+  const moreCount = Math.max(0, effectiveTotalCount - previewItems.length);
+  const moreBadgeElement = document.getElementById('checkoutProofMoreBadge');
+  const stripElement = document.querySelector('.checkout-proof-strip');
+
+  function syncPreviewStripCount() {
+    if (!stripElement) return;
+    const visibleCount = Array.from({ length: MAX_CHECKOUT_PREVIEW_THUMBNAILS }).reduce((count, _, index) => {
+      const itemElement = document.getElementById(`checkoutProofItem${index + 1}`);
+      if (!itemElement) return count;
+      return itemElement.style.display === 'none' ? count : count + 1;
+    }, 0);
+    stripElement.setAttribute('data-preview-count', String(visibleCount));
+  }
+
+  // Always hard reset all preview slots first to avoid stale/duplicate cards.
+  for (let index = 0; index < MAX_CHECKOUT_PREVIEW_THUMBNAILS; index += 1) {
+    const itemElement = document.getElementById(`checkoutProofItem${index + 1}`);
+    const imageElement = document.getElementById(`checkoutProofImage${index + 1}`);
+    const captionElement = document.getElementById(`checkoutProofCaption${index + 1}`);
+    if (!itemElement || !imageElement || !captionElement) continue;
+    itemElement.hidden = true;
+    itemElement.style.display = 'none';
+    imageElement.src = '';
+    imageElement.alt = '';
+    imageElement.onerror = null;
+    captionElement.textContent = '';
+  }
+
+  for (let index = 0; index < previewItems.length; index += 1) {
+    const itemElement = document.getElementById(`checkoutProofItem${index + 1}`);
+    const imageElement = document.getElementById(`checkoutProofImage${index + 1}`);
+    const captionElement = document.getElementById(`checkoutProofCaption${index + 1}`);
+    const previewData = previewItems[index].previewData;
+    if (!itemElement || !imageElement || !captionElement || !previewData) continue;
+    itemElement.style.display = 'grid';
+    itemElement.hidden = false;
+    imageElement.onerror = function handlePreviewLoadError() {
+      itemElement.hidden = true;
+      itemElement.style.display = 'none';
+      syncPreviewStripCount();
+    };
+    imageElement.src = previewData.image;
+    imageElement.alt = previewData.alt;
+    captionElement.textContent = previewData.label;
+  }
+  syncPreviewStripCount();
+
+  if (moreBadgeElement) {
+    if (moreCount > 0) {
+      moreBadgeElement.textContent = `+${moreCount} More Style${moreCount > 1 ? 's' : ''}`;
+      moreBadgeElement.hidden = false;
+    } else {
+      moreBadgeElement.hidden = true;
+    }
+  }
+}
+
+function updateCheckoutMicrocopy(plan) {
+  const microcopyElement = document.getElementById('checkoutCtaMicrocopy');
+  if (!microcopyElement) return;
+  microcopyElement.textContent = plan === 'bundle'
+    ? 'Instant access to your full AI prompt system after payment.'
+    : 'Instant access to your selected AI prompt system after payment.';
 }
 
 function startCheckout(plan) {
@@ -237,24 +447,37 @@ function proceedCheckout(plan, bookId, bookIds = null) {
   currentBookId = bookId;
   currentBookIds = Array.isArray(bookIds) ? bookIds : (bookId ? [bookId] : []);
   const selectedCount = currentBookIds.length;
+
+  if (plan === 'single' && selectedCount === 0) {
+    showError('Please select at least one book.');
+    return;
+  }
+
   const totalInr = plan === 'bundle' ? 299 : (selectedCount * SINGLE_BOOK_PRICE_INR);
   const price = `₹${totalInr}`;
 
-  const booksById = (window.__AIPB_CONFIG && window.__AIPB_CONFIG.booksById) || {};
-  const selectedBookNames = currentBookIds.map((id) => booksById[id]).filter(Boolean);
-  const bookName = plan === 'bundle'
-    ? 'All 11 Books + Bonus Guide (Full System)'
-    : selectedBookNames.join(', ');
-  const planLabel = plan === 'bundle' ? 'Full System Access' : `Selected Books (${selectedCount})`;
-  const selectedBooksText = plan === 'bundle'
-    ? 'Includes all books + bonus guide'
-    : `Selected books (${selectedCount}): ${bookName}`;
+  const selectedBookNames = currentBookIds.map((id) => getBookTitleById(id)).filter(Boolean);
+  const planLabel = plan === 'bundle'
+    ? 'Full System Access'
+    : `Your Selected Book${selectedCount > 1 ? 's' : ''} (${selectedCount} Book${selectedCount > 1 ? 's' : ''})`;
+  const selectedBooksText = 'Includes:';
   const summaryPlanElement = document.getElementById('checkoutSummaryPlan');
   const summarySelectionElement = document.getElementById('checkoutSummarySelection');
   const summaryPriceElement = document.getElementById('checkoutSummaryPrice');
   if (summaryPlanElement) summaryPlanElement.textContent = planLabel;
   if (summarySelectionElement) summarySelectionElement.textContent = selectedBooksText;
   if (summaryPriceElement) summaryPriceElement.textContent = price;
+  updateCheckoutTitleAndSubtitle(plan, selectedCount);
+  updateCheckoutMicrocopy(plan);
+  updateCheckoutPreviewTitle(plan);
+
+  if (plan === 'bundle') {
+    renderBundlePreviewLines();
+    renderCheckoutProofStrip(CHECKOUT_PREVIEW_BOOK_IDS_FOR_BUNDLE, FULL_SYSTEM_BOOK_COUNT);
+  } else {
+    renderSelectedBooksPreviewLines(selectedBookNames);
+    renderCheckoutProofStrip(currentBookIds);
+  }
 
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
@@ -447,7 +670,7 @@ async function payWithRazorpay() {
       key: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.razorpayKeyId) || '',
       amount: order.amount,
       currency: 'INR',
-      name: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.siteName) || 'AI Prompt Books',
+      name: (window.__AIPB_CONFIG && window.__AIPB_CONFIG.siteName) || 'AI Prompt System',
       description: currentPlan === 'bundle' ? 'Full System Access' : `${currentBookIds.length} Book Access`,
       order_id: order.id,
       prefill: { name: data.name, email: data.email },
@@ -595,6 +818,10 @@ document.addEventListener('click', (event) => {
     return;
   }
   if (action === 'continue-selected-books') {
+    if (selectedBookIds.length === 0) {
+      showError('Please select at least one book.');
+      return;
+    }
     trackCustomEvent('BookSelectionContinued', { selected_count: selectedBookIds.length });
     proceedCheckout('single', selectedBookIds[0] || null, [...selectedBookIds]);
     return;
