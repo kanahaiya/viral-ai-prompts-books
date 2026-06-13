@@ -50,9 +50,12 @@ define('PAYPAL_API_URL',       envOrDefault('PAYPAL_API_URL', 'https://api-m.pay
 // ── Community Link (Telegram) ────────────────────────────────────────────────
 define('TELEGRAM_INVITE_LINK', envOrDefault('TELEGRAM_INVITE_LINK', 'https://t.me/+48-IpU25IzI4Y2E1'));
 
-// ── Meta Pixel ────────────────────────────────────────────────────────────────
-define('META_PIXEL_ID', envOrDefault('META_PIXEL_ID', ''));
+// ── Meta Pixel & Conversions API (CAPI) ───────────────────────────────────────
+define('META_PIXEL_ID', envOrDefault('META_PIXEL_ID', '1543072290570018'));
 define('ENABLE_META_PIXEL', envOrDefault('ENABLE_META_PIXEL', '1') === '1');
+define('META_CAPI_TOKEN', envOrDefault('META_CAPI_TOKEN', 'EAASRbLs38kQBRov6ZANWL8oN9drln6VsR9VIC1bK2PANk5s5Q4DWJptNi9mKn6tCBHnEZAOGvoYbj8k2gaq2D7l4tK2wXYUuQU3syMXaGOz64fPsBsnOCvnwIl5ISNZAZANu2IPRhkZCkNh06m3sHNXgDaLBcSblANAZA0cYCriQwwG7EoXDwIpq9XXYeqygZDZD'));
+define('META_API_VERSION', envOrDefault('META_API_VERSION', 'v20.0'));
+define('META_TEST_EVENT_CODE', envOrDefault('META_TEST_EVENT_CODE', ''));
 
 // ── Email (Brevo transactional API) ───────────────────────────────────────────
 define('BREVO_API_KEY', envOrDefault('BREVO_API_KEY', 'brevo_api_key_placeholder'));

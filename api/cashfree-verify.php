@@ -69,8 +69,9 @@ $stmt = $db->prepare('
     WHERE order_id = ? AND status = "created"
 ');
 $stmt->execute([$paymentId, $orderId]);
+$wasFreshlyCompleted = $stmt->rowCount() > 0;
 
-if ($stmt->rowCount() === 0) {
+if (!$wasFreshlyCompleted) {
     $stmt = $db->prepare('SELECT setup_token FROM payments WHERE order_id = ? AND status = "completed"');
     $stmt->execute([$orderId]);
     $existing = $stmt->fetch();
@@ -80,7 +81,7 @@ if ($stmt->rowCount() === 0) {
     jsonResponse(['error' => 'Order not found'], 404);
 }
 
-$stmt = $db->prepare('SELECT setup_token, email, name, plan FROM payments WHERE order_id = ?');
+$stmt = $db->prepare('SELECT * FROM payments WHERE order_id = ?');
 $stmt->execute([$orderId]);
 $row = $stmt->fetch();
 
@@ -91,6 +92,9 @@ if ($row && !empty($row['setup_token'])) {
         (string)$row['setup_token'],
         (string)($row['plan'] ?? '')
     );
+
+    // Trigger Meta Conversions API (CAPI) event
+    sendMetaCapiPurchaseEvent($row);
 }
 
 jsonResponse(['token' => (string)($row['setup_token'] ?? '')]);

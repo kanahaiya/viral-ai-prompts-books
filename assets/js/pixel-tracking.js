@@ -10,9 +10,13 @@
   }
 
   if (typeof windowObject.pixelTrack !== 'function') {
-    windowObject.pixelTrack = function pixelTrack(eventName, params) {
+    windowObject.pixelTrack = function pixelTrack(eventName, params, options) {
       if (typeof windowObject.fbq !== 'function') return;
-      windowObject.fbq('track', eventName, params || {});
+      if (options) {
+        windowObject.fbq('track', eventName, params || {}, options);
+      } else {
+        windowObject.fbq('track', eventName, params || {});
+      }
     };
   }
 

@@ -9,13 +9,17 @@ const SCROLL_DEPTH_MILESTONES = [25, 50, 75, 90];
 const ENGAGEMENT_TIME_CHECKPOINTS_SECONDS = [15, 30, 60, 120];
 let hasTrackedCheckoutFormStart = false;
 
-function trackEvent(eventName, params = {}) {
+function trackEvent(eventName, params = {}, options = null) {
   if (typeof window.pixelTrack === 'function') {
-    window.pixelTrack(eventName, params);
+    window.pixelTrack(eventName, params, options);
     return;
   }
   if (typeof window.fbq !== 'function') return;
-  window.fbq('track', eventName, params);
+  if (options) {
+    window.fbq('track', eventName, params, options);
+  } else {
+    window.fbq('track', eventName, params);
+  }
 }
 
 function trackCustomEvent(eventName, params = {}) {
@@ -721,8 +725,12 @@ async function verifyRazorpayOrder(paymentResponse) {
       content_name: metrics.contentName,
       num_items: metrics.numItems,
       payment_method: 'razorpay'
+    }, {
+      eventID: paymentResponse.razorpay_payment_id
     });
-    window.location.href = '/setup-account.php?token=' + result.token;
+    setTimeout(() => {
+      window.location.href = '/setup-account.php?token=' + result.token;
+    }, 800);
   } else {
     showError(result.error || 'Payment verification failed. Please contact support.');
   }
@@ -743,13 +751,17 @@ async function verifyCashfreeOrder(orderId) {
       content_name: metrics.contentName,
       num_items: metrics.numItems,
       payment_method: 'cashfree'
+    }, {
+      eventID: orderId
     });
     trackCustomEvent('PaymentVerified', {
       plan: currentPlan || 'unknown',
       selected_count: currentBookIds.length,
       order_id: orderId
     });
-    window.location.href = '/setup-account.php?token=' + result.token;
+    setTimeout(() => {
+      window.location.href = '/setup-account.php?token=' + result.token;
+    }, 800);
   } else {
     trackCustomEvent('PaymentVerificationFailed', {
       plan: currentPlan || 'unknown',
