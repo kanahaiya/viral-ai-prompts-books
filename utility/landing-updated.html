@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viral AI Prompts System — 11 Books, 1,100 AI Image Templates</title>
+<meta name="description" content="Create scroll-stopping AI images in minutes with 11 prompt books and 1,100 fill-in-the-blank templates. No design skills. No prompt writing. No technical knowledge.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1a1a1a; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  
+  /* HEADER */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .logo { font-weight: 700; font-size: 18px; }
+  nav a { margin-left: 20px; text-decoration: none; color: #1a1a1a; font-weight: 500; }
+  nav .cta { background: #d4af37; padding: 8px 16px; border-radius: 4px; color: #000; }
+  
+  /* HERO */
+  .hero {
+    padding: 60px 0;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 8vw, 56px);
+    line-height: 1.2;
+    margin-bottom: 30px;
+    font-weight: 700;
+  }
+  .gold { color: #d4af37; }
+  .hero-subtitle {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-points {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-point {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: #d4af37;
+    color: #000;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  .btn-primary:hover { background: #c9a22f; }
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: #d4af37;
+    padding: 14px 32px;
+    border: 2px solid #d4af37;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { background: #f5f5f5; }
+  
+  /* HERO VISUAL */
+  .hero-visual {
+    margin-top: 60px;
+  }
+  .hero-visual img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  }
+  
+  /* STATS */
+  .stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 2px solid #e5e5e5;
+  }
+  .stat-box {
+    text-align: center;
+  }
+  .stat-number {
+    font-size: 42px;
+    font-weight: 700;
+    color: #d4af37;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+  }
+  
+  /* SECTION */
+  section {
+    padding: 80px 0;
+  }
+  .section-title {
+    font-size: clamp(28px, 6vw, 48px);
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  /* PAIN SECTION */
+  .pain-section {
+    background: #f9f9f9;
+  }
+  .pain-intro {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .pain-list {
+    max-width: 600px;
+    margin: 0 auto;
+    list-style: none;
+  }
+  .pain-list li {
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding-left: 30px;
+    position: relative;
+  }
+  .pain-list li:before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: #d4af37;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  /* SOLUTION SECTION */
+  .solution-section {
+    text-align: center;
+  }
+  .solution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin: 60px 0;
+  }
+  .solution-card {
+    background: #f9f9f9;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: left;
+  }
+  .solution-card h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #d4af37;
+  }
+  .solution-card ol {
+    margin-left: 20px;
+  }
+  .solution-card li {
+    margin-bottom: 12px;
+  }
+  
+  /* BUNDLE SECTION */
+  .bundle-section {
+    background: #f9f9f9;
+  }
+  .bundle-image {
+    margin: 60px 0;
+  }
+  .bundle-image img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .bundle-includes {
+    max-width: 700px;
+    margin: 40px auto;
+  }
+  .bundle-group {
+    margin-bottom: 40px;
+  }
+  .bundle-group-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #d4af37;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .bundle-group ul {
+    list-style: none;
+  }
+  .bundle-group li {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .bundle-group li:last-child {
+    border-bottom: none;
+  }
+  .bundle-group strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .bundle-group span {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* GALLERY SECTION */
+  .gallery-section {
+    text-align: center;
+  }
+  .gallery-intro {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .gallery-image {
+    margin-bottom: 20px;
+  }
+  .gallery-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  
+  /* BENEFITS SECTION */
+  .benefits-list {
+    max-width: 700px;
+    margin: 0 auto;
+    list-style: none;
+  }
+  .benefits-list li {
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    position: relative;
+  }
+  .benefits-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #d4af37;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  /* PRICING */
+  .pricing-section {
+    background: #f9f9f9;
+  }
+  .pricing-intro {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin: 60px 0;
+  }
+  .pricing-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    border: 2px solid #e5e5e5;
+    position: relative;
+  }
+  .pricing-card.popular {
+    border-color: #d4af37;
+    transform: scale(1.05);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: #d4af37;
+    color: #000;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .pricing-plan {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .pricing-amount {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .pricing-amount .currency {
+    font-size: 24px;
+  }
+  .original {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 24px;
+    margin-left: 10px;
+  }
+  .pricing-billing {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .pricing-features {
+    list-style: none;
+    margin: 30px 0;
+  }
+  .pricing-features li {
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .pricing-features li:before {
+    content: "✓ ";
+    color: #d4af37;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  
+  /* TESTIMONIALS */
+  .testimonials-section {
+    background: #f9f9f9;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+  }
+  .testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .testimonial-stars {
+    color: #d4af37;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .testimonial-text {
+    font-size: 15px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #333;
+  }
+  .testimonial-author {
+    display: flex;
+    gap: 12px;
+  }
+  .testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    background: #d4af37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #000;
+    flex-shrink: 0;
+  }
+  .testimonial-name {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .testimonial-role {
+    font-size: 13px;
+    color: #666;
+  }
+  
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center;
+    padding: 80px 0;
+    background: #000;
+    color: white;
+  }
+  .cta-section h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+  .cta-section p {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+  
+  /* FOOTER */
+  footer {
+    background: #1a1a1a;
+    color: #ccc;
+    padding: 40px 0;
+    text-align: center;
+    font-size: 14px;
+  }
+  footer a { color: #d4af37; text-decoration: none; }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 28px; }
+    .section-title { font-size: 24px; }
+    .pricing-card.popular { transform: scale(1); }
+    .hero-points { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="container">
+  <div class="logo">🎨 AI Prompt Books</div>
+  <nav>
+    <a href="#pricing">Get Access</a>
+    <a href="#" class="cta">Login</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero container">
+  <h1>
+    Create <span class="gold">Scroll-Stopping AI Images</span><br>
+    in Minutes, Not Hours
+  </h1>
+  <p class="hero-subtitle">
+    No design experience needed. No prompt writing. No technical knowledge. Just fill in the blanks and watch stunning visuals come to life.
+  </p>
+  
+  <div class="hero-points">
+    <span class="hero-point">✓ No Prompt Writing</span>
+    <span class="hero-point">✓ 1,100 Templates</span>
+    <span class="hero-point">✓ 11 Styles Included</span>
+  </div>
+  
+  <div style="margin-bottom: 30px;">
+    <a href="#pricing" class="btn-primary">Get Full System — ₹299</a>
+    <a href="#bundle" class="btn-secondary">See What's Inside</a>
+  </div>
+  
+  <!-- HERO VISUAL: Product Mockup -->
+  <div class="hero-visual">
+    <img src="assets/hero-mockup.jpg" alt="AI Prompt Books System - All 11 books and templates" loading="eager">
+  </div>
+  
+  <!-- STATS -->
+  <div class="stats-section">
+    <div class="stat-box">
+      <div class="stat-number">1,100+</div>
+      <div class="stat-label">Ready-to-Use Templates</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">11</div>
+      <div class="stat-label">Complete Style Books</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">60s</div>
+      <div class="stat-label">First AI Image</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">5+</div>
+      <div class="stat-label">AI Tools Supported</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="pain-section">
+  <div class="container">
+    <h2 class="section-title">You See Amazing AI Art Everywhere...</h2>
+    <p class="pain-intro">But When You Try Creating It Yourself, Reality Sets In</p>
+    
+    <ul class="pain-list">
+      <li>Staring at a blank prompt box with no idea what to type</li>
+      <li>Spending hours crafting the "perfect" prompt only to get mediocre results</li>
+      <li>Finally creating something decent, then having no way to recreate the style</li>
+      <li>Feeling like AI image creation is for "tech people" only</li>
+      <li>Watching others create jaw-dropping visuals while your attempts look average</li>
+      <li>Saving ideas in your phone, never actually creating them</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOLUTION SECTION -->
+<section class="solution-section container">
+  <h2 class="section-title">Here's The Better Way</h2>
+  
+  <div class="solution-grid">
+    <div class="solution-card">
+      <h3>The 4-Step Process</h3>
+      <ol>
+        <li><strong>Pick a style</strong> — Choose from Ghibli, cinematic, action figures, pet transformations, etc.</li>
+        <li><strong>Fill in the blanks</strong> — Replace simple placeholders with your own words</li>
+        <li><strong>Copy & paste</strong> — Paste the completed prompt into your AI tool</li>
+        <li><strong>Watch the magic</strong> — Get stunning results in 60 seconds</li>
+      </ol>
+    </div>
+    
+    <div class="solution-card">
+      <h3>What You'll Create</h3>
+      <ul style="margin-left: 20px;">
+        <li>Anime & Ghibli portraits</li>
+        <li>Cinematic movie posters</li>
+        <li>Action figure toy boxes</li>
+        <li>Professional headshots</li>
+        <li>Pet transformations</li>
+        <li>Vintage scrapbook styles</li>
+        <li>Historical time travel images</li>
+        <li>And much more...</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS SECTION -->
+<section class="container">
+  <h2 class="section-title">What Becomes Possible</h2>
+  <ul class="benefits-list">
+    <li>Create AI images that genuinely make people stop and react</li>
+    <li>Finally turn your creative ideas into beautiful visuals</li>
+    <li>Generate social media content that actually stands out</li>
+    <li>Make memorable gifts and emotional artwork for loved ones</li>
+    <li>Build a portfolio or side income with AI-generated visuals</li>
+    <li>Feel confident and creative instead of overwhelmed</li>
+    <li>Never stare at a blank prompt box again</li>
+    <li>Create professional results without hiring expensive designers</li>
+  </ul>
+  <div style="text-align: center; margin-top: 40px;">
+    <a href="#pricing" class="btn-primary">Start Creating Now</a>
+  </div>
+</section>
+
+<!-- GALLERY SECTION -->
+<section class="gallery-section container">
+  <h2 class="section-title">Real Results From Real Users</h2>
+  <p class="gallery-intro">
+    Every image below was created using templates from this system. Same tools, same system, completely different styles — all proven to work with Midjourney, ChatGPT, and Firefly.
+  </p>
+  <div class="gallery-image">
+    <img src="assets/collage-1.jpg" alt="AI image examples - Ghibli, action figures, historical, cinematic, headshots, and pet transformations">
+  </div>
+</section>
+
+<!-- BUNDLE SECTION -->
+<section class="bundle-section" id="bundle">
+  <div class="container">
+    <h2 class="section-title">What's Included In The System</h2>
+    
+    <div class="bundle-image">
+      <img src="assets/sections/bundle-collection.jpg" alt="Complete Viral AI Prompts System - All 11 books and bonuses">
+    </div>
+    
+    <div class="bundle-includes">
+      <div class="bundle-group">
+        <div class="bundle-group-title">📚 Core Books</div>
+        <ul>
+          <li>
+            <strong>11 Complete Style Books</strong>
+            <span>100 fill-in-the-blank prompts in each book. No confusion, no overwhelm.</span>
+          </li>
+          <li>
+            <strong>All Trending Styles Covered</strong>
+            <span>Action Figures • Ghibli Anime • Nostalgia • Caricature • Headshots • Product Photography • Cinematic Posters • Scrapbook • Pet Transformations • Historical • Trending</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bundle-group">
+        <div class="bundle-group-title">🎁 Bonuses & Templates</div>
+        <ul>
+          <li>
+            <strong>1,100 Fill-in-the-Blank Templates</strong>
+            <span>Customize a few words and get professional-grade AI results instantly</span>
+          </li>
+          <li>
+            <strong>AI Image Cheat Code Guide</strong>
+            <span>Simple tricks to improve your results faster (no technical jargon)</span>
+          </li>
+          <li>
+            <strong>AI Prompt Finder CustomGPT</strong>
+            <span>Describe what you want to create and get instant style recommendations</span>
+          </li>
+          <li>
+            <strong>Private Telegram Community</strong>
+            <span>Access trending styles, get support, and find creative inspiration daily</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bundle-group">
+        <div class="bundle-group-title">✅ Everything Works With</div>
+        <ul style="margin-left: 0;">
+          <li style="padding: 0; border: none;">
+            Midjourney • ChatGPT • Adobe Firefly • DALL·E • Stable Diffusion
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <p style="text-align: center; font-size: 18px; margin-top: 50px; font-weight: 600;">
+      <span style="color: #d4af37;">Total Value: ₹2,189+</span><br>
+      <span style="color: #666; font-size: 16px; margin-top: 10px; display: block;">Today's Price: Just <strong style="color: #000; font-size: 20px;">₹299</strong></span>
+    </p>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="container" style="padding: 60px 0; text-align: center;">
+  <h2 class="section-title">200+ Creators Have Already Started</h2>
+  <p style="font-size: 16px; color: #666; margin-bottom: 30px;">From beginners to freelancers to side-hustlers — they all decided the same thing was worth ₹299.</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <div style="font-size: 14px; color: #d4af37; margin-bottom: 10px;">★★★★★</div>
+      <p style="font-size: 14px; color: #666;">"Posted my Ghibli portrait on Instagram. Got 146 likes in a day. People didn't believe I made it myself."</p>
+      <div style="font-size: 13px; font-weight: 600; margin-top: 15px;">Riya M., Digital Creator</div>
+    </div>
+    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <div style="font-size: 14px; color: #d4af37; margin-bottom: 10px;">★★★★★</div>
+      <p style="font-size: 14px; color: #666;">"Made my son's action figure in 10 mins. He cried happy tears. My wife shared it and got three requests from relatives."</p>
+      <div style="font-size: 13px; font-weight: 600; margin-top: 15px;">Prashant K., Software Engineer</div>
+    </div>
+    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <div style="font-size: 14px; color: #d4af37; margin-bottom: 10px;">★★★★★</div>
+      <p style="font-size: 14px; color: #666;">"Using it for client work. My clients think I have a full design team. It's just me and these books."</p>
+      <div style="font-size: 13px; font-weight: 600; margin-top: 15px;">Anika S., Freelance Designer</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING SECTION -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <h2 class="section-title">One Price. No Surprises.</h2>
+    <p class="pricing-intro">
+      Pay once. Own it forever. Includes all future book additions. No subscriptions. No price creep.
+    </p>
+    
+    <div class="pricing-grid">
+      <!-- Single Book -->
+      <div class="pricing-card">
+        <div class="pricing-plan">Start With One Book</div>
+        <div class="pricing-amount">₹99 <span class="original">₹199</span></div>
+        <div class="pricing-billing">1 Book • 100 Prompts • Lifetime Access</div>
+        <ul class="pricing-features">
+          <li>Choose any one style book</li>
+          <li>100 fill-in-the-blank templates</li>
+          <li>Works with all major AI tools</li>
+          <li>Online viewer (no downloads)</li>
+          <li>AI Cheat Code guide</li>
+          <li>Telegram community access</li>
+          <li>Lifetime access + future updates</li>
+        </ul>
+        <button class="btn-primary" style="width: 100%; padding: 12px;">Choose One Book</button>
+        <p style="font-size: 12px; color: #999; margin-top: 16px;">Good if you want to test one style first.</p>
+      </div>
+      
+      <!-- Full System -->
+      <div class="pricing-card popular">
+        <div class="pricing-badge">BEST VALUE</div>
+        <div class="pricing-plan">Full System Access</div>
+        <div class="pricing-amount">₹299 <span class="original">₹2,189</span></div>
+        <div class="pricing-billing">All 11 Books • 1,100 Templates • Save ₹1,890</div>
+        <ul class="pricing-features">
+          <li>All 11 style books</li>
+          <li>1,100 prompt templates</li>
+          <li>Every trending style</li>
+          <li>Works with all AI tools</li>
+          <li>Online viewer (no downloads)</li>
+          <li>AI Cheat Code guide + CustomGPT</li>
+          <li>Exclusive Telegram community</li>
+          <li>All future books included</li>
+        </ul>
+        <button class="btn-primary" style="width: 100%; padding: 12px;">Get Full System →</button>
+        <p style="font-size: 12px; color: #999; margin-top: 16px;">Best for serious creators and long-term use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEES -->
+<section class="container" style="padding: 60px 0; text-align: center;">
+  <h2 class="section-title">Zero Risk, All Upside</h2>
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div style="background: #f9f9f9; padding: 30px; border-radius: 12px; margin-bottom: 20px;">
+      <p style="font-size: 16px; color: #333; margin-bottom: 15px;">
+        <strong>🔒 Secure Checkout</strong><br>
+        Razorpay payment gateway. Your payment info is encrypted and protected.
+      </p>
+    </div>
+    <div style="background: #f9f9f9; padding: 30px; border-radius: 12px; margin-bottom: 20px;">
+      <p style="font-size: 16px; color: #333; margin-bottom: 15px;">
+        <strong>⚡ Instant Access</strong><br>
+        Access everything within seconds. No waiting, no delays.
+      </p>
+    </div>
+    <div style="background: #f9f9f9; padding: 30px; border-radius: 12px;">
+      <p style="font-size: 16px; color: #333; margin-bottom: 15px;">
+        <strong>💯 Technical Guarantee</strong><br>
+        If your access link doesn't work within 24 hours, we'll fix it or refund you immediately. No questions asked.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding: 80px 0; background: #f9f9f9;">
+  <div class="container">
+    <h2 class="section-title">Common Questions</h2>
+    <div style="max-width: 700px; margin: 0 auto;">
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Do I need design experience?</p>
+        <p style="color: #666;">Not at all. The entire system is designed for complete beginners. If you can fill in blanks on a form, you can use these templates.</p>
+      </div>
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Which AI tools does this work with?</p>
+        <p style="color: #666;">All of them. Midjourney, ChatGPT, Adobe Firefly, DALL·E, Stable Diffusion — the prompts work across every major AI image tool.</p>
+      </div>
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Will I get access forever?</p>
+        <p style="color: #666;">Yes. It's a one-time purchase with lifetime access. New books get added to the system over time, and you'll have access to all of them at no extra cost.</p>
+      </div>
+      <div style="margin-bottom: 30px;">
+        <p style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Can I refund if I don't like it?</p>
+        <p style="color: #666;">We offer a 24-hour technical guarantee. If your access doesn't work, we'll refund immediately. After successful access, no refunds (since you have lifetime access to the product).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to Create Stunning AI Art?</h2>
+    <p>₹299 gets you everything. One price, lifetime access.</p>
+    <a href="#pricing" class="btn-primary">Get Full System Access Now →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p style="margin-bottom: 20px;">© 2024 AI Prompt Books. All rights reserved.</p>
+    <div style="font-size: 13px;">
+      <a href="#">Privacy Policy</a> • 
+      <a href="#">Terms & Conditions</a> • 
+      <a href="#">Contact</a> • 
+      <a href="#">Refund Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
