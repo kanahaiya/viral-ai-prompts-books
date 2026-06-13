@@ -78,7 +78,7 @@ $stmt->execute([$captureId, $orderId]);
 $wasFreshlyCompleted = $stmt->rowCount() > 0;
 
 // Fetch setup data.
-$stmt = $db->prepare('SELECT setup_token, email, name, plan FROM payments WHERE order_id = ?');
+$stmt = $db->prepare('SELECT * FROM payments WHERE order_id = ?');
 $stmt->execute([$orderId]);
 $row = $stmt->fetch();
 
@@ -94,6 +94,9 @@ if ($wasFreshlyCompleted && !empty($row['setup_token'])) {
         (string)$row['setup_token'],
         (string)($row['plan'] ?? '')
     );
+
+    // Trigger Meta Conversions API (CAPI) event
+    sendMetaCapiPurchaseEvent($row);
 }
 
 jsonResponse(['token' => $row['setup_token']]);

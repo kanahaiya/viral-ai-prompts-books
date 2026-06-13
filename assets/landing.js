@@ -9,13 +9,17 @@ const SCROLL_DEPTH_MILESTONES = [25, 50, 75, 90];
 const ENGAGEMENT_TIME_CHECKPOINTS_SECONDS = [15, 30, 60, 120];
 let hasTrackedCheckoutFormStart = false;
 
-function trackEvent(eventName, params = {}) {
+function trackEvent(eventName, params = {}, options = null) {
   if (typeof window.pixelTrack === 'function') {
-    window.pixelTrack(eventName, params);
+    window.pixelTrack(eventName, params, options);
     return;
   }
   if (typeof window.fbq !== 'function') return;
-  window.fbq('track', eventName, params);
+  if (options) {
+    window.fbq('track', eventName, params, options);
+  } else {
+    window.fbq('track', eventName, params);
+  }
 }
 
 function trackCustomEvent(eventName, params = {}) {
@@ -526,18 +530,19 @@ function normalizeIndianPhoneNumber(rawPhoneNumber) {
 }
 
 function getCheckoutData() {
-  const nameElement = document.getElementById('buyerName');
   const emailElement = document.getElementById('buyerEmail');
 
-  if (!nameElement || !emailElement) {
+  if (!emailElement) {
     showError('Checkout form is updating. Please refresh and try again.');
     return null;
   }
 
-  const name = nameElement.value.trim();
   const email = emailElement.value.trim();
-  if (!name) { showError('Please enter your name.'); return null; }
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return null; }
+
+  const nameElement = document.getElementById('buyerName');
+  const name = nameElement ? nameElement.value.trim() : '';
+
   return { name, email };
 }
 
@@ -721,8 +726,12 @@ async function verifyRazorpayOrder(paymentResponse) {
       content_name: metrics.contentName,
       num_items: metrics.numItems,
       payment_method: 'razorpay'
+    }, {
+      eventID: paymentResponse.razorpay_payment_id
     });
-    window.location.href = '/setup-account.php?token=' + result.token;
+    setTimeout(() => {
+      window.location.href = '/setup-account.php?token=' + result.token;
+    }, 800);
   } else {
     showError(result.error || 'Payment verification failed. Please contact support.');
   }
@@ -743,13 +752,17 @@ async function verifyCashfreeOrder(orderId) {
       content_name: metrics.contentName,
       num_items: metrics.numItems,
       payment_method: 'cashfree'
+    }, {
+      eventID: orderId
     });
     trackCustomEvent('PaymentVerified', {
       plan: currentPlan || 'unknown',
       selected_count: currentBookIds.length,
       order_id: orderId
     });
-    window.location.href = '/setup-account.php?token=' + result.token;
+    setTimeout(() => {
+      window.location.href = '/setup-account.php?token=' + result.token;
+    }, 800);
   } else {
     trackCustomEvent('PaymentVerificationFailed', {
       plan: currentPlan || 'unknown',

@@ -879,10 +879,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </div>
 
       <div class="checkout-right">
-        <div class="checkout-field">
-          <label for="buyerName" class="checkout-label">Your Name</label>
-          <input type="text" id="buyerName" class="checkout-input" name="buyer_name" autocomplete="name" placeholder="Enter your name">
-        </div>
+
         <div class="checkout-field">
           <label for="buyerEmail" class="checkout-label">Email Address</label>
           <input type="email" id="buyerEmail" class="checkout-input" name="buyer_email" autocomplete="email" spellcheck="false" placeholder="Enter your email for instant access">

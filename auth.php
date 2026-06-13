@@ -361,6 +361,114 @@ src="https://www.facebook.com/tr?id={$pixelId}&ev=PageView&noscript=1"
 HTML;
 }
 
+/**
+ * Send a server-side Purchase event to Meta Conversions API (CAPI).
+ * Expects $payment to be an array with keys:
+ *   - email
+ *   - name (optional)
+ *   - amount
+ *   - currency (optional, defaults to INR)
+ *   - payment_id (or order_id)
+ */
+function sendMetaCapiPurchaseEvent(array $payment): void {
+    if (!defined('ENABLE_META_PIXEL') || ENABLE_META_PIXEL !== true) {
+        return;
+    }
+    if (!defined('META_PIXEL_ID') || !defined('META_CAPI_TOKEN')) {
+        return;
+    }
+    $pixelId = trim((string)META_PIXEL_ID);
+    $accessToken = trim((string)META_CAPI_TOKEN);
+    if ($pixelId === '' || $accessToken === '') {
+        return;
+    }
+
+    // Hash helper following Meta CAPI requirements
+    $hashHelper = function(?string $value): ?string {
+        if ($value === null) return null;
+        $val = strtolower(trim($value));
+        if ($val === '') return null;
+        return hash('sha256', $val);
+    };
+
+    $emailHash = $hashHelper($payment['email'] ?? null);
+    $nameHash = $hashHelper($payment['name'] ?? null);
+
+    $userData = [
+        'client_ip_address' => getClientIpAddress(),
+        'client_user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
+    ];
+
+    if ($emailHash !== null) {
+        $userData['em'] = [$emailHash];
+    }
+    if ($nameHash !== null) {
+        $userData['fn'] = [$nameHash];
+    }
+    if (!empty($_COOKIE['_fbp'])) {
+        $userData['fbp'] = $_COOKIE['_fbp'];
+    }
+    if (!empty($_COOKIE['_fbc'])) {
+        $userData['fbc'] = $_COOKIE['_fbc'];
+    }
+
+    $amount = floatval($payment['amount'] ?? 0);
+    $currency = strtoupper(trim($payment['currency'] ?? 'INR'));
+    if ($currency === '') {
+        $currency = 'INR';
+    }
+
+    $eventId = $payment['payment_id'] ?? $payment['order_id'] ?? '';
+    if ($eventId === '') {
+        $eventId = 'uniq_' . uniqid('', true);
+    }
+
+    $eventData = [
+        'event_name' => 'Purchase',
+        'event_time' => time(),
+        'event_id' => $eventId,
+        'event_source_url' => SITE_URL,
+        'action_source' => 'website',
+        'user_data' => $userData,
+        'custom_data' => [
+            'value' => $amount,
+            'currency' => $currency,
+            'content_type' => 'product_group',
+        ]
+    ];
+
+    $payload = [
+        'data' => [$eventData]
+    ];
+
+    if (defined('META_TEST_EVENT_CODE') && trim(META_TEST_EVENT_CODE) !== '') {
+        $payload['test_event_code'] = trim(META_TEST_EVENT_CODE);
+    }
+
+    $apiVersion = defined('META_API_VERSION') ? META_API_VERSION : 'v20.0';
+    $url = "https://graph.facebook.com/{$apiVersion}/{$pixelId}/events?access_token=" . urlencode($accessToken);
+
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($payload),
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ],
+        CURLOPT_TIMEOUT => 15,
+    ]);
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    if ($curlError || $httpCode < 200 || $httpCode >= 300) {
+        error_log('Meta CAPI purchase event failed: ' . ($curlError ?: "HTTP {$httpCode} body={$response}"));
+    }
+}
+
 // ── Payment setup email helper ────────────────────────────────────────────────
 function sendSetupLinkEmail(string $recipientEmail, string $recipientName, string $setupToken, string $plan): bool {
     if (!function_exists('curl_init')) {
