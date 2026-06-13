@@ -36,15 +36,20 @@ if (!$isError) {
     try {
         $db = getDB();
         ensurePasswordResetTable($db);
-        $stmt = $db->prepare('
+        $driver = $db->getAttribute(PDO::ATTR_DRIVER_NAME);
+        $timeCondition = ($driver === 'sqlite')
+            ? "created_at >= datetime('now', '-2 hours')"
+            : "created_at >= (NOW() - INTERVAL 2 HOUR)";
+
+        $stmt = $db->prepare("
             SELECT id, email
             FROM password_resets
             WHERE token = ?
               AND used = 0
-              AND created_at >= (NOW() - INTERVAL 2 HOUR)
+              AND {$timeCondition}
             ORDER BY id DESC
             LIMIT 1
-        ');
+        ");
         $stmt->execute([$token]);
         $resetRow = $stmt->fetch();
         if (!$resetRow) {

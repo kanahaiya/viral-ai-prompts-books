@@ -17,13 +17,18 @@ if (!$token || strlen($token) < 32) {
 $payment = null;
 if (!$error) {
     $db   = getDB();
-    $stmt = $db->prepare('
+    $driver = $db->getAttribute(PDO::ATTR_DRIVER_NAME);
+    $timeCondition = ($driver === 'sqlite')
+        ? "created_at >= datetime('now', '-24 hours')"
+        : "created_at >= (NOW() - INTERVAL 24 HOUR)";
+
+    $stmt = $db->prepare("
         SELECT * FROM payments
         WHERE setup_token = ?
           AND setup_used = 0
-          AND status = "completed"
-          AND created_at >= (NOW() - INTERVAL 24 HOUR)
-    ');
+          AND status = 'completed'
+          AND {$timeCondition}
+    ");
     $stmt->execute([$token]);
     $payment = $stmt->fetch();
     if (!$payment) {
