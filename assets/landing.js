@@ -530,18 +530,19 @@ function normalizeIndianPhoneNumber(rawPhoneNumber) {
 }
 
 function getCheckoutData() {
-  const nameElement = document.getElementById('buyerName');
   const emailElement = document.getElementById('buyerEmail');
 
-  if (!nameElement || !emailElement) {
+  if (!emailElement) {
     showError('Checkout form is updating. Please refresh and try again.');
     return null;
   }
 
-  const name = nameElement.value.trim();
   const email = emailElement.value.trim();
-  if (!name) { showError('Please enter your name.'); return null; }
   if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return null; }
+
+  const nameElement = document.getElementById('buyerName');
+  const name = nameElement ? nameElement.value.trim() : '';
+
   return { name, email };
 }
 
