@@ -34,11 +34,57 @@ $books    = getBooks();
 </script>
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
+<!-- Preload Checkout Branding & Trust Icons -->
 <link rel="preload" as="image" href="/assets/icons/logo-gold-quill.webp">
-<link rel="preload" as="image" href="/assets/checkout/ghibli-art-thumb.webp">
+<link rel="preload" as="image" href="/assets/icons/shield-gold.svg">
+<link rel="preload" as="image" href="/assets/icons/bolt-gold.svg">
+<link rel="preload" as="image" href="/assets/icons/mail-gold.svg">
+<link rel="preload" as="image" href="/assets/icons/headset-gold.svg">
+<!-- Preload Checkout Payment Gateways -->
+<link rel="preload" as="image" href="/assets/icons/payment-logo-upi.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-gpay.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-phonepe.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-paytm.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-visa.webp">
+<!-- Preload All 11 Prompt Book Previews for Instant Modal Render -->
 <link rel="preload" as="image" href="/assets/checkout/action-figures-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/ghibli-art-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/childhood-nostalgia-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/caricature-chibi-thumb.webp">
 <link rel="preload" as="image" href="/assets/checkout/professional-headshots-thumb.webp">
 <link rel="preload" as="image" href="/assets/checkout/product-photography-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/cinematic-movie-poster-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/vintage-scrapbook-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/pet-transformation-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/historical-time-travel-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/trending-styles-thumb.webp">
+<!-- Preload Book Selector Modal Covers (For Instant Selection Screen Render) -->
+<?php foreach ($books as $id => $book): if (!empty($book['bonus'])) continue; ?>
+<?php
+  $modalCoverFile = sprintf('book-%02d.jpg', $id);
+  $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
+  $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
+  if (file_exists($modalCoverDiskPath)):
+    $version = '?v=' . filemtime($modalCoverDiskPath);
+?>
+<link rel="preload" as="image" href="<?= htmlspecialchars($modalCoverWebPath . $version, ENT_QUOTES, 'UTF-8') ?>">
+<?php endif; endforeach; ?>
+<?php
+  $bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
+  $bonusCoverDiskPath = __DIR__ . $bonusCoverWebPath;
+  if (file_exists($bonusCoverDiskPath)):
+    $bonusVersion = '?v=' . filemtime($bonusCoverDiskPath);
+?>
+<link rel="preload" as="image" href="<?= htmlspecialchars($bonusCoverWebPath . $bonusVersion, ENT_QUOTES, 'UTF-8') ?>">
+<?php endif; ?>
+<!-- Preload Active Payment Gateway SDK Script for Instant Payment Modal Render -->
+<?php
+$activePaymentProvider = defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay';
+if ($activePaymentProvider === 'cashfree'): ?>
+  <link rel="preload" as="script" href="https://sdk.cashfree.com/js/v3/cashfree.js">
+<?php else: ?>
+  <link rel="preload" as="script" href="https://checkout.razorpay.com/v1/checkout.js">
+<?php endif; ?>
 <?php
 $landingCriticalCssWebPath = '/assets/landing-critical.css';
 $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
