@@ -34,6 +34,57 @@ $books    = getBooks();
 </script>
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
+<!-- Preload Checkout Branding & Trust Icons -->
+<link rel="preload" as="image" href="/assets/icons/logo-gold-quill.webp">
+<link rel="preload" as="image" href="/assets/icons/shield-gold.svg">
+<link rel="preload" as="image" href="/assets/icons/bolt-gold.svg">
+<link rel="preload" as="image" href="/assets/icons/mail-gold.svg">
+<link rel="preload" as="image" href="/assets/icons/headset-gold.svg">
+<!-- Preload Checkout Payment Gateways -->
+<link rel="preload" as="image" href="/assets/icons/payment-logo-upi.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-gpay.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-phonepe.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-paytm.webp">
+<link rel="preload" as="image" href="/assets/icons/payment-logo-visa.webp">
+<!-- Preload All 11 Prompt Book Previews for Instant Modal Render -->
+<link rel="preload" as="image" href="/assets/checkout/action-figures-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/ghibli-art-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/childhood-nostalgia-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/caricature-chibi-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/professional-headshots-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/product-photography-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/cinematic-movie-poster-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/vintage-scrapbook-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/pet-transformation-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/historical-time-travel-thumb.webp">
+<link rel="preload" as="image" href="/assets/checkout/trending-styles-thumb.webp">
+<!-- Preload Book Selector Modal Covers (For Instant Selection Screen Render) -->
+<?php foreach ($books as $id => $book): if (!empty($book['bonus'])) continue; ?>
+<?php
+  $modalCoverFile = sprintf('book-%02d.jpg', $id);
+  $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
+  $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
+  if (file_exists($modalCoverDiskPath)):
+    $version = '?v=' . filemtime($modalCoverDiskPath);
+?>
+<link rel="preload" as="image" href="<?= htmlspecialchars($modalCoverWebPath . $version, ENT_QUOTES, 'UTF-8') ?>">
+<?php endif; endforeach; ?>
+<?php
+  $bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
+  $bonusCoverDiskPath = __DIR__ . $bonusCoverWebPath;
+  if (file_exists($bonusCoverDiskPath)):
+    $bonusVersion = '?v=' . filemtime($bonusCoverDiskPath);
+?>
+<link rel="preload" as="image" href="<?= htmlspecialchars($bonusCoverWebPath . $bonusVersion, ENT_QUOTES, 'UTF-8') ?>">
+<?php endif; ?>
+<!-- Preload Active Payment Gateway SDK Script for Instant Payment Modal Render -->
+<?php
+$activePaymentProvider = defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay';
+if ($activePaymentProvider === 'cashfree'): ?>
+  <link rel="preload" as="script" href="https://sdk.cashfree.com/js/v3/cashfree.js">
+<?php else: ?>
+  <link rel="preload" as="script" href="https://checkout.razorpay.com/v1/checkout.js">
+<?php endif; ?>
 <?php
 $landingCriticalCssWebPath = '/assets/landing-critical.css';
 $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
@@ -125,7 +176,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
         <div class="hero-trust">
           🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription<br>
-          <span class="hero-trust-gold">⭐ Trusted by 200+ paying customers · 4.6★ average rating</span>
+          <span class="hero-trust-gold">⭐ Join growing AI creator community · 4.6★ average rating</span>
         </div>
       </div>
 
@@ -819,7 +870,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     <div class="app-modal-head app-modal-head--checkout">
       <div class="checkout-head-main">
         <div class="checkout-brand-icon" aria-hidden="true">
-          <img src="/assets/icons/logo-gold-quill.webp" alt="" width="28" height="28" loading="lazy" decoding="async">
+          <img src="/assets/icons/logo-gold-quill.webp" alt="" width="28" height="28" loading="eager" decoding="async">
         </div>
         <div class="checkout-head-copy">
           <div id="checkoutTitle" class="checkout-title">Unlock Your Full<br><span class="checkout-title-accent">AI Prompt System</span></div>
@@ -858,15 +909,15 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div id="checkoutProofTitle" class="checkout-proof-title">✨ Selected Styles Preview ✨</div>
           <div class="checkout-proof-strip" aria-label="Example outputs">
             <figure class="checkout-proof-item" id="checkoutProofItem1">
-              <img id="checkoutProofImage1" src="/assets/checkout/ghibli-art-thumb.webp" alt="Ghibli style image example" width="88" height="88" loading="lazy" decoding="async">
+              <img id="checkoutProofImage1" src="/assets/checkout/ghibli-art-thumb.webp" alt="Ghibli style image example" width="88" height="88" loading="eager" decoding="async">
               <figcaption id="checkoutProofCaption1">Ghibli Art</figcaption>
             </figure>
             <figure class="checkout-proof-item" id="checkoutProofItem2">
-              <img id="checkoutProofImage2" src="/assets/checkout/action-figures-thumb.webp" alt="Action figure style image example" width="88" height="88" loading="lazy" decoding="async">
+              <img id="checkoutProofImage2" src="/assets/checkout/action-figures-thumb.webp" alt="Action figure style image example" width="88" height="88" loading="eager" decoding="async">
               <figcaption id="checkoutProofCaption2">Action Figures</figcaption>
             </figure>
             <figure class="checkout-proof-item" id="checkoutProofItem3">
-              <img id="checkoutProofImage3" src="/assets/checkout/professional-headshots-thumb.webp" alt="Professional headshot image example" width="88" height="88" loading="lazy" decoding="async">
+              <img id="checkoutProofImage3" src="/assets/checkout/professional-headshots-thumb.webp" alt="Professional headshot image example" width="88" height="88" loading="eager" decoding="async">
               <figcaption id="checkoutProofCaption3">Professional Headshots</figcaption>
             </figure>
             <span id="checkoutProofMoreBadge" class="checkout-proof-more-badge" hidden>+0 More Styles</span>
@@ -874,7 +925,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
 
         <div class="checkout-social-proof">
-          <strong>⭐ Trusted by 200+ creators</strong>
+          <strong>⭐ Join growing AI creator community</strong>
         </div>
       </div>
 
@@ -894,11 +945,11 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div id="paymentSecure" class="checkout-security">Secure Razorpay Payment</div>
           <div class="checkout-security checkout-security--methods">UPI • GPay • PhonePe • Cards Accepted</div>
           <div class="checkout-logos" aria-label="Payment methods">
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="86" height="32" loading="lazy" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="86" height="32" loading="lazy" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="86" height="32" loading="lazy" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="86" height="32" loading="lazy" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="86" height="32" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="86" height="32" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="86" height="32" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="86" height="32" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="86" height="32" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="86" height="32" loading="eager" decoding="async"></span>
           </div>
 
           <div class="checkout-trust-row" aria-label="Checkout trust assurances">
