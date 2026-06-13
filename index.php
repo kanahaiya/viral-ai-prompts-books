@@ -33,50 +33,15 @@ $books    = getBooks();
     })(window, document, "clarity", "script", "x37q4ovu6j");
 </script>
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
+<link rel="dns-prefetch" href="//www.clarity.ms">
+<link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
-<!-- Preload Checkout Branding & Trust Icons -->
-<link rel="preload" as="image" href="/assets/icons/logo-gold-quill.webp">
-<link rel="preload" as="image" href="/assets/icons/shield-gold.svg">
-<link rel="preload" as="image" href="/assets/icons/bolt-gold.svg">
-<link rel="preload" as="image" href="/assets/icons/mail-gold.svg">
-<link rel="preload" as="image" href="/assets/icons/headset-gold.svg">
-<!-- Preload Checkout Payment Gateways -->
-<link rel="preload" as="image" href="/assets/icons/payment-logo-upi.webp">
-<link rel="preload" as="image" href="/assets/icons/payment-logo-gpay.webp">
-<link rel="preload" as="image" href="/assets/icons/payment-logo-phonepe.webp">
-<link rel="preload" as="image" href="/assets/icons/payment-logo-paytm.webp">
-<link rel="preload" as="image" href="/assets/icons/payment-logo-visa.webp">
-<!-- Preload All 11 Prompt Book Previews for Instant Modal Render -->
-<link rel="preload" as="image" href="/assets/checkout/action-figures-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/ghibli-art-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/childhood-nostalgia-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/caricature-chibi-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/professional-headshots-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/product-photography-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/cinematic-movie-poster-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/vintage-scrapbook-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/pet-transformation-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/historical-time-travel-thumb.webp">
-<link rel="preload" as="image" href="/assets/checkout/trending-styles-thumb.webp">
-<!-- Preload Book Selector Modal Covers (For Instant Selection Screen Render) -->
-<?php foreach ($books as $id => $book): if (!empty($book['bonus'])) continue; ?>
-<?php
-  $modalCoverFile = sprintf('book-%02d.jpg', $id);
-  $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
-  $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
-  if (file_exists($modalCoverDiskPath)):
-    $version = '?v=' . filemtime($modalCoverDiskPath);
-?>
-<link rel="preload" as="image" href="<?= htmlspecialchars($modalCoverWebPath . $version, ENT_QUOTES, 'UTF-8') ?>">
-<?php endif; endforeach; ?>
-<?php
-  $bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
-  $bonusCoverDiskPath = __DIR__ . $bonusCoverWebPath;
-  if (file_exists($bonusCoverDiskPath)):
-    $bonusVersion = '?v=' . filemtime($bonusCoverDiskPath);
-?>
-<link rel="preload" as="image" href="<?= htmlspecialchars($bonusCoverWebPath . $bonusVersion, ENT_QUOTES, 'UTF-8') ?>">
-<?php endif; ?>
+<link rel="preconnect" href="https://www.clarity.ms" crossorigin>
+<link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+<!-- Preload Responsive LCP Hero Image -->
+<link rel="preload" as="image" href="assets/hero-mockup.webp" 
+      imagesrcset="assets/hero-mockup-480w.webp 480w, assets/hero-mockup-768w.webp 768w, assets/hero-mockup.webp 900w" 
+      imagesizes="(max-width: 960px) 92vw, 50vw" fetchpriority="high">
 <!-- Preload Active Payment Gateway SDK Script for Instant Payment Modal Render -->
 <?php
 $activePaymentProvider = defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay';
@@ -110,10 +75,13 @@ if (!file_exists($landingJsDiskPath)) {
 }
 $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landingJsDiskPath)) : '';
 ?>
-<link rel="preload" as="style" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="preload" as="style" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="preload" as="script" href="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>">
-<link rel="stylesheet" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
+<?php if (file_exists($landingCriticalCssDiskPath)): ?>
+  <style><?= file_get_contents($landingCriticalCssDiskPath) ?></style>
+<?php else: ?>
+  <link rel="stylesheet" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
+<?php endif; ?>
 <link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>"></noscript>
 <?php renderMetaPixelHead(); ?>
@@ -970,6 +938,38 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </div>
 
 <script src="/assets/js/pixel-tracking.js" defer></script>
+<?php
+$checkoutImages = [];
+foreach ($books as $id => $book) {
+  if (!empty($book['bonus'])) continue;
+  $modalCoverFile = sprintf('book-%02d.jpg', $id);
+  $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
+  $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
+  if (file_exists($modalCoverDiskPath)) {
+    $checkoutImages[] = $modalCoverWebPath . '?v=' . filemtime($modalCoverDiskPath);
+  }
+}
+$bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
+$bonusCoverDiskPath = __DIR__ . $bonusCoverWebPath;
+if (file_exists($bonusCoverDiskPath)) {
+  $checkoutImages[] = $bonusCoverWebPath . '?v=' . filemtime($bonusCoverDiskPath);
+}
+// Add payment icons
+$checkoutImages[] = '/assets/icons/payment-logo-upi.webp';
+$checkoutImages[] = '/assets/icons/payment-logo-gpay.webp';
+$checkoutImages[] = '/assets/icons/payment-logo-phonepe.webp';
+$checkoutImages[] = '/assets/icons/payment-logo-paytm.webp';
+$checkoutImages[] = '/assets/icons/payment-logo-visa.webp';
+// Add trust icons
+$checkoutImages[] = '/assets/icons/shield-gold.svg';
+$checkoutImages[] = '/assets/icons/bolt-gold.svg';
+$checkoutImages[] = '/assets/icons/mail-gold.svg';
+$checkoutImages[] = '/assets/icons/headset-gold.svg';
+// Add thumbnails
+foreach (['action-figures', 'ghibli-art', 'childhood-nostalgia', 'caricature-chibi', 'professional-headshots', 'product-photography', 'cinematic-movie-poster', 'vintage-scrapbook', 'pet-transformation', 'historical-time-travel', 'trending-styles'] as $thumb) {
+  $checkoutImages[] = "/assets/checkout/{$thumb}-thumb.webp";
+}
+?>
 <script>
 if (window.location.hash === '#pricing') {
   const cleanPath = window.location.pathname + window.location.search;
@@ -981,7 +981,8 @@ window.__AIPB_CONFIG = {
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
   cashfreeEnv: <?= json_encode(defined('CASHFREE_ENV') ? CASHFREE_ENV : 'sandbox') ?>,
   siteName: <?= json_encode(defined('SITE_NAME') ? SITE_NAME : 'AI Prompt System') ?>,
-  booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>
+  booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>,
+  checkoutImages: <?= json_encode($checkoutImages) ?>
 };
 </script>
 <script src="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>" defer></script>

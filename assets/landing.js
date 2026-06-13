@@ -948,6 +948,14 @@ function initStickyCta() {
   obs.observe(hero);
 }
 
+function preloadCheckoutImages() {
+  const images = (window.__AIPB_CONFIG && window.__AIPB_CONFIG.checkoutImages) || [];
+  images.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 function initNonCriticalFeatures() {
   initSessionAttributionTracking();
   initFunnelTracking();
@@ -957,6 +965,7 @@ function initNonCriticalFeatures() {
   initCountdown();
   initActivityTicker();
   initStickyCta();
+  preloadCheckoutImages();
 }
 
 if ('requestIdleCallback' in window) {
