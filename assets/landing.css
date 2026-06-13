@@ -1047,7 +1047,7 @@ section{padding:64px 2rem;}
   font-weight:700;
 }
 .checkout-field{margin-bottom:1.24rem;}
-.checkout-right .checkout-field{margin-bottom:1.52rem;}
+.checkout-right .checkout-field{margin-bottom:2.2rem;}
 .checkout-label{
   font-size:0.74rem;
   font-weight:700;
@@ -1076,8 +1076,8 @@ section{padding:64px 2rem;}
   gap:1.12rem;
 }
 .checkout-right .checkout-payments{
-  gap:0.78rem;
-  margin-top:-0.14rem;
+  gap:1.25rem;
+  margin-top:0.25rem;
 }
 .checkout-cta-help{
   text-align:center;
@@ -1112,7 +1112,7 @@ section{padding:64px 2rem;}
   line-height:1.08;
 }
 .checkout-right .checkout-security{padding:0;}
-.checkout-right .checkout-security--methods{margin-top:-0.1rem;}
+.checkout-right .checkout-security--methods{margin-top:0.2rem;}
 .checkout-trust-row{
   display:grid;
   grid-template-columns:repeat(4, minmax(0, 1fr));
@@ -1122,6 +1122,10 @@ section{padding:64px 2rem;}
   border-radius:8px;
   padding:0.8rem;
   margin-bottom:0.9rem;
+}
+.checkout-right .checkout-trust-row{
+  margin-top:1rem;
+  margin-bottom:1.8rem;
 }
 .checkout-trust-item{
   font-size:0.67rem;
@@ -1235,6 +1239,9 @@ section{padding:64px 2rem;}
   margin-top:-0.3rem;
   line-height:1.35;
 }
+.checkout-right .checkout-cta-microcopy{
+  margin-top:-0.75rem;
+}
 .checkout-social-proof{
   border:1px solid rgba(212,168,54,0.2);
   background:rgba(212,168,54,0.05);
@@ -1274,6 +1281,9 @@ section{padding:64px 2rem;}
   justify-content:center;
   gap:0.18rem;
   margin-top:0.06rem;
+}
+.checkout-right .checkout-logos{
+  margin-top:0.4rem;
 }
 .checkout-logo-pill{
   border:1px solid rgba(255,255,255,0.18);

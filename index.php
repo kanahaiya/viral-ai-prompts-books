@@ -176,7 +176,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
         <div class="hero-trust">
           🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription<br>
-          <span class="hero-trust-gold">⭐ Trusted by 200+ paying customers · 4.6★ average rating</span>
+          <span class="hero-trust-gold">⭐ Join growing AI creator community · 4.6★ average rating</span>
         </div>
       </div>
 
@@ -925,7 +925,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
 
         <div class="checkout-social-proof">
-          <strong>⭐ Trusted by 200+ creators</strong>
+          <strong>⭐ Join growing AI creator community</strong>
         </div>
       </div>
 
