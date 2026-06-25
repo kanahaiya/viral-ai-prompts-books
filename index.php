@@ -25,18 +25,9 @@ $books    = getBooks();
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <meta name="facebook-domain-verification" content="80mehcxtq5lqugdfns9r4t854kzmeh">
 <meta name="theme-color" content="#0a0a0a">
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "x37q4ovu6j");
-</script>
 <link rel="dns-prefetch" href="//checkout.razorpay.com">
-<link rel="dns-prefetch" href="//www.clarity.ms">
 <link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
-<link rel="preconnect" href="https://www.clarity.ms" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
 <!-- Preload Responsive LCP Hero Image -->
 <link rel="preload" as="image" href="assets/hero-mockup.webp" 
@@ -938,6 +929,14 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </div>
 
 <script src="/assets/js/pixel-tracking.js" defer></script>
+<!-- Microsoft Clarity — deferred to avoid blocking page render -->
+<script>
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "x37q4ovu6j");
+</script>
 <?php
 $checkoutImages = [];
 foreach ($books as $id => $book) {
@@ -971,11 +970,6 @@ foreach (['action-figures', 'ghibli-art', 'childhood-nostalgia', 'caricature-chi
 }
 ?>
 <script>
-if (window.location.hash === '#pricing') {
-  const cleanPath = window.location.pathname + window.location.search;
-  window.history.replaceState(null, '', cleanPath);
-  window.scrollTo(0, 0);
-}
 window.__AIPB_CONFIG = {
   paymentProvider: <?= json_encode(defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay') ?>,
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
