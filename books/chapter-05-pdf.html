@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Your full name</span>
-        <input class="var-input" id="v-name" placeholder='e.g. SARAH CHEN, JAMES MILLER' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[TITLE]</span>
-        <span class="var-desc">Your job title or role</span>
-        <input class="var-input" id="v-title" placeholder='e.g. Marketing Director, CEO' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[APPEARANCE]</span>
-        <span class="var-desc">Brief physical description</span>
-        <input class="var-input" id="v-appearance" placeholder='e.g. 35-year-old woman, dark hair' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[OUTFIT]</span>
-        <span class="var-desc">Professional attire</span>
-        <input class="var-input" id="v-outfit" placeholder='e.g. navy blazer, charcoal suit' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[EXPRESSION]</span>
-        <span class="var-desc">Desired expression/mood</span>
-        <input class="var-input" id="v-expression" placeholder='e.g. confident, warm and approachable' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[BACKGROUND]</span>
-        <span class="var-desc">Background or setting</span>
-        <input class="var-input" id="v-background" placeholder='e.g. clean white studio, dark grad.' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ soft studio lighting, <span class="filled-val">clean white studio</span>.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Your full name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. SARAH CHEN, JAMES MILLER' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[TITLE]</span>
+        <span class="var-desc">Your job title or role</span>
+        <input class="var-input" id="v-title" placeholder='e.g. Marketing Director, CEO' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[APPEARANCE]</span>
+        <span class="var-desc">Brief physical description</span>
+        <input class="var-input" id="v-appearance" placeholder='e.g. 35-year-old woman, dark hair' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Professional attire</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. navy blazer, charcoal suit' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[EXPRESSION]</span>
+        <span class="var-desc">Desired expression/mood</span>
+        <input class="var-input" id="v-expression" placeholder='e.g. confident, warm and approachable' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[BACKGROUND]</span>
+        <span class="var-desc">Background or setting</span>
+        <input class="var-input" id="v-background" placeholder='e.g. clean white studio, dark grad.' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   background:        () => document.getElementById('v-background').value.trim() || '[BACKGROUND]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[TITLE\]/g, vars.title())
-    .replace(/\[APPEARANCE\]/g, vars.appearance())
-    .replace(/\[OUTFIT\]/g, vars.outfit())
-    .replace(/\[EXPRESSION\]/g, vars.expression())
-    .replace(/\[BACKGROUND\]/g, vars.background());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|TITLE|APPEARANCE|OUTFIT|EXPRESSION|BACKGROUND)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), ti = vars.title(), ap = vars.appearance(), ou = vars.outfit(), ex = vars.expression(), ba = vars.background();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    TITLE: vars.title(),
+    APPEARANCE: vars.appearance(),
+    OUTFIT: vars.outfit(),
+    EXPRESSION: vars.expression(),
+    BACKGROUND: vars.background(),
+  };
+  const na = values.NAME, ti = values.TITLE, ap = values.APPEARANCE, ou = values.OUTFIT, ex = values.EXPRESSION, ba = values.BACKGROUND;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

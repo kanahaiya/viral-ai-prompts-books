@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Subject's name</span>
-        <input class="var-input" id="v-name" placeholder='e.g. DOROTHY, ELEANOR, JAMES' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[STYLE]</span>
-        <span class="var-desc">Photo/art style</span>
-        <input class="var-input" id="v-style" placeholder='e.g. sepia, faded colour, black & white' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[ERA]</span>
-        <span class="var-desc">Historical era or decade</span>
-        <input class="var-input" id="v-era" placeholder='e.g. 1920s Jazz Age, 1950s, 1970s' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[OUTFIT]</span>
-        <span class="var-desc">Period-appropriate clothing</span>
-        <input class="var-input" id="v-outfit" placeholder='e.g. flapper dress, mod miniskirt' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[SETTING]</span>
-        <span class="var-desc">Location or backdrop</span>
-        <input class="var-input" id="v-setting" placeholder='e.g. city street, seaside resort' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[OCCASION]</span>
-        <span class="var-desc">Event or life moment</span>
-        <input class="var-input" id="v-occasion" placeholder='e.g. a wedding, everyday life' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ vignette, faded warm tones.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Subject's name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. DOROTHY, ELEANOR, JAMES' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[STYLE]</span>
+        <span class="var-desc">Photo/art style</span>
+        <input class="var-input" id="v-style" placeholder='e.g. sepia, faded colour, black & white' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ERA]</span>
+        <span class="var-desc">Historical era or decade</span>
+        <input class="var-input" id="v-era" placeholder='e.g. 1920s Jazz Age, 1950s, 1970s' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Period-appropriate clothing</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. flapper dress, mod miniskirt' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Location or backdrop</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. city street, seaside resort' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OCCASION]</span>
+        <span class="var-desc">Event or life moment</span>
+        <input class="var-input" id="v-occasion" placeholder='e.g. a wedding, everyday life' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   occasion:        () => document.getElementById('v-occasion').value.trim() || '[OCCASION]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[STYLE\]/g, vars.style())
-    .replace(/\[ERA\]/g, vars.era())
-    .replace(/\[OUTFIT\]/g, vars.outfit())
-    .replace(/\[SETTING\]/g, vars.setting())
-    .replace(/\[OCCASION\]/g, vars.occasion());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|STYLE|ERA|OUTFIT|SETTING|OCCASION)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), st = vars.style(), er = vars.era(), ou = vars.outfit(), se = vars.setting(), oc = vars.occasion();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    STYLE: vars.style(),
+    ERA: vars.era(),
+    OUTFIT: vars.outfit(),
+    SETTING: vars.setting(),
+    OCCASION: vars.occasion(),
+  };
+  const na = values.NAME, st = values.STYLE, er = values.ERA, ou = values.OUTFIT, se = values.SETTING, oc = values.OCCASION;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

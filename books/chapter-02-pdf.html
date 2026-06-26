@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -760,51 +760,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Anime Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Your character's name in the anime world</span>
-        <input class="var-input" id="v-name" placeholder='e.g. "YUKI", "HIRO", "SAKURA"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[WORLD]</span>
-        <span class="var-desc">Preferred Ghibli film or anime universe</span>
-        <input class="var-input" id="v-world" placeholder='e.g. "Spirited Away", "Attack on Titan"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[OUTFIT]</span>
-        <span class="var-desc">What your anime character wears</span>
-        <input class="var-input" id="v-outfit" placeholder='e.g. "blue yukata, school uniform"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[COMPANION]</span>
-        <span class="var-desc">Animal companion or spirit beside your character</span>
-        <input class="var-input" id="v-companion" placeholder='e.g. "a soot sprite, tiny dragon"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[SETTING]</span>
-        <span class="var-desc">Scene or setting where your character is placed</span>
-        <input class="var-input" id="v-setting" placeholder='e.g. "spirit bathhouse, floating castle"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[TIME]</span>
-        <span class="var-desc">Time of day or atmospheric mood</span>
-        <input class="var-input" id="v-time" placeholder='e.g. "golden sunset, morning mist"' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -890,6 +845,51 @@ colours and soft ink outlines.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Pink tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every pink token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Anime Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Your character's name in the anime world</span>
+        <input class="var-input" id="v-name" placeholder='e.g. "YUKI", "HIRO", "SAKURA"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[WORLD]</span>
+        <span class="var-desc">Preferred Ghibli film or anime universe</span>
+        <input class="var-input" id="v-world" placeholder='e.g. "Spirited Away", "Attack on Titan"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">What your anime character wears</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. "blue yukata, school uniform"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[COMPANION]</span>
+        <span class="var-desc">Animal companion or spirit beside your character</span>
+        <input class="var-input" id="v-companion" placeholder='e.g. "a soot sprite, tiny dragon"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Scene or setting where your character is placed</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. "spirit bathhouse, floating castle"' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[TIME]</span>
+        <span class="var-desc">Time of day or atmospheric mood</span>
+        <input class="var-input" id="v-time" placeholder='e.g. "golden sunset, morning mist"' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1594,20 +1594,28 @@ const vars = {
   time:      () => document.getElementById('v-time').value.trim()      || '[TIME]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g,      vars.name())
-    .replace(/\[WORLD\]/g,     vars.world())
-    .replace(/\[OUTFIT\]/g,    vars.outfit())
-    .replace(/\[COMPANION\]/g, vars.companion())
-    .replace(/\[SETTING\]/g,   vars.setting())
-    .replace(/\[TIME\]/g,      vars.time());
+function getVariableValues() {
+  return {
+    NAME: vars.name(),
+    WORLD: vars.world(),
+    OUTFIT: vars.outfit(),
+    COMPANION: vars.companion(),
+    SETTING: vars.setting(),
+    TIME: vars.time(),
+  };
+}
+
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|WORLD|OUTFIT|COMPANION|SETTING|TIME)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const nm = vars.name(), wo = vars.world(), ou = vars.outfit();
-  const co = vars.companion(), se = vars.setting(), ti = vars.time();
-  const prompt = fill(T[n]);
+  const values = getVariableValues();
+  const prompt = fill(T[n], values);
 
   return `We'll be creating a Ghibli & anime style image prompt for your photo.
 First, let's define some variables.
@@ -1620,12 +1628,12 @@ First, let's define some variables.
 "[TIME]" is the time of day or atmospheric mood of the scene.
 
 Now let's give these variables our values.
-[NAME] = "${nm}"
-[WORLD] = "${wo}"
-[OUTFIT] = "${ou}"
-[COMPANION] = "${co}"
-[SETTING] = "${se}"
-[TIME] = "${ti}"
+[NAME] = "${values.NAME}"
+[WORLD] = "${values.WORLD}"
+[OUTFIT] = "${values.OUTFIT}"
+[COMPANION] = "${values.COMPANION}"
+[SETTING] = "${values.SETTING}"
+[TIME] = "${values.TIME}"
 
 ─────────────────────────────────────────
 ${prompt}`;
@@ -1666,5 +1674,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

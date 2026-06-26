@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[PET NAME]</span>
-        <span class="var-desc">Your pet's name</span>
-        <input class="var-input" id="v-petname" placeholder='e.g. BUDDY, LUNA, WHISKERS' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[BREED]</span>
-        <span class="var-desc">Breed or species</span>
-        <input class="var-input" id="v-breed" placeholder='e.g. golden retriever, black cat' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[COAT]</span>
-        <span class="var-desc">Coat colour and texture</span>
-        <input class="var-input" id="v-coat" placeholder='e.g. golden fluffy, sleek jet-black' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[THEME]</span>
-        <span class="var-desc">Creative transformation theme</span>
-        <input class="var-input" id="v-theme" placeholder='e.g. royal portrait, action hero' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[PROP]</span>
-        <span class="var-desc">Prop or accessory</span>
-        <input class="var-input" id="v-prop" placeholder='e.g. a tiny crown, a monocle' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[SETTING]</span>
-        <span class="var-desc">Background or location</span>
-        <input class="var-input" id="v-setting" placeholder='e.g. ornate royal chamber, cityscape' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ Seated in <span class="filled-val">an ornate royal library</span> with an aristo
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[PET NAME]</span>
+        <span class="var-desc">Your pet's name</span>
+        <input class="var-input" id="v-petname" placeholder='e.g. BUDDY, LUNA, WHISKERS' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[BREED]</span>
+        <span class="var-desc">Breed or species</span>
+        <input class="var-input" id="v-breed" placeholder='e.g. golden retriever, black cat' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[COAT]</span>
+        <span class="var-desc">Coat colour and texture</span>
+        <input class="var-input" id="v-coat" placeholder='e.g. golden fluffy, sleek jet-black' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[THEME]</span>
+        <span class="var-desc">Creative transformation theme</span>
+        <input class="var-input" id="v-theme" placeholder='e.g. royal portrait, action hero' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PROP]</span>
+        <span class="var-desc">Prop or accessory</span>
+        <input class="var-input" id="v-prop" placeholder='e.g. a tiny crown, a monocle' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Background or location</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. ornate royal chamber, cityscape' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[PET\sNAME\]/g, vars.petname())
-    .replace(/\[BREED\]/g, vars.breed())
-    .replace(/\[COAT\]/g, vars.coat())
-    .replace(/\[THEME\]/g, vars.theme())
-    .replace(/\[PROP\]/g, vars.prop())
-    .replace(/\[SETTING\]/g, vars.setting());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(PET\s+NAME|BREED|COAT|THEME|PROP|SETTING)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase().replace(/\s+/g, ' ');
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const pe = vars.petname(), br = vars.breed(), co = vars.coat(), th = vars.theme(), pr = vars.prop(), se = vars.setting();
-  const prompt = fill(T[n]);
+  const values = {
+    'PET NAME': vars.petname(),
+    BREED: vars.breed(),
+    COAT: vars.coat(),
+    THEME: vars.theme(),
+    PROP: vars.prop(),
+    SETTING: vars.setting(),
+  };
+  const pe = values['PET NAME'], br = values.BREED, co = values.COAT, th = values.THEME, pr = values.PROP, se = values.SETTING;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

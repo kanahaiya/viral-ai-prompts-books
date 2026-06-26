@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Child's first name (in capitals)</span>
-        <input class="var-input" id="v-name" placeholder='e.g. EMMA, OLIVER, MAYA' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[AGE]</span>
-        <span class="var-desc">Age description of the child</span>
-        <input class="var-input" id="v-age" placeholder='e.g. 5-year-old, 8-year-old' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[HAIR]</span>
-        <span class="var-desc">Hair colour and style</span>
-        <input class="var-input" id="v-hair" placeholder='e.g. wild curly red hair' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[ERA]</span>
-        <span class="var-desc">Decade or era for the aesthetic</span>
-        <input class="var-input" id="v-era" placeholder='e.g. 1970s, 1980s, timeless' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[ACTIVITY]</span>
-        <span class="var-desc">What the child is doing</span>
-        <input class="var-input" id="v-activity" placeholder='e.g. picking flowers, reading' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[SETTING]</span>
-        <span class="var-desc">Location or environment</span>
-        <input class="var-input" id="v-setting" placeholder='e.g. sunlit meadow, back garden' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -887,6 +842,51 @@ beloved family camera.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Child's first name (in capitals)</span>
+        <input class="var-input" id="v-name" placeholder='e.g. EMMA, OLIVER, MAYA' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[AGE]</span>
+        <span class="var-desc">Age description of the child</span>
+        <input class="var-input" id="v-age" placeholder='e.g. 5-year-old, 8-year-old' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[HAIR]</span>
+        <span class="var-desc">Hair colour and style</span>
+        <input class="var-input" id="v-hair" placeholder='e.g. wild curly red hair' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ERA]</span>
+        <span class="var-desc">Decade or era for the aesthetic</span>
+        <input class="var-input" id="v-era" placeholder='e.g. 1970s, 1980s, timeless' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ACTIVITY]</span>
+        <span class="var-desc">What the child is doing</span>
+        <input class="var-input" id="v-activity" placeholder='e.g. picking flowers, reading' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Location or environment</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. sunlit meadow, back garden' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1781,19 +1781,25 @@ const vars = {
   setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[AGE\]/g, vars.age())
-    .replace(/\[HAIR\]/g, vars.hair())
-    .replace(/\[ERA\]/g, vars.era())
-    .replace(/\[ACTIVITY\]/g, vars.activity())
-    .replace(/\[SETTING\]/g, vars.setting());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|AGE|HAIR|ERA|ACTIVITY|SETTING)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), ag = vars.age(), ha = vars.hair(), er = vars.era(), ac = vars.activity(), se = vars.setting();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    AGE: vars.age(),
+    HAIR: vars.hair(),
+    ERA: vars.era(),
+    ACTIVITY: vars.activity(),
+    SETTING: vars.setting(),
+  };
+  const na = values.NAME, ag = values.AGE, ha = values.HAIR, er = values.ERA, ac = values.ACTIVITY, se = values.SETTING;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1852,5 +1858,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

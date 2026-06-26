@@ -736,6 +736,18 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
   <span class="section-title-text">10 Fill-in-the-Blank Practice Prompts</span>
 </div>
 
+<!-- ══════════════════════ INTRO ══════════════════════ -->
+<div class="section-divider section-divider-spacer" aria-hidden="true">
+  <span class="section-num accent-bg">SP</span>
+  <span class="section-title-text">Spacer</span>
+</div>
+<div class="intro-card">
+  <h2>Welcome to the Cheat Code</h2>
+  <p>You now have access to 1,100 fill-in-the-blank AI prompt templates across 11 books. But knowing <em>how</em> to use them — and understanding <strong>why</strong> certain prompts produce stunning results while others produce average ones — will 10x your output quality.</p>
+  <p>This bonus guide is your <strong>master class in AI image creation</strong>. You'll learn the science behind great prompts, discover the style keywords professionals use, see real before/after transformations, and finish with 10 practice prompts to apply everything immediately.</p>
+  <p>Read it once. Reference it whenever you create. Your images will never be average again.</p>
+</div>
+
 <div class="setup-section">
   <div class="setup-title">Set Your Practice Variables</div>
   <div class="setup-subtitle">Fill in 3 details below. All 10 prompts update instantly so you can try the concepts from this guide immediately.</div>
@@ -761,19 +773,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
     <span class="print-hint">File → Print → Save as PDF in Chrome/Safari</span>
   </div>
-</div>
-
-
-<!-- ══════════════════════ INTRO ══════════════════════ -->
-<div class="section-divider section-divider-spacer" aria-hidden="true">
-  <span class="section-num accent-bg">SP</span>
-  <span class="section-title-text">Spacer</span>
-</div>
-<div class="intro-card">
-  <h2>Welcome to the Cheat Code</h2>
-  <p>You now have access to 1,100 fill-in-the-blank AI prompt templates across 11 books. But knowing <em>how</em> to use them — and understanding <strong>why</strong> certain prompts produce stunning results while others produce average ones — will 10x your output quality.</p>
-  <p>This bonus guide is your <strong>master class in AI image creation</strong>. You'll learn the science behind great prompts, discover the style keywords professionals use, see real before/after transformations, and finish with 10 practice prompts to apply everything immediately.</p>
-  <p>Read it once. Reference it whenever you create. Your images will never be average again.</p>
 </div>
 
 
@@ -1537,15 +1536,18 @@ const H = {
 };
 
 function fill() {
-  const su = document.getElementById('v-subject').value.trim() || T.subject.placeholder;
-  const st = document.getElementById('v-style').value.trim()   || T.style.placeholder;
-  const mo = document.getElementById('v-mood').value.trim()    || T.mood.placeholder;
+  const values = {
+    SUBJECT: document.getElementById('v-subject').value.trim() || T.subject.placeholder,
+    STYLE: document.getElementById('v-style').value.trim() || T.style.placeholder,
+    MOOD: document.getElementById('v-mood').value.trim() || T.mood.placeholder,
+  };
 
   function filled(html) {
-    return html
-      .replace(/<span class="tok">\[SUBJECT\]<\/span>/g, `<span class="filled-val">${escHtml(su)}</span>`)
-      .replace(/<span class="tok">\[STYLE\]<\/span>/g,   `<span class="filled-val">${escHtml(st)}</span>`)
-      .replace(/<span class="tok">\[MOOD\]<\/span>/g,    `<span class="filled-val">${escHtml(mo)}</span>`);
+    const tokenPattern = /<span class="tok">\[\s*(SUBJECT|STYLE|MOOD)\s*\]<\/span>/gi;
+    return html.replace(tokenPattern, (_, tokenName) => {
+      const normalizedTokenName = tokenName.toUpperCase();
+      return `<span class="filled-val">${escHtml(values[normalizedTokenName] || `[${normalizedTokenName}]`)}</span>`;
+    });
   }
 
   const hasInput = document.getElementById('v-subject').value.trim() ||
