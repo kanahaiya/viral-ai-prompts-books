@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Your brand or creator name</span>
-        <input class="var-input" id="v-name" placeholder='e.g. MAYA CREATES, THE MINIMAL EDIT' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[NICHE]</span>
-        <span class="var-desc">Your content niche</span>
-        <input class="var-input" id="v-niche" placeholder='e.g. food photography, lifestyle' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[SUBJECT]</span>
-        <span class="var-desc">What appears in the image</span>
-        <input class="var-input" id="v-subject" placeholder='e.g. myself, my product, a dish' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[AESTHETIC]</span>
-        <span class="var-desc">Visual aesthetic style</span>
-        <input class="var-input" id="v-aesthetic" placeholder='e.g. clean & minimal, warm & cosy' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[PLATFORM]</span>
-        <span class="var-desc">Target social platform</span>
-        <input class="var-input" id="v-platform" placeholder='e.g. Instagram, TikTok, Pinterest' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[PALETTE]</span>
-        <span class="var-desc">Colour palette</span>
-        <input class="var-input" id="v-palette" placeholder='e.g. cream and sage green, monochrome' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ for maximum social media engagement.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Your brand or creator name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. MAYA CREATES, THE MINIMAL EDIT' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[NICHE]</span>
+        <span class="var-desc">Your content niche</span>
+        <input class="var-input" id="v-niche" placeholder='e.g. food photography, lifestyle' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SUBJECT]</span>
+        <span class="var-desc">What appears in the image</span>
+        <input class="var-input" id="v-subject" placeholder='e.g. myself, my product, a dish' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[AESTHETIC]</span>
+        <span class="var-desc">Visual aesthetic style</span>
+        <input class="var-input" id="v-aesthetic" placeholder='e.g. clean & minimal, warm & cosy' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PLATFORM]</span>
+        <span class="var-desc">Target social platform</span>
+        <input class="var-input" id="v-platform" placeholder='e.g. Instagram, TikTok, Pinterest' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PALETTE]</span>
+        <span class="var-desc">Colour palette</span>
+        <input class="var-input" id="v-palette" placeholder='e.g. cream and sage green, monochrome' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   palette:        () => document.getElementById('v-palette').value.trim() || '[PALETTE]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[NICHE\]/g, vars.niche())
-    .replace(/\[SUBJECT\]/g, vars.subject())
-    .replace(/\[AESTHETIC\]/g, vars.aesthetic())
-    .replace(/\[PLATFORM\]/g, vars.platform())
-    .replace(/\[PALETTE\]/g, vars.palette());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|NICHE|SUBJECT|AESTHETIC|PLATFORM|PALETTE)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), ni = vars.niche(), su = vars.subject(), ae = vars.aesthetic(), pl = vars.platform(), pa = vars.palette();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    NICHE: vars.niche(),
+    SUBJECT: vars.subject(),
+    AESTHETIC: vars.aesthetic(),
+    PLATFORM: vars.platform(),
+    PALETTE: vars.palette(),
+  };
+  const na = values.NAME, ni = values.NICHE, su = values.SUBJECT, ae = values.AESTHETIC, pl = values.PLATFORM, pa = values.PALETTE;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

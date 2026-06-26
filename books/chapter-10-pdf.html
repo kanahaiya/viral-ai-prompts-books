@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Your character's name</span>
-        <input class="var-input" id="v-name" placeholder='e.g. ISABELLA, MARCUS, ELEANOR' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[ROLE]</span>
-        <span class="var-desc">Historical role or station</span>
-        <input class="var-input" id="v-role" placeholder='e.g. royalty, a warrior, a merchant' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[PERIOD]</span>
-        <span class="var-desc">Historical era or period</span>
-        <input class="var-input" id="v-period" placeholder='e.g. Ancient Egypt, Victorian England' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[APPEARANCE]</span>
-        <span class="var-desc">Physical description</span>
-        <input class="var-input" id="v-appearance" placeholder='e.g. woman with dark braided hair' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[OUTFIT]</span>
-        <span class="var-desc">Period-appropriate clothing</span>
-        <input class="var-input" id="v-outfit" placeholder='e.g. golden pharaoh robes, armour' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[SETTING]</span>
-        <span class="var-desc">Historical location</span>
-        <input class="var-input" id="v-setting" placeholder='e.g. a palace throne room, battlefield' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ period-accurate costume and architecture.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Your character's name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. ISABELLA, MARCUS, ELEANOR' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ROLE]</span>
+        <span class="var-desc">Historical role or station</span>
+        <input class="var-input" id="v-role" placeholder='e.g. royalty, a warrior, a merchant' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PERIOD]</span>
+        <span class="var-desc">Historical era or period</span>
+        <input class="var-input" id="v-period" placeholder='e.g. Ancient Egypt, Victorian England' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[APPEARANCE]</span>
+        <span class="var-desc">Physical description</span>
+        <input class="var-input" id="v-appearance" placeholder='e.g. woman with dark braided hair' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Period-appropriate clothing</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. golden pharaoh robes, armour' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[SETTING]</span>
+        <span class="var-desc">Historical location</span>
+        <input class="var-input" id="v-setting" placeholder='e.g. a palace throne room, battlefield' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   setting:        () => document.getElementById('v-setting').value.trim() || '[SETTING]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[ROLE\]/g, vars.role())
-    .replace(/\[PERIOD\]/g, vars.period())
-    .replace(/\[APPEARANCE\]/g, vars.appearance())
-    .replace(/\[OUTFIT\]/g, vars.outfit())
-    .replace(/\[SETTING\]/g, vars.setting());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|ROLE|PERIOD|APPEARANCE|OUTFIT|SETTING)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), ro = vars.role(), pe = vars.period(), ap = vars.appearance(), ou = vars.outfit(), se = vars.setting();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    ROLE: vars.role(),
+    PERIOD: vars.period(),
+    APPEARANCE: vars.appearance(),
+    OUTFIT: vars.outfit(),
+    SETTING: vars.setting(),
+  };
+  const na = values.NAME, ro = values.ROLE, pe = values.PERIOD, ap = values.APPEARANCE, ou = values.OUTFIT, se = values.SETTING;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

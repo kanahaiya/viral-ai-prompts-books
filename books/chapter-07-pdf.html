@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Character or actor name</span>
-        <input class="var-input" id="v-name" placeholder='e.g. ALEX MORGAN, JAMES CHEN' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[ROLE]</span>
-        <span class="var-desc">Character's role or archetype</span>
-        <input class="var-input" id="v-role" placeholder='e.g. a detective, a rogue spy' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[OUTFIT]</span>
-        <span class="var-desc">Character's costume</span>
-        <input class="var-input" id="v-outfit" placeholder='e.g. tailored suit, leather jacket' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[GENRE]</span>
-        <span class="var-desc">Film genre</span>
-        <input class="var-input" id="v-genre" placeholder='e.g. noir thriller, sci-fi epic' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[PALETTE]</span>
-        <span class="var-desc">Colour palette & mood</span>
-        <input class="var-input" id="v-palette" placeholder='e.g. dark and moody noir, vibrant' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[TAGLINE]</span>
-        <span class="var-desc">Film tagline text</span>
-        <input class="var-input" id="v-tagline" placeholder='e.g. 'Some rules are meant to be…'' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ pavement. Tagline: '<span class="filled-val">Trust no one. Run.</span>'.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Character or actor name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. ALEX MORGAN, JAMES CHEN' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ROLE]</span>
+        <span class="var-desc">Character's role or archetype</span>
+        <input class="var-input" id="v-role" placeholder='e.g. a detective, a rogue spy' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Character's costume</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. tailored suit, leather jacket' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[GENRE]</span>
+        <span class="var-desc">Film genre</span>
+        <input class="var-input" id="v-genre" placeholder='e.g. noir thriller, sci-fi epic' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PALETTE]</span>
+        <span class="var-desc">Colour palette & mood</span>
+        <input class="var-input" id="v-palette" placeholder='e.g. dark and moody noir, vibrant' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[TAGLINE]</span>
+        <span class="var-desc">Film tagline text</span>
+        <input class="var-input" id="v-tagline" placeholder='e.g. 'Some rules are meant to be…'' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   tagline:        () => document.getElementById('v-tagline').value.trim() || '[TAGLINE]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[ROLE\]/g, vars.role())
-    .replace(/\[OUTFIT\]/g, vars.outfit())
-    .replace(/\[GENRE\]/g, vars.genre())
-    .replace(/\[PALETTE\]/g, vars.palette())
-    .replace(/\[TAGLINE\]/g, vars.tagline());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|ROLE|OUTFIT|GENRE|PALETTE|TAGLINE)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), ro = vars.role(), ou = vars.outfit(), ge = vars.genre(), pa = vars.palette(), ta = vars.tagline();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    ROLE: vars.role(),
+    OUTFIT: vars.outfit(),
+    GENRE: vars.genre(),
+    PALETTE: vars.palette(),
+    TAGLINE: vars.tagline(),
+  };
+  const na = values.NAME, ro = values.ROLE, ou = values.OUTFIT, ge = values.GENRE, pa = values.PALETTE, ta = values.TAGLINE;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

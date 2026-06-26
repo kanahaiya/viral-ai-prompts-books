@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[PRODUCT]</span>
-        <span class="var-desc">Product name or brand</span>
-        <input class="var-input" id="v-product" placeholder='e.g. LUMINA Serum, TechPro X1' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[TYPE]</span>
-        <span class="var-desc">Product category or type</span>
-        <input class="var-input" id="v-type" placeholder='e.g. skincare bottle, headphones' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[MATERIAL]</span>
-        <span class="var-desc">Primary material or finish</span>
-        <input class="var-input" id="v-material" placeholder='e.g. dark amber glass, brushed alum' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[BACKGROUND]</span>
-        <span class="var-desc">Background or surface</span>
-        <input class="var-input" id="v-background" placeholder='e.g. pure white, dark marble, wood' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[LIGHTING]</span>
-        <span class="var-desc">Lighting style</span>
-        <input class="var-input" id="v-lighting" placeholder='e.g. soft diffused studio, side lit' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[ANGLE]</span>
-        <span class="var-desc">Camera angle or framing</span>
-        <input class="var-input" id="v-angle" placeholder='e.g. 45-degree hero shot, flat lay' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ Shot <span class="filled-val">45-degree hero angle</span>.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[PRODUCT]</span>
+        <span class="var-desc">Product name or brand</span>
+        <input class="var-input" id="v-product" placeholder='e.g. LUMINA Serum, TechPro X1' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[TYPE]</span>
+        <span class="var-desc">Product category or type</span>
+        <input class="var-input" id="v-type" placeholder='e.g. skincare bottle, headphones' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[MATERIAL]</span>
+        <span class="var-desc">Primary material or finish</span>
+        <input class="var-input" id="v-material" placeholder='e.g. dark amber glass, brushed alum' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[BACKGROUND]</span>
+        <span class="var-desc">Background or surface</span>
+        <input class="var-input" id="v-background" placeholder='e.g. pure white, dark marble, wood' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[LIGHTING]</span>
+        <span class="var-desc">Lighting style</span>
+        <input class="var-input" id="v-lighting" placeholder='e.g. soft diffused studio, side lit' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ANGLE]</span>
+        <span class="var-desc">Camera angle or framing</span>
+        <input class="var-input" id="v-angle" placeholder='e.g. 45-degree hero shot, flat lay' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   angle:        () => document.getElementById('v-angle').value.trim() || '[ANGLE]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[PRODUCT\]/g, vars.product())
-    .replace(/\[TYPE\]/g, vars.type())
-    .replace(/\[MATERIAL\]/g, vars.material())
-    .replace(/\[BACKGROUND\]/g, vars.background())
-    .replace(/\[LIGHTING\]/g, vars.lighting())
-    .replace(/\[ANGLE\]/g, vars.angle());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(PRODUCT|TYPE|MATERIAL|BACKGROUND|LIGHTING|ANGLE)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const pr = vars.product(), ty = vars.type(), ma = vars.material(), ba = vars.background(), li = vars.lighting(), an = vars.angle();
-  const prompt = fill(T[n]);
+  const values = {
+    PRODUCT: vars.product(),
+    TYPE: vars.type(),
+    MATERIAL: vars.material(),
+    BACKGROUND: vars.background(),
+    LIGHTING: vars.lighting(),
+    ANGLE: vars.angle(),
+  };
+  const pr = values.PRODUCT, ty = values.TYPE, ma = values.MATERIAL, ba = values.BACKGROUND, li = values.LIGHTING, an = values.ANGLE;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

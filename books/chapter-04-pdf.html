@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -768,51 +768,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     </div>
   </div>
 
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">[NAME]</span>
-        <span class="var-desc">Character's name</span>
-        <input class="var-input" id="v-name" placeholder='e.g. MAX, ZARA, THE PROFESSOR' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[PERSONALITY]</span>
-        <span class="var-desc">Dominant personality trait</span>
-        <input class="var-input" id="v-personality" placeholder='e.g. wildly optimistic, genius' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[ROLE]</span>
-        <span class="var-desc">Character's job or archetype</span>
-        <input class="var-input" id="v-role" placeholder='e.g. scientist, chef, warrior' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[PROP]</span>
-        <span class="var-desc">Signature prop or object</span>
-        <input class="var-input" id="v-prop" placeholder='e.g. a massive wrench, tiny book' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[STYLE]</span>
-        <span class="var-desc">Animation/art style</span>
-        <input class="var-input" id="v-style" placeholder='e.g. Pixar 3D, chibi, caricature' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">[OUTFIT]</span>
-        <span class="var-desc">Character's clothing</span>
-        <input class="var-input" id="v-outfit" placeholder='e.g. lab coat, chef whites' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
-    </div>
-  </div>
-
   <!-- HOW-TO GUIDE -->
   <div class="guide">
     <div class="guide-header">
@@ -889,6 +844,51 @@ styled in <span class="filled-val">Pixar 3D animation</span>.</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Accent tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every bracketed token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">[NAME]</span>
+        <span class="var-desc">Character's name</span>
+        <input class="var-input" id="v-name" placeholder='e.g. MAX, ZARA, THE PROFESSOR' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PERSONALITY]</span>
+        <span class="var-desc">Dominant personality trait</span>
+        <input class="var-input" id="v-personality" placeholder='e.g. wildly optimistic, genius' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[ROLE]</span>
+        <span class="var-desc">Character's job or archetype</span>
+        <input class="var-input" id="v-role" placeholder='e.g. scientist, chef, warrior' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[PROP]</span>
+        <span class="var-desc">Signature prop or object</span>
+        <input class="var-input" id="v-prop" placeholder='e.g. a massive wrench, tiny book' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[STYLE]</span>
+        <span class="var-desc">Animation/art style</span>
+        <input class="var-input" id="v-style" placeholder='e.g. Pixar 3D, chibi, caricature' oninput="update()">
+      </div>
+      <div class="var-row">
+        <span class="var-label">[OUTFIT]</span>
+        <span class="var-desc">Character's clothing</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. lab coat, chef whites' oninput="update()">
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1783,19 +1783,25 @@ const vars = {
   outfit:        () => document.getElementById('v-outfit').value.trim() || '[OUTFIT]',
 };
 
-function fill(str) {
-  return str
-    .replace(/\[NAME\]/g, vars.name())
-    .replace(/\[PERSONALITY\]/g, vars.personality())
-    .replace(/\[ROLE\]/g, vars.role())
-    .replace(/\[PROP\]/g, vars.prop())
-    .replace(/\[STYLE\]/g, vars.style())
-    .replace(/\[OUTFIT\]/g, vars.outfit());
+function fill(str, values) {
+  const tokenPattern = /\[\s*(NAME|PERSONALITY|ROLE|PROP|STYLE|OUTFIT)\s*\]/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `[${normalizedTokenName}]`;
+  });
 }
 
 function buildBlock(n) {
-  const na = vars.name(), pe = vars.personality(), ro = vars.role(), pr = vars.prop(), st = vars.style(), ou = vars.outfit();
-  const prompt = fill(T[n]);
+  const values = {
+    NAME: vars.name(),
+    PERSONALITY: vars.personality(),
+    ROLE: vars.role(),
+    PROP: vars.prop(),
+    STYLE: vars.style(),
+    OUTFIT: vars.outfit(),
+  };
+  const na = values.NAME, pe = values.PERSONALITY, ro = values.ROLE, pr = values.PROP, st = values.STYLE, ou = values.OUTFIT;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI image prompt.
 First, let's define some variables.
@@ -1854,5 +1860,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>

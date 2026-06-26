@@ -262,6 +262,41 @@ body {
 }
 .var-input:focus-visible { outline: 2px solid #333; outline-offset: 1px; border-color: #333; background: #fff; }
 
+.setup-live-preview {
+  margin-top: 1.2rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+.setup-live-preview__title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 0.6rem;
+}
+.setup-live-preview .prompt-card {
+  margin-bottom: 0;
+}
+.live-preview-flash {
+  animation: livePreviewFlash 700ms ease-out;
+}
+.live-value-flash {
+  background: #fff3bf;
+  color: #1a1a1a;
+  border-radius: 2px;
+  padding: 0 2px;
+  animation: liveValueFade 900ms ease-out;
+}
+@keyframes livePreviewFlash {
+  0% { box-shadow: 0 0 0 0 rgba(212, 168, 54, 0.5); }
+  100% { box-shadow: 0 0 0 10px rgba(212, 168, 54, 0); }
+}
+@keyframes liveValueFade {
+  0% { background: #ffe58f; }
+  100% { background: transparent; }
+}
+
 .action-row {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
@@ -485,24 +520,47 @@ body {
 .guide-tip strong { color: #555; font-style: normal; }
 @media print {
   .guide {
-    break-after: page;
-    page-break-after: always;
+    break-after: auto;
+    page-break-after: auto;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+    padding: 0 0.55cm 0.55cm;
+    margin-bottom: 0.25cm;
   }
-  .guide-header { padding: 0.6cm 0 0.25cm; margin-bottom: 0.35cm; }
+  .guide-example {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    padding: 0.24cm 0.3cm;
+  }
+  .guide-ex-cols {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch;
+    gap: 0.35cm;
+  }
+  .guide-ex-cols > div {
+    flex: 1 1 0;
+    min-width: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .guide-header { padding: 0.42cm 0 0.2cm; margin-bottom: 0.24cm; }
   .guide-header-num { font-size: 6pt; padding: 1.5pt 5pt; }
-  .guide-title { font-size: 13pt; }
-  .guide-sub { font-size: 8pt; }
-  .guide-section-label { font-size: 6pt; letter-spacing: 1pt; }
-  .guide-step-text { font-size: 8pt; line-height: 1.45; }
+  .guide-title { font-size: 12.5pt; }
+  .guide-sub { font-size: 7.6pt; margin-bottom: 0.6cm; padding-bottom: 0.42cm; }
+  .guide-cols { gap: 0.58cm; margin-bottom: 0.48cm; }
+  .guide-section-label { font-size: 6.4pt; letter-spacing: 1.1pt; }
+  .guide-steps { gap: 0.46rem; }
+  .guide-step { gap: 0.38rem; }
+  .guide-step-text { font-size: 7.8pt; line-height: 1.4; }
   .guide-step-num { min-width: 16px; height: 16px; font-size: 6pt; }
-  .guide-var-token { font-size: 7pt; }
-  .guide-var-desc { font-size: 7pt; }
-  .guide-tip { font-size: 7pt; }
-  .guide-example-title { font-size: 6pt; }
-  .guide-ex-block-label { font-size: 6pt; padding: 1.5pt 6pt; }
-  .guide-ex-text { font-size: 6.5pt; line-height: 1.5; padding: 0.3cm 0.4cm; }
+  .guide-vars { gap: 0.24cm 0.62cm; }
+  .guide-var-token { font-size: 6.9pt; }
+  .guide-var-desc { font-size: 6.8pt; line-height: 1.34; }
+  .guide-tip { font-size: 6.6pt; margin-top: 0.36rem; line-height: 1.34; }
+  .guide-example-title { font-size: 8pt; letter-spacing: 1.2px; }
+  .guide-ex-block-label { font-size: 6.2pt; padding: 1.6pt 6pt; }
+  .guide-ex-text { font-size: 6.2pt; line-height: 1.36; padding: 0.23cm 0.29cm; }
 }
 
 /* ── HORMOZI BLOCK ── */
@@ -727,6 +785,34 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
   .tok, .guide-var-token { word-break: break-word; }
 }
 
+/* Keep example in two columns in exported PDF.
+   This block is intentionally last to override mobile !important rules. */
+@media print {
+  .guide-ex-cols {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.3cm !important;
+  }
+  .guide-ex-cols > div {
+    flex: 1 1 0 !important;
+    max-width: 50% !important;
+    min-width: 0 !important;
+  }
+  .guide-example-title {
+    font-size: 9pt !important;
+    letter-spacing: 1.4px !important;
+    margin-bottom: 0.24cm !important;
+  }
+  .guide-ex-block-label {
+    font-size: 7pt !important;
+    letter-spacing: 1.1px !important;
+  }
+  .guide-ex-text {
+    font-size: 6.8pt !important;
+    line-height: 1.4 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -788,51 +874,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
         <div class="cover-stat-num">6</div>
         <div class="cover-stat-label">Variables</div>
       </div>
-    </div>
-  </div>
-
-  <!-- SETUP SECTION (hidden when printing) -->
-  <div class="setup-section" id="setup">
-    <div class="setup-title">Step 1 — Define Your Variables</div>
-    <div class="setup-subtitle">
-      Fill in the six fields below. Every prompt will update instantly.<br>
-      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
-    </div>
-    <div class="var-grid">
-      <div class="var-row">
-        <span class="var-label">{NAME}</span>
-        <span class="var-desc">Your name, as it appears on the toy box</span>
-        <input class="var-input" id="v-name" placeholder='e.g. "Sarah Chen"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">{ROLE}</span>
-        <span class="var-desc">Your job title or the character the figure represents</span>
-        <input class="var-input" id="v-role" placeholder='e.g. "Senior Product Designer"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">{DESCRIPTION}</span>
-        <span class="var-desc">Brief physical description matching your photo</span>
-        <input class="var-input" id="v-desc" placeholder='e.g. "woman in her 30s, shoulder-length black hair"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">{OUTFIT}</span>
-        <span class="var-desc">Clothing, uniform, or costume for the figure</span>
-        <input class="var-input" id="v-outfit" placeholder='e.g. "tailored navy blazer and white shirt"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">{ACCESSORIES}</span>
-        <span class="var-desc">Props or items the figure holds or displays</span>
-        <input class="var-input" id="v-accessories" placeholder='e.g. "a laptop and coffee mug"' oninput="update()">
-      </div>
-      <div class="var-row">
-        <span class="var-label">{BOX_COLOR}</span>
-        <span class="var-desc">Primary color scheme of the toy box packaging</span>
-        <input class="var-input" id="v-boxcolor" placeholder='e.g. "midnight blue and gold"' oninput="update()">
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
-      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -920,6 +961,62 @@ Limited Edition."</div>
         </div>
       </div>
       <div class="guide-tip">↑ <strong>Gold tokens</strong> = what to replace. <strong>Green text</strong> = example values filled in. Copy the prompt, swap every gold token for your own detail, and paste into your AI image tool.</div>
+    </div>
+  </div>
+
+  <!-- SETUP SECTION (hidden when printing) -->
+  <div class="setup-section" id="setup">
+    <div class="setup-title">Step 1 — Define Your Variables</div>
+    <div class="setup-subtitle">
+      Fill in the six fields below. Every prompt will update instantly.<br>
+      When ready, click <strong>Save as PDF</strong> to export your personalised prompt book.
+    </div>
+    <div class="var-grid">
+      <div class="var-row">
+        <span class="var-label">{NAME}</span>
+        <span class="var-desc">Your name, as it appears on the toy box</span>
+        <input class="var-input" id="v-name" placeholder='e.g. "Sarah Chen"' oninput="handleInputChange('v-name')">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{ROLE}</span>
+        <span class="var-desc">Your job title or the character the figure represents</span>
+        <input class="var-input" id="v-role" placeholder='e.g. "Senior Product Designer"' oninput="handleInputChange('v-role')">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{DESCRIPTION}</span>
+        <span class="var-desc">Brief physical description matching your photo</span>
+        <input class="var-input" id="v-desc" placeholder='e.g. "woman in her 30s, shoulder-length black hair"' oninput="handleInputChange('v-desc')">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{OUTFIT}</span>
+        <span class="var-desc">Clothing, uniform, or costume for the figure</span>
+        <input class="var-input" id="v-outfit" placeholder='e.g. "tailored navy blazer and white shirt"' oninput="handleInputChange('v-outfit')">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{ACCESSORIES}</span>
+        <span class="var-desc">Props or items the figure holds or displays</span>
+        <input class="var-input" id="v-accessories" placeholder='e.g. "a laptop and coffee mug"' oninput="handleInputChange('v-accessories')">
+      </div>
+      <div class="var-row">
+        <span class="var-label">{BOX_COLOR}</span>
+        <span class="var-desc">Primary color scheme of the toy box packaging</span>
+        <input class="var-input" id="v-boxcolor" placeholder='e.g. "midnight blue and gold"' oninput="handleInputChange('v-boxcolor')">
+      </div>
+    </div>
+    <div class="setup-live-preview" aria-live="polite">
+      <div class="setup-live-preview__title">Live Preview — Prompt #1</div>
+      <div class="prompt-card" id="card-live-preview">
+        <div class="card-top">
+          <span class="pnum">#1</span>
+          <span class="headline" id="hl-live"></span>
+        </div>
+        <div class="hormozi-block" id="hb-live"></div>
+        <button type="button" class="copy-btn" onclick="copyLivePreview()">Copy Prompt #1</button>
+      </div>
+    </div>
+    <div class="action-row">
+      <button class="btn-print" onclick="window.print()">🖨&nbsp; Save as PDF</button>
+      <span class="print-hint">Use your browser's Print dialog → set destination to "Save as PDF" → A4 paper</span>
     </div>
   </div>
 
@@ -1815,20 +1912,51 @@ const vars = {
   boxcolor:    () => document.getElementById('v-boxcolor').value.trim()    || '{BOX_COLOR}',
 };
 
-function fill(str) {
-  return str
-    .replace(/\{NAME\}/g,        vars.name())
-    .replace(/\{ROLE\}/g,        vars.role())
-    .replace(/\{DESCRIPTION\}/g, vars.description())
-    .replace(/\{OUTFIT\}/g,      vars.outfit())
-    .replace(/\{ACCESSORIES\}/g, vars.accessories())
-    .replace(/\{BOX_COLOR\}/g,   vars.boxcolor());
+const INPUT_TOKEN_MAP = {
+  'v-name': 'NAME',
+  'v-role': 'ROLE',
+  'v-desc': 'DESCRIPTION',
+  'v-outfit': 'OUTFIT',
+  'v-accessories': 'ACCESSORIES',
+  'v-boxcolor': 'BOX_COLOR',
+};
+
+function getVariableValues() {
+  return {
+    NAME: vars.name(),
+    ROLE: vars.role(),
+    DESCRIPTION: vars.description(),
+    OUTFIT: vars.outfit(),
+    ACCESSORIES: vars.accessories(),
+    BOX_COLOR: vars.boxcolor(),
+  };
 }
 
-function buildBlock(n) {
-  const nm = vars.name(), ro = vars.role(), de = vars.description();
-  const ou = vars.outfit(), ac = vars.accessories(), bc = vars.boxcolor();
-  const prompt = fill(T[n]);
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function fill(str, values) {
+  const tokenPattern = /\{\s*(NAME|ROLE|DESCRIPTION|OUTFIT|ACCESSORIES|BOX_COLOR)\s*\}/gi;
+  return str.replace(tokenPattern, (_, tokenName) => {
+    const normalizedTokenName = tokenName.toUpperCase();
+    return values[normalizedTokenName] || `{${normalizedTokenName}}`;
+  });
+}
+
+function buildBlock(n, values = getVariableValues()) {
+  const nm = values.NAME, ro = values.ROLE, de = values.DESCRIPTION;
+  const ou = values.OUTFIT, ac = values.ACCESSORIES, bc = values.BOX_COLOR;
+  const prompt = fill(T[n], values);
 
   return `We'll be creating an AI action figure image prompt for your photo.
 First, let's define some variables.
@@ -1852,13 +1980,54 @@ Now let's give these variables our values.
 ${prompt}`;
 }
 
-function update() {
+function renderLivePreview(values, changedTokens = []) {
+  const liveBlock = document.getElementById('hb-live');
+  if (!liveBlock) return;
+
+  const blockText = buildBlock(1, values);
+  if (changedTokens.length === 0) {
+    liveBlock.textContent = blockText;
+    return;
+  }
+
+  let highlightedHtml = escapeHtml(blockText);
+  changedTokens.forEach((token) => {
+    const tokenValue = values[token];
+    if (!tokenValue || tokenValue === `{${token}}`) return;
+    const escapedTokenValue = escapeHtml(tokenValue);
+    const tokenPattern = new RegExp(escapeRegExp(escapedTokenValue), 'g');
+    highlightedHtml = highlightedHtml.replace(tokenPattern, `<span class="live-value-flash">${escapedTokenValue}</span>`);
+  });
+
+  liveBlock.innerHTML = highlightedHtml;
+  liveBlock.classList.remove('live-preview-flash');
+  void liveBlock.offsetWidth;
+  liveBlock.classList.add('live-preview-flash');
+}
+
+function update(changedTokens = []) {
+  const values = getVariableValues();
+  const liveHeadline = document.getElementById('hl-live');
+  renderLivePreview(values, changedTokens);
+  if (liveHeadline && H[1]) liveHeadline.textContent = H[1];
+
   for (let n = 1; n <= 100; n++) {
     const hb = document.getElementById('hb-' + n);
     const hl = document.getElementById('hl-' + n);
-    if (hb) hb.textContent = buildBlock(n);
+    if (hb) hb.textContent = buildBlock(n, values);
     if (hl && H[n]) hl.textContent = H[n];
   }
+}
+
+function handleInputChange(inputId) {
+  const changedToken = INPUT_TOKEN_MAP[inputId];
+  update(changedToken ? [changedToken] : []);
+}
+
+function copyLivePreview() {
+  const liveBlock = document.getElementById('hb-live');
+  if (!liveBlock) return;
+  navigator.clipboard.writeText(liveBlock.textContent || '');
 }
 
 // Copy individual prompt
@@ -1887,5 +2056,6 @@ function addCopyButtons() {
 update();
 addCopyButtons();
 </script>
+<script src="/assets/book-live-preview.js"></script>
 </body>
 </html>
