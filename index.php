@@ -29,6 +29,8 @@ $books    = getBooks();
 <link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+<!-- Preload video poster for instant hero display -->
+<link rel="preload" as="image" href="/assets/video/hero-demo-poster.webp" fetchpriority="high">
 <!-- Preload Responsive LCP Hero Image -->
 <link rel="preload" as="image" href="assets/hero-mockup.webp" 
       imagesrcset="assets/hero-mockup-480w.webp 480w, assets/hero-mockup-768w.webp 768w, assets/hero-mockup.webp 900w" 
@@ -69,6 +71,10 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <link rel="preload" as="style" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="preload" as="script" href="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>">
 <?php if (file_exists($landingCriticalCssDiskPath)): ?>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@700;800;900&family=Oswald:wght@700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@700;800;900&family=Oswald:wght@700&display=swap">
   <style><?= file_get_contents($landingCriticalCssDiskPath) ?></style>
 <?php else: ?>
   <link rel="stylesheet" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
@@ -84,13 +90,25 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-logo">AI Prompt System</div>
+    <a href="/" class="nav-logo" aria-label="AI Prompt System home">
+      <img src="/assets/icons/logo-gold-quill.webp" alt="" class="nav-logo__icon" width="28" height="28" loading="eager" decoding="async">
+      <span class="nav-logo__text">
+        <span class="nav-logo__name">AI PROMPT SYSTEM</span>
+        <span class="nav-logo__sub">Interactive AI Prompt Generator</span>
+      </span>
+    </a>
+    <div class="nav-center">
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="#offer-stack" class="nav-link">What's Inside</a>
+      <a href="#reviews" class="nav-link">Reviews</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+    </div>
     <div class="nav-links">
       <?php if ($loggedIn): ?>
-        <a href="/dashboard.php" class="nav-cta">My Books →</a>
+        <a href="/dashboard.php" class="nav-cta">MY BOOKS →</a>
       <?php else: ?>
-        <a href="/login.php" class="nav-login">Login</a>
-        <a href="#pricing" class="nav-cta">Get Access</a>
+        <a href="#pricing" class="nav-cta">GET INSTANT ACCESS →</a>
+        <a href="/login.php" class="nav-login">LOGIN</a>
       <?php endif; ?>
     </div>
   </div>
@@ -98,83 +116,244 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
 <main id="main">
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-container">
 
-    <!-- Row 1: eyebrow + full-width headline -->
-    <div class="hero-headline">
-      <h1>
-        <span class="hero-headline-line"><span class="gold">Create Stunning</span> AI Images in Minutes,</span>
-        <span class="hero-headline-line">Even If You&rsquo;ve Never Used <span class="gold">AI Before</span></span>
-      </h1>
-    </div>
-
-    <!-- Row 2: two-column split -->
     <div class="hero-split">
 
       <!-- Left: copy -->
       <div class="hero-copy">
-        <p class="hero-sub">Turn selfies, family photos, ideas, and simple concepts into scroll-stopping AI visuals using ready-made fill-in-the-blank templates.</p>
-        <p class="hero-sub hero-sub--tight">
-          No design skills.<br>
-          No prompt writing.<br>
-          No technical knowledge needed.
-        </p>
-        <div class="hero-ctas">
-          <a href="#pricing" class="btn-primary btn-primary--priced">
-            <span class="btn-main-text">Create My AI Art</span>
-            <span class="btn-price-line"><span class="btn-price-now">₹299</span> <span class="btn-price-orig">₹2,189</span></span>
-          </a>
-          <a href="#offer-stack" class="btn-secondary">See What's Inside</a>
-        </div>
+
+        <p class="hero-eyebrow"><span class="hero-eyebrow__star" aria-hidden="true">✨</span> No Prompt Engineering Required</p>
+
+        <h1 class="hero-h1">
+          <span class="hero-h1__stop">
+            <span class="hero-h1__word">STOP WRITING</span>
+            <span class="hero-h1__word hero-h1__word--gold">AI PROMPTS.</span>
+          </span>
+          <span class="hero-h1__sub">Fill a Few Fields.<br><span class="gold">Your Prompt Writes Itself.</span></span>
+        </h1>
+
+        <p class="hero-body">Answer a few simple questions. Your prompt is generated automatically. Copy it into your favorite AI tool and create professional-quality AI images in minutes—no prompt engineering required.</p>
+
         <div class="hero-proof-strip">
-          <span class="hero-proof-pill">No prompt-writing required</span>
-          <span class="hero-proof-pill">Works with ChatGPT, Midjourney, Firefly</span>
-          <span class="hero-proof-pill">First result in your first session</span>
+          <span class="hero-proof-pill">No Prompt Engineering</span>
+          <span class="hero-proof-pill">Works with Top AI Tools</span>
+          <span class="hero-proof-pill">One-Time Payment</span>
+          <span class="hero-proof-pill">Lifetime Access &amp; Updates</span>
         </div>
-        <div class="hero-trust">
-          🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription<br>
-          <span class="hero-trust-gold">⭐ Join growing AI creator community · 4.6★ average rating</span>
-        </div>
-      </div>
 
-      <!-- Right: product mockup -->
+        <div class="hero-ctas">
+          <a href="#pricing" class="btn-primary btn-hero-cta" data-action="start-checkout" data-plan="bundle">
+            ⚡ Generate Better AI Images — ₹299 <span class="btn-hero-orig">₹2,189</span>
+          </a>
+        </div>
+
+        <div class="hero-audience">
+          <span class="hero-audience__label">Perfect for:</span>
+          <span class="hero-audience__chip">Creators</span>
+          <span class="hero-audience__chip">Freelancers</span>
+          <span class="hero-audience__chip">Designers</span>
+          <span class="hero-audience__chip">Marketers</span>
+          <span class="hero-audience__chip">Small Businesses</span>
+        </div>
+
+        <p class="hero-payment-trust">
+          One-Time Payment
+          <span class="hpt-sep" aria-hidden="true">·</span>
+          Lifetime Access
+          <span class="hpt-sep" aria-hidden="true">·</span>
+          Instant Download
+        </p>
+
+        <p class="hero-payment-trust hero-payment-trust--secondary">
+          🔒 Secure Razorpay Checkout
+          <span class="hpt-sep" aria-hidden="true">·</span>
+          ⚡ Instant Access After Payment
+        </p>
+
+      </div><!-- /hero-copy -->
+
+      <!-- Right: demo video panel -->
       <div class="hero-visual">
-        <a href="#pricing" class="hero-mockup-link" aria-label="Get the Viral AI Prompts System">
-          <picture>
-            <source type="image/avif" srcset="assets/hero-mockup-480w.avif 480w, assets/hero-mockup-768w.avif 768w, assets/hero-mockup.avif 900w" sizes="(max-width: 960px) 92vw, 50vw">
-            <source type="image/webp" srcset="assets/hero-mockup-480w.webp 480w, assets/hero-mockup-768w.webp 768w, assets/hero-mockup.webp 900w" sizes="(max-width: 960px) 92vw, 50vw">
-            <img src="assets/hero-mockup.jpg" srcset="assets/hero-mockup-480w.jpg 480w, assets/hero-mockup-768w.jpg 768w, assets/hero-mockup.jpg 900w" sizes="(max-width: 960px) 92vw, 50vw" alt="Viral AI Prompts System — product preview showing 11 books and 1,100 prompt templates" class="hero-mockup-img" width="580" height="529" loading="eager" fetchpriority="high" decoding="async">
-          </picture>
-        </a>
-      </div>
+        <div class="hero-demo-panel" id="demo-video">
 
-    </div>
+          <div class="hero-demo-heading">
+            <span class="hero-demo-kicker">▶ Watch Your Prompt Build Itself in 10 Seconds</span>
+          </div>
+          <p class="hero-demo-sub"></p>
+
+          <!-- Fake browser chrome + video -->
+          <div class="hero-video-wrap">
+            <video
+              class="hero-video"
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="auto"
+              poster="/assets/video/hero-demo-poster.webp"
+              aria-label="Demo showing how the AI prompt system works: fill a few fields and the prompt writes itself"
+              width="1280"
+              height="800"
+            >
+              <source src="/assets/video/hero-demo.webm" type="video/webm">
+              <source src="/assets/video/hero-demo.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="hero-video-fullscreen" aria-label="View demo fullscreen" title="Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
+          <!-- Step labels below video -->
+          <div class="demo-steps-strip">
+            <div class="dss-step">
+              <span class="dss-num">1</span>
+              <span>Fill a Few Fields</span>
+            </div>
+            <div class="dss-arrow" aria-hidden="true">→</div>
+            <div class="dss-step">
+              <span class="dss-num">2</span>
+              <span>Prompt Writes Itself</span>
+            </div>
+            <div class="dss-arrow" aria-hidden="true">→</div>
+            <div class="dss-step">
+              <span class="dss-num">3</span>
+              <span>Copy with One Click</span>
+            </div>
+            <div class="dss-arrow" aria-hidden="true">→</div>
+            <div class="dss-step">
+              <span class="dss-num">4</span>
+              <span>Paste into ChatGPT</span>
+            </div>
+            <div class="dss-arrow" aria-hidden="true">→</div>
+            <div class="dss-step">
+              <span class="dss-num">5</span>
+              <span>Get Stunning AI Images</span>
+            </div>
+          </div>
+
+        </div><!-- /hero-demo-panel -->
+
+        <!-- AI tools strip — below video panel, same column -->
+        <div class="hero-ai-tools-section">
+          <p class="hero-ai-tools__label">Compatible With Your Favorite AI Tools</p>
+          <div class="hero-ai-tools__list">
+            <div class="hero-ai-tool hero-ai-tool--invert">
+              <img src="/assets/icons/ai-tools/chatgpt.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>ChatGPT</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--color">
+              <img src="/assets/icons/ai-tools/gemini.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Gemini</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--color">
+              <img src="/assets/icons/ai-tools/claude.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Claude</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--invert">
+              <img src="/assets/icons/ai-tools/midjourney.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Midjourney</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--invert">
+              <img src="/assets/icons/ai-tools/flux.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Flux</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--invert">
+              <img src="/assets/icons/ai-tools/ideogram.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Ideogram</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--color">
+              <img src="/assets/icons/ai-tools/leonardo-ai.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Leonardo AI</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--color">
+              <img src="/assets/icons/ai-tools/microsoft-designer.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Microsoft Designer</span>
+            </div>
+            <div class="hero-ai-tool hero-ai-tool--color">
+              <img src="/assets/icons/ai-tools/adobe-firefly.svg" alt="" width="28" height="28" loading="lazy" decoding="async" aria-hidden="true">
+              <span>Adobe Firefly</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /hero-visual -->
+
+    </div><!-- /hero-split -->
 
     <!-- Stats bar -->
-    <div class="hero-stats-wrap">
+    <div class="hero-stats-wrap" id="systems">
       <div class="hero-stats">
-        <div>
-          <div class="hero-stat-num">1,100</div>
-          <div class="hero-stat-label">Prompt Templates</div>
+        <div class="hero-stat">
+          <svg class="hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          <div class="hero-stat-content">
+            <div class="hero-stat-num">11</div>
+            <div class="hero-stat-title">Interactive Prompt Systems</div>
+            <div class="hero-stat-label">Covering every creative need</div>
+          </div>
         </div>
-        <div>
-          <div class="hero-stat-num">11</div>
-          <div class="hero-stat-label">Style Books</div>
+        <div class="hero-stat">
+          <svg class="hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="16" width="16" height="4" rx="1"/></svg>
+          <div class="hero-stat-content">
+            <div class="hero-stat-num">1,100+</div>
+            <div class="hero-stat-title">Fill-in-the-Blank Prompts</div>
+            <div class="hero-stat-label">High quality &amp; tested</div>
+          </div>
         </div>
-        <div>
-          <div class="hero-stat-num">60s</div>
-          <div class="hero-stat-label">To First Result</div>
+        <div class="hero-stat">
+          <svg class="hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z"/></svg>
+          <div class="hero-stat-content">
+            <div class="hero-stat-num hero-stat-num--unlimited">Unlimited</div>
+            <div class="hero-stat-title">Prompt Combinations</div>
+            <div class="hero-stat-label">Create endless possibilities</div>
+          </div>
         </div>
-        <div>
-          <div class="hero-stat-num">5+</div>
-          <div class="hero-stat-label">AI Tools Supported</div>
+        <div class="hero-stat">
+          <svg class="hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <div class="hero-stat-content">
+            <div class="hero-stat-num">60s</div>
+            <div class="hero-stat-title">To Your First AI Image</div>
+            <div class="hero-stat-label">From idea to finished prompt in a minute</div>
+          </div>
+        </div>
+        <div class="hero-stat">
+          <svg class="hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="hero-stat-content">
+            <div class="hero-stat-num">5+</div>
+            <div class="hero-stat-title">AI Tools Supported</div>
+            <div class="hero-stat-label">One system. Works everywhere.</div>
+          </div>
         </div>
       </div>
     </div>
 
-  </div>
+    <!-- Trust strip -->
+    <div class="hero-trust-strip">
+      <div class="hero-trust-item">
+        <img src="/assets/icons/shield-gold.svg" alt="" class="hero-trust-svg" width="20" height="20" loading="lazy" decoding="async">
+        <div><strong>One-Time Payment</strong><span>No subscriptions. No recurring fees.</span></div>
+      </div>
+      <div class="hero-trust-item">
+        <img src="/assets/icons/bolt-gold.svg" alt="" class="hero-trust-svg" width="20" height="20" loading="lazy" decoding="async">
+        <div><strong>Instant Download</strong><span>Start creating immediately after purchase.</span></div>
+      </div>
+      <div class="hero-trust-item">
+        <svg class="hero-trust-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z"/></svg>
+        <div><strong>Lifetime Access</strong><span>Own it forever with future updates included.</span></div>
+      </div>
+      <div class="hero-trust-item">
+        <img src="/assets/icons/shield-gold.svg" alt="" class="hero-trust-svg" width="20" height="20" loading="lazy" decoding="async">
+        <div><strong>Secure Checkout</strong><span>Protected payments powered by Razorpay.</span></div>
+      </div>
+      <div class="hero-trust-item">
+        <img src="/assets/icons/headset-gold.svg" alt="" class="hero-trust-svg" width="20" height="20" loading="lazy" decoding="async">
+        <div><strong>7-Day Money-Back Guarantee</strong><span>Try it risk-free.</span></div>
+      </div>
+    </div>
+
+  </div><!-- /hero-container -->
 </section>
 
 <!-- PAIN AGITATION -->
@@ -200,7 +379,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </section>
 
 <!-- SOLUTION BRIDGE -->
-<section class="solution-section">
+<section class="solution-section" id="how-it-works">
   <div class="container">
     <p class="big-intro">This Makes AI Image Creation Feel <span>Easy</span></p>
     <ul class="solution-no-list">
@@ -929,6 +1108,36 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </div>
 
 <script src="/assets/js/pixel-tracking.js" defer></script>
+<script>
+/* Hero video fullscreen toggle */
+(function(){
+  var btn = document.querySelector('.hero-video-fullscreen');
+  if (!btn) return;
+  btn.addEventListener('click', function(){
+    var video = btn.closest('.hero-video-wrap').querySelector('video');
+    if (!video) return;
+    if (video.requestFullscreen) video.requestFullscreen();
+    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+    else if (video.msRequestFullscreen) video.msRequestFullscreen();
+  });
+})();
+
+/* Pause video when out of view, play when visible */
+(function(){
+  var video = document.querySelector('.hero-video');
+  if (!video || !('IntersectionObserver' in window)) return;
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+  }, {threshold:0.25});
+  observer.observe(video);
+})();
+</script>
 <!-- Microsoft Clarity — deferred to avoid blocking page render -->
 <script>
 (function(c,l,a,r,i,t,y){

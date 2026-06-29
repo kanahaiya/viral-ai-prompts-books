@@ -14,3 +14,13 @@ local.db
 *.log
 tmp/
 temp/
+
+# Landing page copy/docs
+landing_page_copy.docx
+~$nding_page_copy.docx
+~$*.docx
+*.docx
+generate_landing_doc.py
+
+# Mockup assets (source files, not for production)
+assets/mockup/
