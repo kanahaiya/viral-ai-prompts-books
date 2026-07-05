@@ -211,6 +211,8 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
 }
 
 /* Payment trust — inline text strip */
+.hero-urgency-line{font-family:'Inter','Segoe UI',sans-serif;font-size:0.78rem;color:#f0c14b;font-weight:600;margin:0.6rem 0 0;}
+.hero-founding-line{font-family:'Inter','Segoe UI',sans-serif;font-size:0.78rem;color:#999;font-weight:500;margin:0.35rem 0 1rem;}
 .hero-audience{display:flex;flex-wrap:wrap;align-items:center;gap:0.3rem;margin:0;max-width:90%;}
 .hero-audience__label{font-family:'Inter','Segoe UI',sans-serif;font-size:0.68rem;color:#888;font-weight:500;margin-right:0.2rem;}
 .hero-audience__chip{font-family:'Inter','Segoe UI',sans-serif;font-size:0.62rem;color:#ccc;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:3px 10px;font-weight:400;}
@@ -552,6 +554,7 @@ section{padding:64px 2rem;}
 .pricing-section{background:var(--surface);}
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:var(--content-card);margin:3rem auto 0;}
 @media(max-width:600px){.pricing-grid{grid-template-columns:1fr;}}
+.pricing-grid--single{grid-template-columns:1fr;max-width:480px;}
 .price-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius);padding:2.5rem 2rem;position:relative;transition:border-color 0.2s;}
 .price-card.popular{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 8px 40px rgba(212,168,54,0.18);}
 .price-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-family:'Courier New',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;border-radius:2px;white-space:nowrap;}
@@ -959,6 +962,8 @@ section{padding:64px 2rem;}
   .hero-proof-pill::before{width:16px;height:16px;font-size:0.5rem;}
   .hero-payment-trust{flex-direction:row;flex-wrap:wrap;gap:0;font-size:0.72rem;}
   .hero-payment-trust--secondary{margin-top:0;font-size:0.68rem;}
+  .hero-urgency-line{font-size:0.7rem;margin:0.5rem 0 0;}
+  .hero-founding-line{font-size:0.68rem;margin:0.3rem 0 0.8rem;}
   .hpt-sep{margin:0 0.25rem;}
   .hero-audience{max-width:100%;gap:0.25rem;}
   .hero-audience__chip{font-size:0.55rem;padding:2px 7px;}
@@ -1446,6 +1451,13 @@ section{padding:64px 2rem;}
 .checkout-right .checkout-trust-row{
   margin-top:1rem;
   margin-bottom:1.8rem;
+}
+.checkout-refund-note{
+  font-size:0.7rem;
+  color:#8f8f8f;
+  text-align:center;
+  line-height:1.5;
+  margin:-0.4rem 0 0.9rem;
 }
 .checkout-trust-item{
   font-size:0.67rem;
