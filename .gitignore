@@ -21,6 +21,7 @@ landing_page_copy.docx
 ~$*.docx
 *.docx
 generate_landing_doc.py
+agent-instructions-landing-page-fixes.md
 
 # Mockup assets (source files, not for production)
 assets/mockup/
