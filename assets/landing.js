@@ -813,6 +813,7 @@ document.addEventListener('click', (event) => {
   const action = actionElement.dataset.action;
   const actionPlan = actionElement.dataset.plan || 'unknown';
   if (action === 'start-checkout') {
+    event.preventDefault();
     trackCustomEvent('CtaClicked', { action, plan: actionPlan });
     startCheckout(actionElement.dataset.plan || 'bundle');
     return;

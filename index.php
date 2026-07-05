@@ -145,7 +145,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
 
         <div class="hero-ctas">
-          <a href="#pricing" class="btn-primary btn-hero-cta" data-action="start-checkout" data-plan="bundle">
+          <a href="#pricing" class="btn-primary btn-hero-cta">
             ⚡ Get Full System Access — ₹299 <span class="btn-hero-orig">₹2,189</span>
           </a>
         </div>
@@ -413,7 +413,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </div>
     </div>
     <p class="solution-note">Everything is designed for complete beginners.<br>Even if this is the very first time using AI tools.</p>
-    <a href="#pricing" class="btn-primary btn-inline">Get Full System Access — ₹299</a>
+    <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -433,7 +433,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <li>Save hours of frustration and start creating images that actually match the vision in your mind.</li>
       <li>Post AI visuals proudly instead of feeling embarrassed by average-looking results.</li>
     </ul>
-    <a href="#pricing" class="btn-primary btn-inline">Get Full System Access — ₹299</a>
+    <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -485,7 +485,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <div class="bundle-value">Total Value ₹2,189+</div>
       <div class="bundle-price">Today&rsquo;s Price: Just ₹299</div>
     </div>
-    <a href="#pricing" class="btn-primary btn-inline btn-inline--sm-top">Get Full System Access — ₹299</a>
+    <a href="#pricing" class="btn-primary btn-inline btn-inline--sm-top" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -503,7 +503,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <li>Small business owners who want better-looking product photos and promotional visuals.</li>
       <li>Anyone who wants to create cool, impressive AI images for fun, gifts, content, or social media.</li>
     </ul>
-    <a href="#pricing" class="btn-primary btn-inline">Get Full System Access — ₹299</a>
+    <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -566,7 +566,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </div>
     </div>
     <p class="offer-saving-line" id="offerSavingLine">Save ₹1,890 vs. the individual value above — plus 3 bonuses included free. Early-access price: ₹299 → rises to ₹499 once this window closes.</p>
-    <a href="#pricing" class="btn-primary btn-inline btn-inline--lg-top">Get Full System Access — ₹299</a>
+    <a href="#pricing" class="btn-primary btn-inline btn-inline--lg-top" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
     <div class="bonus-block">
       <div class="bonus-item">
         <div class="bonus-label">BONUS #1</div>
@@ -784,14 +784,14 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <h3>Bonuses Available During This Offer</h3>
       <p>The AI Prompt Finder CustomGPT, bonus ebook, and private Telegram community are currently included free with the full system.</p>
       <p>These bonuses may not stay included permanently as new updates and books are added later.</p>
-      <a href="#pricing" class="btn-secondary btn-inline">Claim My Bonuses</a>
+      <a href="#pricing" class="btn-secondary btn-inline" data-action="start-checkout" data-plan="bundle">Claim My Bonuses</a>
     </div>
     <div class="momentum-copy">
       <h3>Don&rsquo;t Keep Watching Others Create Cool AI Art</h3>
       <p>Every day, more people are turning ordinary photos into cinematic visuals, anime portraits, and viral-style edits.</p>
       <p>Most are not designers. Most are not AI experts. They simply started.</p>
       <p>In a few minutes, this system can be in your inbox and your first image can be live.</p>
-      <a href="#pricing" class="btn-primary btn-inline">Make My First AI Image</a>
+      <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Make My First AI Image</a>
     </div>
   </div>
 </section>
@@ -869,7 +869,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </ul>
       <div class="final-cta-value">Total Value: ₹2,189+</div>
       <div class="final-cta-price">Today Only: ₹299</div>
-      <a href="#pricing" class="btn-primary btn-inline btn-inline--final">
+      <a href="#pricing" class="btn-primary btn-inline btn-inline--final" data-action="start-checkout" data-plan="bundle">
         Get Full System Access — ₹299
       </a>
       <div class="final-cta-micro">Instant email access after payment.</div>
