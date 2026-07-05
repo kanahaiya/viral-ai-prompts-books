@@ -224,13 +224,13 @@ function updateCheckoutTitleAndSubtitle(plan, selectedCount) {
   subtitleElement.textContent = `Get instant access to your ${selectedCount} selected interactive prompt book${selectedCount > 1 ? 's' : ''} + bonus AI guide.`;
 }
 
-function renderSelectedBooksPreviewLines(selectedBookNames, overflowLabelTemplate = '+{count} more selected {bookWord}') {
+function renderSelectedBooksPreviewLines(selectedBookNames, overflowLabelTemplate = '+{count} more selected {bookWord}', maxVisibleCount = 3) {
   const booksListElement = document.getElementById('checkoutSummaryBooksList');
   const overflowElement = document.getElementById('checkoutSummaryOverflow');
   if (!booksListElement || !overflowElement) return;
 
   const selectedCount = selectedBookNames.length;
-  const visibleBookNames = selectedCount <= 3 ? selectedBookNames : selectedBookNames.slice(0, 3);
+  const visibleBookNames = selectedCount <= maxVisibleCount ? selectedBookNames : selectedBookNames.slice(0, maxVisibleCount);
   booksListElement.innerHTML = '';
 
   visibleBookNames.forEach((bookName) => {
@@ -267,7 +267,9 @@ function renderBundlePreviewLines() {
     .map((bookId) => getBookTitleById(bookId))
     .filter(Boolean);
 
-  renderSelectedBooksPreviewLines(allBookNames, '+{count} More Prompt {bookWord}');
+  // Show all 11 books for the Full System plan — there's only one plan now,
+  // so the list should read as complete rather than a truncated preview.
+  renderSelectedBooksPreviewLines(allBookNames, '+{count} More Prompt {bookWord}', FULL_SYSTEM_BOOK_COUNT);
 }
 
 function updateCheckoutPreviewTitle(plan) {
