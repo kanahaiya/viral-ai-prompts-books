@@ -390,10 +390,11 @@ function updateCheckoutMicrocopy(plan) {
 
 function startCheckout(plan) {
   trackCustomEvent('CheckoutStarted', { plan });
-  if (plan === 'single') {
+  const bookModalElement = document.getElementById('bookModal');
+  if (plan === 'single' && bookModalElement) {
     selectedBookIds = [];
     updateSelectedBooksUi();
-    document.getElementById('bookModal').style.display = 'block';
+    bookModalElement.style.display = 'block';
     document.body.style.overflow = 'hidden';
     trackCustomEvent('BookModalOpened', { source: 'start-checkout' });
   } else {
@@ -402,7 +403,9 @@ function startCheckout(plan) {
 }
 
 function closeModal() {
-  document.getElementById('bookModal').style.display = 'none';
+  const bookModalElement = document.getElementById('bookModal');
+  if (!bookModalElement) return;
+  bookModalElement.style.display = 'none';
   document.body.style.overflow = '';
   trackCustomEvent('BookModalClosed', { selected_count: selectedBookIds.length });
 }
