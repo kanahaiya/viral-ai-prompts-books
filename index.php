@@ -676,7 +676,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Riya M.</div>
             <div class="testimonial-sub">Digital creator · Mumbai</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -689,7 +689,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Prashant K.</div>
             <div class="testimonial-sub">Software engineer · Pune</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -702,7 +702,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Anika S.</div>
             <div class="testimonial-sub">Freelance designer · Bangalore</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -715,7 +715,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Vikram T.</div>
             <div class="testimonial-sub">Graphic designer · Chennai</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -728,7 +728,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Deepa R.</div>
             <div class="testimonial-sub">Teacher · Hyderabad</div>
-            <div class="testimonial-badge">VERIFIED BUYER · BOOK 8</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -741,7 +741,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Suresh M.</div>
             <div class="testimonial-sub">Content creator · Delhi</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
