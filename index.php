@@ -150,8 +150,12 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           </a>
         </div>
 
-        <p class="hero-urgency-line">⏳ Early-access price ends soon — rises to ₹499 after this window closes.</p>
-        <p class="hero-founding-line">🚀 Founding Access — be among the first 20+ creators using this system.</p>
+        <p class="hero-urgency-line">
+          <span class="hero-urgency-dot" aria-hidden="true"></span>
+          Price rises to ₹499 soon
+          <span class="hpt-sep" aria-hidden="true">|</span>
+          🚀 Founding Access — first 20+ creators
+        </p>
 
         <div class="hero-audience">
           <span class="hero-audience__label">Perfect for:</span>
@@ -162,18 +166,10 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <span class="hero-audience__chip">Small Businesses</span>
         </div>
 
-        <p class="hero-payment-trust">
-          Lifetime Access
-          <span class="hpt-sep" aria-hidden="true">·</span>
-          Instant Download
-        </p>
-
         <p class="hero-payment-trust hero-payment-trust--secondary">
           🔒 Secure Razorpay Checkout
           <span class="hpt-sep" aria-hidden="true">·</span>
-          ⚡ Instant Access After Payment
-          <span class="hpt-sep" aria-hidden="true">·</span>
-          7-Day Money-Back Guarantee
+          ✅ 7-Day Money-Back Guarantee
         </p>
 
       </div><!-- /hero-copy -->
@@ -324,7 +320,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <div class="hero-stat">
           <svg class="hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <div class="hero-stat-content">
-            <div class="hero-stat-num">5+</div>
+            <div class="hero-stat-num">10+</div>
             <div class="hero-stat-title">AI Tools Supported</div>
             <div class="hero-stat-label">One system. Works everywhere.</div>
           </div>
