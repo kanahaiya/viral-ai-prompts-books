@@ -96,16 +96,8 @@ function initCheckoutFormIntentTracking() {
   }
 }
 
-function getCheckoutMetrics(plan, selectedCount = 0) {
-  if (plan === 'bundle') {
-    return { value: BUNDLE_PRICE_INR, numItems: 11, contentName: 'Full System' };
-  }
-  const safeCount = selectedCount > 0 ? selectedCount : 1;
-  return {
-    value: safeCount * SINGLE_BOOK_PRICE_INR,
-    numItems: safeCount,
-    contentName: `Single Plan (${safeCount} book${safeCount > 1 ? 's' : ''})`
-  };
+function getCheckoutMetrics() {
+  return { value: BUNDLE_PRICE_INR, numItems: 11, contentName: 'Full System' };
 }
 
 function trackCheckoutEvent(eventName, plan, selectedCount = 0, extras = {}) {
@@ -166,8 +158,6 @@ function ensureCashfreeLoaded() {
 let currentPlan = null;
 let currentBookId = null;
 let currentBookIds = [];
-let selectedBookIds = [];
-const SINGLE_BOOK_PRICE_INR = 99;
 const FULL_SYSTEM_BOOK_COUNT = 11;
 const MAX_CHECKOUT_PREVIEW_THUMBNAILS = 3;
 const CHECKOUT_PREVIEW_BOOK_IDS_FOR_BUNDLE = [2, 5, 6];
@@ -388,87 +378,29 @@ function updateCheckoutMicrocopy(plan) {
     : 'Instant access to your selected AI prompt system after payment.';
 }
 
+// NOTE: The single-book selection flow (per-book modal, book picker, etc.)
+// is currently disabled — the site only sells the Full System bundle.
+// The underlying single-book plan is still fully supported end-to-end in
+// api/razorpay-order.php, api/paypal-order.php, db.sql, and setup-account.php
+// so existing single-book purchasers keep working. To re-enable a per-book
+// purchase UI, restore the removed book-selection modal markup/JS from git
+// history (see project history around this comment) and route
+// startCheckout('single') back to it.
 function startCheckout(plan) {
   trackCustomEvent('CheckoutStarted', { plan });
-  const bookModalElement = document.getElementById('bookModal');
-  if (plan === 'single' && bookModalElement) {
-    selectedBookIds = [];
-    updateSelectedBooksUi();
-    bookModalElement.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    trackCustomEvent('BookModalOpened', { source: 'start-checkout' });
-  } else {
-    proceedCheckout('bundle', null);
-  }
-}
-
-function closeModal() {
-  const bookModalElement = document.getElementById('bookModal');
-  if (!bookModalElement) return;
-  bookModalElement.style.display = 'none';
-  document.body.style.overflow = '';
-  trackCustomEvent('BookModalClosed', { selected_count: selectedBookIds.length });
-}
-
-function toggleBookSelection(bookId) {
-  if (!bookId || bookId < 1 || bookId > 11) return;
-  if (selectedBookIds.includes(bookId)) {
-    selectedBookIds = selectedBookIds.filter((id) => id !== bookId);
-  } else {
-    selectedBookIds.push(bookId);
-  }
-  selectedBookIds.sort((a, b) => a - b);
-  updateSelectedBooksUi();
-  trackCustomEvent('BookSelectionUpdated', {
-    selected_count: selectedBookIds.length,
-    selected_books: selectedBookIds.join(',')
-  });
-}
-
-function updateSelectedBooksUi() {
-  const selectedSet = new Set(selectedBookIds);
-  document.querySelectorAll('[data-action="toggle-book-selection"][data-book-id]').forEach((buttonElement) => {
-    const bookId = parseInt(buttonElement.dataset.bookId || '0', 10);
-    const isSelected = selectedSet.has(bookId);
-    buttonElement.classList.toggle('is-selected', isSelected);
-  });
-
-  const countElement = document.getElementById('selectedBooksCount');
-  const amountElement = document.getElementById('selectedBooksAmount');
-  const continueButtonElement = document.getElementById('continueSelectedBooksBtn');
-  const selectedCount = selectedBookIds.length;
-  const totalAmount = selectedCount * SINGLE_BOOK_PRICE_INR;
-
-  if (countElement) {
-    countElement.textContent = `${selectedCount} BOOK${selectedCount === 1 ? '' : 'S'} SELECTED`;
-  }
-  if (amountElement) {
-    amountElement.innerHTML = `<strong>₹${totalAmount}</strong>`;
-  }
-  if (continueButtonElement) {
-    continueButtonElement.disabled = selectedCount === 0;
-  }
+  proceedCheckout('bundle', null);
 }
 
 function proceedCheckout(plan, bookId, bookIds = null) {
-  closeModal();
   currentPlan = plan;
   currentBookId = bookId;
   currentBookIds = Array.isArray(bookIds) ? bookIds : (bookId ? [bookId] : []);
   const selectedCount = currentBookIds.length;
 
-  if (plan === 'single' && selectedCount === 0) {
-    showError('Please select at least one book.');
-    return;
-  }
-
-  const totalInr = plan === 'bundle' ? 299 : (selectedCount * SINGLE_BOOK_PRICE_INR);
+  const totalInr = BUNDLE_PRICE_INR;
   const price = `₹${totalInr}`;
 
-  const selectedBookNames = currentBookIds.map((id) => getBookTitleById(id)).filter(Boolean);
-  const planLabel = plan === 'bundle'
-    ? 'Full System Access'
-    : `Your Selected Book${selectedCount > 1 ? 's' : ''} (${selectedCount} Book${selectedCount > 1 ? 's' : ''})`;
+  const planLabel = 'Full System Access';
   const selectedBooksText = 'Includes:';
   const summaryPlanElement = document.getElementById('checkoutSummaryPlan');
   const summarySelectionElement = document.getElementById('checkoutSummarySelection');
@@ -480,28 +412,23 @@ function proceedCheckout(plan, bookId, bookIds = null) {
   updateCheckoutMicrocopy(plan);
   updateCheckoutPreviewTitle(plan);
 
-  if (plan === 'bundle') {
-    renderBundlePreviewLines();
-    renderCheckoutProofStrip(CHECKOUT_PREVIEW_BOOK_IDS_FOR_BUNDLE, FULL_SYSTEM_BOOK_COUNT);
-  } else {
-    renderSelectedBooksPreviewLines(selectedBookNames);
-    renderCheckoutProofStrip(currentBookIds);
-  }
+  renderBundlePreviewLines();
+  renderCheckoutProofStrip(CHECKOUT_PREVIEW_BOOK_IDS_FOR_BUNDLE, FULL_SYSTEM_BOOK_COUNT);
 
   document.getElementById('checkoutModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
   currentCheckoutAmountInr = totalInr;
   updateCheckoutCtaLabel(totalInr);
 
-  trackCheckoutEvent('InitiateCheckout', plan, plan === 'bundle' ? 11 : selectedCount, {
-    selected_books: plan === 'single' ? currentBookIds.join(',') : '',
-    source: plan === 'bundle' ? 'bundle-cta' : 'book-modal'
+  trackCheckoutEvent('InitiateCheckout', plan, 11, {
+    selected_books: '',
+    source: 'bundle-cta'
   });
   trackEvent('AddToCart', {
     currency,
     value: totalInr,
-    num_items: plan === 'bundle' ? 11 : selectedCount,
-    content_name: plan === 'bundle' ? 'Full System' : `Selected Books (${selectedCount})`,
+    num_items: 11,
+    content_name: 'Full System',
     content_type: 'product_group'
   });
   trackCustomEvent('CheckoutModalOpened', {
@@ -825,24 +752,6 @@ document.addEventListener('click', (event) => {
   if (action === 'submit-exit-email') {
     trackEvent('Lead', { source: 'exit-intent', content_name: 'Sample Prompt Lead' });
     submitExitEmail();
-    return;
-  }
-  if (action === 'close-modal') {
-    closeModal();
-    return;
-  }
-  if (action === 'toggle-book-selection') {
-    const bookId = parseInt(actionElement.dataset.bookId || '0', 10);
-    toggleBookSelection(Number.isNaN(bookId) ? 0 : bookId);
-    return;
-  }
-  if (action === 'continue-selected-books') {
-    if (selectedBookIds.length === 0) {
-      showError('Please select at least one book.');
-      return;
-    }
-    trackCustomEvent('BookSelectionContinued', { selected_count: selectedBookIds.length });
-    proceedCheckout('single', selectedBookIds[0] || null, [...selectedBookIds]);
     return;
   }
   if (action === 'close-checkout') {

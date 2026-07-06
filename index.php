@@ -1059,20 +1059,6 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </script>
 <?php
 $checkoutImages = [];
-foreach ($books as $id => $book) {
-  if (!empty($book['bonus'])) continue;
-  $modalCoverFile = sprintf('book-%02d.jpg', $id);
-  $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
-  $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
-  if (file_exists($modalCoverDiskPath)) {
-    $checkoutImages[] = $modalCoverWebPath . '?v=' . filemtime($modalCoverDiskPath);
-  }
-}
-$bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
-$bonusCoverDiskPath = __DIR__ . $bonusCoverWebPath;
-if (file_exists($bonusCoverDiskPath)) {
-  $checkoutImages[] = $bonusCoverWebPath . '?v=' . filemtime($bonusCoverDiskPath);
-}
 // Add payment icons
 $checkoutImages[] = '/assets/icons/payment-logo-upi.webp';
 $checkoutImages[] = '/assets/icons/payment-logo-gpay.webp';
