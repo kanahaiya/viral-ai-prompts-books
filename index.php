@@ -29,12 +29,8 @@ $books    = getBooks();
 <link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
-<!-- Preload video poster for instant hero display -->
+<!-- Preload video poster for instant hero display (this is the actual LCP element) -->
 <link rel="preload" as="image" href="/assets/video/hero-demo-poster.webp" fetchpriority="high">
-<!-- Preload Responsive LCP Hero Image -->
-<link rel="preload" as="image" href="assets/hero-mockup.webp" 
-      imagesrcset="assets/hero-mockup-480w.webp 480w, assets/hero-mockup-768w.webp 768w, assets/hero-mockup.webp 900w" 
-      imagesizes="(max-width: 960px) 92vw, 50vw" fetchpriority="high">
 <!-- Preload Active Payment Gateway SDK Script for Instant Payment Modal Render -->
 <?php
 $activePaymentProvider = defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay';
@@ -90,7 +86,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="AI Prompt System home">
+    <a href="/" class="nav-logo">
       <img src="/assets/icons/logo-gold-quill.webp" alt="" class="nav-logo__icon" width="28" height="28" loading="eager" decoding="async">
       <span class="nav-logo__text">
         <span class="nav-logo__name">AI PROMPT SYSTEM</span>
@@ -99,7 +95,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     </a>
     <div class="nav-center">
       <a href="#how-it-works" class="nav-link">How It Works</a>
-      <a href="#offer-stack" class="nav-link">What's Inside</a>
+      <a href="#whats-inside" class="nav-link">What's Inside</a>
       <a href="#reviews" class="nav-link">Reviews</a>
       <a href="#faq" class="nav-link">FAQ</a>
     </div>
@@ -107,7 +103,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <?php if ($loggedIn): ?>
         <a href="/dashboard.php" class="nav-cta">MY BOOKS →</a>
       <?php else: ?>
-        <a href="#pricing" class="nav-cta">GET INSTANT ACCESS →</a>
+        <a href="#pricing" class="nav-cta">GET INSTANT ACCESS</a>
         <a href="/login.php" class="nav-login">LOGIN</a>
       <?php endif; ?>
     </div>
@@ -135,20 +131,27 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <span class="hero-h1__sub">Fill a Few Fields.<br><span class="gold">Your Prompt Writes Itself.</span></span>
         </h1>
 
-        <p class="hero-body">Answer a few simple questions. Your prompt is generated automatically. Copy it into your favorite AI tool and create professional-quality AI images in minutes—no prompt engineering required.</p>
+        <p class="hero-body">Answer a few short questions. Your prompt writes itself — paste it into ChatGPT and create professional AI images in minutes. No prompt engineering.</p>
 
         <div class="hero-proof-strip">
           <span class="hero-proof-pill">No Prompt Engineering</span>
           <span class="hero-proof-pill">Works with Top AI Tools</span>
-          <span class="hero-proof-pill">One-Time Payment</span>
-          <span class="hero-proof-pill">Lifetime Access &amp; Updates</span>
+          <span class="hero-proof-pill">1,100+ Tested Prompts</span>
+          <span class="hero-proof-pill">Works Instantly in ChatGPT</span>
         </div>
 
         <div class="hero-ctas">
-          <a href="#pricing" class="btn-primary btn-hero-cta" data-action="start-checkout" data-plan="bundle">
-            ⚡ Generate Better AI Images — ₹299 <span class="btn-hero-orig">₹2,189</span>
+          <a href="#pricing" class="btn-primary btn-hero-cta">
+            ⚡ Get Full System Access — ₹299 <span class="btn-hero-orig">₹2,189</span>
           </a>
         </div>
+
+        <p class="hero-urgency-line">
+          <span class="hero-urgency-dot" aria-hidden="true"></span>
+          Price rises to ₹499 soon
+          <span class="hpt-sep" aria-hidden="true">|</span>
+          🚀 Founding Access — first 20+ creators
+        </p>
 
         <div class="hero-audience">
           <span class="hero-audience__label">Perfect for:</span>
@@ -159,18 +162,10 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <span class="hero-audience__chip">Small Businesses</span>
         </div>
 
-        <p class="hero-payment-trust">
-          One-Time Payment
-          <span class="hpt-sep" aria-hidden="true">·</span>
-          Lifetime Access
-          <span class="hpt-sep" aria-hidden="true">·</span>
-          Instant Download
-        </p>
-
         <p class="hero-payment-trust hero-payment-trust--secondary">
           🔒 Secure Razorpay Checkout
           <span class="hpt-sep" aria-hidden="true">·</span>
-          ⚡ Instant Access After Payment
+          ✅ 7-Day Money-Back Guarantee
         </p>
 
       </div><!-- /hero-copy -->
@@ -321,7 +316,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <div class="hero-stat">
           <svg class="hero-stat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A836" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <div class="hero-stat-content">
-            <div class="hero-stat-num">5+</div>
+            <div class="hero-stat-num">10+</div>
             <div class="hero-stat-title">AI Tools Supported</div>
             <div class="hero-stat-label">One system. Works everywhere.</div>
           </div>
@@ -410,7 +405,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </div>
     </div>
     <p class="solution-note">Everything is designed for complete beginners.<br>Even if this is the very first time using AI tools.</p>
-    <a href="#pricing" class="btn-primary btn-inline">Start Creating Now</a>
+    <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -430,7 +425,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <li>Save hours of frustration and start creating images that actually match the vision in your mind.</li>
       <li>Post AI visuals proudly instead of feeling embarrassed by average-looking results.</li>
     </ul>
-    <a href="#pricing" class="btn-primary btn-inline">Create Stunning AI Art</a>
+    <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -444,7 +439,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <picture>
           <source type="image/avif" srcset="assets/collage-1-360w.avif 360w, assets/collage-1-520w.avif 520w, assets/collage-1.avif 682w" sizes="(max-width: 600px) 92vw, 520px">
           <source type="image/webp" srcset="assets/collage-1-360w.webp 360w, assets/collage-1-520w.webp 520w, assets/collage-1.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
-          <img src="assets/collage-1.jpg" srcset="assets/collage-1-360w.jpg 360w, assets/collage-1-520w.jpg 520w, assets/collage-1.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
+          <img src="assets/collage-1.jpg" srcset="assets/collage-1-360w.jpg 360w, assets/collage-1-520w.jpg 520w, assets/collage-1.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="682" height="1024" loading="lazy" fetchpriority="low" decoding="async">
         </picture>
       </div>
     </div>
@@ -453,14 +448,14 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </section>
 
 <!-- SYSTEM INCLUDES -->
-<section class="benefits-section">
+<section id="whats-inside" class="benefits-section">
   <div class="container container-center">
     <h2 class="section-title">What&rsquo;s Included Inside The System</h2>
     <div class="bundle-collection-visual">
       <picture>
         <source type="image/avif" srcset="assets/sections/bundle-collection-640w.avif 640w, assets/sections/bundle-collection-1024w.avif 1024w, assets/sections/bundle-collection.avif 1600w" sizes="(max-width: 900px) 95vw, 980px">
         <source type="image/webp" srcset="assets/sections/bundle-collection-640w.webp 640w, assets/sections/bundle-collection-1024w.webp 1024w, assets/sections/bundle-collection.webp 1600w" sizes="(max-width: 900px) 95vw, 980px">
-        <img src="assets/sections/bundle-collection.jpg" srcset="assets/sections/bundle-collection-640w.jpg 640w, assets/sections/bundle-collection-1024w.jpg 1024w, assets/sections/bundle-collection.jpg 1600w" sizes="(max-width: 900px) 95vw, 980px" alt="Complete Viral AI Prompts System collection showing all 11 books and bonus resources" width="1800" height="900" loading="lazy" fetchpriority="low" decoding="async">
+        <img src="assets/sections/bundle-collection.jpg" srcset="assets/sections/bundle-collection-640w.jpg 640w, assets/sections/bundle-collection-1024w.jpg 1024w, assets/sections/bundle-collection.jpg 1600w" sizes="(max-width: 900px) 95vw, 980px" alt="Complete Viral AI Prompts System collection showing all 11 books and bonus resources" width="1600" height="876" loading="lazy" fetchpriority="low" decoding="async">
       </picture>
     </div>
     <div class="bundle-group-title">Core Books</div>
@@ -482,7 +477,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <div class="bundle-value">Total Value ₹2,189+</div>
       <div class="bundle-price">Today&rsquo;s Price: Just ₹299</div>
     </div>
-    <a href="#pricing" class="btn-primary btn-inline btn-inline--sm-top">Unlock The System</a>
+    <a href="#pricing" class="btn-primary btn-inline btn-inline--sm-top" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -500,7 +495,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <li>Small business owners who want better-looking product photos and promotional visuals.</li>
       <li>Anyone who wants to create cool, impressive AI images for fun, gifts, content, or social media.</li>
     </ul>
-    <a href="#pricing" class="btn-primary btn-inline">Yes, I Want This</a>
+    <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
   </div>
 </section>
 
@@ -512,47 +507,47 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     <div class="offer-list offer-list--redesign">
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 1 — Action Figure &amp; Toy Box</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 2 — Ghibli &amp; Anime Style</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 3 — Childhood Nostalgia</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 4 — Caricature &amp; Chibi</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 5 — Professional Headshots</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 6 — Product Photography</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 7 — Cinematic Movie Poster</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 8 — Vintage Scrapbook</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 9 — Pet Transformation</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 10 — Historical Time Travel</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-row">
         <div class="offer-row-left"><span class="offer-row-icon">✦</span><div class="offer-row-copy"><span class="offer-row-title">Book 11 — Trending Styles</span><span class="offer-row-meta">100 prompts</span></div></div>
-        <div class="offer-row-price"><span class="val-now">₹99</span><span class="val-old">₹199</span></div>
+        <div class="offer-row-price"><span class="val-now">₹199</span></div>
       </div>
       <div class="offer-total-row">
         <span class="offer-total-label">Value if bought separately</span>
@@ -562,8 +557,8 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
       </div>
     </div>
-    <p class="offer-saving-line" id="offerSavingLine">Save ₹1,890 vs buying each book separately — plus 2 free bonuses. Early-access price: ₹299 → ₹499 when this window closes.</p>
-    <a href="#pricing" class="btn-primary btn-inline btn-inline--lg-top">Unlock Full System Access</a>
+    <p class="offer-saving-line" id="offerSavingLine">Save ₹1,890 vs. the individual value above — plus 3 bonuses included free. Early-access price: ₹299 → rises to ₹499 once this window closes.</p>
+    <a href="#pricing" class="btn-primary btn-inline btn-inline--lg-top" data-action="start-checkout" data-plan="bundle">Get Full System Access — ₹299</a>
     <div class="bonus-block">
       <div class="bonus-item">
         <div class="bonus-label">BONUS #1</div>
@@ -613,35 +608,14 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </div>
     </div>
 
-    <div class="pricing-grid">
-      <!-- Single Book -->
-      <div class="price-card">
-        <div class="price-plan">Single Book</div>
-        <div class="price-amount"><span class="currency">₹</span>99 <span class="original">₹199</span></div>
-        <div class="price-billing">One book · 100 prompts · Lifetime access</div>
-        <ul class="price-features">
-          <li>1 book of your choice (you pick)</li>
-          <li>100 fill-in-the-blank prompt templates</li>
-          <li>6 personal variable slots per prompt</li>
-          <li class="price-feature-tools">Works with Midjourney, ChatGPT, Firefly, and DALL·E</li>
-          <li>Interactive online viewer — no downloads</li>
-          <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
-          <li>Telegram community access</li>
-          <li>All future updates to your book</li>
-        </ul>
-        <button class="btn-buy-outline" data-action="start-checkout" data-plan="single">
-          Start with One Book - ₹99 (was ₹199)
-        </button>
-        <div class="price-risk-reversal">Good if you want to test one style first before committing.</div>
-      </div>
-
+    <div class="pricing-grid pricing-grid--single">
       <!-- Full System -->
       <div class="price-card popular">
         <div class="price-badge">BEST VALUE</div>
         <div class="price-plan">Full System Access</div>
         <div class="price-amount"><span class="currency">₹</span>299 <span class="original">₹2,189</span></div>
         <div class="price-billing">Save ₹1,890 · All 11 books + bonus resources · Lifetime access</div>
-        <div class="price-card-social">Chosen by <strong>200+ creators</strong> — from beginners to freelancers</div>
+        <div class="price-card-social">🚀 Founding Access — be among the first <strong>20+ creators</strong> using this system</div>
         <ul class="price-features">
           <li>All 11 books — 1,100 prompt templates</li>
           <li>Every trending style covered (Ghibli, posters, pets, fashion…)</li>
@@ -651,11 +625,12 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <li>🎯 Free bonus: The AI Image Cheat Code guide</li>
           <li>🎁 Exclusive Telegram community access</li>
           <li>All future books automatically added</li>
+          <li>✅ 7-Day Money-Back Guarantee — try it for 7 days. Not the right fit? Email us for a full refund. No questions asked.</li>
         </ul>
         <button class="btn-buy" data-action="start-checkout" data-plan="bundle">
           Get Full System Access — ₹299 →
         </button>
-        <div class="price-risk-reversal">Best for serious use: all styles now, plus future books included.</div>
+        <div class="price-risk-reversal">All 11 styles now, plus every future book included.</div>
       </div>
     </div>
     <div class="support-access">
@@ -670,9 +645,9 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </ul>
     </div>
 
-    <p class="pricing-note pricing-note--top" id="pricingAnchor">💡 Early-access system pricing is currently ₹299. Individual books are listed separately at ₹199 each.</p>
+    <p class="pricing-note pricing-note--top" id="pricingAnchor">💡 Early-access system pricing is currently ₹299. Price rises to ₹499 once this window closes.</p>
     <p class="pricing-note">🔒 Secure checkout via Razorpay (India)</p>
-    <p class="pricing-note pricing-note--muted">✅ 24-hour technical guarantee: if your access/login link does not work, we'll fix it fast or refund you. No refunds after successful access.</p>
+    <p class="pricing-note pricing-note--muted">✅ 7-Day Money-Back Guarantee — try it for 7 days. Not the right fit? Email us for a full refund. No questions asked.</p>
   </div>
 </section>
 
@@ -693,7 +668,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Riya M.</div>
             <div class="testimonial-sub">Digital creator · Mumbai</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -706,7 +681,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Prashant K.</div>
             <div class="testimonial-sub">Software engineer · Pune</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -719,20 +694,20 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Anika S.</div>
             <div class="testimonial-sub">Freelance designer · Bangalore</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
 
       <div class="testimonial-card">
         <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-text">"Opened an Etsy store after buying Book 7. In the first two weeks, I made around ₹1,150 from AI movie poster prints. A few buyers asked for custom versions, and I could deliver quickly. I recovered the system cost in the first few orders."</p>
+        <p class="testimonial-text">"Opened an Etsy store after buying the movie poster book. Sold a handful of AI movie poster prints in the first two weeks, with a few custom orders I could turn around fast. Recovered the system cost within my first few orders."</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar testimonial-avatar--vt">VT</div>
           <div>
             <div class="testimonial-name">Vikram T.</div>
             <div class="testimonial-sub">Graphic designer · Chennai</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -745,7 +720,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Deepa R.</div>
             <div class="testimonial-sub">Teacher · Hyderabad</div>
-            <div class="testimonial-badge">VERIFIED BUYER · BOOK 8</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -758,7 +733,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div>
             <div class="testimonial-name">Suresh M.</div>
             <div class="testimonial-sub">Content creator · Delhi</div>
-            <div class="testimonial-badge">VERIFIED BUYER · SYSTEM</div>
+            <div class="testimonial-badge">VERIFIED BUYER</div>
           </div>
         </div>
       </div>
@@ -768,12 +743,12 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     <!-- Social proof numbers bar -->
     <div class="social-proof-bar">
       <div class="spb-item">
-        <div class="spb-num">200+</div>
-        <div class="spb-label">Creators Inside</div>
+        <div class="spb-num">20+</div>
+        <div class="spb-label">Early Creators Already In</div>
       </div>
       <div class="spb-item">
-        <div class="spb-num">4.6★</div>
-        <div class="spb-label">Verified Rating</div>
+        <div class="spb-num">11</div>
+        <div class="spb-label">AI Style Books</div>
       </div>
       <div class="spb-item">
         <div class="spb-num">60s</div>
@@ -792,9 +767,8 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   <div class="container container-center">
     <h2 class="section-title">Early Access Pricing</h2>
     <div class="early-access-copy">
-      <p class="early-access-lead">Right now, the complete 11-book system is available for just ₹299.</p>
-      <p>Each book individually costs ₹199.</p>
-      <p>Once the launch offer ends, the price increases.</p>
+      <p class="early-access-lead">Right now, the complete 11-book system is available for ₹299.</p>
+      <p>Value if bought separately: ₹2,189. Once this launch window ends, the price rises to ₹499.</p>
       <p class="early-access-vision">If AI art trends are already everywhere on Instagram and Reels, imagine where they&rsquo;ll be 3 months from now.</p>
       <p class="early-access-punch">Best time to start creating is while the trends, styles, and tools are still fresh.</p>
     </div>
@@ -802,14 +776,14 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <h3>Bonuses Available During This Offer</h3>
       <p>The AI Prompt Finder CustomGPT, bonus ebook, and private Telegram community are currently included free with the full system.</p>
       <p>These bonuses may not stay included permanently as new updates and books are added later.</p>
-      <a href="#pricing" class="btn-secondary btn-inline">Claim My Bonuses</a>
+      <a href="#pricing" class="btn-secondary btn-inline" data-action="start-checkout" data-plan="bundle">Claim My Bonuses</a>
     </div>
     <div class="momentum-copy">
       <h3>Don&rsquo;t Keep Watching Others Create Cool AI Art</h3>
       <p>Every day, more people are turning ordinary photos into cinematic visuals, anime portraits, and viral-style edits.</p>
       <p>Most are not designers. Most are not AI experts. They simply started.</p>
       <p>In a few minutes, this system can be in your inbox and your first image can be live.</p>
-      <a href="#pricing" class="btn-primary btn-inline">Make My First AI Image</a>
+      <a href="#pricing" class="btn-primary btn-inline" data-action="start-checkout" data-plan="bundle">Make My First AI Image</a>
     </div>
   </div>
 </section>
@@ -824,7 +798,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <picture>
           <source type="image/avif" srcset="assets/collage-2-360w.avif 360w, assets/collage-2-520w.avif 520w, assets/collage-2.avif 682w" sizes="(max-width: 600px) 92vw, 520px">
           <source type="image/webp" srcset="assets/collage-2-360w.webp 360w, assets/collage-2-520w.webp 520w, assets/collage-2.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
-          <img src="assets/collage-2.jpg" srcset="assets/collage-2-360w.jpg 360w, assets/collage-2-520w.jpg 520w, assets/collage-2.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
+          <img src="assets/collage-2.jpg" srcset="assets/collage-2-360w.jpg 360w, assets/collage-2-520w.jpg 520w, assets/collage-2.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="682" height="1024" loading="lazy" fetchpriority="low" decoding="async">
         </picture>
       </div>
     </div>
@@ -858,7 +832,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         ['Do I get support if I get stuck?',
          'Yes. Buyers also get access to the Telegram community for guidance, updates, and support.'],
         ['Is there any refund policy?',
-         'Because this is a digital product with instant access, refunds are not available after access is delivered. However, if there is any technical issue with access, support will help resolve it quickly.'],
+         'Yes. 7-Day Money-Back Guarantee — try it for 7 days. Not the right fit? Email us for a full refund. No questions asked.'],
       ];
       foreach ($faqs as $faqIndex => [$q, $a]):
         $faqAnswerId = 'faq-answer-' . $faqIndex;
@@ -887,8 +861,8 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       </ul>
       <div class="final-cta-value">Total Value: ₹2,189+</div>
       <div class="final-cta-price">Today Only: ₹299</div>
-      <a href="#pricing" class="btn-primary btn-inline btn-inline--final">
-        Get Instant Access
+      <a href="#pricing" class="btn-primary btn-inline btn-inline--final" data-action="start-checkout" data-plan="bundle">
+        Get Full System Access — ₹299
       </a>
       <div class="final-cta-micro">Instant email access after payment.</div>
     </div>
@@ -934,74 +908,6 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   </div>
 </div>
 
-<!-- BOOK SELECTOR MODAL -->
-<div id="bookModal" class="app-modal app-modal--books">
-  <div class="app-modal-card app-modal-card--books">
-    <!-- Modal header -->
-    <div class="app-modal-head app-modal-head--books">
-      <div>
-        <div class="app-modal-kicker">Step 1 of 2 · Select Books</div>
-        <div class="app-modal-title">Pick One or More Prompt Books</div>
-      </div>
-      <button type="button" class="modal-close-btn" data-action="close-modal" aria-label="Close book selection modal">×</button>
-    </div>
-    <p class="app-modal-sub">Tap to select books · ₹99 each · <span class="text-gold">🎁 Cheat Code guide free with every purchase</span></p>
-
-    <div id="modalBookGrid" class="modal-book-grid">
-      <?php foreach ($books as $id => $book): if (!empty($book['bonus'])) continue; ?>
-      <?php
-        $modalCoverFile = sprintf('book-%02d.jpg', $id);
-        $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
-        $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
-        $hasModalCover = file_exists($modalCoverDiskPath);
-        $modalCoverVersion = $hasModalCover ? ('?v=' . filemtime($modalCoverDiskPath)) : '';
-        $modalDisplayTitle = preg_replace('/^Bonus\s+/i', '', $book['title']);
-      ?>
-      <button type="button" data-action="toggle-book-selection" data-book-id="<?= $id ?>"
-              class="modal-book-btn"
-              style="--mbb-color:<?= htmlspecialchars($book['accent']) ?>;">
-        <div class="mbb-accent"></div>
-        <?php if ($hasModalCover): ?>
-          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($modalCoverWebPath . $modalCoverVersion, ENT_QUOTES, 'UTF-8') ?>')"></div>
-        <?php else: ?>
-          <span class="mbb-emoji"><?= $book['emoji'] ?></span>
-        <?php endif; ?>
-        <div class="mbb-title"><?= htmlspecialchars($modalDisplayTitle) ?></div>
-        <div class="mbb-meta">100 PROMPTS</div>
-        <div class="mbb-price" id="modalPrice<?= $id ?>"><span class="mbb-price-now">₹99</span><span class="mbb-price-old">₹199</span></div>
-      </button>
-      <?php endforeach; ?>
-      <!-- Bonus card — included free with any purchase -->
-      <?php
-        $bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
-        $bonusCoverDiskPath = __DIR__ . '/assets/covers/book-bonus.jpg';
-        $hasBonusCover = file_exists($bonusCoverDiskPath);
-        $bonusCoverVersion = $hasBonusCover ? ('?v=' . filemtime($bonusCoverDiskPath)) : '';
-      ?>
-      <div class="modal-bonus-card">
-        <div class="mbb-accent mbb-accent--bonus"></div>
-        <?php if ($hasBonusCover): ?>
-          <div class="mbb-cover" style="background-image:url('<?= htmlspecialchars($bonusCoverWebPath . $bonusCoverVersion, ENT_QUOTES, 'UTF-8') ?>')"></div>
-        <?php else: ?>
-          <span class="mbb-emoji">🎯</span>
-        <?php endif; ?>
-        <div class="mbb-title">The AI Image Cheat Code</div>
-        <div class="mbb-meta">STYLE GUIDE</div>
-        <div class="mbb-free-badge"><span>🎁 FREE BONUS</span></div>
-      </div>
-    </div>
-    <div class="modal-book-footer">
-      <div class="modal-selection-meta">
-        <div id="selectedBooksCount">0 BOOKS SELECTED</div>
-        <div id="selectedBooksAmount"><strong>₹0</strong></div>
-      </div>
-      <button type="button" class="modal-continue-btn" id="continueSelectedBooksBtn" data-action="continue-selected-books" disabled>
-        Continue to Checkout →
-      </button>
-    </div>
-  </div>
-</div>
-
 <!-- CHECKOUT MODAL -->
 <div id="checkoutModal" class="app-modal app-modal--checkout">
   <div class="app-modal-card app-modal-card--checkout">
@@ -1012,7 +918,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
         <div class="checkout-head-copy">
           <div id="checkoutTitle" class="checkout-title">Unlock Your Full<br><span class="checkout-title-accent">AI Prompt System</span></div>
-          <div id="checkoutSubtitle" class="checkout-subtitle">Get instant access to all 11 interactive prompt books + bonus AI guide.</div>
+          <div id="checkoutSubtitle" class="checkout-subtitle">Get instant access to all 11 interactive prompt books + all bonuses.</div>
         </div>
       </div>
       <button type="button" class="checkout-close-btn" data-action="close-checkout" aria-label="Close checkout modal">×</button>
@@ -1028,12 +934,12 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <span id="checkoutSummarySelection">Includes:</span>
           <div id="checkoutSummaryHighlights" class="checkout-summary-highlights">
             <ul id="checkoutSummaryBooksList" class="checkout-summary-books-list">
+              <li>Action Figure &amp; Toy Box</li>
               <li>Ghibli &amp; Anime Style</li>
-              <li>Professional Headshots</li>
-              <li>Product Photography</li>
+              <li>Childhood Nostalgia</li>
             </ul>
             <div id="checkoutSummaryOverflow" class="checkout-summary-overflow" hidden>+0 more selected books</div>
-            <div id="checkoutSummaryBonus" class="checkout-summary-bonus"><span class="checkout-summary-bonus-kicker">🎁 BONUS INCLUDED</span><span class="checkout-summary-bonus-title">AI Cheat Guide</span></div>
+            <div id="checkoutSummaryBonus" class="checkout-summary-bonus"><span class="checkout-summary-bonus-kicker">🎁 BONUS INCLUDED</span><span class="checkout-summary-bonus-title">AI Cheat Guide + CustomGPT + Telegram Community</span></div>
           </div>
           <div class="checkout-summary-chips" aria-label="System benefits">
             <span class="checkout-summary-chip">⚡ Real-Time Updates</span>
@@ -1063,7 +969,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         </div>
 
         <div class="checkout-social-proof">
-          <strong>⭐ Join growing AI creator community</strong>
+          <strong>⭐ Join our founding community of early creators</strong>
         </div>
       </div>
 
@@ -1083,19 +989,20 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div id="paymentSecure" class="checkout-security">Secure Razorpay Payment</div>
           <div class="checkout-security checkout-security--methods">UPI • GPay • PhonePe • Cards Accepted</div>
           <div class="checkout-logos" aria-label="Payment methods">
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="86" height="32" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="248" height="88" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="150" height="59" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="200" height="200" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="284" height="92" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="930" height="324" loading="eager" decoding="async"></span>
           </div>
 
           <div class="checkout-trust-row" aria-label="Checkout trust assurances">
             <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--bolt"></span><span>Instant Access<br>after payment</span></div>
             <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--shield"></span><span>One-time payment<br>No subscription</span></div>
             <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--mail"></span><span>Login delivered<br>instantly</span></div>
-            <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--headset"></span><span>Support available<br>if login issue</span></div>
+            <div class="checkout-trust-item"><span class="checkout-trust-icon checkout-trust-icon--headset"></span><span>7-Day Money-Back<br>Guarantee</span></div>
           </div>
+          <p class="checkout-refund-note">✅ 7-Day Money-Back Guarantee — try it for 7 days. Not the right fit? Email us for a full refund. No questions asked.</p>
 
         </div>
       </div>
@@ -1146,46 +1053,13 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "x37q4ovu6j");
 </script>
-<?php
-$checkoutImages = [];
-foreach ($books as $id => $book) {
-  if (!empty($book['bonus'])) continue;
-  $modalCoverFile = sprintf('book-%02d.jpg', $id);
-  $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
-  $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
-  if (file_exists($modalCoverDiskPath)) {
-    $checkoutImages[] = $modalCoverWebPath . '?v=' . filemtime($modalCoverDiskPath);
-  }
-}
-$bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
-$bonusCoverDiskPath = __DIR__ . $bonusCoverWebPath;
-if (file_exists($bonusCoverDiskPath)) {
-  $checkoutImages[] = $bonusCoverWebPath . '?v=' . filemtime($bonusCoverDiskPath);
-}
-// Add payment icons
-$checkoutImages[] = '/assets/icons/payment-logo-upi.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-gpay.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-phonepe.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-paytm.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-visa.webp';
-// Add trust icons
-$checkoutImages[] = '/assets/icons/shield-gold.svg';
-$checkoutImages[] = '/assets/icons/bolt-gold.svg';
-$checkoutImages[] = '/assets/icons/mail-gold.svg';
-$checkoutImages[] = '/assets/icons/headset-gold.svg';
-// Add thumbnails
-foreach (['action-figures', 'ghibli-art', 'childhood-nostalgia', 'caricature-chibi', 'professional-headshots', 'product-photography', 'cinematic-movie-poster', 'vintage-scrapbook', 'pet-transformation', 'historical-time-travel', 'trending-styles'] as $thumb) {
-  $checkoutImages[] = "/assets/checkout/{$thumb}-thumb.webp";
-}
-?>
 <script>
 window.__AIPB_CONFIG = {
   paymentProvider: <?= json_encode(defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay') ?>,
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
   cashfreeEnv: <?= json_encode(defined('CASHFREE_ENV') ? CASHFREE_ENV : 'sandbox') ?>,
   siteName: <?= json_encode(defined('SITE_NAME') ? SITE_NAME : 'AI Prompt System') ?>,
-  booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>,
-  checkoutImages: <?= json_encode($checkoutImages) ?>
+  booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>
 };
 </script>
 <script src="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>" defer></script>

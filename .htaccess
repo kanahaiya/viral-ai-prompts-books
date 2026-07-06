@@ -105,13 +105,18 @@ RewriteRule ^(.*)/$ /$1 [L,R=301]
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/css
     AddOutputFilterByType DEFLATE application/json text/javascript
-    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/x-javascript application/javascript
+    AddOutputFilterByType DEFLATE application/xml text/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/ttf font/otf application/vnd.ms-fontobject
 </IfModule>
 
 <IfModule mod_brotli.c>
     AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css
     AddOutputFilterByType BROTLI_COMPRESS application/json text/javascript
-    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/xml
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/xml text/xml
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+    AddOutputFilterByType BROTLI_COMPRESS font/ttf font/otf application/vnd.ms-fontobject
 </IfModule>
 
 <IfModule mod_headers.c>
