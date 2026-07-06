@@ -989,11 +989,11 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div id="paymentSecure" class="checkout-security">Secure Razorpay Payment</div>
           <div class="checkout-security checkout-security--methods">UPI • GPay • PhonePe • Cards Accepted</div>
           <div class="checkout-logos" aria-label="Payment methods">
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="86" height="32" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="86" height="32" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="248" height="88" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="150" height="59" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="200" height="200" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="284" height="92" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="930" height="324" loading="eager" decoding="async"></span>
           </div>
 
           <div class="checkout-trust-row" aria-label="Checkout trust assurances">
