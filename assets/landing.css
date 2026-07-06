@@ -78,6 +78,7 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
 .nav-logo{
   display:flex;align-items:center;gap:8px;
   text-decoration:none;flex-shrink:0;
+  min-height:24px;
 }
 .nav-logo__icon{
   width:36px;height:36px;
@@ -149,10 +150,10 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
 .nav-login:hover{color:#fff;border-color:#999;}
 
 /* ── HERO ── */
-.hero{position:relative;padding:64px 1.5rem 0;}
+.hero{position:relative;padding:64px 0 0;}
 .hero .hero-container{padding-top:20px;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 45% at 50% 0%, rgba(212,168,54,0.10) 0%, transparent 60%);pointer-events:none;}
-.hero-container{max-width:1440px;margin:0 auto;position:relative;}
+.hero-container{max-width:1440px;margin:0 auto;position:relative;padding:0 1.5rem;}
 
 /* TWO-COLUMN SPLIT */
 .hero-split{display:grid;grid-template-columns:40% 1fr;gap:1.5rem;align-items:start;}
@@ -176,7 +177,7 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
 
 /* CTAs */
 .hero-ctas{display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;}
-.btn-hero-cta{background:linear-gradient(180deg,#e8c04a 0%,#d4a836 50%,#b8901e 100%);color:#000;font-family:'Inter','Segoe UI',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:2px;text-transform:uppercase;padding:18px 0;border-radius:6px;border:none;cursor:pointer;white-space:nowrap;box-shadow:0 4px 20px rgba(212,168,54,0.35);transition:box-shadow 0.15s,transform 0.15s;display:flex;align-items:center;justify-content:center;gap:10px;animation:ctaGlow 3.5s ease-in-out infinite;width:90%;}
+.btn-hero-cta{background:linear-gradient(180deg,#e8c04a 0%,#d4a836 50%,#b8901e 100%);color:#000;font-family:'Inter','Segoe UI',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:2px;text-transform:uppercase;padding:18px 0;border-radius:6px;border:none;cursor:pointer;white-space:normal;text-align:center;box-shadow:0 4px 20px rgba(212,168,54,0.35);transition:box-shadow 0.15s,transform 0.15s;display:flex;align-items:center;justify-content:center;gap:10px;animation:ctaGlow 3.5s ease-in-out infinite;width:90%;}
 .btn-hero-cta:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(212,168,54,0.5);}
 .btn-demo-cta{display:inline-flex;align-items:center;gap:6px;background:transparent;color:#ccc;font-family:'Inter','Segoe UI',sans-serif;font-size:0.75rem;letter-spacing:0.5px;text-transform:uppercase;padding:12px 20px;border-radius:4px;border:1px solid rgba(255,255,255,0.18);cursor:pointer;white-space:nowrap;transition:border-color 0.15s,color 0.15s;}
 .btn-demo-cta:hover{border-color:#888;color:#fff;}
@@ -636,6 +637,7 @@ section{padding:64px 1.5rem;}
 .footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center;}
 .footer-logo{font-family:'Inter','Segoe UI',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
 .footer-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;font-size:0.78rem;color:var(--text-dim);margin-bottom:1rem;}
+.footer-links a{display:inline-block;padding:6px 2px;}
 .footer-links a:hover{color:#fff;}
 .footer-copy{font-size:0.72rem;color:var(--text-dim);}
 
@@ -956,7 +958,7 @@ section{padding:64px 1.5rem;}
   .hero-h1__word--gold{font-size:1em;letter-spacing:0;}
   .hero-body{font-size:0.85rem;max-width:100%;}
   .hero-ctas{flex-direction:column;align-items:stretch;}
-  .btn-primary.btn-hero-cta{width:100%;font-size:0.72rem;padding:14px 8px;letter-spacing:0.3px;white-space:nowrap;}
+  .btn-primary.btn-hero-cta{width:100%;font-size:0.72rem;padding:14px 8px;letter-spacing:0.3px;white-space:normal;text-align:center;}
   .btn-hero-orig{font-size:0.65rem;}
   .btn-hero-cta,.btn-demo-cta,.btn-secondary{width:100%;justify-content:center;text-align:center;}
   .hero-proof-strip{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 0.5rem;}
@@ -1004,7 +1006,6 @@ section{padding:64px 1.5rem;}
 @media(max-width:768px){
   .nav{padding:0 1rem;}
   .nav-center{display:none;}
-  .hero{padding-left:1rem;padding-right:1rem;}
   .hero-stats{gap:0;}
   .community-inner{flex-direction:column;}
   .community-visual{flex:none;width:100%;}
@@ -1019,7 +1020,6 @@ section{padding:64px 1.5rem;}
   .pain-punch{font-size:0.95rem;padding:1.1rem 1.2rem;}
 }
 @media(max-width:520px){
-  .hero{padding-left:0.75rem;padding-right:0.75rem;}
   .hero-proof-pill{width:100%;justify-content:flex-start;}
   .hero-stats{grid-template-columns:1fr 1fr;}
   .hero-trust-strip{grid-template-columns:1fr;}
@@ -1956,15 +1956,14 @@ section{padding:72px 1.5rem;}
 @media (max-width: 768px){
   .nav{padding:0 0.75rem;}
   .nav-center{display:none;}
-  .nav-cta{font-size:0.55rem;padding:6px 10px;letter-spacing:0.3px;flex-shrink:1;overflow:hidden;text-overflow:ellipsis;}
+  .nav-cta{font-size:0.55rem;padding:7px 10px;letter-spacing:0.3px;flex-shrink:1;min-width:0;max-width:100%;white-space:normal;text-align:center;line-height:1.3;}
+  .nav-links{min-width:0;flex-shrink:1;overflow:hidden;}
   .nav-login{display:none;}
   .nav-logo__name{font-size:0.8rem;letter-spacing:1.5px;}
   .nav-logo__sub{font-size:0.48rem;}
   .nav-logo__icon{width:26px;height:26px;padding:2px;}
   .hero{
     padding-top:66px;
-    padding-left:1rem;
-    padding-right:1rem;
   }
   .hero-h1__stop{
     font-size:clamp(2.2rem,9vw,3rem);
@@ -2005,10 +2004,24 @@ section{padding:72px 1.5rem;}
 /* Small phones */
 @media (max-width: 420px){
   section{padding:46px 0.75rem;}
-  .hero{padding-top:66px;}
+  .hero{padding-top:66px;padding-left:0;padding-right:0;}
+  .hero-container{padding-left:0.75rem;padding-right:0.75rem;}
   .hero-h1__stop{font-size:clamp(2.2rem,8.6vw,2.8rem);letter-spacing:-0.5px;}
   .price-amount{font-size:2.25rem;}
   .offer-total-today{font-size:1.65rem;}
+  /* Free up nav width so the CTA button text stays legible instead of ellipsis-truncated */
+  .nav-logo__sub{display:none;}
+  .nav-logo__name{font-size:0.62rem;letter-spacing:0.8px;}
+  .nav-logo__icon{width:22px;height:22px;}
+  .nav-cta{
+    font-size:0.5rem;
+    padding:6px 6px;
+    letter-spacing:0.2px;
+    white-space:normal;
+    text-align:center;
+    line-height:1.25;
+    max-width:104px;
+  }
 }
 
 /* ================================================================

@@ -103,7 +103,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
       <?php if ($loggedIn): ?>
         <a href="/dashboard.php" class="nav-cta">MY BOOKS →</a>
       <?php else: ?>
-        <a href="#pricing" class="nav-cta">GET INSTANT ACCESS — ₹299 →</a>
+        <a href="#pricing" class="nav-cta">GET INSTANT ACCESS</a>
         <a href="/login.php" class="nav-login">LOGIN</a>
       <?php endif; ?>
     </div>
