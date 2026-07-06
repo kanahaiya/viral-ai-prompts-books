@@ -29,12 +29,8 @@ $books    = getBooks();
 <link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
-<!-- Preload video poster for instant hero display -->
+<!-- Preload video poster for instant hero display (this is the actual LCP element) -->
 <link rel="preload" as="image" href="/assets/video/hero-demo-poster.webp" fetchpriority="high">
-<!-- Preload Responsive LCP Hero Image -->
-<link rel="preload" as="image" href="assets/hero-mockup.webp" 
-      imagesrcset="assets/hero-mockup-480w.webp 480w, assets/hero-mockup-768w.webp 768w, assets/hero-mockup.webp 900w" 
-      imagesizes="(max-width: 960px) 92vw, 50vw" fetchpriority="high">
 <!-- Preload Active Payment Gateway SDK Script for Instant Payment Modal Render -->
 <?php
 $activePaymentProvider = defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay';
@@ -90,7 +86,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="AI Prompt System home">
+    <a href="/" class="nav-logo">
       <img src="/assets/icons/logo-gold-quill.webp" alt="" class="nav-logo__icon" width="28" height="28" loading="eager" decoding="async">
       <span class="nav-logo__text">
         <span class="nav-logo__name">AI PROMPT SYSTEM</span>
@@ -99,7 +95,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     </a>
     <div class="nav-center">
       <a href="#how-it-works" class="nav-link">How It Works</a>
-      <a href="#offer-stack" class="nav-link">What's Inside</a>
+      <a href="#whats-inside" class="nav-link">What's Inside</a>
       <a href="#reviews" class="nav-link">Reviews</a>
       <a href="#faq" class="nav-link">FAQ</a>
     </div>
@@ -443,7 +439,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <picture>
           <source type="image/avif" srcset="assets/collage-1-360w.avif 360w, assets/collage-1-520w.avif 520w, assets/collage-1.avif 682w" sizes="(max-width: 600px) 92vw, 520px">
           <source type="image/webp" srcset="assets/collage-1-360w.webp 360w, assets/collage-1-520w.webp 520w, assets/collage-1.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
-          <img src="assets/collage-1.jpg" srcset="assets/collage-1-360w.jpg 360w, assets/collage-1-520w.jpg 520w, assets/collage-1.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
+          <img src="assets/collage-1.jpg" srcset="assets/collage-1-360w.jpg 360w, assets/collage-1-520w.jpg 520w, assets/collage-1.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — action figure, Ghibli anime, Mughal warrior, royal dog portrait, movie poster, rooftop portrait" width="682" height="1024" loading="lazy" fetchpriority="low" decoding="async">
         </picture>
       </div>
     </div>
@@ -452,14 +448,14 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 </section>
 
 <!-- SYSTEM INCLUDES -->
-<section class="benefits-section">
+<section id="whats-inside" class="benefits-section">
   <div class="container container-center">
     <h2 class="section-title">What&rsquo;s Included Inside The System</h2>
     <div class="bundle-collection-visual">
       <picture>
         <source type="image/avif" srcset="assets/sections/bundle-collection-640w.avif 640w, assets/sections/bundle-collection-1024w.avif 1024w, assets/sections/bundle-collection.avif 1600w" sizes="(max-width: 900px) 95vw, 980px">
         <source type="image/webp" srcset="assets/sections/bundle-collection-640w.webp 640w, assets/sections/bundle-collection-1024w.webp 1024w, assets/sections/bundle-collection.webp 1600w" sizes="(max-width: 900px) 95vw, 980px">
-        <img src="assets/sections/bundle-collection.jpg" srcset="assets/sections/bundle-collection-640w.jpg 640w, assets/sections/bundle-collection-1024w.jpg 1024w, assets/sections/bundle-collection.jpg 1600w" sizes="(max-width: 900px) 95vw, 980px" alt="Complete Viral AI Prompts System collection showing all 11 books and bonus resources" width="1800" height="900" loading="lazy" fetchpriority="low" decoding="async">
+        <img src="assets/sections/bundle-collection.jpg" srcset="assets/sections/bundle-collection-640w.jpg 640w, assets/sections/bundle-collection-1024w.jpg 1024w, assets/sections/bundle-collection.jpg 1600w" sizes="(max-width: 900px) 95vw, 980px" alt="Complete Viral AI Prompts System collection showing all 11 books and bonus resources" width="1600" height="876" loading="lazy" fetchpriority="low" decoding="async">
       </picture>
     </div>
     <div class="bundle-group-title">Core Books</div>
@@ -802,7 +798,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
         <picture>
           <source type="image/avif" srcset="assets/collage-2-360w.avif 360w, assets/collage-2-520w.avif 520w, assets/collage-2.avif 682w" sizes="(max-width: 600px) 92vw, 520px">
           <source type="image/webp" srcset="assets/collage-2-360w.webp 360w, assets/collage-2-520w.webp 520w, assets/collage-2.webp 682w" sizes="(max-width: 600px) 92vw, 520px">
-          <img src="assets/collage-2.jpg" srcset="assets/collage-2-360w.jpg 360w, assets/collage-2-520w.jpg 520w, assets/collage-2.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="699" height="1024" loading="lazy" fetchpriority="low" decoding="async">
+          <img src="assets/collage-2.jpg" srcset="assets/collage-2-360w.jpg 360w, assets/collage-2-520w.jpg 520w, assets/collage-2.jpg 682w" sizes="(max-width: 600px) 92vw, 520px" alt="AI image examples — Pixar boy, product photography, Barbiecore portrait, firefly magic, Diwali scrapbook, cyberpunk Mumbai" width="682" height="1024" loading="lazy" fetchpriority="low" decoding="async">
         </picture>
       </div>
     </div>
@@ -1057,46 +1053,13 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "x37q4ovu6j");
 </script>
-<?php
-$checkoutImages = [];
-foreach ($books as $id => $book) {
-  if (!empty($book['bonus'])) continue;
-  $modalCoverFile = sprintf('book-%02d.jpg', $id);
-  $modalCoverWebPath = '/assets/covers/' . $modalCoverFile;
-  $modalCoverDiskPath = __DIR__ . '/assets/covers/' . $modalCoverFile;
-  if (file_exists($modalCoverDiskPath)) {
-    $checkoutImages[] = $modalCoverWebPath . '?v=' . filemtime($modalCoverDiskPath);
-  }
-}
-$bonusCoverWebPath = '/assets/covers/book-bonus.jpg';
-$bonusCoverDiskPath = __DIR__ . $bonusCoverWebPath;
-if (file_exists($bonusCoverDiskPath)) {
-  $checkoutImages[] = $bonusCoverWebPath . '?v=' . filemtime($bonusCoverDiskPath);
-}
-// Add payment icons
-$checkoutImages[] = '/assets/icons/payment-logo-upi.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-gpay.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-phonepe.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-paytm.webp';
-$checkoutImages[] = '/assets/icons/payment-logo-visa.webp';
-// Add trust icons
-$checkoutImages[] = '/assets/icons/shield-gold.svg';
-$checkoutImages[] = '/assets/icons/bolt-gold.svg';
-$checkoutImages[] = '/assets/icons/mail-gold.svg';
-$checkoutImages[] = '/assets/icons/headset-gold.svg';
-// Add thumbnails
-foreach (['action-figures', 'ghibli-art', 'childhood-nostalgia', 'caricature-chibi', 'professional-headshots', 'product-photography', 'cinematic-movie-poster', 'vintage-scrapbook', 'pet-transformation', 'historical-time-travel', 'trending-styles'] as $thumb) {
-  $checkoutImages[] = "/assets/checkout/{$thumb}-thumb.webp";
-}
-?>
 <script>
 window.__AIPB_CONFIG = {
   paymentProvider: <?= json_encode(defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay') ?>,
   razorpayKeyId: <?= json_encode(defined('RAZORPAY_KEY_ID') ? RAZORPAY_KEY_ID : '') ?>,
   cashfreeEnv: <?= json_encode(defined('CASHFREE_ENV') ? CASHFREE_ENV : 'sandbox') ?>,
   siteName: <?= json_encode(defined('SITE_NAME') ? SITE_NAME : 'AI Prompt System') ?>,
-  booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>,
-  checkoutImages: <?= json_encode($checkoutImages) ?>
+  booksById: <?= json_encode(array_map(fn($b) => $b['title'], $books)) ?>
 };
 </script>
 <script src="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>" defer></script>

@@ -14,6 +14,12 @@ if ($isProductionEnv && file_exists($productionConfigPath)) {
 
 // ── Start session once ────────────────────────────────────────────────────────
 if (session_status() === PHP_SESSION_NONE) {
+    // PHP's default session cache limiter ("nocache") sends
+    // Cache-Control: no-store + Pragma: no-cache + an expired Expires header
+    // on *every* response. "no-store" tells browsers to skip the
+    // back/forward cache entirely, which hurts back/forward navigation
+    // performance site-wide. We take over cache headers ourselves below.
+    session_cache_limiter('');
     session_name(SESSION_NAME);
     session_set_cookie_params([
         'lifetime' => COOKIE_LIFETIME,
@@ -23,6 +29,15 @@ if (session_status() === PHP_SESSION_NONE) {
         'samesite' => 'Lax',
     ]);
     session_start();
+}
+
+// Pages that render private, session-specific HTML (dashboard, book reader,
+// account setup, etc.) already send their own explicit
+// "Cache-Control: private, no-store" header where needed (see book.php).
+// For everything else, send a short-lived private cache header instead of
+// PHP's default no-store so the back/forward cache can still work.
+if (!headers_sent()) {
+    header('Cache-Control: private, max-age=0, must-revalidate');
 }
 
 // ── Database connection (singleton) ──────────────────────────────────────────
