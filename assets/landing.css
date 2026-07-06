@@ -457,7 +457,7 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
 .modal-close-btn:hover{color:#fff;}
 .checkout-close-btn{background:none;border:none;color:#888;font-size:1.5rem;cursor:pointer;}
 .checkout-close-btn:hover{color:#fff;}
-.pay-btn-razorpay{display:block;background:linear-gradient(180deg,#f6d681 0%,#d6a93a 58%,#bf8f24 100%);color:#111;font-family:'Inter','Segoe UI',sans-serif;font-size:1.08rem;font-weight:800;letter-spacing:0.2px;text-transform:none;padding:15px;border:1px solid rgba(255,255,255,0.25);border-radius:8px;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s,background 0.15s;min-height:56px;box-shadow:0 8px 20px rgba(191,143,36,0.28),inset 0 1px 0 rgba(255,255,255,0.35);}
+.pay-btn-razorpay{display:block;background:linear-gradient(180deg,#f6d681 0%,#d6a93a 58%,#bf8f24 100%);color:#111;font-family:'Inter','Segoe UI',sans-serif;font-size:1.08rem;font-weight:700;letter-spacing:0.2px;text-transform:none;padding:15px;border:1px solid rgba(255,255,255,0.25);border-radius:8px;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s,background 0.15s;min-height:56px;box-shadow:0 8px 20px rgba(191,143,36,0.28),inset 0 1px 0 rgba(255,255,255,0.35);}
 .pay-btn-razorpay:hover{background:linear-gradient(180deg,#f8df95 0%,#ddb247 58%,#c7972a 100%);transform:translateY(-1px);box-shadow:0 10px 22px rgba(191,143,36,0.33),0 0 0 2px rgba(212,168,54,0.2),inset 0 1px 0 rgba(255,255,255,0.45);}
 .pay-btn-razorpay{
   display:inline-flex;
@@ -494,7 +494,7 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
 /* ── SECTION COMMON ── */
 section{padding:64px 1.5rem;}
 .container{max-width:var(--layout-max-lg);margin:0 auto;}
-.section-title{font-family:'Oswald','Oswald Fallback',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:0.5px;color:#fff;margin-bottom:1rem;}
+.section-title{font-family:'Oswald','Oswald Fallback',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#fff;margin-bottom:1rem;}
 .section-sub{font-size:1.05rem;color:#999;max-width:var(--content-text);line-height:1.8;}
 .section-sub--wide{max-width:var(--content-text);}
 .section-sub--compact{margin:0 auto 0.5rem;}
@@ -650,7 +650,7 @@ section{padding:64px 1.5rem;}
 
 /* ── SOLUTION BRIDGE ── */
 .solution-section{text-align:center;border-top:1px solid var(--border);padding-top:48px;}
-.solution-section .big-intro{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;max-width:var(--content-card);margin:1.5rem auto 1rem;line-height:1.25;letter-spacing:-0.5px;}
+.solution-section .big-intro{font-family:'Oswald','Oswald Fallback',sans-serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;text-transform:uppercase;color:#fff;max-width:var(--content-card);margin:1.5rem auto 1rem;line-height:1.25;letter-spacing:0.5px;}
 .solution-section .big-intro span{color:var(--gold);}
 .solution-desc{font-size:0.98rem;color:#888;max-width:var(--content-text);margin:0 auto 2rem;line-height:1.8;}
 .solution-no-list{list-style:none;display:grid;gap:0.45rem;max-width:var(--content-text);margin:0.4rem auto 1.4rem;padding:0;}
@@ -886,7 +886,7 @@ section{padding:64px 1.5rem;}
 
 /* ── FINAL CTA ── */
 .final-cta-section{border-top:1px solid var(--border);text-align:center;background:radial-gradient(ellipse 80% 100% at 50% 100%, rgba(212,168,54,0.07) 0%, transparent 70%);}
-.final-cta-section h2{font-family:'Oswald','Oswald Fallback',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:0.5px;color:#fff;margin:0 auto 1rem;max-width:var(--content-card);line-height:1.22;}
+.final-cta-section h2{font-family:'Oswald','Oswald Fallback',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#fff;margin:0 auto 1rem;max-width:var(--content-card);line-height:1.22;}
 .final-cta-section h2 span{color:var(--gold);}
 .final-cta-section .sub{font-size:1rem;color:#888;max-width:var(--content-text);margin:0 auto 2.5rem;line-height:1.8;}
 .final-cta-inner{max-width:var(--content-list);margin:0 auto;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:1.2rem 1.2rem 1.35rem;}
