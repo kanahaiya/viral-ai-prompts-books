@@ -29,17 +29,26 @@ $books    = getBooks();
 <link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+<?php
+$heroPosterWebPath = '/assets/video/hero-demo-poster.webp';
+$heroPosterDiskPath = __DIR__ . $heroPosterWebPath;
+$heroPosterSmallWebPath = '/assets/video/hero-demo-poster-660w.webp';
+$heroPosterSmallDiskPath = __DIR__ . $heroPosterSmallWebPath;
+$heroPosterPreloadPath = file_exists($heroPosterSmallDiskPath) ? $heroPosterSmallWebPath : $heroPosterWebPath;
+?>
 <!-- Preload video poster for instant hero display (this is the actual LCP element) -->
-<link rel="preload" as="image" href="/assets/video/hero-demo-poster.webp" fetchpriority="high">
-<!-- Preload Active Payment Gateway SDK Script for Instant Payment Modal Render -->
+<link rel="preload" as="image" href="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>" fetchpriority="high">
 <?php
-$activePaymentProvider = defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay';
-if ($activePaymentProvider === 'cashfree'): ?>
-  <link rel="preload" as="script" href="https://sdk.cashfree.com/js/v3/cashfree.js">
-<?php else: ?>
-  <link rel="preload" as="script" href="https://checkout.razorpay.com/v1/checkout.js">
-<?php endif; ?>
-<?php
+// NOTE: The payment gateway SDK (Razorpay/Cashfree) is intentionally NOT preloaded here.
+// It used to be <link rel="preload" as="script">, which forced every visitor to download
+// ~184KB on initial page load even if they never open checkout, hurting LCP/page-load
+// performance for the ~majority of visitors who don't convert on a given visit.
+// It's now loaded on-demand via ensureRazorpayLoaded()/ensureCashfreeLoaded() in landing.js,
+// which is warmed by hover/touch/focus intent on checkout CTAs and by an idle-time prefetch
+// after page load — same pattern as the checkout preview images. The actual payment code
+// path always explicitly awaits the loader promise before using the SDK, so the payment
+// flow is unaffected whether or not the warm-up prefetch already ran.
+
 $landingCriticalCssWebPath = '/assets/landing-critical.css';
 $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
 if (!file_exists($landingCriticalCssDiskPath)) {
@@ -66,11 +75,16 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 ?>
 <link rel="preload" as="style" href="<?= htmlspecialchars($landingCssWebPath . $landingCssVersion, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="preload" as="script" href="<?= htmlspecialchars($landingJsWebPath . $landingJsVersion, ENT_QUOTES, 'UTF-8') ?>">
+<?php
+$googleFontsHref = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@700;800;900&family=Oswald:wght@700&display=swap';
+?>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Load Google Fonts CSS asynchronously so it never blocks first paint -->
+<link rel="preload" as="style" href="<?= htmlspecialchars($googleFontsHref, ENT_QUOTES, 'UTF-8') ?>">
+<link rel="stylesheet" href="<?= htmlspecialchars($googleFontsHref, ENT_QUOTES, 'UTF-8') ?>" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="<?= htmlspecialchars($googleFontsHref, ENT_QUOTES, 'UTF-8') ?>"></noscript>
 <?php if (file_exists($landingCriticalCssDiskPath)): ?>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@700;800;900&family=Oswald:wght@700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@700;800;900&family=Oswald:wght@700&display=swap">
   <style><?= file_get_contents($landingCriticalCssDiskPath) ?></style>
 <?php else: ?>
   <link rel="stylesheet" href="<?= htmlspecialchars($landingCriticalCssWebPath . $landingCriticalCssVersion, ENT_QUOTES, 'UTF-8') ?>">
@@ -135,9 +149,9 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
 
         <div class="hero-proof-strip">
           <span class="hero-proof-pill">No Prompt Engineering</span>
-          <span class="hero-proof-pill">Works with Top AI Tools</span>
-          <span class="hero-proof-pill">1,100+ Tested Prompts</span>
-          <span class="hero-proof-pill">Works Instantly in ChatGPT</span>
+          <span class="hero-proof-pill">Works with All AI Tools</span>
+          <span class="hero-proof-pill">1,100+ Tested Templates</span>
+          <span class="hero-proof-pill">One-Click Copy, Zero Edits</span>
         </div>
 
         <div class="hero-ctas">
@@ -188,7 +202,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
               muted
               playsinline
               preload="auto"
-              poster="/assets/video/hero-demo-poster.webp"
+              poster="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>"
               aria-label="Demo showing how the AI prompt system works: fill a few fields and the prompt writes itself"
               width="1280"
               height="800"
@@ -914,7 +928,7 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
     <div class="app-modal-head app-modal-head--checkout">
       <div class="checkout-head-main">
         <div class="checkout-brand-icon" aria-hidden="true">
-          <img src="/assets/icons/logo-gold-quill.webp" alt="" width="28" height="28" loading="eager" decoding="async">
+          <img src="/assets/icons/logo-gold-quill.webp" alt="" width="28" height="28" loading="lazy" decoding="async">
         </div>
         <div class="checkout-head-copy">
           <div id="checkoutTitle" class="checkout-title">Unlock Your Full<br><span class="checkout-title-accent">AI Prompt System</span></div>
@@ -953,15 +967,15 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div id="checkoutProofTitle" class="checkout-proof-title">✨ Selected Styles Preview ✨</div>
           <div class="checkout-proof-strip" aria-label="Example outputs">
             <figure class="checkout-proof-item" id="checkoutProofItem1">
-              <img id="checkoutProofImage1" src="/assets/checkout/ghibli-art-thumb.webp" alt="Ghibli style image example" width="88" height="88" loading="eager" decoding="async">
+              <img id="checkoutProofImage1" src="/assets/checkout/ghibli-art-thumb.webp" alt="Ghibli style image example" width="88" height="88" loading="lazy" decoding="async">
               <figcaption id="checkoutProofCaption1">Ghibli Art</figcaption>
             </figure>
             <figure class="checkout-proof-item" id="checkoutProofItem2">
-              <img id="checkoutProofImage2" src="/assets/checkout/action-figures-thumb.webp" alt="Action figure style image example" width="88" height="88" loading="eager" decoding="async">
+              <img id="checkoutProofImage2" src="/assets/checkout/action-figures-thumb.webp" alt="Action figure style image example" width="88" height="88" loading="lazy" decoding="async">
               <figcaption id="checkoutProofCaption2">Action Figures</figcaption>
             </figure>
             <figure class="checkout-proof-item" id="checkoutProofItem3">
-              <img id="checkoutProofImage3" src="/assets/checkout/professional-headshots-thumb.webp" alt="Professional headshot image example" width="88" height="88" loading="eager" decoding="async">
+              <img id="checkoutProofImage3" src="/assets/checkout/professional-headshots-thumb.webp" alt="Professional headshot image example" width="88" height="88" loading="lazy" decoding="async">
               <figcaption id="checkoutProofCaption3">Professional Headshots</figcaption>
             </figure>
             <span id="checkoutProofMoreBadge" class="checkout-proof-more-badge" hidden>+0 More Styles</span>
@@ -989,11 +1003,11 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
           <div id="paymentSecure" class="checkout-security">Secure Razorpay Payment</div>
           <div class="checkout-security checkout-security--methods">UPI • GPay • PhonePe • Cards Accepted</div>
           <div class="checkout-logos" aria-label="Payment methods">
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="248" height="88" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="150" height="59" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="200" height="200" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="284" height="92" loading="eager" decoding="async"></span>
-            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="930" height="324" loading="eager" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--upi" src="/assets/icons/payment-logo-upi.webp" alt="UPI" width="248" height="88" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--gpay" src="/assets/icons/payment-logo-gpay.webp" alt="GPay" width="150" height="59" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--phonepe" src="/assets/icons/payment-logo-phonepe.webp" alt="PhonePe" width="200" height="200" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--paytm" src="/assets/icons/payment-logo-paytm.webp" alt="Paytm" width="284" height="92" loading="lazy" decoding="async"></span>
+            <span class="checkout-logo-pill"><img class="checkout-logo checkout-logo--visa" src="/assets/icons/payment-logo-visa.webp" alt="Visa" width="930" height="324" loading="lazy" decoding="async"></span>
           </div>
 
           <div class="checkout-trust-row" aria-label="Checkout trust assurances">
@@ -1044,14 +1058,6 @@ $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landin
   }, {threshold:0.25});
   observer.observe(video);
 })();
-</script>
-<!-- Microsoft Clarity — deferred to avoid blocking page render -->
-<script>
-(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "x37q4ovu6j");
 </script>
 <script>
 window.__AIPB_CONFIG = {

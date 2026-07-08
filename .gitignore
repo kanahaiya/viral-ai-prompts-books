@@ -15,6 +15,16 @@ local.db
 tmp/
 temp/
 
+# Lighthouse / PageSpeed reports (local testing artifacts only)
+lighthouse*.json
+lighthouse*.html
+lh-*.json
+lh-*.html
+localhost_*.json
+localhost_*.html
+*-lc.html
+*-LH.json
+
 # Landing page copy/docs
 landing_page_copy.docx
 ~$nding_page_copy.docx

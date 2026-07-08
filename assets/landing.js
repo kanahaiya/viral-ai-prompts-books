@@ -386,8 +386,76 @@ function updateCheckoutMicrocopy(plan) {
 // purchase UI, restore the removed book-selection modal markup/JS from git
 // history (see project history around this comment) and route
 // startCheckout('single') back to it.
+// Warm the browser's image cache for the checkout modal's fixed preview thumbnails and
+// payment logos the moment a user shows intent to open checkout (hover/touchstart/focus on
+// any "start-checkout" CTA), rather than preloading them for every visitor on page load.
+// This keeps initial page load lean while still avoiding a visible pop-in delay for users
+// who actually proceed to checkout, since hover-to-click is almost always >150ms.
+let checkoutAssetsPrefetched = false;
+function prefetchCheckoutAssets() {
+  if (checkoutAssetsPrefetched) return;
+  checkoutAssetsPrefetched = true;
+  const assetPaths = [
+    '/assets/checkout/ghibli-art-thumb.webp',
+    '/assets/checkout/professional-headshots-thumb.webp',
+    '/assets/checkout/product-photography-thumb.webp',
+    '/assets/icons/payment-logo-upi.webp',
+    '/assets/icons/payment-logo-gpay.webp',
+    '/assets/icons/payment-logo-phonepe.webp',
+    '/assets/icons/payment-logo-paytm.webp',
+    '/assets/icons/payment-logo-visa.webp'
+  ];
+  assetPaths.forEach((path) => {
+    const img = new Image();
+    img.src = path;
+  });
+}
+document.querySelectorAll('[data-action="start-checkout"]').forEach((element) => {
+  element.addEventListener('mouseenter', prefetchCheckoutAssets, { once: true });
+  element.addEventListener('touchstart', prefetchCheckoutAssets, { once: true, passive: true });
+  element.addEventListener('focus', prefetchCheckoutAssets, { once: true });
+});
+// Belt-and-suspenders: also warm the cache once the page has fully loaded and the browser
+// is idle, so checkout still opens instantly even for a user who taps the CTA immediately
+// with no hover/focus dwell time (e.g. a fast mobile tap). Scheduling this on requestIdleCallback
+// after 'load' means it only runs once everything render-critical is already done, so it never
+// competes with or slows down initial page load performance (LCP/FCP/TTI are unaffected).
+window.addEventListener('load', () => {
+  const scheduleIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
+  scheduleIdle(prefetchCheckoutAssets, { timeout: 5000 });
+});
+
+// Warm the payment gateway SDK (Razorpay/Cashfree, ~184KB) the same way, instead of forcing
+// every visitor to download it on initial page load via <link rel="preload">. This calls the
+// SAME ensureXLoaded() functions the actual payment flow uses — they cache their loading
+// promise, so calling them early here and again inside payWithRazorpay()/payWithCashfree()
+// is safe: it never double-loads the script and never blocks/delays the real payment call,
+// it just means the SDK is often already loaded (or loading) by the time the user clicks Pay.
+// If this warm-up never fires for any reason (idle callback unsupported, no hover, etc.), the
+// payment flow works exactly as before since payWithRazorpay/payWithCashfree independently
+// await their own ensureXLoaded() call regardless of prefetch state.
+function prefetchPaymentSdk() {
+  const provider = getActivePaymentProvider();
+  if (provider === 'cashfree') {
+    ensureCashfreeLoaded().catch(() => {});
+  } else {
+    ensureRazorpayLoaded().catch(() => {});
+  }
+}
+document.querySelectorAll('[data-action="start-checkout"]').forEach((element) => {
+  element.addEventListener('mouseenter', prefetchPaymentSdk, { once: true });
+  element.addEventListener('touchstart', prefetchPaymentSdk, { once: true, passive: true });
+  element.addEventListener('focus', prefetchPaymentSdk, { once: true });
+});
+window.addEventListener('load', () => {
+  const scheduleIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
+  scheduleIdle(prefetchPaymentSdk, { timeout: 5000 });
+});
+
 function startCheckout(plan) {
   trackCustomEvent('CheckoutStarted', { plan });
+  prefetchCheckoutAssets();
+  prefetchPaymentSdk();
   proceedCheckout('bundle', null);
 }
 
