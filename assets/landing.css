@@ -355,8 +355,8 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
 
 /* Buttons */
 .btn-primary{background:linear-gradient(180deg,#e8c04a 0%,#d4a836 50%,#b8901e 100%);color:#000;font-weight:700;font-family:'Inter','Inter Fallback','Segoe UI',sans-serif;font-size:0.85rem;letter-spacing:0.3px;text-transform:uppercase;padding:13px 24px;border-radius:3px;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;animation:ctaGlow 3.5s ease-in-out infinite;display:inline-flex;align-items:center;justify-content:center;}
-.btn-primary.btn-hero-cta{font-family:'Inter','Inter Fallback','Segoe UI',sans-serif;font-weight:600;font-size:1rem;letter-spacing:0.3px;padding:24px 0;border-radius:6px;width:90%;box-shadow:0 4px 24px rgba(245,212,98,0.4);gap:8px;background:linear-gradient(180deg,#fce07a 0%,#f5d462 40%,#e8c04a 100%);}
-.btn-hero-orig{font-size:0.85rem;text-decoration:line-through;opacity:0.55;font-weight:400;margin-left:4px;}
+.btn-primary.btn-hero-cta{font-family:'Inter','Inter Fallback','Segoe UI',sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:0.3px;padding:24px 0;border-radius:6px;width:90%;box-shadow:0 4px 24px rgba(245,212,98,0.4);gap:8px;background:linear-gradient(180deg,#fce07a 0%,#f5d462 40%,#e8c04a 100%);}
+.btn-hero-orig{font-size:0.95rem;text-decoration:line-through;opacity:0.55;font-weight:400;margin-left:4px;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(212,168,54,0.45);}
 @keyframes ctaGlow{0%,100%{filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3));}55%{filter:drop-shadow(0 0 6px rgba(212,168,54,0.12)) drop-shadow(0 4px 20px rgba(212,168,54,0.3));}}
 .btn-secondary{background:transparent;color:#ccc;font-family:'Inter','Inter Fallback','Segoe UI',sans-serif;font-weight:600;font-size:0.8rem;letter-spacing:0.3px;text-transform:uppercase;padding:12px 20px;border-radius:3px;border:1px solid rgba(255,255,255,0.18);cursor:pointer;transition:border-color 0.15s,color 0.15s,transform 0.15s;white-space:nowrap;}
@@ -959,7 +959,7 @@ section{padding:64px 1.5rem;}
   .hero-h1__word--gold{font-size:1em;letter-spacing:0;}
   .hero-body{font-size:0.85rem;max-width:100%;}
   .hero-ctas{flex-direction:column;align-items:stretch;}
-  .btn-primary.btn-hero-cta{width:100%;font-size:0.72rem;padding:14px 8px;letter-spacing:0.3px;white-space:normal;text-align:center;}
+  .btn-primary.btn-hero-cta{width:100%;font-size:0.85rem;padding:14px 8px;letter-spacing:0.3px;white-space:normal;text-align:center;}
   .btn-hero-orig{font-size:0.65rem;}
   .btn-hero-cta,.btn-demo-cta,.btn-secondary{width:100%;justify-content:center;text-align:center;}
   .hero-proof-strip{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 0.5rem;}

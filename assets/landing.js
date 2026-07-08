@@ -425,9 +425,37 @@ window.addEventListener('load', () => {
   scheduleIdle(prefetchCheckoutAssets, { timeout: 5000 });
 });
 
+// Warm the payment gateway SDK (Razorpay/Cashfree, ~184KB) the same way, instead of forcing
+// every visitor to download it on initial page load via <link rel="preload">. This calls the
+// SAME ensureXLoaded() functions the actual payment flow uses — they cache their loading
+// promise, so calling them early here and again inside payWithRazorpay()/payWithCashfree()
+// is safe: it never double-loads the script and never blocks/delays the real payment call,
+// it just means the SDK is often already loaded (or loading) by the time the user clicks Pay.
+// If this warm-up never fires for any reason (idle callback unsupported, no hover, etc.), the
+// payment flow works exactly as before since payWithRazorpay/payWithCashfree independently
+// await their own ensureXLoaded() call regardless of prefetch state.
+function prefetchPaymentSdk() {
+  const provider = getActivePaymentProvider();
+  if (provider === 'cashfree') {
+    ensureCashfreeLoaded().catch(() => {});
+  } else {
+    ensureRazorpayLoaded().catch(() => {});
+  }
+}
+document.querySelectorAll('[data-action="start-checkout"]').forEach((element) => {
+  element.addEventListener('mouseenter', prefetchPaymentSdk, { once: true });
+  element.addEventListener('touchstart', prefetchPaymentSdk, { once: true, passive: true });
+  element.addEventListener('focus', prefetchPaymentSdk, { once: true });
+});
+window.addEventListener('load', () => {
+  const scheduleIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
+  scheduleIdle(prefetchPaymentSdk, { timeout: 5000 });
+});
+
 function startCheckout(plan) {
   trackCustomEvent('CheckoutStarted', { plan });
   prefetchCheckoutAssets();
+  prefetchPaymentSdk();
   proceedCheckout('bundle', null);
 }
 

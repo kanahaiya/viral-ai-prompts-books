@@ -38,15 +38,17 @@ $heroPosterPreloadPath = file_exists($heroPosterSmallDiskPath) ? $heroPosterSmal
 ?>
 <!-- Preload video poster for instant hero display (this is the actual LCP element) -->
 <link rel="preload" as="image" href="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>" fetchpriority="high">
-<!-- Preload Active Payment Gateway SDK Script for Instant Payment Modal Render -->
 <?php
-$activePaymentProvider = defined('PAYMENT_PROVIDER') ? PAYMENT_PROVIDER : 'razorpay';
-if ($activePaymentProvider === 'cashfree'): ?>
-  <link rel="preload" as="script" href="https://sdk.cashfree.com/js/v3/cashfree.js">
-<?php else: ?>
-  <link rel="preload" as="script" href="https://checkout.razorpay.com/v1/checkout.js">
-<?php endif; ?>
-<?php
+// NOTE: The payment gateway SDK (Razorpay/Cashfree) is intentionally NOT preloaded here.
+// It used to be <link rel="preload" as="script">, which forced every visitor to download
+// ~184KB on initial page load even if they never open checkout, hurting LCP/page-load
+// performance for the ~majority of visitors who don't convert on a given visit.
+// It's now loaded on-demand via ensureRazorpayLoaded()/ensureCashfreeLoaded() in landing.js,
+// which is warmed by hover/touch/focus intent on checkout CTAs and by an idle-time prefetch
+// after page load — same pattern as the checkout preview images. The actual payment code
+// path always explicitly awaits the loader promise before using the SDK, so the payment
+// flow is unaffected whether or not the warm-up prefetch already ran.
+
 $landingCriticalCssWebPath = '/assets/landing-critical.css';
 $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
 if (!file_exists($landingCriticalCssDiskPath)) {
@@ -147,9 +149,9 @@ $googleFontsHref = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;
 
         <div class="hero-proof-strip">
           <span class="hero-proof-pill">No Prompt Engineering</span>
-          <span class="hero-proof-pill">Works with Top AI Tools</span>
-          <span class="hero-proof-pill">1,100+ Tested Prompts</span>
-          <span class="hero-proof-pill">Works Instantly in ChatGPT</span>
+          <span class="hero-proof-pill">Works with All AI Tools</span>
+          <span class="hero-proof-pill">1,100+ Tested Templates</span>
+          <span class="hero-proof-pill">One-Click Copy, Zero Edits</span>
         </div>
 
         <div class="hero-ctas">
