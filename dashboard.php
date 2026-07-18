@@ -203,9 +203,7 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
       $coverDiskPath = __DIR__ . '/assets/covers/' . $coverFile;
       $hasCover = file_exists($coverDiskPath);
       $coverVersion = $hasCover ? ('?v=' . filemtime($coverDiskPath)) : '';
-      $statusText = $isBonus
-        ? ($book['label'] ?? 'BONUS GUIDE')
-        : ($hasAccess ? '' : '🔒 LOCKED');
+      $statusText = $hasAccess ? '' : '🔒 LOCKED';
     ?>
     <div class="book-card <?= $hasAccess ? 'accessible' : 'locked' ?><?= $isBonus ? ' bonus-card' : '' ?>"
          style="--accent:<?= htmlspecialchars($book['accent']) ?>">
