@@ -50,7 +50,7 @@ require_once __DIR__ . '/auth.php';
       <p>Your data is used to create your account, deliver digital product access, support account recovery, and handle payment-related communication.</p>
 
       <h2>3. Payment Processing</h2>
-      <p>Payments are handled by secure third-party gateways. We do not store your full card or UPI credentials on our servers.</p>
+      <p>Payments are handled by secure third-party gateways, including Razorpay. We do not store your full card or UPI credentials on our servers.</p>
 
       <h2>4. Cookies and Session Data</h2>
       <p>We use secure session cookies for login and account access. These cookies help keep your account authenticated and protected.</p>
