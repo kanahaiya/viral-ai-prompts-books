@@ -10,12 +10,21 @@ require_once __DIR__ . '/auth.php';
 <title>Contact Details — <?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?></title>
 <link rel="canonical" href="<?= htmlspecialchars(rtrim(SITE_URL, '/'), ENT_QUOTES, 'UTF-8') ?>/contact-details.php">
 <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Oswald:wght@700&display=swap">
 <link rel="stylesheet" href="/assets/legal-pages.css">
 </head>
 <body>
   <header class="nav">
     <div class="nav-inner">
-      <a class="nav-logo" href="/">AI Prompt Books</a>
+      <a class="nav-logo" href="/">
+        <img src="/assets/icons/logo-gold-quill.webp" alt="" class="nav-logo__icon" width="36" height="36">
+        <span class="nav-logo__text">
+          <span class="nav-logo__name">AI PROMPT SYSTEM</span>
+          <span class="nav-logo__sub">Interactive AI Prompt Generator</span>
+        </span>
+      </a>
       <nav class="nav-links" aria-label="Policy links">
         <a class="nav-link" href="/">Back to Home</a>
       </nav>
@@ -53,14 +62,13 @@ require_once __DIR__ . '/auth.php';
   </main>
 
   <footer class="footer">
-    <div class="footer-logo">AI Prompt Books</div>
     <div class="footer-links">
       <a href="/contact-details.php">Contact</a>
       <a href="/terms-and-conditions.php">Terms</a>
       <a href="/privacy-policy.php">Privacy Policy</a>
       <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
     </div>
-    <div class="footer-copy">© <?= date('Y') ?> <?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?>. All rights reserved.</div>
+    <div class="footer-copy">© <?= date('Y') ?> AI Prompt System. All rights reserved.</div>
   </footer>
 </body>
 </html>

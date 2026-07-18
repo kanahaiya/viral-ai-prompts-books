@@ -886,7 +886,6 @@ $googleFontsHref = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-logo">AI Prompt System</div>
   <div class="footer-links">
     <a href="/contact-details.php">Contact</a>
     <a href="/terms-and-conditions.php">Terms</a>
