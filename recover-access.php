@@ -278,7 +278,6 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
 </div>
 </main>
 <footer class="footer">
-  <div class="footer-logo">AI PROMPT SYSTEM</div>
   <div class="footer-links">
     <a href="/contact-details.php">Contact</a>
     <a href="/terms-and-conditions.php">Terms</a>
