@@ -300,7 +300,7 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
     <a href="/privacy-policy.php">Privacy Policy</a>
     <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
   </div>
-  <div class="footer-copy">© <?= date('Y') ?> AI Prompt Books. All rights reserved.</div>
+  <div class="footer-copy">© <?= date('Y') ?> AI Prompt System. All rights reserved.</div>
 </footer>
 <script src="/assets/js/pixel-tracking.js"></script>
 <script>

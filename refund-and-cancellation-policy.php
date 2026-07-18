@@ -47,7 +47,7 @@ require_once __DIR__ . '/auth.php';
       <p>Our products are delivered digitally with instant access after successful payment. Because delivery is instant, there's no separate cancellation window before delivery — instead, you're covered by the refund guarantee below regardless of how quickly access was issued.</p>
 
       <h2>2. Refund Eligibility</h2>
-      <p>We offer a 7-day money-back guarantee on all purchases. If you're not satisfied for any reason, email us within 7 days of your purchase date and we'll issue a full refund — no questions asked. Approved refunds are returned to your original payment method within 5–7 business days via Razorpay.</p>
+      <p>We offer a 7-day money-back guarantee on all purchases. If you're not satisfied for any reason, email us within 7 days of your purchase date and we'll issue a full refund — no questions asked. Approved refunds are returned to your original payment method within 5–7 business days.</p>
 
       <h2>3. How to Request a Refund</h2>
       <p>Email <a class="policy-email" href="mailto:<?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?></a> with your order email and purchase date. We'll confirm and process eligible refunds within 1 business day of your request.</p>
@@ -70,7 +70,7 @@ require_once __DIR__ . '/auth.php';
       <a href="/privacy-policy.php">Privacy Policy</a>
       <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
     </div>
-    <div class="footer-copy">© <?= date('Y') ?> <?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?>. All rights reserved.</div>
+    <div class="footer-copy">© <?= date('Y') ?> AI Prompt System. All rights reserved.</div>
   </footer>
 </body>
 </html>

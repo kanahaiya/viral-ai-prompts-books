@@ -50,7 +50,7 @@ require_once __DIR__ . '/auth.php';
       <p>Your data is used to create your account, deliver digital product access, support account recovery, and handle payment-related communication.</p>
 
       <h2>3. Payment Processing</h2>
-      <p>Payments are handled by secure third-party gateways, including Razorpay. We do not store your full card or UPI credentials on our servers.</p>
+      <p>Payments are handled by secure third-party gateways. We do not store your full card or UPI credentials on our servers.</p>
 
       <h2>4. Cookies and Session Data</h2>
       <p>We use secure session cookies for login and account access. These cookies help keep your account authenticated and protected.</p>
@@ -76,7 +76,7 @@ require_once __DIR__ . '/auth.php';
       <a href="/privacy-policy.php">Privacy Policy</a>
       <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
     </div>
-    <div class="footer-copy">© <?= date('Y') ?> <?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?>. All rights reserved.</div>
+    <div class="footer-copy">© <?= date('Y') ?> AI Prompt System. All rights reserved.</div>
   </footer>
 </body>
 </html>

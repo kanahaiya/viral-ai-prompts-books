@@ -68,7 +68,7 @@ require_once __DIR__ . '/auth.php';
       <a href="/privacy-policy.php">Privacy Policy</a>
       <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
     </div>
-    <div class="footer-copy">© <?= date('Y') ?> <?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?>. All rights reserved.</div>
+    <div class="footer-copy">© <?= date('Y') ?> AI Prompt System. All rights reserved.</div>
   </footer>
 </body>
 </html>

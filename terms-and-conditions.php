@@ -56,7 +56,7 @@ require_once __DIR__ . '/auth.php';
       <p>Purchased content is licensed for your personal or internal business use. You may not resell, redistribute, or republish the product files as your own.</p>
 
       <h2>5. Payments</h2>
-      <p>Payments are processed through secure third-party gateways, including Razorpay. By completing payment, you agree to the listed price and product details at checkout.</p>
+      <p>Payments are processed through secure third-party gateways. By completing payment, you agree to the listed price and product details at checkout.</p>
 
       <h2>6. Pricing Changes</h2>
       <p>We reserve the right to change prices for future purchases at any time, including at the end of any early-access or promotional pricing window. Price changes apply only to new purchases made after the change takes effect and do not affect or apply retroactively to purchases already completed.</p>
@@ -82,7 +82,7 @@ require_once __DIR__ . '/auth.php';
       <a href="/privacy-policy.php">Privacy Policy</a>
       <a href="/refund-and-cancellation-policy.php">Refund Policy</a>
     </div>
-    <div class="footer-copy">© <?= date('Y') ?> <?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?>. All rights reserved.</div>
+    <div class="footer-copy">© <?= date('Y') ?> AI Prompt System. All rights reserved.</div>
   </footer>
 </body>
 </html>
