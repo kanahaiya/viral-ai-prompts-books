@@ -30,9 +30,16 @@ jobs:
           php -l config.php
           php -l config.production.php
           php -l login.php
+          php -l forgot-password.php
+          php -l reset-password.php
+          php -l recover-access.php
           php -l setup-account.php
           php -l dashboard.php
           php -l book.php
+          php -l privacy-policy.php
+          php -l terms-and-conditions.php
+          php -l refund-and-cancellation-policy.php
+          php -l contact-details.php
           php -l admin/index.php
           php -l api/razorpay-order.php
           php -l api/razorpay-verify.php
