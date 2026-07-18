@@ -3,7 +3,7 @@
 @font-face{font-family:'Oswald Fallback';src:local('Arial Narrow'),local('Arial');size-adjust:113.594%;ascent-override:105.024%;descent-override:25.442%;line-gap-override:0%;}
 @font-face{font-family:'Inter Fallback';src:local('Segoe UI'),local('Arial');size-adjust:88.667%;ascent-override:109.257%;descent-override:27.204%;line-gap-override:0%;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:16px;}
+html{scroll-behavior:smooth;font-size:16px;scrollbar-gutter:stable;}
 body{font-family:'Inter','Inter Fallback','Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;line-height:1.7;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 img{max-width:100%;display:block;}
