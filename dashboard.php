@@ -204,8 +204,8 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
       $hasCover = file_exists($coverDiskPath);
       $coverVersion = $hasCover ? ('?v=' . filemtime($coverDiskPath)) : '';
       $statusText = $isBonus
-        ? ($book['label'] ?? 'BONUS GUIDE') . ' → OPEN'
-        : ($hasAccess ? '100 PROMPTS → OPEN' : '🔒 LOCKED');
+        ? ($book['label'] ?? 'BONUS GUIDE')
+        : ($hasAccess ? '' : '🔒 LOCKED');
     ?>
     <div class="book-card <?= $hasAccess ? 'accessible' : 'locked' ?><?= $isBonus ? ' bonus-card' : '' ?>"
          style="--accent:<?= htmlspecialchars($book['accent']) ?>">
@@ -219,9 +219,11 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
         <?php endif; ?>
         <div class="book-title"><?= htmlspecialchars($book['title']) ?></div>
         <div class="book-actions">
-          <div class="book-status <?= $hasAccess ? 'open' : 'locked-lbl' ?>">
-            <?= $statusText ?>
-          </div>
+          <?php if ($statusText): ?>
+            <div class="book-status <?= $hasAccess ? 'open' : 'locked-lbl' ?>">
+              <?= $statusText ?>
+            </div>
+          <?php endif; ?>
           <?php if ($hasAccess): ?>
             <a class="book-open-link" href="/book.php?id=<?= $id ?>">Open</a>
             <a class="book-download-link" href="/book.php?id=<?= $id ?>&download=1">Download</a>
