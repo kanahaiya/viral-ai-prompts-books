@@ -20,10 +20,13 @@ $isBundle = $user['plan'] === 'bundle';
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/assets/icons/favicon.png">
 <title>My Books — AI Prompt Books</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Oswald:wght@700&display=swap">
 <?php renderMetaPixelHead(); ?>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;line-height:1.7;min-height:100vh;}
+body{font-family:'Inter','Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;line-height:1.7;min-height:100vh;}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #1c1c1c;padding:0;height:64px;}
@@ -48,22 +51,22 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .welcome-banner{background:linear-gradient(135deg,#1a1505 0%,#141414 100%);border:1px solid #3a2a05;border-radius:6px;padding:1.5rem 2rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
 .welcome-text h2{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:0.3rem;}
 .welcome-text p{font-size:0.85rem;color:#b0b0b0;}
-.tg-btn{background:#229ed9;color:#fff;font-family:'Courier New',monospace;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border:none;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background 0.15s;white-space:nowrap;}
+.tg-btn{background:#229ed9;color:#fff;font-family:'Inter','Segoe UI',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border:none;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background 0.15s;white-space:nowrap;}
 .tg-btn:hover{background:#1b86b5;}
 
 /* PLAN BADGE */
 .plan-bar{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;}
-.plan-badge{font-family:'Courier New',monospace;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:2px;}
+.plan-badge{font-family:'Inter','Segoe UI',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:2px;}
 .plan-badge.bundle{background:#d4a836;color:#000;}
 .plan-badge.single{background:#2a2a2a;color:#d4a836;border:1px solid #3a3a2a;}
 .plan-label{font-size:0.82rem;color:#b0b0b0;}
-.upgrade-link{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;color:#d4a836;text-decoration:none;border:1px solid rgba(212,168,54,0.3);padding:5px 12px;border-radius:2px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;margin-left:auto;}
+.upgrade-link{font-family:'Inter','Segoe UI',sans-serif;font-size:0.7rem;letter-spacing:0.5px;color:#d4a836;text-decoration:none;border:1px solid rgba(212,168,54,0.3);padding:5px 12px;border-radius:2px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;margin-left:auto;}
 .upgrade-link:hover{background:rgba(212,168,54,0.08);}
 
 /* SECTION HEADER */
 .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:0.8rem;border-bottom:1px solid #1a1a1a;}
 .section-head h2{font-size:1.1rem;font-weight:700;color:#fff;}
-.section-count{font-family:'Courier New',monospace;font-size:0.7rem;color:#8f8f8f;letter-spacing:1px;}
+.section-count{font-family:'Inter','Segoe UI',sans-serif;font-size:0.7rem;color:#8f8f8f;letter-spacing:0.5px;}
 
 /* BOOKS GRID */
 .books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.05rem;}
@@ -75,17 +78,17 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .book-accent-bar{height:3px;background:var(--accent);}
 .book-body{padding:1.1rem 0.95rem;display:flex;flex-direction:column;flex:1;}
 .book-cover{width:100%;aspect-ratio:2/3;border:1px solid rgba(255,255,255,0.08);border-radius:5px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0e0e0e;margin-bottom:0.75rem;position:relative;overflow:hidden;}
-.book-num{font-family:'Courier New',monospace;font-size:0.74rem;letter-spacing:1.2px;color:#d5d5d5;margin-bottom:0.7rem;text-shadow:0 0 1px rgba(0,0,0,0.5);font-weight:700;}
+.book-num{font-family:'Inter','Segoe UI',sans-serif;font-size:0.74rem;letter-spacing:0.8px;color:#d5d5d5;margin-bottom:0.7rem;text-shadow:0 0 1px rgba(0,0,0,0.5);font-weight:700;}
 .book-card.bonus-card .book-num{color:#e0bd62;}
 .book-emoji{font-size:1.7rem;margin-bottom:0.7rem;}
 .book-title{font-size:0.96rem;font-weight:800;color:#fff;line-height:1.3;margin-bottom:0.75rem;}
-.book-status{font-family:'Courier New',monospace;font-size:0.72rem;letter-spacing:0.7px;font-weight:700;}
+.book-status{font-family:'Inter','Segoe UI',sans-serif;font-size:0.72rem;letter-spacing:0.5px;font-weight:700;}
 .book-status.open{color:var(--accent);}
 .book-status.locked-lbl{color:#9a9a9a;}
 .book-actions{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-top:auto;padding-top:0.8rem;}
-.book-download-link{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:0.8px;color:#dfdfdf;text-decoration:none;border:1px solid #4a4a4a;border-radius:2px;padding:3px 9px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
+.book-download-link{font-family:'Inter','Segoe UI',sans-serif;font-size:0.66rem;letter-spacing:0.5px;color:#dfdfdf;text-decoration:none;border:1px solid #4a4a4a;border-radius:2px;padding:3px 9px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
 .book-download-link:hover{color:#d4a836;border-color:#d4a836;}
-.book-open-link{font-family:'Courier New',monospace;font-size:0.66rem;letter-spacing:0.8px;color:#d4a836;text-decoration:none;border:1px solid rgba(212,168,54,0.45);border-radius:2px;padding:3px 9px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
+.book-open-link{font-family:'Inter','Segoe UI',sans-serif;font-size:0.66rem;letter-spacing:0.5px;color:#d4a836;text-decoration:none;border:1px solid rgba(212,168,54,0.45);border-radius:2px;padding:3px 9px;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
 .book-open-link:hover{color:#f0d48c;border-color:#f0d48c;background:rgba(212,168,54,0.08);}
 .book-lock-icon{position:absolute;top:12px;right:12px;font-size:0.9rem;color:#666;}
 .book-card.accessible .book-lock-icon{display:none;}
@@ -109,7 +112,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
   .book-cover{aspect-ratio:3/4;}
 }
 .footer{border-top:1px solid #1a1a1a;padding:1.6rem 1rem;text-align:center;margin-top:2rem;}
-.footer-logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:1rem;}
+.footer-logo{font-family:'Oswald','Arial Narrow',sans-serif;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;color:#d4a836;margin-bottom:1rem;font-weight:700;}
 .footer-links{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:0.9rem;}
 .footer-links a{font-size:0.75rem;color:#9a9a9a;text-decoration:none;}
 .footer-links a:hover{color:#d4a836;}
