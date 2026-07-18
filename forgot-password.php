@@ -113,8 +113,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;mi
 .site-header__logo-text{display:flex;flex-direction:column;gap:1px;}
 .site-header__logo-name{font-family:'Oswald','Arial Narrow',sans-serif;font-size:1.15rem;letter-spacing:2px;text-transform:uppercase;color:#d4a836;line-height:1;font-weight:700;}
 .site-header__logo-sub{font-size:0.68rem;letter-spacing:0.3px;color:rgba(255,255,255,0.6);line-height:1.1;font-weight:400;}
-.site-header__link{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;}
-.site-header__link:hover{color:#ddd;border-color:#555;}
+.site-header__link{background:#d4a836;color:#000;font-family:'Inter','Segoe UI',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:10px 22px;border-radius:4px;border:none;text-decoration:none;transition:background 0.15s;white-space:nowrap;}
+.site-header__link:hover{background:#e8b93a;}
 .page-wrap{min-height:calc(100vh - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
 .card{background:#141414;border:1px solid #2a2a2a;border-radius:6px;padding:2.2rem;width:100%;max-width:460px;}
 h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:0.4rem;}

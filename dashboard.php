@@ -35,11 +35,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .nav-logo__sub{font-size:0.68rem;letter-spacing:0.3px;color:rgba(255,255,255,0.6);line-height:1.1;font-weight:400;}
 .nav-logo a{color:inherit;text-decoration:none;}
 .nav-user{display:flex;align-items:center;gap:0.7rem;}
-.nav-home{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
-.nav-home:hover{color:#ddd;border-color:#555;}
+.nav-home{font-family:'Inter','Segoe UI',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.3px;text-transform:uppercase;color:#bbb;border:1px solid #555;padding:9px 20px;border-radius:4px;text-decoration:none;transition:border-color 0.15s,color 0.15s;white-space:nowrap;}
+.nav-home:hover{color:#fff;border-color:#999;}
 .nav-name{font-size:0.82rem;color:#b0b0b0;}
-.nav-logout{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
-.nav-logout:hover{color:#ddd;border-color:#555;}
+.nav-logout{font-family:'Inter','Segoe UI',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.3px;text-transform:uppercase;color:#bbb;border:1px solid #555;padding:9px 20px;border-radius:4px;text-decoration:none;transition:border-color 0.15s,color 0.15s;white-space:nowrap;}
+.nav-logout:hover{color:#fff;border-color:#999;}
 
 /* MAIN */
 .main{max-width:1440px;margin:0 auto;padding:2.5rem 2rem;}

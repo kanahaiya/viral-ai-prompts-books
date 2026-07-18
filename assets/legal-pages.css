@@ -106,20 +106,21 @@ a {
 }
 
 .nav-link {
-  font-family: 'Courier New', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 1px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
-  color: var(--text-dim);
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  border-radius: 3px;
-  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+  color: #bbb;
+  border: 1px solid #555;
+  padding: 9px 20px;
+  border-radius: 4px;
+  transition: border-color 0.15s, color 0.15s;
 }
 
 .nav-link:hover {
   color: #fff;
-  border-color: #666;
+  border-color: #999;
 }
 
 .hero {
@@ -279,8 +280,8 @@ a {
   }
 
   .nav-link {
-    font-size: 0.62rem;
-    padding: 5px 8px;
+    font-size: 0.68rem;
+    padding: 7px 14px;
   }
 
   .hero {
