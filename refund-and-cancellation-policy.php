@@ -50,7 +50,7 @@ require_once __DIR__ . '/auth.php';
       <p>We offer a 7-day money-back guarantee on all purchases. If you're not satisfied for any reason, email us within 7 days of your purchase date and we'll issue a full refund — no questions asked. Approved refunds are returned to your original payment method within 5–7 business days.</p>
 
       <h2>3. How to Request a Refund</h2>
-      <p>Email <a class="policy-email" href="mailto:<?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?></a> with your order email and purchase date. We'll confirm and process eligible refunds within 1 business day of your request.</p>
+      <p>Email <a class="policy-email" href="mailto:<?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars(MAIL_FROM_EMAIL, ENT_QUOTES, 'UTF-8') ?></a> with your order email and purchase date. We'll confirm and process eligible refunds within 5–7 business working days of your request.</p>
 
       <h2>4. Technical Access Issues</h2>
       <p>If your login or access setup fails due to a technical issue, contact us within 24 hours of purchase and we'll prioritize fixing it immediately. This is separate from, and in addition to, your 7-day refund right above.</p>
