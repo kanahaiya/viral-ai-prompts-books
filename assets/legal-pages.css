@@ -6,11 +6,31 @@
 
 html {
   font-size: 16px;
+  scrollbar-gutter: stable;
+}
+
+/* Fallback font metrics to minimise layout shift while Google Fonts load */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Segoe UI'), local('Arial');
+  size-adjust: 88.667%;
+  ascent-override: 109.257%;
+  descent-override: 27.204%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Oswald Fallback';
+  src: local('Arial Narrow'), local('Arial');
+  size-adjust: 113.594%;
+  ascent-override: 105.024%;
+  descent-override: 25.442%;
+  line-gap-override: 0%;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: 'Inter', 'Inter Fallback', 'Segoe UI', Arial, sans-serif;
   background: #0a0a0a;
   color: #e8e4de;
   line-height: 1.75;
@@ -41,6 +61,7 @@ a {
   border-bottom: 1px solid #1c1c1c;
   padding: 0;
   height: 64px;
+  min-height: 64px;
 }
 
 .nav-inner {
@@ -80,7 +101,7 @@ a {
 }
 
 .nav-logo__name {
-  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-family: 'Oswald', 'Oswald Fallback', 'Arial Narrow', sans-serif;
   font-size: 1.15rem;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -126,6 +147,7 @@ a {
 .hero {
   position: relative;
   padding: 2rem 1.5rem 1.2rem;
+  min-height: 120px;
 }
 
 .hero::before {
