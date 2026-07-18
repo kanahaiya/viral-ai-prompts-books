@@ -26,9 +26,13 @@ $isBundle = $user['plan'] === 'bundle';
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;line-height:1.7;min-height:100vh;}
 
 /* NAV */
-.nav{background:#111;border-bottom:1px solid #1a1a1a;padding:0 2rem;}
-.nav-inner{max-width:1100px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #1c1c1c;padding:0;height:64px;}
+.nav-inner{max-width:1440px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:0 1.5rem;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.nav-logo__icon{width:36px;height:36px;border-radius:7px;border:1.5px solid #d4a836;object-fit:contain;flex-shrink:0;padding:4px;background:#000;}
+.nav-logo__text{display:flex;flex-direction:column;gap:1px;}
+.nav-logo__name{font-family:'Oswald','Arial Narrow',sans-serif;font-size:1.15rem;letter-spacing:2px;text-transform:uppercase;color:#d4a836;line-height:1;font-weight:700;}
+.nav-logo__sub{font-size:0.68rem;letter-spacing:0.3px;color:rgba(255,255,255,0.6);line-height:1.1;font-weight:400;}
 .nav-logo a{color:inherit;text-decoration:none;}
 .nav-user{display:flex;align-items:center;gap:0.7rem;}
 .nav-home{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;transition:color 0.15s,border-color 0.15s,background-color 0.15s;}
@@ -38,7 +42,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;li
 .nav-logout:hover{color:#ddd;border-color:#555;}
 
 /* MAIN */
-.main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;}
+.main{max-width:1440px;margin:0 auto;padding:2.5rem 2rem;}
 
 /* WELCOME BANNER */
 .welcome-banner{background:linear-gradient(135deg,#1a1505 0%,#141414 100%);border:1px solid #3a2a05;border-radius:6px;padding:1.5rem 2rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
@@ -130,7 +134,13 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-logo"><a href="/">AI Prompt Books</a></div>
+    <a class="nav-logo" href="/">
+      <img src="/assets/icons/logo-gold-quill.webp" alt="" class="nav-logo__icon" width="36" height="36">
+      <span class="nav-logo__text">
+        <span class="nav-logo__name">AI PROMPT SYSTEM</span>
+        <span class="nav-logo__sub">Interactive AI Prompt Generator</span>
+      </span>
+    </a>
     <div class="nav-user">
       <span class="nav-name">👋 <?= htmlspecialchars($user['name'] ?? $user['email']) ?></span>
       <a href="/" class="nav-home">Home</a>
@@ -236,7 +246,7 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
 
 </main>
 <footer class="footer">
-  <div class="footer-logo">AI Prompt Books</div>
+  <div class="footer-logo">AI PROMPT SYSTEM</div>
   <div class="footer-links">
     <a href="/contact-details.php">Contact</a>
     <a href="/terms-and-conditions.php">Terms</a>

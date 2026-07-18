@@ -15,7 +15,13 @@ require_once __DIR__ . '/auth.php';
 <body>
   <header class="nav">
     <div class="nav-inner">
-      <a class="nav-logo" href="/">AI Prompt Books</a>
+      <a class="nav-logo" href="/">
+        <img src="/assets/icons/logo-gold-quill.webp" alt="" class="nav-logo__icon" width="36" height="36">
+        <span class="nav-logo__text">
+          <span class="nav-logo__name">AI PROMPT SYSTEM</span>
+          <span class="nav-logo__sub">Interactive AI Prompt Generator</span>
+        </span>
+      </a>
       <nav class="nav-links" aria-label="Policy links">
         <a class="nav-link" href="/">Back to Home</a>
       </nav>
@@ -52,7 +58,7 @@ require_once __DIR__ . '/auth.php';
   </main>
 
   <footer class="footer">
-    <div class="footer-logo">AI Prompt Books</div>
+    <div class="footer-logo">AI PROMPT SYSTEM</div>
     <div class="footer-links">
       <a href="/contact-details.php">Contact</a>
       <a href="/terms-and-conditions.php">Terms</a>

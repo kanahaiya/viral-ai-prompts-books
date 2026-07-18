@@ -120,14 +120,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isError && $resetRow) {
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e8e4de;min-height:100vh;}
-.site-header{position:sticky;top:0;z-index:20;background:#111;border-bottom:1px solid #1a1a1a;padding:0 2rem;}
-.site-header__inner{max-width:1100px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between;}
-.site-header__logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;text-decoration:none;}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #1c1c1c;padding:0;height:64px;}
+.site-header__inner{max-width:1440px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:0 1.5rem;}
+.site-header__logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.site-header__logo-icon{width:36px;height:36px;border-radius:7px;border:1.5px solid #d4a836;object-fit:contain;flex-shrink:0;padding:4px;background:#000;}
+.site-header__logo-text{display:flex;flex-direction:column;gap:1px;}
+.site-header__logo-name{font-family:'Oswald','Arial Narrow',sans-serif;font-size:1.15rem;letter-spacing:2px;text-transform:uppercase;color:#d4a836;line-height:1;font-weight:700;}
+.site-header__logo-sub{font-size:0.68rem;letter-spacing:0.3px;color:rgba(255,255,255,0.6);line-height:1.1;font-weight:400;}
 .site-header__link{font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:#a8a8a8;border:1px solid #3a3a3a;padding:5px 12px;border-radius:2px;text-decoration:none;}
 .site-header__link:hover{color:#ddd;border-color:#555;}
-.page-wrap{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
-.logo{font-family:'Courier New',monospace;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:#d4a836;margin-bottom:2.5rem;text-align:center;}
-.logo a{color:inherit;text-decoration:none;}
+.page-wrap{min-height:calc(100vh - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
 .card{background:#141414;border:1px solid #2a2a2a;border-radius:6px;padding:2.2rem;width:100%;max-width:460px;}
 h1{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:0.4rem;}
 .sub{font-size:0.85rem;color:#888;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid #2a2a2a;line-height:1.6;}
@@ -166,12 +168,17 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
 <?php renderMetaPixelNoScript(); ?>
 <header class="site-header">
   <div class="site-header__inner">
-    <a href="/" class="site-header__logo">AI Prompt Books</a>
+    <a href="/" class="site-header__logo">
+      <img src="/assets/icons/logo-gold-quill.webp" alt="" class="site-header__logo-icon" width="36" height="36">
+      <span class="site-header__logo-text">
+        <span class="site-header__logo-name">AI PROMPT SYSTEM</span>
+        <span class="site-header__logo-sub">Interactive AI Prompt Generator</span>
+      </span>
+    </a>
     <a href="/#pricing" class="site-header__link">Get Access</a>
   </div>
 </header>
 <main class="page-wrap">
-<div class="logo"><a href="/">AI Prompt Books</a></div>
 <div class="card">
   <h1>Reset Password</h1>
   <p class="sub">Set a new password for your account.</p>
@@ -202,7 +209,7 @@ table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scro
 </div>
 </main>
 <footer class="footer">
-  <div class="footer-logo">AI Prompt Books</div>
+  <div class="footer-logo">AI PROMPT SYSTEM</div>
   <div class="footer-links">
     <a href="/contact-details.php">Contact</a>
     <a href="/terms-and-conditions.php">Terms</a>
