@@ -109,6 +109,11 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
 table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 @media (max-width: 768px) {
+  .site-header__inner{padding:0 1rem;gap:0.5rem;}
+  .site-header__logo-name{font-size:0.9rem;letter-spacing:1px;}
+  .site-header__logo-sub{display:none;}
+  .site-header__logo-icon{width:28px;height:28px;}
+  .site-header__link{font-size:0.65rem;padding:8px 14px;}
   .page-wrap, .main { padding-left: 1rem !important; padding-right: 1rem !important; }
   .card, .policy-card, .prompt-card, .content-card, .intro-card, .setup-card { padding-left: 1rem !important; padding-right: 1rem !important; }
 }

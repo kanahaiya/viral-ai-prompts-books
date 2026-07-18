@@ -101,6 +101,13 @@ body{font-family:'Inter','Segoe UI',Arial,sans-serif;background:#0a0a0a;color:#e
 .community-content a.tg-btn{margin-top:1rem;display:inline-flex;background:#22a9ea;border:1px solid #3dc0ff;box-shadow:0 6px 16px rgba(9,67,95,0.4);}
 .community-content a.tg-btn:hover{background:#35b8f5;}
 @media(max-width:600px){
+  .nav-inner{padding:0 1rem;gap:0.5rem;}
+  .nav-logo__name{font-size:0.9rem;letter-spacing:1px;}
+  .nav-logo__sub{display:none;}
+  .nav-logo__icon{width:28px;height:28px;}
+  .nav-user{gap:0.4rem;}
+  .nav-home,.nav-logout{font-size:0.65rem;padding:6px 10px;white-space:nowrap;}
+  .nav-name{font-size:0.72rem;display:none;}
   .main{padding:1.5rem 1rem;}
   .welcome-banner{flex-direction:column;align-items:flex-start;}
   .community-box{flex-direction:column;}
