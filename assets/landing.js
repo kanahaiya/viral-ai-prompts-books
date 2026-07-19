@@ -448,8 +448,14 @@ document.querySelectorAll('[data-action="start-checkout"]').forEach((element) =>
   element.addEventListener('focus', prefetchPaymentSdk, { once: true });
 });
 window.addEventListener('load', () => {
-  const scheduleIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 2000));
-  scheduleIdle(prefetchPaymentSdk, { timeout: 5000 });
+  // Delay the idle-time SDK warm-up to avoid competing with critical metrics (TTI/TBT).
+  // The hover/touch/focus intent prefetch above still fires instantly on interaction,
+  // so checkout responsiveness is unaffected for users who actually click a CTA.
+  // This only defers the speculative background warm-up to well after initial load.
+  setTimeout(() => {
+    const scheduleIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1000));
+    scheduleIdle(prefetchPaymentSdk, { timeout: 8000 });
+  }, 4000);
 });
 
 function startCheckout(plan) {

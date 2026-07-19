@@ -25,7 +25,6 @@ $books    = getBooks();
 <meta name="twitter:image" content="https://www.aipromptbooks.in/assets/og/og-image.jpg">
 <meta name="facebook-domain-verification" content="80mehcxtq5lqugdfns9r4t854kzmeh">
 <meta name="theme-color" content="#0a0a0a">
-<link rel="dns-prefetch" href="//checkout.razorpay.com">
 <link rel="dns-prefetch" href="//connect.facebook.net">
 <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
