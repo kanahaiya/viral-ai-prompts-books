@@ -202,7 +202,6 @@ $googleFontsHref = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;
               muted
               playsinline
               preload="auto"
-              fetchpriority="low"
               poster="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>"
               aria-label="Demo showing how the AI prompt system works: fill a few fields and the prompt writes itself"
               width="1280"
