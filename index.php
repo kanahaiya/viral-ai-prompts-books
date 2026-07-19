@@ -49,26 +49,26 @@ $heroPosterPreloadPath = file_exists($heroPosterSmallDiskPath) ? $heroPosterSmal
 // path always explicitly awaits the loader promise before using the SDK, so the payment
 // flow is unaffected whether or not the warm-up prefetch already ran.
 
-$landingCriticalCssWebPath = '/assets/landing-critical.css';
+$landingCriticalCssWebPath = '/assets/landing-critical.min.css';
 $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
 if (!file_exists($landingCriticalCssDiskPath)) {
-  $landingCriticalCssWebPath = '/assets/landing-critical.min.css';
+  $landingCriticalCssWebPath = '/assets/landing-critical.css';
   $landingCriticalCssDiskPath = __DIR__ . $landingCriticalCssWebPath;
 }
 $landingCriticalCssVersion = file_exists($landingCriticalCssDiskPath) ? ('?v=' . filemtime($landingCriticalCssDiskPath)) : '';
 
-$landingCssWebPath = '/assets/landing.css';
+$landingCssWebPath = '/assets/landing.min.css';
 $landingCssDiskPath = __DIR__ . $landingCssWebPath;
 if (!file_exists($landingCssDiskPath)) {
-  $landingCssWebPath = '/assets/landing.min.css';
+  $landingCssWebPath = '/assets/landing.css';
   $landingCssDiskPath = __DIR__ . $landingCssWebPath;
 }
 $landingCssVersion = file_exists($landingCssDiskPath) ? ('?v=' . filemtime($landingCssDiskPath)) : '';
 
-$landingJsWebPath = '/assets/landing.js';
+$landingJsWebPath = '/assets/landing.min.js';
 $landingJsDiskPath = __DIR__ . $landingJsWebPath;
 if (!file_exists($landingJsDiskPath)) {
-  $landingJsWebPath = '/assets/landing.min.js';
+  $landingJsWebPath = '/assets/landing.js';
   $landingJsDiskPath = __DIR__ . $landingJsWebPath;
 }
 $landingJsVersion = file_exists($landingJsDiskPath) ? ('?v=' . filemtime($landingJsDiskPath)) : '';
