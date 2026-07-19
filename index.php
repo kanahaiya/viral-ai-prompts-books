@@ -34,10 +34,22 @@ $heroPosterWebPath = '/assets/video/hero-demo-poster.webp';
 $heroPosterDiskPath = __DIR__ . $heroPosterWebPath;
 $heroPosterSmallWebPath = '/assets/video/hero-demo-poster-660w.webp';
 $heroPosterSmallDiskPath = __DIR__ . $heroPosterSmallWebPath;
-$heroPosterPreloadPath = file_exists($heroPosterSmallDiskPath) ? $heroPosterSmallWebPath : $heroPosterWebPath;
+$heroPosterMobileWebPath = '/assets/video/hero-demo-poster-400w.webp';
+$heroPosterMobileDiskPath = __DIR__ . $heroPosterMobileWebPath;
+
+// Determine best poster per breakpoint: 400w for mobile (<600px), 660w otherwise
+$hasMobilePoster = file_exists($heroPosterMobileDiskPath);
+$hasSmallPoster = file_exists($heroPosterSmallDiskPath);
+$heroPosterPreloadPath = $hasSmallPoster ? $heroPosterSmallWebPath : $heroPosterWebPath;
+$heroPosterMobilePreloadPath = $hasMobilePoster ? $heroPosterMobileWebPath : $heroPosterPreloadPath;
 ?>
 <!-- Preload video poster for instant hero display (this is the actual LCP element) -->
+<?php if ($hasMobilePoster && $heroPosterMobilePreloadPath !== $heroPosterPreloadPath): ?>
+<link rel="preload" as="image" href="<?= htmlspecialchars($heroPosterMobilePreloadPath, ENT_QUOTES, 'UTF-8') ?>" media="(max-width: 599px)" fetchpriority="high">
+<link rel="preload" as="image" href="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>" media="(min-width: 600px)" fetchpriority="high">
+<?php else: ?>
 <link rel="preload" as="image" href="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>" fetchpriority="high">
+<?php endif; ?>
 <?php
 // NOTE: The payment gateway SDK (Razorpay/Cashfree) is intentionally NOT preloaded here.
 // It used to be <link rel="preload" as="script">, which forced every visitor to download
@@ -202,7 +214,8 @@ $googleFontsHref = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;
               muted
               playsinline
               preload="auto"
-              poster="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>"
+              poster="<?= htmlspecialchars($hasMobilePoster ? $heroPosterMobilePreloadPath : $heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>"
+              data-poster-lg="<?= htmlspecialchars($heroPosterPreloadPath, ENT_QUOTES, 'UTF-8') ?>"
               aria-label="Demo showing how the AI prompt system works: fill a few fields and the prompt writes itself"
               width="1280"
               height="800"
@@ -1040,6 +1053,11 @@ $googleFontsHref = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;
     else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
     else if (video.msRequestFullscreen) video.msRequestFullscreen();
   });
+  /* On wider viewports, swap to larger poster (visible only until video plays) */
+  if (window.innerWidth >= 600) {
+    var v = document.querySelector('.hero-video[data-poster-lg]');
+    if (v && v.dataset.posterLg) v.poster = v.dataset.posterLg;
+  }
 })();
 
 /* Pause video when out of view, play when visible */
