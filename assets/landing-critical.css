@@ -356,9 +356,9 @@ a,button{touch-action:manipulation;-webkit-tap-highlight-color:rgba(212,168,54,0
   .hero{padding-top:86px;overflow:hidden;}
   .hero-container{overflow:hidden;}
   .hero-copy{gap:0.7rem;overflow:hidden;}
-  .hero-h1__stop{font-size:clamp(2.2rem,10vw,3rem);letter-spacing:0;white-space:normal;}
-  .hero-h1__sub{font-size:clamp(1rem,4vw,1.3rem);}
-  .hero-h1__word--gold{font-size:1em;letter-spacing:0;}
+  .hero-h1__stop{font-size:clamp(3.2rem,15vw,4rem);letter-spacing:0;white-space:normal;}
+  .hero-h1__sub{font-size:clamp(1.1rem,4.5vw,1.4rem);}
+  .hero-h1__word--gold{font-size:1em;letter-spacing:4px;}
   .hero-body{font-size:0.85rem;max-width:100%;}
   .hero-ctas{flex-direction:column;align-items:stretch;}
   .btn-primary.btn-hero-cta{width:100%;font-size:0.72rem;padding:14px 8px;letter-spacing:0.3px;white-space:normal;text-align:center;}
