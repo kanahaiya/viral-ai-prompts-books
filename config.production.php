@@ -36,6 +36,7 @@ define('PAYMENT_PROVIDER', envOrDefault('PAYMENT_PROVIDER', 'razorpay'));
 // ── Razorpay (live/test keys) ─────────────────────────────────────────────────
 define('RAZORPAY_KEY_ID', envOrDefault('RAZORPAY_KEY_ID', 'rzp_live_XXXXXXXXXXXX'));
 define('RAZORPAY_KEY_SECRET', envOrDefault('RAZORPAY_KEY_SECRET', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'));
+define('RAZORPAY_WEBHOOK_SECRET', envOrDefault('RAZORPAY_WEBHOOK_SECRET', ''));
 
 // ── Cashfree (live/test keys) ─────────────────────────────────────────────────
 define('CASHFREE_APP_ID', envOrDefault('CASHFREE_APP_ID', 'replace_with_cashfree_app_id'));

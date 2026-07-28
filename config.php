@@ -25,6 +25,7 @@ define('PAYMENT_PROVIDER', 'razorpay');
 // ── Razorpay (test keys for staging/local) ────────────────────────────────────
 define('RAZORPAY_KEY_ID', 'rzp_test_Sz1GoNNV5RDy2C');
 define('RAZORPAY_KEY_SECRET', 'eJzhY0oixA7agkpA3k0xD9f3');
+define('RAZORPAY_WEBHOOK_SECRET', 'test_webhook_secret_replace_me');
 
 // ── Cashfree (test keys) ───────────────────────────────────────────────────────
 define('CASHFREE_APP_ID', 'replace_with_cashfree_test_app_id');
